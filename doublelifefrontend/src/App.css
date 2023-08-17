@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.TextLeft {
+  text-align: left;
+}
+
+.ButtonRight {
+  align-items: right;
+}
+
+
