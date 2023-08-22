@@ -27,6 +27,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// 마이바티스 의존성 추가
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
+	// 타임리프 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// 오라클 DB 변수 중 지원되지 않는 형식 의존성 추가 (orai18n)
+	implementation group: 'com.oracle.ojdbc', name: 'orai18n', version: '19.3.0.0'
+
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
