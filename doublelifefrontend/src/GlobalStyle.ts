@@ -22,6 +22,7 @@ export const NavContainer = styled.nav`
   width: 100%;
   height: 50px;
   margin: 15px;
+  margin-bottom: 0;
 `;
 
 export const Content = styled.div`
