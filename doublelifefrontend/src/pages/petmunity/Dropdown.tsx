@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Wrapper, ActivatorButton, DropdownList } from "./petmunity.style";
+import SearchForm from "./SearchForm";
 
 interface IDropdownItem {
   id: number;
@@ -78,6 +79,10 @@ const Dropdown = ({
     setIsOpen(false);
   };
 
+  const onSubmit = (form: { name: string; }) => {
+    console.log(form);
+  };
+
   React.useEffect(() => {
     if (isOpen) {
       listRef.current!.querySelector("a")!.focus();
@@ -120,6 +125,7 @@ const Dropdown = ({
           </li>
         ))}
       </DropdownList>
+      <SearchForm onSubmit={onSubmit}/>
     </Wrapper>
   );
 };

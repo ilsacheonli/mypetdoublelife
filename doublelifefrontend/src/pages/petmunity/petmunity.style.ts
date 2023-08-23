@@ -170,3 +170,7 @@ export const DropdownList = styled.ul<{ active: boolean }>`
     }
   }
 `;
+
+export const FloatRight = styled.div`
+  float: right;
+`;

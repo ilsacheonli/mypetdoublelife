@@ -13,7 +13,7 @@ export const LinkItems = [
     },
     {
         title: '펫뮤니티',
-        url: '/petmunity'
+        url: '/petmunity/qna'
     },
     {
         title: 'about us',

@@ -46,9 +46,9 @@ export default SearchForm;
 const InputStyle = styled.div`
   height: 45px;
   & input {
-    width: 70%;
+    width: 60%;
     border: none;
-    display: inline-flex;
+    display: inline-block;
     margin-bottom: 10px;
   }
   & button {
