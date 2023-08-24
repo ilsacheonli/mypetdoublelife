@@ -8,6 +8,5 @@ public class DoublelifebackendApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DoublelifebackendApplication.class, args);
-	}
 
 }
