@@ -7,7 +7,7 @@
 http://localhost:8080/signin \
 http://localhost:8080/signup 입니다.
 
-/signin -> /mypage -> /mypage/update \
+/signin -> /mypage -> /mypage/update -> /mypage \
 /signup -> /signin
 
 \
