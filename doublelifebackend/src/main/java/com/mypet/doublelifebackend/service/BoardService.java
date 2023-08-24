@@ -1,56 +1,47 @@
 package com.mypet.doublelifebackend.service;
 
-
-import com.mypet.doublelifebackend.entity.BoardEntity;
 import com.mypet.doublelifebackend.repository.BoardRepository;
-import lombok.RequiredArgsConstructor;
+import com.mypet.doublelifebackend.vo.BoardVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
 public class BoardService {
 
-    private final BoardRepository boardRepository;
+    @Autowired
+    private BoardRepository boardRepository;
 
-    // 저장
-    @Transactional
-    public BoardEntity save(BoardEntity boardEntity) {
-        return boardRepository.save(boardEntity);
+
+    public List<BoardVO> list(String category) {
+
+        return boardRepository.list(category);
+
     }
 
-    // 상세 조회
-    @Transactional(readOnly = true)
-    public BoardEntity getEntity(Integer bno) {
-        return boardRepository.findById(bno).orElseThrow(()->new IllegalArgumentException("check bno"));
+    public void write(BoardVO boardVO) {
+
+        boardRepository.write(boardVO);
+
     }
 
-    // 목록 조회
-    @Transactional(readOnly = true)
-    public List<BoardEntity> getAll() {
-        return boardRepository.findAll();
+
+    public BoardVO selectOne(int bno) {
+
+        return boardRepository.selectOne(bno);
+
     }
 
-    // 수정
-    @Transactional
-    public BoardEntity update(Integer bno, BoardEntity boardEntity) {
-        BoardEntity updatedBoardEntity = boardRepository.findById(bno)
-                .orElseThrow(()->new IllegalArgumentException("check bno"));
 
-        updatedBoardEntity.setTitle(boardEntity.getTitle());
-        updatedBoardEntity.setWriter(boardEntity.getWriter());
-        updatedBoardEntity.setContent(boardEntity.getContent());
-        updatedBoardEntity.setUpdatedDate(boardEntity.getUpdatedDate());
+    public void modify(BoardVO boardVO) {
 
-        return updatedBoardEntity;
+        boardRepository.modify(boardVO);
+
     }
 
-    // 삭제
-    @Transactional
-    public String delete(Integer bno) {
-        boardRepository.deleteById(bno);
 
-        return "delete success";
+    public void delete(int bno) {
+        boardRepository.delete(bno);
     }
 }

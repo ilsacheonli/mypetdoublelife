@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+</head>
+<body>
+<h2>중고거래 게시판</h2>
+<table>
+    <tr>
+        <th width="80">번호</th>
+        <th width="150">제목</th>
+        <th width="150">작성자</th>
+        <th width="150">등록일</th>
+        <th width="80">조회수</th>
+    </tr>
+    <tr th:each="board: ${list}">
+        <td th:text="${board.bno}"></td>
+        <td><a th:text="${board.title}" th:href="@{/board/view(bno=${board.bno})}"></a></td>
+        <td th:text="${board.writer}"></td>
+        <td th:text="${#dates.format(board.reg_date, 'yyyy/MM/dd')}"></td>
+        <td th:text="${board.view_cnt}"></td>
+    </tr>
+</table>
+<button type="button" onclick="location.href='/petmunity/trade/writePage'">글 작성</button>
+</body>
+</html>

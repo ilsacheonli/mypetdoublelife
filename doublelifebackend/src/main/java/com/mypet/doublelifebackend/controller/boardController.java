@@ -1,52 +1,134 @@
 package com.mypet.doublelifebackend.controller;
 
-import com.mypet.doublelifebackend.entity.BoardEntity;
 import com.mypet.doublelifebackend.service.BoardService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import com.mypet.doublelifebackend.vo.BoardVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@RequiredArgsConstructor
-@RestController
-public class boardController {
+import java.util.List;
 
-    private final BoardService boardService;
+@Controller
+public class BoardController {
 
-    // 게시글 등록
-    @PostMapping("/board")
-    public ResponseEntity<?> save(@RequestBody BoardEntity boardEntity) {
-        return new ResponseEntity<>(boardService.save(boardEntity), HttpStatus.CREATED);
+    @Autowired
+    private BoardService service;
+
+    //펫뮤니티 페이지로 이동
+    @GetMapping("/petmunity")
+    public String index() {
+
+        return "petmunity";
     }
 
-//    저장 - 반환값을 entity로 하는 방법
-//    @PostMapping("/board")
-//    public BoardEntity save(@RequestBody BoardEntity boardEntity) {
-//        return boardService.save(boardEntity);
-//    }
+    // qna 게시판 목록 페이지로 이동
+    @GetMapping("petmunity/qna")
+    public String listQna(String category, Model model) {
 
+        category = "QNA";
+        List<BoardVO> list = null;
+        list = service.list(category);
+        model.addAttribute("list", list);
 
-    // 게시글 전체 목록 조회
-    @GetMapping("/board")
-    public ResponseEntity<?> findAll() {
-        return new ResponseEntity<>(boardService.getAll(), HttpStatus.OK);
+        return "qna";
     }
 
-    // 게시글 상세 조회
-    @GetMapping("/board/{bno}")
-    public ResponseEntity<?> findById(@PathVariable Integer bno) {
-        return new ResponseEntity<>(boardService.getEntity(bno), HttpStatus.OK);
+    // 중고거래 게시판 목록 페이지로 이동
+    @GetMapping("petmunity/trade")
+    public String listTrade(String category, Model model) {
+
+        category = "중고거래";
+        List<BoardVO> list = null;
+        list = service.list(category);
+        model.addAttribute("list", list);
+
+        return "trade";
     }
 
-    //게시글 수정
-    @PutMapping("/board/{bno}")
-    public ResponseEntity<?> update(@PathVariable Integer bno, @RequestBody BoardEntity boardEntity) {
-        return new ResponseEntity<>(boardService.update(bno, boardEntity), HttpStatus.OK);
+    // 산책메이트 게시판 목록 페이지로 이동
+    @GetMapping("petmunity/walkingmate")
+    public String listWalkingmate(String category, Model model) {
+
+        category = "산책메이트";
+        List<BoardVO> list = null;
+        list = service.list(category);
+        model.addAttribute("list", list);
+
+        return "walkingmate";
     }
 
-    //게시글 삭제
-    @DeleteMapping("/board/{bno}")
-    public ResponseEntity<?> deleteById(@PathVariable Integer bno) {
-        return new ResponseEntity<>(boardService.delete(bno), HttpStatus.OK);
+    // qna 게시물 작성 화면으로 이동
+    @GetMapping("petmunity/qna/writePage")
+    public String writeQna() {
+
+        return "write";
+
+    }
+
+    // 중고거래 게시물 작성 화면으로 이동
+    @GetMapping("petmunity/trade/writePage")
+    public String writeTrade() {
+
+        return "write";
+
+    }
+
+    // 산책메이트 게시물 작성 화면으로 이동
+    @GetMapping("petmunity/walkingmate/writePage")
+    public String write() {
+
+        return "write";
+
+    }
+
+    // 게시물 작성 후 등록
+    @PostMapping("petmunity/qna/writePage")
+    public String write(BoardVO boardVO) {
+
+        service.write(boardVO);
+
+        return "redirect:/petmunity/qna";
+    }
+
+    // 게시물 상세 조회
+    @GetMapping("/board/view")
+    public String read(@RequestParam("bno") int bno, Model model) {
+
+        BoardVO boardVO = service.selectOne(bno);
+        model.addAttribute("board", boardVO);
+
+        return "view";
+    }
+
+    // 수정 화면으로 이동
+    @GetMapping("board/modify")
+    public String modify(@RequestParam("bno") int bno, Model model) {
+
+        BoardVO boardVO = service.selectOne(bno);
+        model.addAttribute("board", boardVO);
+
+        return "modify";
+
+    }
+
+    // 게시물 수정
+    @PostMapping("board/modify")
+    public String modify(BoardVO boardVO) {
+
+        service.modify(boardVO);
+
+        return "redirect:/board/view?bno=" + boardVO.getBno();
+    }
+
+    // 게시물 삭제
+    @GetMapping("board/delete")
+    public String delete(@RequestParam("bno") int bno) {
+
+        service.delete(bno);
+
+        return "redirect:/petmunity/qna";
     }
 }
