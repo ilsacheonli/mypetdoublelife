@@ -2,10 +2,10 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>테스트 페이지</title>
+    <title>MyPage 테스트 페이지</title>
 </head>
 <body>
-<h3>member test</h3>
+<h3>MyPage</h3>
 <ul>
     <li>userNum : <span th:text="${member.memNumber}"/></li>
     <li>name : <span th:text="${member.memName}"/></li>
@@ -14,6 +14,6 @@
     <li>email : <span th:text="${member.memEmail}"/></li>
     <li>birth : <span th:text="${member?.memBirth}"/></li>
 </ul>
-
+<input type="button" value="수정하기" onClick=" location.href='/mypage/update' "/>
 </body>
 </html>

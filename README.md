@@ -1,6 +1,20 @@
 # mypetdoublelife
 
 ---
+(2023-08-24)
+
+기본 테스트 주소 \
+http://localhost:8080/signin \
+http://localhost:8080/signup 입니다.
+
+/signin -> /mypage -> /mypage/update \
+/signup -> /signin
+
+\
+다시 주석 readme작성 후 \
+재업로드 예정
+
+---
 
 백엔드 세팅 혹은 테스트 (2023-08-22)
 
@@ -45,3 +59,5 @@ controller -> service -> repository -> mapper.xml -> DB
 http://localhost:8080/signup 입니다.
 
 ---
+
+

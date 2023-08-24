@@ -26,6 +26,5 @@ public class MemberVO {
         //this.memBirth = memBirth;
     }
 
-   // private
 
 }

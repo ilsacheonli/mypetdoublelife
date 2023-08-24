@@ -21,6 +21,13 @@
         WHERE m_number = #{memNumber}
     </select>
 
+    <!-- id와 pwd가 일치하는 member 출력 -->
+    <select id="selectMemberByLogin" parameterType="String" resultMap="memResult">
+        SELECT *
+        FROM member
+        WHERE m_id = #{id} and m_pwd = #{pwd}
+    </select>
+
     <!-- member 전체 출력 -->
     <select id="selectAllMembers" resultType="MemberVO">
         SELECT *
@@ -33,10 +40,15 @@
         VALUES (#{memNumber}, #{memName}, #{memId}, #{memPwd}, #{memEmail})
     </insert>
 
-    <!-- 마지막(가장 큰) memNumber 출력 -->
+    <!-- member 정보 수정 -->
+    <update id="updateMember" parameterType="MemberVO" >
+        UPDATE member SET m_name = #{memName}, m_id = #{memId}, m_pwd = #{memPwd}, m_email = #{memEmail}
+        WHERE m_number = #{memNumber}
+    </update>
+
+    <!-- 마지막 max(m_number) = null 이면 0으로 치환 후 +1 return -->
     <select id="getLastNumber" resultType="int">
-        SELECT MAX(m_number)
-        FROM member
+        select NVL(max(m_number),0) +1 from member
     </select>
 
 
