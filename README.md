@@ -1,4 +1,4 @@
-# mypetdoublelife
+ # mypetdoublelife
 
 ---
 
@@ -19,24 +19,31 @@
   - controller
     - BoardController.java
     - MemberController.java
+    - petHospitalController.java
+    - petHospitalTestController.java
   - repository
     - BoardRepository.java
+    - HospitalRepository.java
     - MemberRepository.java
   - service
     - BoardService.java
     - MemberService.java
+    - PetHospitalService.java
+    - PetHospitalServiceImpl.java
   - vo
     - BoardVO.java
     - MemberVO.java
-    
+    - PetHospitalVO.java
 
 
 - resources
   - mybatis-mapper
+    - boardMapper.xml
     - MemberMapper.xml
+    - PetHospitalMapper.xml
   - templates
-    - SignIn.html
-    - SignUp.html
+    - FindPetHospital
+      - findpethospital.html
     - MyPage
       - MyPage.html
       - MyPageUpdate.html
@@ -48,10 +55,12 @@
       - view.html
       - walkingmate.html
       - write.html
+    - SignIn.html
+    - SignUp.html
     
-  
 
 ---
+
 (2023-08-22) 
 
 추가/수정된 파일 주석 참고
@@ -59,14 +68,16 @@
 웹페이지 요청 처리 순서 \
 controller -> service -> repository -> mapper.xml -> DB
 
-컨트롤러에 작동하는 테스트 주소 \
-http://localhost:8080/signup 입니다.
-
 ---
 
-(2023-08-24)
+============== 2023-08-25 ==============
 
-기본 테스트 주소 \
+백엔드 통일
+
+MyPage
+-
+
+테스트 주소 \
 http://localhost:8080/signin \
 http://localhost:8080/signup 입니다.
 
@@ -75,9 +86,9 @@ http://localhost:8080/signup 입니다.
 
 ---
 
+PetMunity 
+-
 
-=======
-23-08-25  
 테스트 가능한 주소 목록  
 <http://localhost:8080/petmunity> 펫뮤니티 페이지  
 <http://localhost:8080/petmunity/qna> qna 페이지  
@@ -88,4 +99,14 @@ http://localhost:8080/signup 입니다.
 
 펫뮤니티 -> qna/중고거래/산책메이트 페이지로 이동 가능합니다.   
 글 작성, 수정, 삭제는 qna 게시판에서만 가능합니다. (중고거래, 산책메이트 게시판은 기능 추가 예정)
+
+
+
+---
+
+Findpethospital
+-
+
+테스트주소 \
+http://localhost:8080/findpethospital 입니다.
 
