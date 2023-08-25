@@ -1,7 +1,7 @@
-package com.mypet.doublelifebackend.entity;
+package com.mypet.doublelifebackend.vo;
 import lombok.Data;
 @Data
-public class PetHospital {
+public class PetHospitalVO {
     private int num;
     private String name;
     private String tel;

@@ -1,9 +1,9 @@
 package com.mypet.doublelifebackend.service;
-import com.mypet.doublelifebackend.entity.PetHospital;
+import com.mypet.doublelifebackend.vo.PetHospitalVO;
 
 import java.util.List;
 
 public interface PetHospitalService {
-    public List<PetHospital> selectList();
+    public List<PetHospitalVO> selectList();
 }
 
