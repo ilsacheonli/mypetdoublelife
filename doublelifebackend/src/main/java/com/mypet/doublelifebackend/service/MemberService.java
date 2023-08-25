@@ -43,7 +43,7 @@ public class MemberService{     // sql문과 연결된 MemberRepository 함수 �
 
     public int editMember(MemberVO member) {
 
-        // insertMember()함수 호출 후 수정한 memNumber return
+        // updateMember()함수 호출 후 수정한 memNumber return
         memberRepository.updateMember(member);
         return member.getMemNumber();
     }

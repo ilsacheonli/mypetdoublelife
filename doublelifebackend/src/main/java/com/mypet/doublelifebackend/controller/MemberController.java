@@ -70,7 +70,7 @@ public class MemberController {
         model.addAttribute("member",memberObject);
 
         return "MyPageUpdate";
-        // resources/templates/SignUp.html
+        // resources/templates/MyPageUpdate.html
     }
 
 
