@@ -18,8 +18,8 @@
         <td th:text="${board.bno}"></td>
         <td><a th:text="${board.title}" th:href="@{/board/view(bno=${board.bno})}"></a></td>
         <td th:text="${board.writer}"></td>
-        <td th:text="${#dates.format(board.reg_date, 'yyyy/MM/dd')}"></td>
-        <td th:text="${board.view_cnt}"></td>
+        <td th:text="${#dates.format(board.regDate, 'yyyy/MM/dd')}"></td>
+        <td th:text="${board.viewCnt}"></td>
     </tr>
 </table>
 <button type="button" onclick="location.href='/petmunity/qna/writePage'">글 작성</button>
