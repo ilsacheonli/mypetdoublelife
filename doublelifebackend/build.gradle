@@ -36,7 +36,6 @@ dependencies {
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
 	// 천명 Spring security 의존성추가
-	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
