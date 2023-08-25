@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+import styled from "styled-components";
+=======
 import styled from "styled-components";
 import logo from "./img/logo_final.png";
 import { createGlobalStyle } from "styled-components";
@@ -110,3 +113,4 @@ export const LinkSign = styled.ul`
     color: #656565;
   }
 `;
+>>>>>>> 0afc06e5c373d44843d3db20869edf33d4f3ccfe

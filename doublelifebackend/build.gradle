@@ -24,20 +24,31 @@ repositories {
 }
 
 dependencies {
+	// jpa
+	//implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//ojdbc 인코딩 관련 오류 해결을 위한 디펜던시
+	implementation group: 'com.oracle.ojdbc', name: 'orai18n', version: '19.3.0.0'
+	// mybatis
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
+	//thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// 천명
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+	// 천명 Spring security 의존성추가
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' //천명
-	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect' // 천명
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4' // mybatis 의존성추가
-	implementation group: 'com.oracle.ojdbc', name: 'orai18n', version: '19.3.0.0' // 천명
 }
 
 tasks.named('test') {
