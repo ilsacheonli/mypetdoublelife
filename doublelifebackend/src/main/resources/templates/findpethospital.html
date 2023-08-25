@@ -25,7 +25,7 @@
 </head>
 <body>
 <div id="map" style="width:500px;height:500px;"></div>
-<div id="hospitalList"></div> <!-- 동물병원을 표시할 리스트 -->
+<div id="hospitalList"></div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b8c79beeb803eb62674e37a9a283ff54&libraries=clusterer"></script>
 <script>
     kakao.maps.load(function () {
@@ -54,7 +54,6 @@
 
                 var infowindows = [];
 
-                // 전체 병원 데이터에 대한 마커 표시
                 fetch(`/pethospital`)
                     .then(response => response.json())
                     .then(data => {
@@ -100,18 +99,19 @@
 
                         clusterer.addMarkers(markers);
 
-                        // 현재 위치에서 5km 이내의 병원만 리스트에 표시
-                        fetch(`/pethospital?lat=${lat}&lon=${lon}&distance=5000`)
+                        // 현재 위치에서 5km 이내의 병원 리스트
+                        fetch(`/pethospital?lat=${lat}&lon=${lon}`)
                             .then(response => response.json())
-                            .then(nearbyData => {
+                            .then(allData => {
                                 var hospitalListHTML = '';
 
-                                for (var i = 0; i < nearbyData.length; i++) {
-                                    var position = new kakao.maps.LatLng(nearbyData[i].latitude, nearbyData[i].longitude);
-                                    var distance = kakao.maps.geometry.distance(centerPosition, position);
+                                for (var i = 0; i < allData.length; i++) {
+                                    var hospitalLat = allData[i].latitude;
+                                    var hospitalLon = allData[i].longitude;
+                                    var calculatedDistance = calculateDistance(lat, lon, hospitalLat, hospitalLon);
 
-                                    if (distance <= 5000) {
-                                        hospitalListHTML += `<li>${nearbyData[i].name} - ${nearbyData[i].address2} - ${nearbyData[i].tel}</li>`;
+                                    if (calculatedDistance <= 5) { // 5km 이내
+                                        hospitalListHTML += `<li>${allData[i].name} - ${allData[i].address2} - ${allData[i].tel}</li>`;
                                     }
                                 }
 
@@ -122,7 +122,7 @@
                     .catch(error => console.error('데이터 가져오기 오류:', error));
             }, function(error) {
                 var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
-                    message = 'geolocation을 사용할수 없어요.. (' + error.message + ')';
+                    message = 'geolocation을 사용할 수 없어요.. (' + error.message + ')';
 
                 var mapOption = {
                     center: locPosition,
@@ -133,7 +133,7 @@
             });
         } else {
             var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
-                message = 'geolocation을 사용할수 없어요..'
+                message = 'geolocation을 사용할 수 없어요..'
 
             var mapOption = {
                 center: locPosition,
@@ -141,6 +141,18 @@
             };
 
             var map = new kakao.maps.Map(mapContainer, mapOption);
+        }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // 지구의 반지름 (단위: km)
+            const dLat = (lat2 - lat1) * (Math.PI / 180);
+            const dLon = (lon2 - lon1) * (Math.PI / 180);
+            const a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            const distance = R * c; // 결과 거리 (단위: km)
+            return distance;
         }
     });
 </script>
