@@ -1,21 +1,5 @@
 # mypetdoublelife
 
----
-(2023-08-24)
-
-기본 테스트 주소 \
-http://localhost:8080/signin \
-http://localhost:8080/signup 입니다.
-
-/signin -> /mypage -> /mypage/update \
-/signup -> /signin
-
-\
-다시 주석 readme작성 후 \
-재업로드 예정
-
----
-
 백엔드 세팅 혹은 테스트 (2023-08-22)
 
 - DB 세팅
@@ -44,9 +28,10 @@ http://localhost:8080/signup 입니다.
   - mybatis-mapper
     - MemberMapper.xml
   - templates
-    - MemberInsert.html
-    - MemberView.html
-
+    - MyPage.html
+    - MyPageUpdate.html
+    - SignIn.html
+    - SignUp.html
 ---
 (2023-08-22) 
 
@@ -57,6 +42,17 @@ controller -> service -> repository -> mapper.xml -> DB
 
 컨트롤러에 작동하는 테스트 주소 \
 http://localhost:8080/signup 입니다.
+
+---
+
+(2023-08-24)
+
+기본 테스트 주소 \
+http://localhost:8080/signin \
+http://localhost:8080/signup 입니다.
+
+/signin -> /mypage -> /mypage/update -> /mypage \
+/signup -> /signin
 
 ---
 
