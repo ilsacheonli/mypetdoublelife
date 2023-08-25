@@ -51,7 +51,7 @@ public class MemberController {
 
         model.addAttribute("member",memberObject);
 
-        return "MyPage";
+        return "MyPage/MyPage";
         // resources/templates/MyPage.html
     }
 
@@ -69,7 +69,7 @@ public class MemberController {
 
         model.addAttribute("member",memberObject);
 
-        return "MyPageUpdate";
+        return "MyPage/MyPageUpdate";
         // resources/templates/MyPageUpdate.html
     }
 

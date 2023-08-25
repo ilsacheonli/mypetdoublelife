@@ -1,9 +1,8 @@
 # mypetdoublelife
 
-<<<<<<< HEAD
 ---
 
-백엔드 세팅 혹은 테스트
+백엔드 합본
 
 - DB 세팅
     - Oracle
@@ -16,25 +15,42 @@
   - build.gradle
 
 
-- 패키지 혹은 java 파일 추가
+- 패키지 혹은 java
   - controller
+    - BoardController.java
     - MemberController.java
   - repository
+    - BoardRepository.java
     - MemberRepository.java
   - service
+    - BoardService.java
     - MemberService.java
   - vo
+    - BoardVO.java
     - MemberVO.java
+    
 
 
-- resources에 파일 추가
+- resources
   - mybatis-mapper
     - MemberMapper.xml
   - templates
-    - MyPage.html
-    - MyPageUpdate.html
     - SignIn.html
     - SignUp.html
+    - MyPage
+      - MyPage.html
+      - MyPageUpdate.html
+    - PetMunity
+      - modify.html
+      - petmunity.html
+      - qna.html
+      - trade.html
+      - view.html
+      - walkingmate.html
+      - write.html
+    
+  
+
 ---
 (2023-08-22) 
 
@@ -72,4 +88,4 @@ http://localhost:8080/signup 입니다.
 
 펫뮤니티 -> qna/중고거래/산책메이트 페이지로 이동 가능합니다.   
 글 작성, 수정, 삭제는 qna 게시판에서만 가능합니다. (중고거래, 산책메이트 게시판은 기능 추가 예정)
->>>>>>> 311d76c7ec18a0290c93ee90eb699c25585531ef
+

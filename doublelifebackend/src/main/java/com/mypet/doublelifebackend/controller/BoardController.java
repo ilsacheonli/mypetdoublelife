@@ -21,7 +21,7 @@ public class BoardController {
     @GetMapping("/petmunity")
     public String index() {
 
-        return "petmunity";
+        return "PetMunity/petmunity";
     }
 
     // qna 게시판 목록 페이지로 이동
@@ -33,7 +33,7 @@ public class BoardController {
         list = service.list(category);
         model.addAttribute("list", list);
 
-        return "qna";
+        return "PetMunity/qna";
     }
 
     // 중고거래 게시판 목록 페이지로 이동
@@ -45,7 +45,7 @@ public class BoardController {
         list = service.list(category);
         model.addAttribute("list", list);
 
-        return "trade";
+        return "PetMunity/trade";
     }
 
     // 산책메이트 게시판 목록 페이지로 이동
@@ -57,14 +57,14 @@ public class BoardController {
         list = service.list(category);
         model.addAttribute("list", list);
 
-        return "walkingmate";
+        return "PetMunity/walkingmate";
     }
 
     // qna 게시물 작성 화면으로 이동
     @GetMapping("petmunity/qna/writePage")
     public String writeQna() {
 
-        return "write";
+        return "PetMunity/write";
 
     }
 
@@ -72,7 +72,7 @@ public class BoardController {
     @GetMapping("petmunity/trade/writePage")
     public String writeTrade() {
 
-        return "write";
+        return "PetMunity/write";
 
     }
 
@@ -80,7 +80,7 @@ public class BoardController {
     @GetMapping("petmunity/walkingmate/writePage")
     public String write() {
 
-        return "write";
+        return "PetMunity/write";
 
     }
 
@@ -100,7 +100,7 @@ public class BoardController {
         BoardVO boardVO = service.selectOne(bno);
         model.addAttribute("board", boardVO);
 
-        return "view";
+        return "PetMunity/view";
     }
 
     // 수정 화면으로 이동
@@ -110,7 +110,7 @@ public class BoardController {
         BoardVO boardVO = service.selectOne(bno);
         model.addAttribute("board", boardVO);
 
-        return "modify";
+        return "PetMunity/modify";
 
     }
 
