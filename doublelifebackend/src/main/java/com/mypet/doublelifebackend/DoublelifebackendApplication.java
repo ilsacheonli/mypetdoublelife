@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
+
 @MapperScan(basePackageClasses = DoublelifebackendApplication.class) // @Mapper 서칭
 @SpringBootApplication
 public class DoublelifebackendApplication {

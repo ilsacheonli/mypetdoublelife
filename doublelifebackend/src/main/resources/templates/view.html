@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+</head>
+<body>
+<form name="writeForm" method="get">
+    <div>
+        <h3>번호</h3> <p th:text="${board.bno}"></p>
+        <h3>게시판 분류</h3> <p th:text="${board.category}"></p>
+        <h3>제목</h3> <p th:text="${board.title}"></p>
+        <h3>작성자</h3> <p th:text="${board.writer}"></p>
+        <h3>내용</h3> <p th:text="${board.content}"></p>
+        <h3>조회수</h3> <p th:text="${board.view_cnt}"></p>
+        <h3>댓글수</h3> <p th:text="${board.comment_cnt}"></p>
+        <h3>좋아요</h3> <p th:text="${board.hit_cnt}"></p>
+        <h3>등록일</h3> <p th:text="${#dates.format(board.reg_date, 'yyyy/MM/dd')}"></p>
+        <h3>수정일</h3> <p th:text="${board.updated_date}"></p>
+    </div>
+    <a th:href="@{/board/modify(bno=${board.bno})}">수정</a>
+    <a th:href="@{/board/delete(bno=${board.bno})}">삭제</a>
+</form>
+</body>
+</html>
