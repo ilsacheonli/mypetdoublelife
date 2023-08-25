@@ -130,7 +130,7 @@ function Login(){
                 <Loginpage>
                     <Petimage>
                         <ImageContainer>
-                        <Catimage alt="logo_final" src="/img/logo_final.png" />
+                        <Catimage alt="logo_final" src="/loginimg/logo_final.png" />
                         </ImageContainer>
                         <Idbox>
                         
@@ -144,12 +144,12 @@ function Login(){
                             
                             <tr>
                             <Logo> 
-                            <Apw alt="naver_login_white" width="60" height="60" src="/img/naver_login_white.png"></Apw>
+                            <Apw alt="naver_login_white" width="60" height="60" src="/loginimg/naver_login_white.png"></Apw>
                             </Logo>
                             <Logo>
-                            <Apss alt="google_login"  width="60" height="60"  src="/img/google_login.png"></Apss> </Logo>
+                            <Apss alt="google_login"  width="60" height="60"  src="/loginimg/google_login.png"></Apss> </Logo>
                             <Logo>
-                            <Api alt="kakao_login" width="60" height="60" src="/img/kakao_login.png"></Api>
+                            <Api alt="kakao_login" width="60" height="60" src="/loginimg/kakao_login.png"></Api>
                                 
                             </Logo>    
     
@@ -161,7 +161,7 @@ function Login(){
                     <Apilogin>
                         
                             <tr>
-                                <td><img alt="footprint" width="20" height="20" src="/img/footprint.png" /></td>
+                                <td><img alt="footprint" width="20" height="20" src="/loginimg/footprint.png" /></td>
                                 <td><Colr >회원가입</Colr> 하러가기!</td>
                             </tr>
                                 

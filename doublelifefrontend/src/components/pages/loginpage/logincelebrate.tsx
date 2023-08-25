@@ -117,7 +117,7 @@ return(
 <Loginpage>
     <Petimage>
     <ImageContainer>
-    <Catimage alt="logo_final" src="/img/logo_final.png" />
+    <Catimage alt="logo_final" src="/loginimg/logo_final.png" />
     </ImageContainer>
     <h1><Colr>ooo님</Colr> 가입을 축하합니다!</h1>
     <h1><Colr>로그인</Colr> 후 서비스를 이용해주세요.</h1>
@@ -128,8 +128,8 @@ return(
         <BottombuttonB>마이펫의 이중생활이란?</BottombuttonB>
         
     </Menu>  
-    <AdditionalImage src="/img/signup_logo.png" alt="signup_logo"></AdditionalImage>
-    <CongratsImage src="/img/signup_logo.png" alt="signup_logo"> 
+    <AdditionalImage src="/loginimg/signup_logo.png" alt="signup_logo"></AdditionalImage>
+    <CongratsImage src="/loginimg/signup_logo.png" alt="signup_logo"> 
     </CongratsImage>
 
 </Loginpage>
