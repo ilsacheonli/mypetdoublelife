@@ -75,6 +75,10 @@ export const CommentBox = styled.div`
   margin-top: -17px;
   border-top: 1px solid;
 
+  & h4 {
+    padding-top: 10px;
+  }
+
   & > .comment_title {
     float: left;
     margin-top: 3px;

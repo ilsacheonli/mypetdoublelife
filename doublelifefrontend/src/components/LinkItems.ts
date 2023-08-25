@@ -9,7 +9,7 @@ export const LinkItems = [
     },
     {
         title: '펫시설찾기',
-        url: '/petmapsalon'
+        url: '/petmap/salon'
     },
     {
         title: '펫뮤니티',

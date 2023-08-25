@@ -24,6 +24,7 @@ import SignupFinish from 'pages/signup/SignupFinish';
 
 import UserPage from 'pages/userpage/UserPage';
 import Petmunity from 'pages/petmunity/Petmunity';
+import PetMap from 'pages/petmap/PetMap';
 
 export const Routers = () => {
     return (
@@ -34,8 +35,10 @@ export const Routers = () => {
                 <Route path='/mypet' element={ <MyPet/> }/>
                 <Route path='/mypetfeed' element={ <MyPetFeed/> }/>
                 <Route path='/mypetmemo' element={ <MyPetMemo/> }/>
-                <Route path='/petmaphospital' element={ <PetMapHospital/> }/>
-                <Route path='/petmapsalon' element={ <PetMapSalon/> }/>
+                <Route path='/petmap' element={ <PetMap/> }>
+                    <Route path='hospital' element={ <PetMapHospital/> }/>
+                    <Route path='salon' element={ <PetMapSalon/> }/>
+                </Route>
                 <Route path='/petmunity' element={ <Petmunity/> }>
                     <Route path='detail' element={ <PetmunityDetail/> }></Route>
                     <Route path='qna' element={ <PetmunityQna/> }></Route>

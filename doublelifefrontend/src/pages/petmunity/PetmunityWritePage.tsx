@@ -11,6 +11,9 @@ function PetmunityWritePage() {
                         <a href="/" role="button" className='write_btn' style={{color: "#000", textDecoration: "none"}}>
                             <span>등록</span>
                         </a>
+                        <a href="/" role="button" className='write_btn' style={{color: "#000", textDecoration: "none"}}>
+                            <span>취소</span>
+                        </a>
                     </div>
                 </WritingHeader>
                 <WritingContent>
