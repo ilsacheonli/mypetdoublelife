@@ -1,6 +1,5 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import Mypetlistitem from './Mypetlistitem';
 
 const InsertFormPositioner = styled.div`
   width: 600px;
@@ -29,61 +28,45 @@ const Input = styled.input`
 interface EventInputProps {
 	onAddEvent: (event: Event) => void;
 }
-
 interface Event {
-  text: string;
+	title: string;
 }
-
 interface MypetlistcreateProps extends EventInputProps {
 	setInputValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-interface InputProps {
-	onInputChange: (value:string) => void;
-}
-
-function Mypetlistcreate(props: InputProps) {
-	const [text, setText] = useState<string>('');
-  const [events, setEvents] = useState<Event[]>([]);
-	const [inputValue, setInputValue] = useState('');
-
-	const handleInutChange = (event: ChangeEvent<HTMLInputElement>) => {
-		const newValue = event.target.value;
-		setInputValue(newValue);
-		props.onInputChange(newValue);
-	};
-
-	const onChange = (e:any) => {
-		console.log(e.target.value);
-		setText(e.target.value);
-	}
+function Mypetlistcreate({ onAddEvent, setInputValue }: MypetlistcreateProps) {
+	const [title, setTitle] = useState('');
 
 	const handlerAddEvent = () => {
-		if (text) {
-			const event : Event = {
-				text,
+		if (title) {
+			const event: Event = {
+				title,
 			};
-			setEvents([...events, event]);
-			setText('');
+			onAddEvent(event);
+			setTitle('');
+			setInputValue('');
 		}
 	}
 
-  return (
-    <>
-      <InsertFormPositioner>
-        <InsertForm>
-          <Input
-            type="text"
-            value={inputValue}
-            placeholder="오늘 한 일을 기록해주세요."
-            autoFocus
-            onChange={handleInutChange}
-          />
-          <button onClick={handlerAddEvent}>Add Event</button>
-        </InsertForm>
-      </InsertFormPositioner>
-    </>
-  );
+	return (
+		<>
+			{(
+				<InsertFormPositioner>
+					<InsertForm>
+						<Input
+							type="text"
+							value={title}
+							placeholder="오늘 한 일을 기록해주세요."
+							autoFocus
+							onChange={(e) => setTitle(e.target.value)}
+						/>
+						<button onClick={handlerAddEvent}>Add Event</button>
+					</InsertForm>
+				</InsertFormPositioner>
+			)}
+		</>
+	);
 }
 
 export default Mypetlistcreate;

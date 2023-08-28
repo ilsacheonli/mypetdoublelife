@@ -3,7 +3,6 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction"
 import Mypetlist from './Mypetlist'
-import Mypetlistitem from './Mypetlistitem'
 import Mypetlistcreate from './Mypetlistcreate'
 import { MypetfullCalendar, Mypetrecordbox, Mypetrecordmemo, Mypetrecordmemo1, Mypetrecordmemo2 } from './mypetstyled'
 import styled from 'styled-components';
@@ -18,12 +17,12 @@ const StyledFullCalendar = styled(FullCalendar)`
 `;
 
 interface Event {
-  text: string;
+  title: string;
 }
 
 function Mypetcalendar() {
 	const [events, setEvents] = useState<Event[]>([]);
-	const [inputValueArray, setInputValueArray] = useState('');
+	const [inputValueArray, setInputValue] = useState('');
 	const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
 	const handlerDateClick = (arg: any) => {
@@ -35,7 +34,7 @@ function Mypetcalendar() {
 	};
 
 	const eventArray = events.map((event) => ({
-		text: event.text,
+		title: event.title,
 	}));
 
 	const handlerAddEvent = (event: Event) => {
@@ -74,7 +73,8 @@ function Mypetcalendar() {
 			<Mypetrecordmemo>
 
 				<Mypetrecordmemo1>
-					{selectedDate && (<Mypetlist />)}
+					<Mypetlistcreate onAddEvent={handlerAddEvent} setInputValue={setInputValue} />
+					{selectedDate && (<Mypetlist selectedDate={selectedDate} />)}
 				</Mypetrecordmemo1>
 
 				<Mypetrecordmemo2>
