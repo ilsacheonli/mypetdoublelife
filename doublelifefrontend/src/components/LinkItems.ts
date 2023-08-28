@@ -17,6 +17,6 @@ export const LinkItems = [
     },
     {
         title: 'about us',
-        url: '/aboutus'
+        url: '/'
     },
 ]

@@ -3,17 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
-import Login from './components/pages/loginpage/loginmain';
-import Loginmember from './components/pages/loginpage/loginmember';
-import Logincel from './components/pages/loginpage/logincelebrate';
-import About from './components/pages/aboutpage/about';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Logincel/>
+    <App/>
   </React.StrictMode>
 );
 
