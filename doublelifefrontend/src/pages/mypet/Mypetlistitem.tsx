@@ -1,5 +1,5 @@
 import React from 'react'
-import { Listitem } from 'component/mypetstyled'
+import { Listitem } from './mypetstyled'
 
 function Mypetlistitem() {
 	return (

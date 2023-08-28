@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction"
-import Mypetlist from 'component/Mypetlist'
-import Mypetlistcreate from 'component/Mypetlistcreate'
-import { MypetfullCalendar, Mypetrecordbox, Mypetrecordmemo, Mypetrecordmemo1, Mypetrecordmemo2 } from 'component/mypetstyled'
+import Mypetlist from './Mypetlist'
+import Mypetlistcreate from './Mypetlistcreate'
+import { MypetfullCalendar, Mypetrecordbox, Mypetrecordmemo, Mypetrecordmemo1, Mypetrecordmemo2 } from './mypetstyled'
 import styled from 'styled-components';
 
 const StyledFullCalendar = styled(FullCalendar)`

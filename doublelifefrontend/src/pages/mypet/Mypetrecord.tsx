@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import { Mypetrecordmemo, Mypetrecordmemo1, Mypetrecordmemo2 } from 'component/mypetstyled'
-import Mypetlistcreate from 'component/Mypetlistcreate'
+import { Mypetrecordmemo, Mypetrecordmemo1, Mypetrecordmemo2 } from './mypetstyled'
+import Mypetlistcreate from './Mypetlistcreate'
 
-import { Event } from 'component/types';
+import { Event } from './types';
 
 function Mypetrecord() {
 

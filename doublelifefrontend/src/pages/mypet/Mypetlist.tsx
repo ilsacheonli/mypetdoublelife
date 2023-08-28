@@ -1,6 +1,6 @@
 import React from 'react'
-import Mypetlistitem from 'component/Mypetlistitem'
-import { Listcontainer } from 'component/mypetstyled'
+import Mypetlistitem from './Mypetlistitem'
+import { Listcontainer } from './mypetstyled'
 
 interface DateProps {
 	selectedDate: Date;

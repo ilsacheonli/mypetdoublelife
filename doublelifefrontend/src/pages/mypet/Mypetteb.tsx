@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Mypetfeed from 'component/Mypetfeed'
-import Mypetcalendar from 'component/Mypetcalendar'
-import { Mypetrecordbox, Tebbutton, Tebdiv } from 'component/mypetstyled'
+import MyPetFeed from './MyPetFeed'
+import Mypetcalendar from 'pages/mypet/Mypetcalendar'
+import { Mypetrecordbox, Tebbutton, Tebdiv } from './mypetstyled'
 
 interface Tab {
   id: number;
@@ -14,8 +14,8 @@ const tabsData: Tab[] = [
     id: 1,
     title: '내 피드',
     content: [
-      <Mypetfeed key={1} />,
-      <Mypetfeed key={2} />
+      <MyPetFeed key={1} />,
+      <MyPetFeed key={2} />
     ],
   },
   {
