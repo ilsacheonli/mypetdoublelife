@@ -24,7 +24,7 @@ import SignupFinish from 'pages/signup/SignupFinish';
 import UserPage from 'pages/userpage/UserPage';
 import Petmunity from 'pages/petmunity/Petmunity';
 import PetMap from 'pages/petmap/PetMap';
-import Mypet from 'Mypet';
+import MyPet from 'pages/mypet/MyPet';
 
 export const Routers = () => {
     return (
@@ -32,7 +32,7 @@ export const Routers = () => {
             <Routes>
                 <Route path='/' element={ <AboutUs /> }/>
                 <Route path='/login' element={ <Login/> }/>
-                <Route path='/mypet' element={ <Mypet/> }/>
+                <Route path='/mypet' element={ <MyPet/> }/>
                 <Route path='/mypetfeed' element={ <MyPetFeed/> }/>
                 <Route path='/mypetmemo' element={ <MyPetMemo/> }/>
                 <Route path='/petmap' element={ <PetMap/> }>
