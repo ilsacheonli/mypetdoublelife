@@ -18,6 +18,7 @@ export const TabMenu = styled.ul`
   list-style: none;
   margin-bottom: 40px;
   margin-top: 10px;
+  text-align: center;
 
   .submenu {
     // 기본 Tabmenu 에 대한 CSS를 구현
