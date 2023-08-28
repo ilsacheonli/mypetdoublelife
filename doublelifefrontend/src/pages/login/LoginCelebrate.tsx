@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function SignupFinish() {
+function LoginCelebrate() {
     const Loginpage=styled.div`
     position: absolute;
     top:0;
@@ -131,7 +131,6 @@ function SignupFinish() {
     </Loginpage>
     
     )
-    
-}
+    }
 
-export default SignupFinish;
+export default LoginCelebrate;
