@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AboutUs from '../pages/aboutus/AboutUs';
 import Login from '../pages/login/Login';
 
+import MyPet from '../pages/mypet/MyPet';
 import MyPetFeed from '../pages/mypet/MyPetFeed';
 import MyPetMemo from '../pages/mypet/MyPetMemo';
 
@@ -22,9 +23,6 @@ import Signup from 'pages/signup/Signup';
 import SignupFinish from 'pages/signup/SignupFinish';
 
 import UserPage from 'pages/userpage/UserPage';
-import Petmunity from 'pages/petmunity/Petmunity';
-import PetMap from 'pages/petmap/PetMap';
-import MyPet from 'pages/mypet/MyPet';
 
 export const Routers = () => {
     return (
@@ -35,17 +33,13 @@ export const Routers = () => {
                 <Route path='/mypet' element={ <MyPet/> }/>
                 <Route path='/mypetfeed' element={ <MyPetFeed/> }/>
                 <Route path='/mypetmemo' element={ <MyPetMemo/> }/>
-                <Route path='/petmap' element={ <PetMap/> }>
-                    <Route path='hospital' element={ <PetMapHospital/> }/>
-                    <Route path='salon' element={ <PetMapSalon/> }/>
-                </Route>
-                <Route path='/petmunity' element={ <Petmunity/> }>
-                    <Route path='detail' element={ <PetmunityDetail/> }></Route>
-                    <Route path='qna' element={ <PetmunityQna/> }></Route>
-                    <Route path='trade' element={ <PetmunityTrade/> }></Route>
-                    <Route path='walkingmate' element={ <PetmunityWalkingMate/> }></Route>
-                    <Route path='writepage' element={ <PetmunityWritePage/> }></Route>
-                </Route>
+                <Route path='/petmaphospital' element={ <PetMapHospital/> }/>
+                <Route path='/petmapsalon' element={ <PetMapSalon/> }/>
+                <Route path='/petmunitydetail' element={ <PetmunityDetail/> }/>
+                <Route path='/petmunityqna' element={ <PetmunityQna/> }/>
+                <Route path='/petmunitytrade' element={ <PetmunityTrade/> }/>
+                <Route path='/petmunitywalkingmate' element={ <PetmunityWalkingMate/> }/>
+                <Route path='/petmunitywritepage' element={ <PetmunityWritePage/> }/>
                 <Route path='/petstival' element={ <Petstival/> }/>
                 <Route path='/petstivaldetail' element={ <PetstivalDetail/> }/>
                 <Route path='/signup' element={ <Signup/> }/>

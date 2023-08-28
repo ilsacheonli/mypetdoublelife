@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mypet.doublelifebackend.repository.HospitalRepository">
+    <select id="selectList" parameterType="com.mypet.doublelifebackend.vo.PetHospitalVO" resultType="com.mypet.doublelifebackend.vo.PetHospitalVO">
+        SELECT num
+             , name
+             , tel
+             , address2
+             , latitude
+             , longitude
+        FROM PETHOSPITAL
+    </select>
+</mapper>
