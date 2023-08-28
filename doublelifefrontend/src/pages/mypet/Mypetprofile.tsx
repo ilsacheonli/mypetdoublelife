@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Section, Profileimg, Intro, ProfileButton } from './mypetstyled'
+import { Container, Section, Profileimg, Intro, ProfileButton } from './mypet.style'
 
 function Mypetprofile() {
 

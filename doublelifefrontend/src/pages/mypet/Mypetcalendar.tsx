@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction"
 import Mypetlist from './Mypetlist'
 import Mypetlistcreate from './Mypetlistcreate'
-import { MypetfullCalendar, Mypetrecordbox, Mypetrecordmemo, Mypetrecordmemo1, Mypetrecordmemo2 } from './mypetstyled'
+import { MypetfullCalendar, Mypetrecordbox, Mypetrecordmemo, Mypetrecordmemo1, Mypetrecordmemo2 } from './mypet.style'
 import styled from 'styled-components';
 
 const StyledFullCalendar = styled(FullCalendar)`
@@ -74,7 +74,7 @@ function Mypetcalendar() {
 
 				<Mypetrecordmemo1>
 					<Mypetlistcreate onAddEvent={handlerAddEvent} setInputValue={setInputValue} />
-					{selectedDate && (<Mypetlist selectedDate={selectedDate} />)}
+					{selectedDate && (<Mypetlist />)}
 				</Mypetrecordmemo1>
 
 				<Mypetrecordmemo2>

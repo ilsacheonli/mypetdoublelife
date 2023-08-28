@@ -1,5 +1,5 @@
 import React from 'react'
-import { Listitem } from './mypetstyled'
+import { Listitem } from './mypet.style'
 
 interface DisplayProps {
   value: string;
