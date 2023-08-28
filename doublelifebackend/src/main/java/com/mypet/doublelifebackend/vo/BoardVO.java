@@ -16,10 +16,10 @@ public class BoardVO {
     private String title;
     private String writer;
     private String content;
-    private int view_cnt;
-    private int comment_cnt;
-    private int hit_cnt;
-    private Date reg_date;
-    private Date updated_date;
+    private int viewCnt;
+    private int commentCnt;
+    private int hitCnt;
+    private Date regDate;
+    private Date updatedDate;
 
 }
