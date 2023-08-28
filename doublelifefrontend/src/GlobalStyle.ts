@@ -1,30 +1,11 @@
-<<<<<<< HEAD
-import styled from "styled-components";
-=======
 import styled from "styled-components";
 import logo from "./img/logo_final.png";
-import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
-
-export const GlobalStyle = createGlobalStyle`
-    ${reset};
-    /* 기본적으로 설치되어 있는 스타일을 지워주는 코드입니다.
-       에러가 뜰 경우 npm i styled-reset 으로 설치해 주세요.
-    */
-
-    :root {
-        --color-primary: #3b4b9b;
-        --color-sub: #15345f;
-        font-family: 'Noto Sans KR', 'sans-serif';
-        font-size: 16px;
-        font-weight: 400;
-    }
-`;
 
 export const NavContainer = styled.nav`
   width: 100%;
   height: 50px;
   margin: 15px;
+  margin-bottom: 0;
 `;
 
 export const Content = styled.div`
@@ -113,4 +94,3 @@ export const LinkSign = styled.ul`
     color: #656565;
   }
 `;
->>>>>>> 0afc06e5c373d44843d3db20869edf33d4f3ccfe
