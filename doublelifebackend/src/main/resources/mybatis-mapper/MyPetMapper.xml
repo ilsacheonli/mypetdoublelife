@@ -3,9 +3,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mypet.doublelifebackend.repository.MemberRepository">
+<mapper namespace="com.mypet.doublelifebackend.repository.MyPetRepository">
 
-    <resultMap id="memResult" type="memberVO">
+    <resultMap id="mypetResult" type="MyPetVO">
         <result property="memNumber" column="MNO" />
         <result property="memName" column="NAME" />
         <result property="memId" column="ID" />
@@ -15,41 +15,36 @@
     </resultMap>
 
     <!-- memNumber와 일치하는 member 출력 -->
-    <select id="selectMemberByNum" parameterType="int" resultMap="memResult">
+    <select id="selectMyPetByNum" parameterType="int" resultMap="mypetResult">
         SELECT *
         FROM member
         WHERE MNO = #{memNumber}
     </select>
 
     <!-- id와 pwd가 일치하는 member 출력 -->
-    <select id="selectMemberByLogin" parameterType="String" resultMap="memResult">
+    <select id="selectMyPetByLogin" parameterType="String" resultMap="mypetResult">
         SELECT *
         FROM member
         WHERE ID = #{id} and PASSWORD = #{pwd}
     </select>
 
     <!-- member 전체 출력 -->
-    <select id="selectAllMembers" resultType="MemberVO">
+    <select id="selectAllMyPet" resultType="MyPetVO">
         SELECT *
         FROM member
     </select>
 
     <!-- 새로운 member 추가 -->
-    <insert id="insertMember" parameterType="MemberVO" >
+    <insert id="insertMyPet" parameterType="MyPetVO" >
         INSERT INTO member (MNO, NAME, ID, PASSWORD, EMAIL)
         VALUES (#{memNumber}, #{memName}, #{memId}, #{memPwd}, #{memEmail})
     </insert>
 
     <!-- member 정보 수정 -->
-    <update id="updateMember" parameterType="MemberVO" >
+    <update id="updateMyPet" parameterType="MyPetVO" >
         UPDATE member SET NAME = #{memName}, ID = #{memId}, PASSWORD = #{memPwd}, EMAIL = #{memEmail}
         WHERE MNO = #{memNumber}
     </update>
-
-    <!-- 마지막 max(m_number) = null 이면 0으로 치환 후 +1 return -->
-    <select id="getLastNumber" resultType="int">
-        select NVL(max(MNO),0) +1 from member
-    </select>
 
 
 </mapper>

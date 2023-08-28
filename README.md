@@ -30,8 +30,9 @@
   - mybatis-mapper
     - MemberMapper.xml
   - templates
-    - MyPage.html
-    - MyPageUpdate.html
+    - MyPage
+      - MyPage.html
+      - MyPageUpdate.html
     - SignIn.html
     - SignUp.html
 ---
