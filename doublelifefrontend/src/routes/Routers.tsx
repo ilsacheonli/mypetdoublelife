@@ -1,7 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-<<<<<<< HEAD
-=======
 import AboutUs from '../pages/aboutus/AboutUs';
 import Login from '../pages/login/Login';
 
@@ -25,15 +23,10 @@ import Signup from 'pages/signup/Signup';
 import SignupFinish from 'pages/signup/SignupFinish';
 
 import UserPage from 'pages/userpage/UserPage';
->>>>>>> 0afc06e5c373d44843d3db20869edf33d4f3ccfe
 
 export const Routers = () => {
     return (
         <Router>
-<<<<<<< HEAD
-            
-            
-=======
             <Routes>
                 <Route path='/' element={ <AboutUs /> }/>
                 <Route path='/login' element={ <Login/> }/>
@@ -53,7 +46,6 @@ export const Routers = () => {
                 <Route path='/signupfinish' element={ <SignupFinish/> }/>
                 <Route path='/userpage' element={ <UserPage/> }/>
             </Routes>
->>>>>>> 0afc06e5c373d44843d3db20869edf33d4f3ccfe
         </Router>
     );
 }
