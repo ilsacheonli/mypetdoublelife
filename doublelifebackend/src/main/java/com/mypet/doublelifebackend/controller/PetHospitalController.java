@@ -1,20 +1,14 @@
 package com.mypet.doublelifebackend.controller;
 
-import com.mypet.doublelifebackend.repository.HospitalRepository;
-import com.mypet.doublelifebackend.vo.PetHospitalVO;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-
-@RestController
+@Controller
 public class PetHospitalController {
-    @Autowired
-    HospitalRepository hospitalRepository;
 
-    @GetMapping("/pethospital")
-    public List<PetHospitalVO> getPetHospitals() {
-        return hospitalRepository.selectList();
+    @GetMapping("/findpethospital")
+    public ModelAndView showMap(){
+        return new ModelAndView("FindPetFacility/findpethospital"); //
     }
 }

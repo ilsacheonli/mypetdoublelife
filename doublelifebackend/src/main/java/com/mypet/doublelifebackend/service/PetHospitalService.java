@@ -4,5 +4,5 @@ import com.mypet.doublelifebackend.vo.PetHospitalVO;
 import java.util.List;
 
 public interface PetHospitalService {
-    public List<PetHospitalVO> selectList();
+    public List<PetHospitalVO> GetHospitalList();
 }
