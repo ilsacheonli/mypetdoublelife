@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>MyPageUpdate 테스트 페이지</title>
+</head>
+<body>
+<h3>MyPageUpdate</h3>
+
+<form method="post" action="/updatemember" id="update">
+    number(hidden)<input type="hidden" name="number" th:value="${member.memNumber}"><br>
+    name <input type="text" name="name" th:value="${member.memName}"><br>
+    id <input type="text" name="id" th:value="${member.memId}"><br>
+    pwd <input type="text" name="pwd" th:value="${member.memPwd}"><br>
+    email<input type="text" name="email" th:value="${member.memEmail}"><br>
+
+</form>
+<button type="submit" form="update">수정완료</button>
+
+</body>
+</html>

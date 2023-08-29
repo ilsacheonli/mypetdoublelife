@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>MyPage 테스트 페이지</title>
+</head>
+<body>
+<h3>MyPage</h3>
+<ul>
+    <li>userNum : <span th:text="${member.memNumber}"/></li>
+    <li>name : <span th:text="${member.memName}"/></li>
+    <li>id : <span th:text="${member.memId}"/></li>
+    <li>pwd : <span th:text="${member.memPwd}"/></li>
+    <li>email : <span th:text="${member.memEmail}"/></li>
+    <li>birth : <span th:text="${member?.memBirth}"/></li>
+</ul>
+<input type="button" value="수정하기" onClick=" location.href='/mypage/update' "/>
+</body>
+</html>
