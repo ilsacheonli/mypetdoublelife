@@ -1,6 +1,7 @@
 package com.mypet.doublelifebackend.controller;
 
 import com.mypet.doublelifebackend.service.MyPetService;
+import com.mypet.doublelifebackend.vo.MemberVO;
 import com.mypet.doublelifebackend.vo.MyPetVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,17 +23,9 @@ public class MyPetController {
     MyPetVO myPetVO ;
 
 
-    //
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public String signup(Model model){
-
-        return "SignUp";
-        //
-    }
-
-    // 회원 페이지
-    @RequestMapping(value = "/mypage", method = RequestMethod.GET)
-    public String mypage(HttpServletRequest request, Model model) {
+    // pet 페이지
+    @RequestMapping(value = "/mypet", method = RequestMethod.GET)
+    public String mypet(HttpServletRequest request, Model model){
 
         HttpSession session = request.getSession();
         Object memberObject = session.getAttribute("member");
@@ -43,12 +36,13 @@ public class MyPetController {
 
         model.addAttribute("member",memberObject);
 
-        return "MyPage/MyPage";
+        return "MyPet/MyPet";
+        // resources/templates/MyPet/MyPet.html
     }
 
-    // 회원 정보 수정 페이지
-    @RequestMapping(value = "/mypage/update", method = RequestMethod.GET)
-    public String mypageupdate(HttpServletRequest request, Model model){
+    // pet 추가 페이지
+    @RequestMapping(value = "/mypet/insert", method = RequestMethod.GET)
+    public String insert(HttpServletRequest request, Model model){
 
         HttpSession session = request.getSession();
         Object memberObject = session.getAttribute("member");
@@ -59,71 +53,104 @@ public class MyPetController {
 
         model.addAttribute("member",memberObject);
 
-        return "MyPage/MyPageUpdate";
+        return "MyPet/MyPetInsert";
+        // resources/templates/MyPet/MyPetInsert.html
+    }
 
+    // pet 정보 수정 페이지
+    @RequestMapping(value = "/mypet/update", method = RequestMethod.GET)
+    public String mypetupdate(HttpServletRequest request, Model model){
+
+        HttpSession session = request.getSession();
+        Object memberObject = session.getAttribute("member");
+        Object petObject = session.getAttribute("pet");
+
+        if (memberObject == null){
+            return "redirect:/signin?NotLogin";
+        } else if (petObject == null) {
+            return "redirect:/mypet?petNull";
+        }
+
+        model.addAttribute("pet",petObject);
+
+        return "MyPet/MyPetInsert";
+        // resources/templates/MyPet/MyPetInsert.html
     }
 
 
 
+    // 새로운 pet 추가
+    @RequestMapping(value = "/addpet", method = RequestMethod.POST)
+    public String addmember(@RequestParam Map<String, Objects> paramObj, MyPetVO new_myPet,
+                            HttpServletRequest request){
 
-    // 새로운 멤버 추가
-    @RequestMapping(value = "/addmember", method = RequestMethod.POST)
-    public String addmember(@RequestParam Map<String, Objects> paramObj, MyPetVO new_MyPet){
+        HttpSession session = request.getSession();
+        Object memberObject = session.getAttribute("member");
 
-        new_MyPet = new MyPetVO(
-                String.valueOf(paramObj.get("name")),
+        if (memberObject == null){
+            return "redirect:/signin?NotLogin";
+        }
+
+
+        new_myPet = new MyPetVO(
                 String.valueOf(paramObj.get("id")),
-                String.valueOf(paramObj.get("pwd")),
-                String.valueOf(paramObj.get("email"))
+                String.valueOf(paramObj.get("name")),
+                String.valueOf(paramObj.get("gender")),
+                String.valueOf(paramObj.get("introduce"))
                 );
 
+        myPetService.addMyPet(new_myPet);
 
-//        if(String.valueOf().equals("null")){
-//
-//
-//            return "redirect:/signup?signUpFail";
-//        }
-
-
-        return "redirect:/signin?signUpSuccess";
+        return "redirect:/mypet?addPetSuccess";
     }
 
-    //
-    @RequestMapping(value = "/updatemember", method = RequestMethod.POST)
-    public String updatemember(@RequestParam Map<String, Objects> paramObj, MyPetVO update_MyPet,
+    // pet 정보 수정
+    @RequestMapping(value = "/updatepet", method = RequestMethod.POST)
+    public String updatemember(@RequestParam Map<String, Objects> paramObj, MyPetVO update_myPet,
                                HttpServletRequest request){
 
-
-        update_MyPet = new MyPetVO(
-                String.valueOf(paramObj.get("name")),
+        update_myPet = new MyPetVO(
                 String.valueOf(paramObj.get("id")),
-                String.valueOf(paramObj.get("pwd")),
-                String.valueOf(paramObj.get("email"))
+                String.valueOf(paramObj.get("name")),
+                String.valueOf(paramObj.get("gender")),
+                String.valueOf(paramObj.get("introduce"))
         );
 
+        myPetService.editMyPet(update_myPet);
 
-        int MyPet_number = myPetService.editMyPet(update_MyPet);
+        String up_mP_memId = update_myPet.getMemId();
+        String up_mP_Name = update_myPet.getPetName();
 
+        MyPetVO updated_myPet = myPetService.getMyPetByName(up_mP_memId, up_mP_Name);
 
-        MyPetVO updatedMyPet = myPetService.getMyPetByNum(MyPet_number);
+        if(String.valueOf(updated_myPet).equals("null")){
 
+            return "redirect:/mypet?updateFail";
+        }
 
-        if(String.valueOf(updatedMyPet).equals("null")){
+        return "redirect:/mypet?updateSuccess";
+    }
 
-            return "redirect:/mypage?updateFail";
+    // pet 삭제
+    @RequestMapping(value = "/removepet", method = RequestMethod.GET)
+    public String removepet(HttpServletRequest request, MyPetVO delete_pet){
+
+        HttpSession session = request.getSession();
+        Object memberObject = session.getAttribute("member");
+
+        if (memberObject == null){
+
+            return "redirect:/signin?NotLogin";
         }
 
 
-        HttpSession session = request.getSession();
-        session.removeAttribute("member");
+        String del_m_id = delete_pet.getMemId();
+
+        request.removeAttribute("member");
 
 
-        session.setAttribute("member",updatedMyPet);
-
-
-        return "redirect:/mypage?updateSuccess";
+        return "redirect:/signin?deleteSuccess";
     }
-
 
 
 

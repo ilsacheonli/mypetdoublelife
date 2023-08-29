@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>PetInsert 테스트 페이지</title>
 </head>
 <body>
-$END$
+<h3>PetInsert</h3>
+<form method="post" action="/addpet" id="petInsert">
+    id(hidden) <input type="hidden" name="id" th:value="${member.memId}"> <br>
+    name <input type="text" name="name"> <br>
+    gender <input type="text" name="gender"> <br>
+    introduce <textarea name="introduce" ></textarea> <br>
+
+</form>
+<button type="submit" form="petInsert">펫 추가하기</button>
+
 </body>
 </html>

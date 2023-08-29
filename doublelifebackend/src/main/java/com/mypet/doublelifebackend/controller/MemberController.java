@@ -52,7 +52,7 @@ public class MemberController {
         model.addAttribute("member",memberObject);
 
         return "MyPage/MyPage";
-        // resources/templates/MyPage.html
+        // resources/templates/MyPet.html
     }
 
     // 회원 정보 수정 페이지
@@ -70,7 +70,7 @@ public class MemberController {
         model.addAttribute("member",memberObject);
 
         return "MyPage/MyPageUpdate";
-        // resources/templates/MyPageUpdate.html
+        // resources/templates/MyPetUpdate.html
     }
 
 
@@ -131,14 +131,14 @@ public class MemberController {
 
     // 멤버 정보 수정
     @RequestMapping(value = "/updatemember", method = RequestMethod.POST)
-    public String updatemember(@RequestParam Map<String, Objects> paramObj, MemberVO update_Member,
+    public String updatemember(@RequestParam Map<String, Objects> paramObj, MemberVO update_member,
                                HttpServletRequest request){
 
         // number object -> int형으로
         int number = Integer.parseInt(String.valueOf(paramObj.get("number")));
 
         // 수정한 멤버 정보 MemberVO() 생성자로 생성
-        update_Member = new MemberVO(
+        update_member = new MemberVO(
                 number,                   //"number"
                 String.valueOf(paramObj.get("name")),
                 String.valueOf(paramObj.get("id")),
@@ -148,13 +148,13 @@ public class MemberController {
 
 
         // 수정한 멤버 MemberVO 인자로 멤버 수정 editMember() 함수 호출
-        int Member_number = memberService.editMember(update_Member);
+        int Member_number = memberService.editMember(update_member);
 
         // DB 멤버 번호 조회로 추가한 멤버가 있는지 확인하기 위한 변수 처리
-        MemberVO updatedMember = memberService.getMemberByNum(Member_number);
+        MemberVO updated_member = memberService.getMemberByNum(Member_number);
 
         // 회원 정보 수정 실패
-        if(String.valueOf(updatedMember).equals("null")){
+        if(String.valueOf(updated_member).equals("null")){
 
             // 다시 mypage로 return
             return "redirect:/mypage?updateFail";
@@ -166,13 +166,38 @@ public class MemberController {
         session.removeAttribute("member");
 
         // 수정한 member memNumber로 불러온 후 세션에 추가
-        session.setAttribute("member",updatedMember);
+        session.setAttribute("member",updated_member);
 
         // mypage로 return
         return "redirect:/mypage?updateSuccess";
     }
 
+    // 멤버 삭제
+    @RequestMapping(value = "/removemember", method = RequestMethod.GET)
+    public String removemember(HttpServletRequest request, MemberVO delete_member){
 
+        HttpSession session = request.getSession();
+        Object memberObject = session.getAttribute("member");
+
+        if (memberObject == null){
+            // 로그인 x면 signin 페이지로 return
+            return "redirect:/signin?NotLogin";
+        }
+
+        delete_member = (MemberVO)memberObject;
+
+        String del_m_id = delete_member.getMemId();
+
+        memberService.removeAllPet(del_m_id);
+        memberService.removeMember(del_m_id);
+
+        request.removeAttribute("member");
+        session.removeAttribute("member");
+
+
+        // 삭제 성공 로그인 페이지로 return
+        return "redirect:/signin?deleteSuccess'";
+    }
 
 
 }

@@ -48,6 +48,18 @@ public class MemberService{     // sql문과 연결된 MemberRepository 함수 �
         return member.getMemNumber();
     }
 
+    public void removeMember(String memId){
+
+        // deleteMember()함수 호출
+        memberRepository.deleteMember(memId);
+    }
+
+    public void removeAllPet(String memId){
+
+        // deleteMember()함수 호출
+        memberRepository.deleteAllMyPet(memId);
+    }
+
 
     
     public int getLastMemNumber(){

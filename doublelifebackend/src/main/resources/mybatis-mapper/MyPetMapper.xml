@@ -5,46 +5,44 @@
 
 <mapper namespace="com.mypet.doublelifebackend.repository.MyPetRepository">
 
-    <resultMap id="mypetResult" type="MyPetVO">
-        <result property="memNumber" column="MNO" />
-        <result property="memName" column="NAME" />
-        <result property="memId" column="ID" />
-        <result property="memPwd" column="PASSWORD" />
-        <result property="memEmail" column="EMAIL" />
-        <result property="memBirth" column="BIRTH" />
+    <resultMap id="petResult" type="MyPetVO">
+        <result property="memId" column="id" />
+        <result property="petName" column="name" />
+        <result property="petGender" column="gender" />
+        <result property="petBirth" column="birth" />
+        <result property="petIntro" column="introduce" />
     </resultMap>
 
-    <!-- memNumber와 일치하는 member 출력 -->
-    <select id="selectMyPetByNum" parameterType="int" resultMap="mypetResult">
+    <!-- memId와 petName이 일치하는 pet 출력 -->
+    <select id="selectMyPetByName" parameterType="String" resultMap="petResult">
         SELECT *
-        FROM member
-        WHERE MNO = #{memNumber}
+        FROM pet
+        WHERE id = #{memId} AND name = #{petName}
     </select>
 
-    <!-- id와 pwd가 일치하는 member 출력 -->
-    <select id="selectMyPetByLogin" parameterType="String" resultMap="mypetResult">
+    <!-- memId가 일치하는 pet 전체 출력 -->
+    <select id="selectAllMyPet" parameterType="String" resultType="MyPetVO">
         SELECT *
-        FROM member
-        WHERE ID = #{id} and PASSWORD = #{pwd}
+        FROM pet
+        WHERE id = #{memId}
     </select>
 
-    <!-- member 전체 출력 -->
-    <select id="selectAllMyPet" resultType="MyPetVO">
-        SELECT *
-        FROM member
-    </select>
-
-    <!-- 새로운 member 추가 -->
+    <!-- 새로운 pet 추가 -->
     <insert id="insertMyPet" parameterType="MyPetVO" >
-        INSERT INTO member (MNO, NAME, ID, PASSWORD, EMAIL)
-        VALUES (#{memNumber}, #{memName}, #{memId}, #{memPwd}, #{memEmail})
+        INSERT INTO pet (id, name, gender, introduce)
+        VALUES (#{memId}, #{petName}, #{petGender}, #{petIntro})
     </insert>
 
-    <!-- member 정보 수정 -->
+    <!-- pet 정보 수정 -->
     <update id="updateMyPet" parameterType="MyPetVO" >
-        UPDATE member SET NAME = #{memName}, ID = #{memId}, PASSWORD = #{memPwd}, EMAIL = #{memEmail}
-        WHERE MNO = #{memNumber}
+        UPDATE pet SET name = #{petName}, gender = #{petGender}, introduce = #{petIntro}
+        WHERE id = #{memId} AND name = #{petName}
     </update>
 
+    <delete id="deleteMyPet" parameterType="String">
+        DELETE
+        FROM pet
+        WHERE id = #{memId} AND name = #{petName}
+    </delete>
 
 </mapper>

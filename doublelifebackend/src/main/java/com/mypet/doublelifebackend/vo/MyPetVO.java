@@ -6,22 +6,22 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class MyPetVO {
-    private String memName;
     private String memId;
-    private String memPwd;
-    private String memEmail;
-    private String memBirth;
+    private String petName;
+    private String petGender;
+    private String petBirth;
+    private String petIntro;
 
     public MyPetVO(){
 
     }
 
-    public MyPetVO(String memName, String memId, String memPwd, String memEmail/*, String memBirth*/){
-        this.memName = memName;
+    public MyPetVO(String memId, String petName, String petGender, /*String petIntro,*/ String petIntro){
         this.memId = memId;
-        this.memPwd = memPwd;
-        this.memEmail = memEmail;
-        //this.memBirth = memBirth;
+        this.petName = petName;
+        this.petGender = petGender;
+        //this.petBirth = petBirth;
+        this.petIntro = petIntro;
     }
 
 

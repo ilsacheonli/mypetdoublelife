@@ -1,41 +1,9 @@
 # mypetdoublelife
 
+백업
+
 ---
 
-백엔드 세팅 혹은 테스트
-
-- DB 세팅
-    - Oracle
-    - MyBatis
-
-
-- 수정 파일
-  - DoublelifebackendApplication.java
-  - application.properties.xml
-  - build.gradle
-
-
-- 패키지 혹은 java 파일 추가
-  - controller
-    - MemberController.java
-  - repository
-    - MemberRepository.java
-  - service
-    - MemberService.java
-  - vo
-    - MemberVO.java
-
-
-- resources에 파일 추가
-  - mybatis-mapper
-    - MemberMapper.xml
-  - templates
-    - MyPage
-      - MyPage.html
-      - MyPageUpdate.html
-    - SignIn.html
-    - SignUp.html
----
 (2023-08-22) 
 
 추가/수정된 파일 주석 참고
@@ -58,5 +26,15 @@ http://localhost:8080/signup 입니다.
 /signup -> /signin
 
 ---
+(2023-08-29)
+
+member 삭제 추가
+
+pet 테이블 생성 (개인 오라클) \
+pet 템플릿(임시), mapper, 
+  vo, repository, service, controller 추가 
+
+pet 템플릿(임시), controller 수정중
+
 
 

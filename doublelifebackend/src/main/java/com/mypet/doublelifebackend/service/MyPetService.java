@@ -12,30 +12,32 @@ public class MyPetService {
     @Autowired
     private MyPetRepository myPetRepository;
 
-    public MyPetVO getMyPetByNum(int memNumber) {
+    public MyPetVO getMyPetByName(String memId, String petName) {
 
-        return myPetRepository.selectMyPetByNum(memNumber);
+        return myPetRepository.selectMyPetByName(memId, petName);
     }
 
 
-    public List<MyPetVO> getAllMyPets() {
+    public List<MyPetVO> getAllMyPets(String memId) {
 
-        return myPetRepository.selectAllMyPets();
+        return myPetRepository.selectAllMyPet(memId);
     }
 
 
 
-    public int addMyPet(MyPetVO mypet) {
+    public void addMyPet(MyPetVO mypet) {
 
         myPetRepository.insertMyPet(mypet);
-        return 1;
     }
 
-    public int editMyPet(MyPetVO mypet) {
+    public void editMyPet(MyPetVO mypet) {
 
         myPetRepository.updateMyPet(mypet);
-        return 1;
     }
 
+    public void removeMyPet(String memId, String petName) {
+
+        myPetRepository.deleteMyPet(memId, petName);
+    }
 
 }
