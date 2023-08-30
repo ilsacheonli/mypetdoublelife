@@ -2,19 +2,35 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>MyPage 테스트 페이지</title>
+    <title>MyPet 테스트 페이지</title>
+    <style> form { display: inline; } </style>
 </head>
 <body>
-<h3>MyPage</h3>
-<ul>
-    <li>userNum : <span th:text="${member.memNumber}"/></li>
-    <li>name : <span th:text="${member.memName}"/></li>
-    <li>id : <span th:text="${member.memId}"/></li>
-    <li>pwd : <span th:text="${member.memPwd}"/></li>
-    <li>email : <span th:text="${member.memEmail}"/></li>
-    <li>birth : <span th:text="${member?.memBirth}"/></li>
-</ul>
-<input type="button" value="펫 추가하기" onClick=" location.href='/mypet/insert' "/>
-<input type="button" value="펫 수정하기" onClick=" location.href='/mypet/update' "/>
+<h3>MyPet</h3>
+<input type="button" value="펫 추가하기" onClick=" location.href='/mypet/insert' "><br/>
+
+<div th:each="pet, idx : ${petList}">
+    <h4>pet <span th:text="${idx.count}"></span></h4>
+
+    memId : <span th:text="${pet.memId}"/><br/>
+    name : <span th:text="${pet.petName}"/><br/>
+    gender : <span th:text="${pet.petGender}"/><br/>
+    birth : <span th:text="${pet?.petBirth}"/><br/>
+    intro : <span th:text="${pet.petIntro}"/><br/>
+
+    <form method="POST" action="/mypet/update" >
+        <input type="hidden" name="id" th:value="${pet.memId}" >
+        <input type="hidden" name="name" th:value="${pet.petName}" >
+        <button type="submit">펫 수정하기</button>
+    </form>
+
+    <form method="POST" action="/removepet" style="display:inline;">
+        <input type="hidden" name="id" th:value="${pet.memId}" >
+        <input type="hidden" name="name" th:value="${pet.petName}" >
+        <button type="submit">펫 삭제하기</button>
+    </form>
+
+</div><br/>
+
 </body>
 </html>

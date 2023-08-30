@@ -2,18 +2,22 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>MyPageUpdate 테스트 페이지</title>
+    <title>MyPetUpdate 테스트 페이지</title>
 </head>
 <body>
-<h3>MyPageUpdate</h3>
+<h3>MyPetUpdate</h3>
 
 <form method="post" action="/updatepet" id="pet_update">
 
-    id : <span th:text="${member.memId}" /><br>
-    id <input type="hidden" name="id" th:value="${member.memId}" /><br>
-    name <input type="text" name="name" th:value="${mypet.petName}" /><br>
-    gender <input type="text" name="pwd" th:value="${mypet.petGender}" /><br>
-    introduce <input type="text" name="email" th:value="${mypet.petIntro} /"><br>
+    id : <span th:text="${pet.memId}"></span>
+        <input type="hidden" name="id" th:value="${pet.memId}"><br>
+
+    name : <span th:text="${pet.petName}"></span>
+        <input type="hidden" name="name" th:value="${pet.petName}"><br>
+
+    gender <input type="text" name="gender" th:value="${pet.petGender}"><br>
+
+    introduce <input type="text" name="introduce" th:value="${pet.petIntro}"><br>
 
 </form>
 <button type="submit" form="pet_update">수정완료</button>

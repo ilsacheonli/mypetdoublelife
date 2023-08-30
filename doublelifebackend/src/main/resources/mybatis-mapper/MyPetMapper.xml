@@ -21,7 +21,7 @@
     </select>
 
     <!-- memId가 일치하는 pet 전체 출력 -->
-    <select id="selectAllMyPet" parameterType="String" resultType="MyPetVO">
+    <select id="selectAllMyPet" parameterType="String" resultMap="petResult">
         SELECT *
         FROM pet
         WHERE id = #{memId}

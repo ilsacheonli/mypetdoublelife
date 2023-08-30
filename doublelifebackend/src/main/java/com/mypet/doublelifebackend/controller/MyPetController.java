@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 public class MyPetController {
@@ -34,7 +33,9 @@ public class MyPetController {
             return "redirect:/signin?NotLogin";
         }
 
-        model.addAttribute("member",memberObject);
+        MemberVO member = (MemberVO)memberObject;
+
+        model.addAttribute("petList",myPetService.getAllMyPets(member.getMemId()));
 
         return "MyPet/MyPet";
         // resources/templates/MyPet/MyPet.html
@@ -58,22 +59,23 @@ public class MyPetController {
     }
 
     // pet 정보 수정 페이지
-    @RequestMapping(value = "/mypet/update", method = RequestMethod.GET)
-    public String mypetupdate(HttpServletRequest request, Model model){
+    @RequestMapping(value = "/mypet/update", method = RequestMethod.POST)
+    public String mypetupdate(@RequestParam Map<String, Objects> paramObj, HttpServletRequest request, Model model){
 
         HttpSession session = request.getSession();
         Object memberObject = session.getAttribute("member");
-        Object petObject = session.getAttribute("pet");
 
-        if (memberObject == null){
+        if (memberObject == null) {
             return "redirect:/signin?NotLogin";
-        } else if (petObject == null) {
-            return "redirect:/mypet?petNull";
+
         }
 
-        model.addAttribute("pet",petObject);
+        String memId = String.valueOf(paramObj.get("id"));
+        String petName = String.valueOf(paramObj.get("name"));
 
-        return "MyPet/MyPetInsert";
+        model.addAttribute("pet", myPetService.getMyPetByName(memId,petName));
+
+        return "MyPet/MyPetUpdate";
         // resources/templates/MyPet/MyPetInsert.html
     }
 
@@ -81,15 +83,8 @@ public class MyPetController {
 
     // 새로운 pet 추가
     @RequestMapping(value = "/addpet", method = RequestMethod.POST)
-    public String addmember(@RequestParam Map<String, Objects> paramObj, MyPetVO new_myPet,
+    public String addpet(@RequestParam Map<String, Objects> paramObj, MyPetVO new_myPet,
                             HttpServletRequest request){
-
-        HttpSession session = request.getSession();
-        Object memberObject = session.getAttribute("member");
-
-        if (memberObject == null){
-            return "redirect:/signin?NotLogin";
-        }
 
 
         new_myPet = new MyPetVO(
@@ -106,8 +101,8 @@ public class MyPetController {
 
     // pet 정보 수정
     @RequestMapping(value = "/updatepet", method = RequestMethod.POST)
-    public String updatemember(@RequestParam Map<String, Objects> paramObj, MyPetVO update_myPet,
-                               HttpServletRequest request){
+    public String updatepet(@RequestParam Map<String, Objects> paramObj, MyPetVO update_myPet,
+                               Model model){
 
         update_myPet = new MyPetVO(
                 String.valueOf(paramObj.get("id")),
@@ -128,28 +123,29 @@ public class MyPetController {
             return "redirect:/mypet?updateFail";
         }
 
+        model.addAttribute("pet",updated_myPet);
+
         return "redirect:/mypet?updateSuccess";
     }
 
     // pet 삭제
-    @RequestMapping(value = "/removepet", method = RequestMethod.GET)
-    public String removepet(HttpServletRequest request, MyPetVO delete_pet){
+    @RequestMapping(value = "/removepet", method = RequestMethod.POST)
+    public String removepet(@RequestParam Map<String, Objects> paramObj, MyPetVO delete_pet, Model model){
 
-        HttpSession session = request.getSession();
-        Object memberObject = session.getAttribute("member");
+        String del_mP_memId = String.valueOf(paramObj.get("id"));
+        String del_mP_Name = String.valueOf(paramObj.get("name"));
 
-        if (memberObject == null){
+        myPetService.removeMyPet(del_mP_memId, del_mP_Name);
 
-            return "redirect:/signin?NotLogin";
+        MyPetVO deleted_myPet = myPetService.getMyPetByName(del_mP_memId, del_mP_Name);
+
+        if(!String.valueOf(deleted_myPet).equals("null")){
+
+            return "redirect:/mypet?deleteFail";
         }
 
 
-        String del_m_id = delete_pet.getMemId();
-
-        request.removeAttribute("member");
-
-
-        return "redirect:/signin?deleteSuccess";
+        return "redirect:/mypet?deleteSuccess";
     }
 
 
