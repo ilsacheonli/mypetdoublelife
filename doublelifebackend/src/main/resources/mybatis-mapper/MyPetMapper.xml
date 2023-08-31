@@ -25,17 +25,18 @@
         SELECT *
         FROM pet
         WHERE id = #{memId}
+        ORDER BY reg_date
     </select>
 
     <!-- 새로운 pet 추가 -->
     <insert id="insertMyPet" parameterType="MyPetVO" >
-        INSERT INTO pet (id, name, gender, introduce)
-        VALUES (#{memId}, #{petName}, #{petGender}, #{petIntro})
+        INSERT INTO pet (id, name, gender, birth, introduce)
+        VALUES (#{memId}, #{petName}, #{petGender}, #{petBirth}, #{petIntro})
     </insert>
 
     <!-- pet 정보 수정 -->
     <update id="updateMyPet" parameterType="MyPetVO" >
-        UPDATE pet SET name = #{petName}, gender = #{petGender}, introduce = #{petIntro}
+        UPDATE pet SET name = #{petName}, gender = #{petGender}, birth = #{petBirth}, introduce = #{petIntro}
         WHERE id = #{memId} AND name = #{petName}
     </update>
 

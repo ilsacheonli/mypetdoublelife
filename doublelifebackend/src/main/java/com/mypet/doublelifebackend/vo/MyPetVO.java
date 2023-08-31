@@ -16,11 +16,11 @@ public class MyPetVO {
 
     }
 
-    public MyPetVO(String memId, String petName, String petGender, /*String petIntro,*/ String petIntro){
+    public MyPetVO(String memId, String petName, String petGender, String petBirth, String petIntro){
         this.memId = memId;
         this.petName = petName;
         this.petGender = petGender;
-        //this.petBirth = petBirth;
+        this.petBirth = petBirth;
         this.petIntro = petIntro;
     }
 

@@ -9,15 +9,29 @@
 
 <form method="post" action="/updatepet" id="pet_update">
 
-    id : <span th:text="${pet.memId}"></span>
-        <input type="hidden" name="id" th:value="${pet.memId}"><br>
+    id  :
+    <span th:text="${pet.memId}"></span>
+    <input type="hidden" name="id" th:value="${pet.memId}"><br>
 
-    name : <span th:text="${pet.petName}"></span>
-        <input type="hidden" name="name" th:value="${pet.petName}"><br>
+    name :
+    <span th:text="${pet.petName}"></span>
+    <input type="hidden" name="name" th:value="${pet.petName}"><br>
 
-    gender <input type="text" name="gender" th:value="${pet.petGender}"><br>
+    gender :
+    <span th:if="${pet.petGender} == '남'">
+        남   <input type="checkbox" name="gender" th:value="남" th:checked="true">
+        여   <input type="checkbox" name="gender" th:value="여" th:checked="false"><br>
+    </span>
+    <span th:if="${pet.petGender} == '여' ">
+        남   <input type="checkbox" name="gender" value="남" th:value="남" th:checked="false">
+        여   <input type="checkbox" name="gender" value="여" th:value="여" th:checked="true"><br>
+    </span>
 
-    introduce <input type="text" name="introduce" th:value="${pet.petIntro}"><br>
+    birth
+    <input type="date" name="birth" th:value="${#temporals.createDate(pet.petBirth, 'yyyy-MM-dd HH:mm:ss')}"> <br>
+
+    introduce
+    <br><textarea name="introduce" th:text="${pet.petIntro}" th:value="${pet.petIntro}"></textarea><br>
 
 </form>
 <button type="submit" form="pet_update">수정완료</button>

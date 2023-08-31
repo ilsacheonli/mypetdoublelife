@@ -41,6 +41,12 @@ pet 템플릿(임시), controller 수정중
 
 pet 테이블 crud 기능 추가
 
+---
+(2023-08-31)
+
+/mypet \
+pet 테이블 crud 기능 수정 완료
+
 
 
 

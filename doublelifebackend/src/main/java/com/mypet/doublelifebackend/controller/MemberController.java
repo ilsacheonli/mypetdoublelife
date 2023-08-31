@@ -109,7 +109,8 @@ public class MemberController {
                 String.valueOf(paramObj.get("name")),
                 String.valueOf(paramObj.get("id")),
                 String.valueOf(paramObj.get("pwd")),
-                String.valueOf(paramObj.get("email"))
+                String.valueOf(paramObj.get("email")),
+                String.valueOf(paramObj.get("birth"))
                 );
 
         // 새로운 멤버 MemberVO 인자로 멤버 추가 addMember() 함수 호출
@@ -143,7 +144,8 @@ public class MemberController {
                 String.valueOf(paramObj.get("name")),
                 String.valueOf(paramObj.get("id")),
                 String.valueOf(paramObj.get("pwd")),
-                String.valueOf(paramObj.get("email"))
+                String.valueOf(paramObj.get("email")),
+                String.valueOf(paramObj.get("birth"))
         );
 
 

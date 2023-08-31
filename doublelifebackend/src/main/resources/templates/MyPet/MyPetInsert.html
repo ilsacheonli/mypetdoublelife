@@ -7,10 +7,12 @@
 <body>
 <h3>PetInsert</h3>
 <form method="post" action="/addpet" id="petInsert">
-    id(hidden) <input type="hidden" name="id" th:value="${member.memId}"> <br>
-    name <input type="text" name="name"> <br>
-    gender <input type="text" name="gender"> <br>
-    introduce <textarea name="introduce" ></textarea> <br>
+    id(hidden)  <input type="hidden" name="id" th:value="${member.memId}"> <br>
+    name    :   <input type="text" name="name"> <br>
+    gender  : 남<input type="checkbox" name="gender" value="남">
+              여<input type="checkbox" name="gender" value="여"> <br>
+    birth   :   <input type="date" name="birth"> <br>
+    introduce   <br><textarea name="introduce" ></textarea><br>
 
 </form>
 <button type="submit" form="petInsert">펫 추가하기</button>

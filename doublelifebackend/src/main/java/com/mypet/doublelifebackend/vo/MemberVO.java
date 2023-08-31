@@ -16,13 +16,13 @@ public class MemberVO {
 
     }
 
-    public MemberVO(int memNumber, String memName, String memId, String memPwd, String memEmail/*, String memBirth*/){
+    public MemberVO(int memNumber, String memName, String memId, String memPwd, String memEmail, String memBirth){
         this.memNumber = memNumber;
         this.memName = memName;
         this.memId = memId;
         this.memPwd = memPwd;
         this.memEmail = memEmail;
-        //this.memBirth = memBirth;
+        this.memBirth = memBirth;
     }
 
 

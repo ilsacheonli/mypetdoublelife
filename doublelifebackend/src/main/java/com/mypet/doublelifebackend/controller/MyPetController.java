@@ -91,6 +91,7 @@ public class MyPetController {
                 String.valueOf(paramObj.get("id")),
                 String.valueOf(paramObj.get("name")),
                 String.valueOf(paramObj.get("gender")),
+                String.valueOf(paramObj.get("birth")),
                 String.valueOf(paramObj.get("introduce"))
                 );
 
@@ -108,7 +109,9 @@ public class MyPetController {
                 String.valueOf(paramObj.get("id")),
                 String.valueOf(paramObj.get("name")),
                 String.valueOf(paramObj.get("gender")),
+                String.valueOf(paramObj.get("birth")),
                 String.valueOf(paramObj.get("introduce"))
+
         );
 
         myPetService.editMyPet(update_myPet);

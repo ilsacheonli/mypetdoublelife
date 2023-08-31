@@ -7,16 +7,17 @@
 </head>
 <body>
 <h3>MyPet</h3>
+<input type="button" value="마이페이지" onClick=" location.href='/mypage' "/>
 <input type="button" value="펫 추가하기" onClick=" location.href='/mypet/insert' "><br/>
 
 <div th:each="pet, idx : ${petList}">
-    <h4>pet <span th:text="${idx.count}"></span></h4>
+    <h4>pet   <span th:text="${idx.count}"></span></h4>
 
-    memId : <span th:text="${pet.memId}"/><br/>
-    name : <span th:text="${pet.petName}"/><br/>
-    gender : <span th:text="${pet.petGender}"/><br/>
-    birth : <span th:text="${pet?.petBirth}"/><br/>
-    intro : <span th:text="${pet.petIntro}"/><br/>
+    memId   : <span th:text="${pet.memId}"/><br/>
+    name    : <span th:text="${pet.petName}"/><br/>
+    gender  : <span th:text="${pet.petGender}"/><br/>
+    birth   : <span th:text="${#temporals.createDate(pet.petBirth, 'yyyy-MM-dd HH:mm:ss')}"/><br/>
+    intro   : <span th:text="${pet.petIntro}"/><br/>
 
     <form method="POST" action="/mypet/update" >
         <input type="hidden" name="id" th:value="${pet.memId}" >
@@ -30,7 +31,6 @@
         <button type="submit">펫 삭제하기</button>
     </form>
 
-</div><br/>
-
+</div>
 </body>
 </html>
