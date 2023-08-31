@@ -52,7 +52,7 @@ public class MemberController {
         model.addAttribute("member",memberObject);
 
         return "MyPage/MyPage";
-        // resources/templates/MyPet.html
+        // resources/templates/MyPage.html
     }
 
     // 회원 정보 수정 페이지
@@ -70,7 +70,7 @@ public class MemberController {
         model.addAttribute("member",memberObject);
 
         return "MyPage/MyPageUpdate";
-        // resources/templates/MyPetUpdate.html
+        // resources/templates/MyPageUpdate.html
     }
 
 
