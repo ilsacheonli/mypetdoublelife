@@ -8,11 +8,17 @@ export const Contents = styled.div`
   margin-top: 0;
 `
 
+export const TabContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 export const TabMenu = styled.ul`
   background-color: white;
   color: #3f3f3f;
   font-weight: bold;
   display: flex;
+  width: 80%;
   flex-direction: row;
   align-items: center;
   list-style: none;

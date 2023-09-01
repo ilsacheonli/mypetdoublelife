@@ -8,11 +8,17 @@ export const Contents = styled.div`
   margin-top: 0;
 `
 
+export const TabContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 export const TabMenu = styled.ul`
   background-color: white;
   color: #3f3f3f;
   font-weight: bold;
   display: flex;
+  width: 80%;
   flex-direction: row;
   align-items: center;
   list-style: none;
@@ -40,8 +46,10 @@ export const TabMenu = styled.ul`
 
   .focused {
     //선택된 Tabmenu 에만 적용되는 CSS를 구현
-    color: #3b4b9b;
+    text-emphasis-color: #3b4b9b !important;
+    color: #3b4b9b !important;
     border-bottom: 3px solid #3b4b9b;
+    text-decoration: none;
   }
 
   & div.desc {
@@ -66,7 +74,7 @@ export const SearchIcon = styled.img`
 
 export const SearchBar = styled.div`
   width: auto;
-  margin: 0 auto 60px auto;
+  margin: 0 auto 40px auto;
   border-bottom: 2px solid #3b4b9b;
   max-width: 600px;
 `
