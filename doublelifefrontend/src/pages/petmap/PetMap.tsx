@@ -23,7 +23,7 @@ function PetMap () {
           <TabContainer>
           <TabMenu>
             {menuArr.map((el,index) => (
-                <li className={index === currentTab ? "submenu focused" : "submenu" }
+                <li key={el.name} className={index === currentTab ? "submenu focused" : "submenu" }
                 onClick={() => selectMenuHandler(index)}>
                   <Link to={`/petmap/${menuArr[currentTab].content}`}
                   >

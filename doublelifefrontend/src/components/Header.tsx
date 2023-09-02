@@ -19,7 +19,7 @@ function Header() {
           </a>
           <Links>
             {LinkItems.map((item, index) => (
-              <li value={index}>
+              <li key={item.url} value={index}>
                 <a className={(index === btnActive ? "link active" : "link")} href={item.url}
                 onClick={() => toggleActive(index)}>
                   {item.title}
