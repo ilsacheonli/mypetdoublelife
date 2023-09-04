@@ -62,9 +62,17 @@
 
     <!--  현재 페이지의 게시글 리스트 반환  -->
     <select id="listPage" parameterType="hashMap" resultType="com.mypet.doublelifebackend.vo.BoardVO">
-        SELECT bno, title, writer, reg_date, view_cnt, category FROM BOARD
-        WHERE CATEGORY = #{category} and bno between #{firstPost} and #{lastPost}
-        ORDER BY BNO DESC
+        select * from
+            (select row_number() over(order by bno) as bno
+                ,title
+                ,writer
+                ,reg_date
+                ,view_cnt
+                ,category
+            from board
+            WHERE category = #{category})
+        where bno between #{firstPost} and #{lastPost}
+        order by bno desc
     </select>
 
     <!--  작성될 글 번호를 반환 -->
@@ -73,7 +81,15 @@
     </select>
 
     <!--  좋아요 수 증가  -->
-    <update id="updateLike" parameterType="int">
-        update board set hit_cnt=hit_cnt+1 where id=#{id}
+    <update id="updateLike" parameterType="hashMap">
+        update board set hit_cnt=hit_cnt+1 where category=#{category} and bno=#{bno}
+    </update>
+
+    <!--  글 삭제 후 글 번호 조정  -->
+    <update id="updateBno" parameterType="hashMap">
+        update board
+        set bno=bno-1
+        where category=#{category} and
+            bno between #{nextPostNum} and #{lastPostNum}
     </update>
 </mapper>

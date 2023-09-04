@@ -18,5 +18,6 @@ public interface BoardRepository {
     int countList(String category);
     List<BoardVO> listPage(String category, int firstPost, int lastPost);
     int getQnaBno();
-    void updateLike(int id);
+    void updateLike(String category, int bno);
+    void updateBno(String category, int nextPostNum, int lastPostNum);
 }

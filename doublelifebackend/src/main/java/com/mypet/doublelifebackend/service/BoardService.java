@@ -66,9 +66,12 @@ public class BoardService {
     public int getQnaBno() { return boardRepository.getQnaBno(); }
 
     // 좋아요 수 증가시키는 메서드
-    public void updateLike(int id) {
-        boardRepository.updateLike(id);
+    public void updateLike(String category, int bno) {
+        boardRepository.updateLike(category, bno);
     }
 
-
+    //글 번호 조정하는 메서드
+    public void updateBno(String category, int nextPostNum, int lastPostNum) {
+        boardRepository.updateBno(category,nextPostNum,lastPostNum);
+    }
 }

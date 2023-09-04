@@ -27,3 +27,8 @@ PetMunity
 (http://localhost:8080/petmunity/qna?1 -> http://localhost:8080/petmunity/qna/1)
 
 ---
+### (23-09-05)
+### 추가 사항
+- 좋아요 버튼 추가
+### 변경 사항
+- 글 삭제 후 목록 페이지에서 글번호가 이어지도록 변경

@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +73,10 @@ public class BoardController {
 
         // 현재 페이지의 게시글 목록을 리스트에 추가
         List<BoardVO> list = null;
+        System.out.println("category = " + category);
+        System.out.println("firstPost = " + firstPost);
+        System.out.println("lastPost = " + lastPost);
+
         list = service.listPage(category, firstPost, lastPost);
 
         model.addAttribute("list", list);
@@ -151,23 +154,23 @@ public class BoardController {
 
         service.modify(boardVO);
 
-        return "redirect:/petmunity/"+boardVO.getCategory() +"/view/"+ boardVO.getBno();
+        return "redirect:/petmunity/"+ category +"/view/"+ num;
     }
 
     // 게시물 삭제
     @GetMapping("petmunity/{category}/delete/{num}")
-    public String delete(@PathVariable("category") String category, @PathVariable("num") int bno, HttpServletRequest request) { // num은 게시글 번호
-
+    public String delete(@PathVariable("category") String category, @PathVariable("num") int bno) { // num은 게시글 번호
+        // 해당 게시글 삭제
         service.delete(category, bno);
 
         return "redirect:/petmunity/" + category + "/1";
     }
 
     // 좋아요 수 증가
-    @PostMapping("/petmunity/{id}/updateLike")
-    public String updateLike(@PathVariable("id") int id, HttpServletRequest request) {
+    @GetMapping("/petmunity/{category}/updateLike/{num}")
+    public String updateLike(@PathVariable("category") String category, @PathVariable("num") int bno) { // num은 게시글 번호
 
-        service.updateLike(id);
-        return "redirect:" + request.getHeader("Referer");
+        service.updateLike(category, bno);
+        return "redirect:/petmunity/" + category + "/view/" + bno;
     }
 }

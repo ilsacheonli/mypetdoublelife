@@ -8,7 +8,6 @@
 <body>
 <form name="writeForm" method="get">
     <div>
-        <h3>전체번호</h3> <p th:text="${board.id}"></p>
         <h3>번호</h3> <p th:text="${board.bno}"></p>
         <h3>게시판 분류</h3> <p th:text="${board.category}"></p>
         <h3>제목</h3> <p th:text="${board.title}"></p>
@@ -16,9 +15,7 @@
         <h3>내용</h3> <p th:text="${board.content}"></p>
         <h3>조회수</h3> <p th:text="${board.viewCnt}"></p>
         <h3>댓글수</h3> <p th:text="${board.commentCnt}"></p>
-        <form th:action="@{/petmunity/{id}(id=${board.id})/updateLike}" method="post">
-            <h3>좋아요</h3> <button type="submit">👍</button><p th:text="${board.hitCnt}"></p>
-        </form>
+        <h3>좋아요</h3> <a th:href="@{'/petmunity/' + ${board.category} + '/updateLike/' + ${board.bno}}">👍</a> <p th:text="${board.hitCnt}"></p>
         <h3>등록일</h3> <p th:text="${#dates.format(board.regDate, 'yyyy/MM/dd')}"></p>
         <h3>수정일</h3> <p th:text="${board.updatedDate}"></p>
     </div>
@@ -30,8 +27,8 @@
 <!--            </li>-->
 <!--        </ul>-->
 <!--    </div>-->
-    <a th:text="수정" th:href="@{/petmunity/qna/modify/{bno}(bno=${board.bno})}"></a>
-    <a th:text="삭제" th:href="@{/petmunity/qna/delete/{bno}(bno=${board.bno})}"></a>
+    <a th:text="수정" th:href="@{'/petmunity/' + ${board.category} + '/modify/' +${board.bno}}"></a>
+    <a th:text="삭제" th:href="@{'/petmunity/' + ${board.category} + '/delete/' +${board.bno}}"></a>
 </form>
 </body>
 </html>
