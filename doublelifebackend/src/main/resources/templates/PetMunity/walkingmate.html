@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>list</title>
+    <script>
+        window.onpageshow = function (event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        };
+    </script>
 </head>
 <body>
 <h2>산책 메이트 게시판</h2>
@@ -16,12 +23,33 @@
     </tr>
     <tr th:each="board: ${list}">
         <td th:text="${board.bno}"></td>
-        <td><a th:text="${board.title}" th:href="@{/board/view(bno=${board.bno})}"></a></td>
+        <td><a th:text="${board.title}" th:href="@{/petmunity/walkingmate/view/{num}(num=${board.bno})}"></a></td>
         <td th:text="${board.writer}"></td>
         <td th:text="${#dates.format(board.regDate, 'yyyy/MM/dd')}"></td>
         <td th:text="${board.viewCnt}"></td>
     </tr>
 </table>
+<br>
+
+<th:block th:if="${prev}">
+    <a th:href="@{/petmunity/walkingmate/{num}(num=${num}-1)}" style="text-decoration-line:none; color:#000000;">이전</a>
+</th:block>
+
+<th:block th:each="page: ${pagesList}">
+    <th:block th:if="${num} != ${page}">
+        <a th:text="${page}" th:href="@{/petmunity/walkingmate/{num}(num = ${page})}" style="text-decoration-line:none; color:#000000;"></a>
+    </th:block>
+    <th:block th:if="${num} == ${page}">
+        <b><a th:text="${page}" th:href="@{/petmunity/walkingmate/{num}(num = ${page})}" style="font-weight: bold; text-decoration-line:none; color:#000000;"></a></b>
+    </th:block>
+</th:block>
+
+<th:block th:if="${next}">
+    <a th:href="@{/petmunity/walkingmate/{num}(num=${num}+1)}" style="text-decoration-line:none; color:#000000;">다음</a>
+</th:block>
+
+<br><br>
+
 <button type="button" onclick="location.href='/petmunity/walkingmate/writePage'">글 작성</button>
 </body>
 </html>

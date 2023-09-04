@@ -8,13 +8,17 @@
 <body>
 <form method="post">
     <div>
-        <div>
+        <div style="display: none";>
             게시판 분류 : <input th:value="${board.category}" type="text" name="category">
         </div>
         <div>
+            게시글 번호: <input th:value="${board.bno}" type="text" name="bno">
+        </div>
+
+        <div>
             제목: <input th:value="${board.title}" type="text" name="title">
         </div>
-        <div>
+        <div style="display: none";>
             작성자: <input th:value="${board.writer}" type="text" name="writer">
         </div>
         <div>
