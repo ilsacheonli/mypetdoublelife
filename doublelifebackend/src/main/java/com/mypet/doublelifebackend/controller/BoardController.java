@@ -5,13 +5,17 @@ import com.mypet.doublelifebackend.vo.BoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class BoardController {
 
     @Autowired
@@ -26,14 +30,14 @@ public class BoardController {
 
     // qna 게시판 목록 페이지로 이동
     @GetMapping("petmunity/qna")
-    public String listQna(String category, Model model) {
+    public List<BoardVO> listQna() {
 
-        category = "QNA";
+        String category = "qna";
         List<BoardVO> list = null;
         list = service.list(category);
-        model.addAttribute("list", list);
+//        model.addAttribute("list", list);
 
-        return "PetMunity/qna";
+        return list;
     }
 
     // 중고거래 게시판 목록 페이지로 이동
@@ -94,13 +98,12 @@ public class BoardController {
     }
 
     // 게시물 상세 조회
-    @GetMapping("/board/view")
-    public String read(@RequestParam("bno") int bno, Model model) {
+    @GetMapping("/board/view/{id}")
+    public BoardVO read(@PathVariable("id") int id) {
 
-        BoardVO boardVO = service.selectOne(bno);
-        model.addAttribute("board", boardVO);
+        //        model.addAttribute("board", boardVO);
 
-        return "PetMunity/view";
+        return service.selectOne(id);
     }
 
     // 수정 화면으로 이동
