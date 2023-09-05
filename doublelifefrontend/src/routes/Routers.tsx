@@ -5,6 +5,7 @@ import Login from '../pages/login/Login';
 
 import MyPet from '../pages/mypet/MyPet';
 import MyPetFeed from '../pages/mypet/MyPetFeed';
+import MyPetFeedWrite from '../pages/mypet/MyPetFeedWrite';
 import MyPetMemo from '../pages/mypet/MyPetMemo';
 
 import PetMapHospital from 'pages/petmap/PetMapHospital';
@@ -27,31 +28,32 @@ import Petmunity from 'pages/petmunity/Petmunity';
 import PetMap from 'pages/petmap/PetMap';
 
 export const Routers = () => {
-    return (
-        <Router>
-            <Routes>
-                <Route path='/' element={ <AboutUs /> }/>
-                <Route path='/login' element={ <Login/> }/>
-                <Route path='/mypet' element={ <MyPet/> }/>
-                <Route path='/mypetfeed' element={ <MyPetFeed/> }/>
-                <Route path='/mypetmemo' element={ <MyPetMemo/> }/>
-                <Route path='/petmap' element={ <PetMap/> }>
-                    <Route path='hospital' element={ <PetMapHospital/> }/>
-                    <Route path='salon' element={ <PetMapSalon/> }/>
-                </Route>
-                <Route path='/petmunity' element={ <Petmunity/> }>
-                    <Route path='detail' element={ <PetmunityDetail/> }></Route>
-                    <Route path='qna' element={ <PetmunityQna/> }></Route>
-                    <Route path='trade' element={ <PetmunityTrade/> }></Route>
-                    <Route path='walkingmate' element={ <PetmunityWalkingMate/> }></Route>
-                    <Route path='writepage' element={ <PetmunityWritePage/> }></Route>
-                </Route>
-                <Route path='/petstival' element={ <Petstival/> }/>
-                <Route path='/petstivaldetail' element={ <PetstivalDetail/> }/>
-                <Route path='/signup' element={ <Signup/> }/>
-                <Route path='/signupfinish' element={ <SignupFinish/> }/>
-                <Route path='/userpage' element={ <UserPage/> }/>
-            </Routes>
-        </Router>
-    );
+	return (
+		<Router>
+			<Routes>
+				<Route path='/' element={<AboutUs />} />
+				<Route path='/login' element={<Login />} />
+				<Route path='/mypet' element={<MyPet />} />
+				<Route path='/mypetfeed' element={<MyPetFeed />} />
+				<Route path='/mypetfeedwrite' element={<MyPetFeedWrite />} />
+				<Route path='/mypetmemo' element={<MyPetMemo />} />
+				<Route path='/petmap' element={<PetMap />}>
+					<Route path='hospital' element={<PetMapHospital />} />
+					<Route path='salon' element={<PetMapSalon />} />
+				</Route>
+				<Route path='/petmunity' element={<Petmunity />}>
+					<Route path='detail' element={<PetmunityDetail />}></Route>
+					<Route path='qna' element={<PetmunityQna />}></Route>
+					<Route path='trade' element={<PetmunityTrade />}></Route>
+					<Route path='walkingmate' element={<PetmunityWalkingMate />}></Route>
+					<Route path='writepage' element={<PetmunityWritePage />}></Route>
+				</Route>
+				<Route path='/petstival' element={<Petstival />} />
+				<Route path='/petstivaldetail' element={<PetstivalDetail />} />
+				<Route path='/signup' element={<Signup />} />
+				<Route path='/signupfinish' element={<SignupFinish />} />
+				<Route path='/userpage' element={<UserPage />} />
+			</Routes>
+		</Router>
+	);
 }

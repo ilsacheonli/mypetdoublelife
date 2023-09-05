@@ -2,6 +2,19 @@
   margin:0;
   padding:0;
 }
+
+:root .selected-date {
+  /*--fc-border-color: black;
+  --fc-daygrid-event-dot-width: 5px; */
+	background-color: #DAEBFD;
+	font-weight: bold;
+}
+
+.fc a {
+  text-decoration: none;
+	color: #063160;
+}
+
 /* .App {
   text-align: center;
 }

@@ -1,38 +1,63 @@
 import React, { useState } from 'react';
+import MyPetCalendar from './MyPetCalendar';
+import MyPetInput from './MyPetInput';
+import MyPetItem from './MyPetItem';
 
-interface Memo {
+import { Mypetrecordbox, Mypetrecordmemo, Mypetrecordmemo1 } from './mypet.style'
+
+interface Item {
 	id: number;
-	content: string;
+	text: string;
 }
 
 function MyPetMemo() {
-	const [memo, setMemo] = useState<Memo[]>([]);
-	const [currentMemo, setCurrentMemo] = useState<Memo | null>(null);
+	const [selectedDateId, setSelectedDateId] = useState<number | null>(null);
+	const [items, setItems] = useState<Item[]>([]);
+	const [inputValue, setInputValue] = useState<string>('');
 
-	function addMomo(content: string) {
-		const newMemo: Memo = {
-			id: Date.now(),
-			content: content,
-		};
-		setMemo([...memo, newMemo]);
-	}
+	const handleAddItem = () => {
+		if (selectedDateId !== null) {
+			const newItem: Item = {
+				id: selectedDateId,
+				text: inputValue,
+			};
+			setItems(prevItems => [...prevItems, newItem]);
+		}
+	};
 
-	function deleteMemo(id: number) {
-		const updatedMemo = memo.filter(memo => memo.id !== id);
-		setMemo(updatedMemo);
-		setCurrentMemo(null);
-	}
+	const handleDeleteItem = (id: number) => {
+		const updatedItems = items.filter(item => item.id !== id);
+		setItems(updatedItems);
+	};
+
+
+	const handleDateClick = (date: Date, id: number) => {
+		setSelectedDateId(id); // 선택한 날짜의 ID를 저장
+		console.log(id)
+	};
 
 	return (
 		<div>
-			<textarea 
-				value={currentMemo?.content || ''}
-				onChange={function(e) {
-					setCurrentMemo({ id: currentMemo?.id || 0, content: e.target.value});
-				}}
-			/>
+			<Mypetrecordbox>
+				<MyPetCalendar onDateClick={handleDateClick} />
+				<Mypetrecordmemo>
+					<Mypetrecordmemo1>
+						<MyPetInput
+							inputValue={inputValue}
+							onInputChange={setInputValue}
+							onAddItem={handleAddItem}
+						/>
+						{selectedDateId !== null && (
+							<MyPetItem
+								items={items.filter(item => item.id === selectedDateId)}
+								onDeleteItem={handleDeleteItem}
+							/>
+						)}
+					</Mypetrecordmemo1>
+				</Mypetrecordmemo>
+			</Mypetrecordbox>
 		</div>
-	);
+	)
 }
 
-export default MyPetMemo;
+export default MyPetMemo

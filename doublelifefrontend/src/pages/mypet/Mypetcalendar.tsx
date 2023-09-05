@@ -1,49 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from "@fullcalendar/interaction"
-import Mypetlist from './Mypetlist'
-import Mypetlistcreate from './Mypetlistcreate'
-import { MypetfullCalendar, Mypetrecordbox, Mypetrecordmemo, Mypetrecordmemo1, Mypetrecordmemo2 } from './mypet.style'
-import styled from 'styled-components';
+import interactionPlugin from '@fullcalendar/interaction';
+import { MypetfullCalendar, Mypetrecordbox } from './mypet.style';
 
-const StyledFullCalendar = styled(FullCalendar)`
-  td .selected-cell {
-    background-color: rgba(255,220,40,.15);
-		::active {
-		background-color: rgba(255,220,40,.15);
-	}
-  }
-`;
-
-interface Event {
-  title: string;
+interface CalendarProps {
+	onDateClick: (date: Date, id: number) => void;
 }
 
-function Mypetcalendar() {
-	const [events, setEvents] = useState<Event[]>([]);
-	const [inputValueArray, setInputValue] = useState('');
-	const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+function MyPetCalendar({ onDateClick }: CalendarProps) {
+	const [selectedDate, setSelectedDate] = useState<Date | null>(null); // 선택된 날짜 상태 추가
 
-	const handlerDateClick = (arg: any) => {
-		setSelectedDate(arg.date);
+	const generateDateId = (date: Date): number => {
+		return date.getTime();
 	};
 
-	const handleAddEvent = (event: Event) => {
-		setEvents([...events, event]);
+	const handleDateClick = (arg: any) => {
+		const dateId = generateDateId(arg.date); // 날짜에 대한 ID 생성
+		onDateClick(arg.date, dateId); // 새로운 시그니처에 날짜와 ID 전달
+		setSelectedDate(arg.date); // 클릭한 날짜를 선택된 날짜 상태에 저장
 	};
 
-	const eventArray = events.map((event) => ({
-		title: event.title,
-	}));
-
-	const handlerAddEvent = (event: Event) => {
-		console.log('추가')
-	};
-
-	const customDayCellClassNames = (arg: any) => {
-		if (selectedDate && arg.date.getDate() === selectedDate.getDate()) {
-			return 'selected-cell';
+	const dateCellClassNames = (arg: any) => {
+		if (selectedDate && arg.date.getTime() === selectedDate.getTime()) {
+			return 'selected-date';
 		}
 		return '';
 	};
@@ -51,38 +31,26 @@ function Mypetcalendar() {
 	return (
 		<Mypetrecordbox>
 			<MypetfullCalendar>
-				<StyledFullCalendar
+				<FullCalendar
 					plugins={[dayGridPlugin, interactionPlugin]}
 					initialView="dayGridMonth"
 					dayMaxEvents={true}
 					editable={true}
 					expandRows={true}
-					locale='ko'
+					locale="ko"
 					height={550}
-					events={eventArray}
-					eventClick={handlerDateClick}
-					dateClick={handlerDateClick}
-					dayCellClassNames={customDayCellClassNames}
+					weekends={true}
+					dateClick={handleDateClick} // 업데이트된 핸들러 사용
+					dayCellClassNames={dateCellClassNames} // 선택된 날짜의 클래스 적용
 					headerToolbar={{
-						left: "prev",
-						center: "title",
-						right: "next"
+						left: 'prev',
+						center: 'title',
+						right: 'next',
 					}}
 				/>
 			</MypetfullCalendar>
-			<Mypetrecordmemo>
-
-				<Mypetrecordmemo1>
-					<Mypetlistcreate onAddEvent={handlerAddEvent} setInputValue={setInputValue} />
-					{selectedDate && (<Mypetlist />)}
-				</Mypetrecordmemo1>
-
-				<Mypetrecordmemo2>
-
-				</Mypetrecordmemo2>
-			</Mypetrecordmemo>
 		</Mypetrecordbox>
 	);
 }
 
-export default Mypetcalendar
+export default MyPetCalendar;

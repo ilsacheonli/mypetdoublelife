@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import MyPetFeed from './MyPetFeed'
-import Mypetcalendar from 'pages/mypet/Mypetcalendar'
-import { Mypetrecordbox, Tebbutton, Tebdiv } from './mypet.style'
+import MyPetMemo from './MyPetMemo'
+
+import { Tebbutton, Tebdiv } from './mypet.style'
 
 interface Tab {
 	id: number;
@@ -20,12 +21,12 @@ const tabsData: Tab[] = [
 		id: 2,
 		title: '관리기록',
 		content: (
-			<Mypetcalendar key={1} />
+			<MyPetMemo key={1} />
 		),
 	}
 ];
 
-function TabMenu() {
+function MyPetTeb() {
 	const [activeTab, setActiveTab] = useState<number>(tabsData[0].id);
 
 	const handleTabClick = (tabId: number) => {
@@ -59,4 +60,4 @@ function TabMenu() {
 	);
 }
 
-export default TabMenu;
+export default MyPetTeb;

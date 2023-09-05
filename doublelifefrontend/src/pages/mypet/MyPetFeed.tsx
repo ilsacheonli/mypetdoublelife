@@ -1,129 +1,33 @@
 import React from 'react';
-import { GridBox, FlexBox, ImgBox, Img, H3, NameBox, UserName, Like } from './mypet.style'
+import { Mypetfeedmain, GridBox, FlexBox, ImgBox, Img, H5, NameBox, UserName, Like, Writea } from './mypet.style';
+import { RiHeart3Fill, RiPencilLine } from 'react-icons/ri';
+import { Link } from "react-router-dom";
+import MyPetFeedData from './MyPetFeedData'; // feedData.js 파일에서 데이터 가져오기
 
 function MyPetFeed() {
 
 	return (
 		<>
-		<FlexBox>
-
-			<GridBox>
-				<ImgBox>
-					<Img src="" alt="" />
-					<H3>게시글이름</H3>
-				</ImgBox>
-				<NameBox>
-					<UserName>이름</UserName>
-					<Like>조아요</Like>
-				</NameBox>
-			</GridBox>
-
-			<GridBox>
-				<ImgBox>
-					<Img src="" alt="" />
-					<H3>게시글이름</H3>
-				</ImgBox>
-				<NameBox>
-					<UserName>이름</UserName>
-					<Like>조아요</Like>
-				</NameBox>
-			</GridBox>
-
-			<GridBox>
-				<ImgBox>
-					<Img src="" alt="" />
-					<H3>게시글이름</H3>
-				</ImgBox>
-				<NameBox>
-					<UserName>이름</UserName>
-					<Like>조아요</Like>
-				</NameBox>
-			</GridBox>
-
-			<GridBox>
-				<ImgBox>
-					<Img src="" alt="" />
-					<H3>게시글이름</H3>
-				</ImgBox>
-				<NameBox>
-					<UserName>이름</UserName>
-					<Like>조아요</Like>
-				</NameBox>
-			</GridBox>
-
-			<GridBox>
-				<ImgBox>
-					<Img src="" alt="" />
-					<H3>게시글이름</H3>
-				</ImgBox>
-				<NameBox>
-					<UserName>이름</UserName>
-					<Like>조아요</Like>
-				</NameBox>
-			</GridBox>
-
-		</FlexBox>
-
-		<FlexBox>
-
-		<GridBox>
-			<ImgBox>
-				<Img src="" alt="" />
-				<H3>게시글이름</H3>
-			</ImgBox>
-			<NameBox>
-				<UserName>이름</UserName>
-				<Like>조아요</Like>
-			</NameBox>
-		</GridBox>
-
-		<GridBox>
-			<ImgBox>
-				<Img src="" alt="" />
-				<H3>게시글이름</H3>
-			</ImgBox>
-			<NameBox>
-				<UserName>이름</UserName>
-				<Like>조아요</Like>
-			</NameBox>
-		</GridBox>
-
-		<GridBox>
-			<ImgBox>
-				<Img src="" alt="" />
-				<H3>게시글이름</H3>
-			</ImgBox>
-			<NameBox>
-				<UserName>이름</UserName>
-				<Like>조아요</Like>
-			</NameBox>
-		</GridBox>
-
-		<GridBox>
-			<ImgBox>
-				<Img src="" alt="" />
-				<H3>게시글이름</H3>
-			</ImgBox>
-			<NameBox>
-				<UserName>이름</UserName>
-				<Like>조아요</Like>
-			</NameBox>
-		</GridBox>
-
-		<GridBox>
-			<ImgBox>
-				<Img src="" alt="" />
-				<H3>게시글이름</H3>
-			</ImgBox>
-			<NameBox>
-				<UserName>이름</UserName>
-				<Like>조아요</Like>
-			</NameBox>
-		</GridBox>
-
-		</FlexBox>
+		<Mypetfeedmain>
+			<FlexBox>
+				{MyPetFeedData.map((item) => (
+					<GridBox key={item.id}>
+						<ImgBox>
+							<Img src={item.imgSrc} /*alt={item.postName}*/ />
+							<H5>{item.postName}</H5>
+							<NameBox>
+								<UserName>{item.userName}</UserName>
+								<RiHeart3Fill />
+								<Like>{item.like}</Like>
+							</NameBox>
+						</ImgBox>
+					</GridBox>
+				))}
+			</FlexBox>
+			<Writea href="/MyPetFeedWrite"><RiPencilLine /></Writea>
+		</Mypetfeedmain>
 		</>
-	)
+	);
 }
 
 export default MyPetFeed;
