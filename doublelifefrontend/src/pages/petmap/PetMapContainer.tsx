@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { PetMapList } from './PetMapList';
 import axios from 'axios';
+import { MapList, PetMapPagination } from './petmap.style';
+import Pagination from 'react-js-pagination';
 
 declare global {
     interface Window {
@@ -10,7 +12,16 @@ declare global {
 
 const PetMapContainer = () => {
     const [petMapList, setPetMapList] = useState<PetMapList[]>([]);
+    const [currentPetMap, setCurrentPetMap] = useState<PetMapList[]>(petMapList);
+    const [page, setPage] = useState<number>(1); // 현재 페이지 번호
 
+    const postPerPage = 5; // 페이지 당 게시글 개수
+  const indexOfLastPost = page * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+
+  const handlePageChange = (page: number) => {
+    setPage(page);
+  };
 
   const getPetMapList = async () => {
     // res는 http response의 header + body를 모두 갖고 있다.
@@ -161,25 +172,57 @@ const PetMapContainer = () => {
 
       }, [])
 
+      useEffect(() => {
+        // getBoardList();
+        setCurrentPetMap(petMapList.slice(indexOfFirstPost, indexOfLastPost));
+      }, [petMapList, indexOfFirstPost, indexOfLastPost, page]);
       
 
     return (
         <>
         <div id="map" style={{ width: "100%",
             height: "500px",
-            border: "1px solid" }} />
-            <div>
-                {petMapList &&
-                petMapList.map((petmaptest) => {
-                    return (
-                        <div key={petmaptest.num}>
-                        <p>name: {petmaptest.name}</p>
-                        <p>tel: {petmaptest.tel}</p>
-                        <p>latitude: {petmaptest.latitude}</p>
+            border: "1px solid",
+            marginBottom: "20px" }} />
+            
+            <MapList>
+                {currentPetMap &&
+                currentPetMap.map((petmaplistdata) => {
+                    return(
+                <ul>
+                    <li>
+                        <div className="txt">
+                            <div className="title" key={petmaplistdata.num}>
+                                {petmaplistdata.name}
+                            </div>
+                            <div className="info">
+                                <ul>
+                                    <li>
+                                        주소: {petmaplistdata.address2}
+                                    </li>
+                                    <li>
+                                        전화번호: {petmaplistdata.tel}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    )
-                })}
-            </div>
+                    </li>
+                </ul>
+                )
+            })}
+            </MapList>
+            <PetMapPagination>
+            <Pagination
+              activePage={page}
+              itemsCountPerPage={postPerPage}
+              totalItemsCount={petMapList.length}
+              pageRangeDisplayed={5}
+              prevPageText={"<"}
+              nextPageText={">"}
+              onChange={handlePageChange}
+            />
+            </PetMapPagination>
+            
             </>
     );
 }

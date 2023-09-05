@@ -8,7 +8,7 @@ export const NavContainer = styled.nav`
   margin-bottom: 0;
   justify-content: center;
   display: flex;
-`; 
+`;
 
 export const Content = styled.div`
   display: flex;
@@ -36,29 +36,29 @@ export const Links = styled.ul`
   font-weight: 400;
   font-size: 12px;
 
-  li {
-    padding: 12px 12px;
-    opacity: 0.8;
+  & ul {
     list-style: none;
-  }
-
-  a {
-    font-family: "Noto Sans KR", "sans-serif";
-    color: #656565;
-    text-decoration: none;
-    &:active {
-      color: #3b4b9b !important;
+    & li {
+      padding: 12px 12px;
+      opacity: 0.8;
+      list-style: none;
+      & a {
+        font-family: "Noto Sans KR", "sans-serif";
+        color: #656565;
+        opacity: 0.8;
+        text-decoration: none;
+        &:hover {
+          opacity: 1;
+          transition: opacity 0.3s;
+        }
+        &:active,
+        &.active {
+          color: #3b4b9b !important;
+          font-weight: 600;
+        }
+      }
     }
-    .link {
-    opacity: 0.8;
-    &:hover {
-      opacity: 1;
-      transition: opacity 0.3s;
-    }
-    
   }
-  }
-  
 `;
 
 export const LinkSign = styled.ul`

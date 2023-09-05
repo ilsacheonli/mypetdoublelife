@@ -1,35 +1,58 @@
 import React, { useEffect, useState } from "react";
-import { Board, BoardList, FloatRight, SearchBar } from "./petmunity.style";
+import {
+  Board,
+  BoardList,
+  BoardPagination,
+  FloatRight,
+  SearchBar,
+} from "./petmunity.style";
 import Dropdown from "./Dropdown";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { BoardListInterface } from "./BoardListInterface";
 import dayjs from "dayjs";
+import Pagination from "react-js-pagination";
 
-function PetmunityQna() {
-  const [boardList, setBoardList] = useState<BoardListInterface[]>([]);
+const PetmunityQna = () => {
+  const [boardList, setBoardList] = useState<BoardListInterface[]>([]); // axios에서 받아온 전체 게시글 데이터
+  const [currentPost, setCurrentPost] =
+    useState<BoardListInterface[]>(boardList); // 페이지네이션을 통해 보여줄 게시글
+  const [page, setPage] = useState<number>(1); // 현재 페이지 번호
 
   const boardLength = boardList.length;
+  const postPerPage = 5; // 페이지 당 게시글 개수
+  const indexOfLastPost = page * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+
+  const handlePageChange = (page: number) => {
+    setPage(page);
+  };
 
   useEffect(() => {
-    // axios.get('/petmunity/qna')
-    //   .then((response) => {
-    //     setBoardList([...response.data])
-    //   })
+    axios
+      .get("/petmunity/qna")
+      .then((response) => {
+        setBoardList([...response.data].reverse());
+      })
 
-    //   .catch(function(error) {
-    //     console.log(error)
-    //   })
-    getBoardList();
-  }, [])
+      .catch(function (error) {
+        console.log(error);
+      });
+    // getBoardList();
+  }, []);
 
   const getBoardList = async () => {
     // res는 http response의 header + body를 모두 갖고 있다.
-    const res  = await axios.get('/petmunity/qna');
+    const res = await axios.get("/petmunity/qna");
     console.log(res.data);
-    setBoardList([...res.data]);
-  }
+    setBoardList([...res.data].reverse());
+  };
+
+  useEffect(() => {
+    // getBoardList();
+    setCurrentPost(boardList.slice(indexOfFirstPost, indexOfLastPost));
+  }, [boardList, indexOfFirstPost, indexOfLastPost, page]);
 
   return (
     <div style={{ display: "inline-block", width: "100%" }}>
@@ -59,23 +82,38 @@ function PetmunityQna() {
             </thead>
 
             <tbody>
-            {boardList &&
-              boardList.map((board, index) => {
-              return (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td className="title"><Link to={`/board/view/${board.bno}`}>{board.title}</Link></td>
-                  <td>{board.writer}</td>
-                  <td>{dayjs(board.regDate).format('YYYY.MM.DD')}</td>
-                  <td>{board.viewCnt}</td>
-                </tr>
-              )
-            })
-          }
+              {currentPost &&
+                currentPost.map((board, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{board.bno}</td>
+                      <td className="title">
+                        <Link to={`/board/view/${board.bno}`}>
+                          {board.title}
+                        </Link>
+                      </td>
+                      <td>{board.writer}</td>
+                      <td>{dayjs(board.regDate).format("YYYY.MM.DD")}</td>
+                      <td>{board.viewCnt}</td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
+          <BoardPagination>
+            <Pagination
+              activePage={page}
+              itemsCountPerPage={postPerPage}
+              totalItemsCount={boardList.length}
+              pageRangeDisplayed={5}
+              prevPageText={"<"}
+              nextPageText={">"}
+              onChange={handlePageChange}
+            />
+          </BoardPagination>
         </BoardList>
       </Board>
+
       <PostBtn>
         <FloatRight>
           <PostWrite>
@@ -93,7 +131,7 @@ function PetmunityQna() {
       </PostBtn>
     </div>
   );
-}
+};
 
 export default PetmunityQna;
 
