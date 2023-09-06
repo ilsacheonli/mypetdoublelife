@@ -5,11 +5,8 @@ import com.mypet.doublelifebackend.service.MyPetService;
 import com.mypet.doublelifebackend.vo.MemberVO;
 import com.mypet.doublelifebackend.vo.MyPetVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
-@Controller
+@RestController
 public class MyPetController {
     @Autowired
     private ImageService imageService;
@@ -26,40 +23,39 @@ public class MyPetController {
 
 
     // pet 페이지
-    @RequestMapping(value = "/mypet", method = RequestMethod.GET)
-    public String mypet(HttpServletRequest request, Model model){
+    @GetMapping("/mypet")
+    public List<MyPetVO> mypet(HttpServletRequest request, Model model){
 
-        HttpSession session = request.getSession();
-        Object memberObject = session.getAttribute("member");
+//        HttpSession session = request.getSession();
+//        Object memberObject = session.getAttribute("member");
+//
+//        if (memberObject == null){
+//            return "redirect:/signin?NotLogin";
+//        }
 
-        if (memberObject == null){
-            return "redirect:/signin?NotLogin";
-        }
+//        MemberVO member = (MemberVO)memberObject;
 
-        MemberVO member = (MemberVO)memberObject;
+       // model.addAttribute("petList",myPetService.getAllMyPets("test"));
 
-        model.addAttribute("petList",myPetService.getAllMyPets(member.getMemId()));
-
-        return "MyPet/MyPet";
-        // resources/templates/MyPet/MyPet.html
+        return myPetService.getAllMyPets("test");
     }
 
     // pet 추가 페이지
-    @RequestMapping(value = "/mypet/insert", method = RequestMethod.GET)
-    public String insert(HttpServletRequest request, Model model){
-
-        HttpSession session = request.getSession();
-        Object memberObject = session.getAttribute("member");
-
-        if (memberObject == null){
-            return "redirect:/signin?NotLogin";
-        }
-
-        model.addAttribute("member",memberObject);
-
-        return "MyPet/MyPetInsert";
-        // resources/templates/MyPet/MyPetInsert.html
-    }
+//    @RequestMapping(value = "/mypet/insert", method = RequestMethod.GET)
+//    public String insert(HttpServletRequest request, Model model){
+//
+//        HttpSession session = request.getSession();
+//        Object memberObject = session.getAttribute("member");
+//
+//        if (memberObject == null){
+//            return "redirect:/signin?NotLogin";
+//        }
+//
+//        model.addAttribute("member",memberObject);
+//
+//        return "MyPet/MyPetInsert";
+//        // resources/templates/MyPet/MyPetInsert.html
+//    }
 
     // pet 정보 수정 페이지
     @RequestMapping(value = "/mypet/update", method = RequestMethod.GET)
@@ -88,17 +84,17 @@ public class MyPetController {
 
 
     // 새로운 pet 추가
-    @RequestMapping(value = "/addpet", method = RequestMethod.POST)
+    @PostMapping("/mypet/insert")
     public String addpet(@RequestParam Map<String, Objects> paramObj,
                          @RequestParam("image") MultipartFile imageFile,
-                         MyPetVO new_myPet, HttpServletRequest request) throws IOException {
+                         MyPetVO new_myPet) throws IOException {
 
         int pet_lastNum = myPetService.getLastPetNumber();
         int insert_img_num = imageService.insertImage(imageFile);
 
 
         new_myPet = new MyPetVO(
-                String.valueOf(paramObj.get("id")),
+                "test",
                 pet_lastNum,
                 String.valueOf(paramObj.get("name")),
                 String.valueOf(paramObj.get("gender")),
@@ -120,10 +116,14 @@ public class MyPetController {
         if(String.valueOf(added_myPet).equals("null")){
 
             imageService.deleteImage(insert_img_num);
-            return "redirect:/mypet?addPetFail";
+            try {
+                throw new Exception("error");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        return "redirect:/mypet?addPetSuccess";
+        return "/mypet";
     }
 
     // pet 정보 수정
