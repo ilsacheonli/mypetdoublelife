@@ -84,7 +84,6 @@ public class MemberController {
     }
 
 
-
     // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestParam("id") String id, @RequestParam("pwd") String pwd,
@@ -223,7 +222,7 @@ public class MemberController {
 
                 myPetService.removeMyPet(map);
 
-                imageService.deleteImage(del_pet.getImgNum());
+                imageService.deleteImage(del_pet.getImgNo());
             }
         }
 

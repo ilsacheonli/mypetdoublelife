@@ -6,7 +6,7 @@
 <mapper namespace="com.mypet.doublelifebackend.repository.MemberRepository">
 
     <resultMap id="memResult" type="memberVO">
-        <result property="memNumber" column="MNO" />
+        <result property="memNumber" column="MNo" />
         <result property="memName" column="NAME" />
         <result property="memId" column="ID" />
         <result property="memPwd" column="PASSWORD" />
@@ -18,7 +18,7 @@
     <select id="selectMemberByNum" parameterType="int" resultMap="memResult">
         SELECT *
         FROM member
-        WHERE MNO = #{memNumber}
+        WHERE MNo = #{memNumber}
     </select>
 
     <!-- id와 pwd가 일치하는 member 출력 -->
@@ -36,14 +36,14 @@
 
     <!-- 새로운 member 추가 -->
     <insert id="insertMember" parameterType="MemberVO" >
-        INSERT INTO member (MNO, NAME, ID, PASSWORD, EMAIL, BIRTH)
+        INSERT INTO member (MNo, NAME, ID, PASSWORD, EMAIL, BIRTH)
         VALUES (#{memNumber}, #{memName}, #{memId}, #{memPwd}, #{memEmail}, #{memBirth})
     </insert>
 
     <!-- member 정보 수정 -->
     <update id="updateMember" parameterType="MemberVO" >
         UPDATE member SET NAME = #{memName}, ID = #{memId}, PASSWORD = #{memPwd}, EMAIL = #{memEmail}, BIRTH = #{memBirth}
-        WHERE MNO = #{memNumber}
+        WHERE MNo = #{memNumber}
     </update>
 
     <!-- member 삭제 -->
@@ -55,7 +55,7 @@
 
     <!-- 마지막 max(m_number) = null 이면 0으로 치환 후 +1 return -->
     <select id="getLastNumber" resultType="int">
-        select NVL(max(MNO),0) +1 from member
+        select NVL(max(MNo),0) +1 from member
     </select>
 
 

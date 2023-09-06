@@ -12,7 +12,7 @@
         <result property="petGender" column="gender" />
         <result property="petBirth" column="birth" />
         <result property="petIntro" column="introduce" />
-        <result property="imgNum" column="img_no" />
+        <result property="imgNo" column="img_no" />
     </resultMap>
 
     <!-- memId와 petName이 일치하는 pet 출력 -->
@@ -33,12 +33,12 @@
     <!-- 새로운 pet 추가 -->
     <insert id="insertMyPet" parameterType="MyPetVO" >
         INSERT INTO pet (mid, pno, name, gender, birth, introduce, img_no)
-        VALUES (#{memId}, #{petNo}, #{petName}, #{petGender}, #{petBirth}, #{petIntro}, #{imgNum})
+        VALUES (#{memId}, #{petNo}, #{petName}, #{petGender}, #{petBirth}, #{petIntro}, #{imgNo})
     </insert>
 
     <!-- pet 정보 수정 -->
     <update id="updateMyPet" parameterType="MyPetVO" >
-        UPDATE pet SET name = #{petName}, gender = #{petGender}, birth = #{petBirth}, introduce = #{petIntro}, img_no = #{imgNum}
+        UPDATE pet SET name = #{petName}, gender = #{petGender}, birth = #{petBirth}, introduce = #{petIntro}, img_no = #{imgNo}
         WHERE mid = #{memId} AND pno = #{petNo}
     </update>
 

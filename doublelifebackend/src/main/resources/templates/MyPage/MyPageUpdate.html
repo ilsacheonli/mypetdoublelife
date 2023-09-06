@@ -8,6 +8,7 @@
 <h3>MyPageUpdate</h3>
 
 <form method="post" action="/updatemember" id="update">
+
     number(hidden)  <input type="hidden" name="number" th:value="${member.memNumber}"><br>
     name            <input type="text" name="name" th:value="${member.memName}"><br>
     id              <input type="text" name="id" th:value="${member.memId}" disabled><br>
@@ -15,6 +16,7 @@
     email           <input type="text" name="email" th:value="${member.memEmail}"><br>
     birth           <input type="date" name="birth"
                            th:value="${#temporals.createDate(member.memBirth, 'yyyy-MM-dd HH:mm:ss')}"> <br>
+
 
 </form>
 <button type="submit" form="update">수정완료</button>
