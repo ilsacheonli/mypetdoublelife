@@ -34,9 +34,6 @@ public class ImageService {
         String absolutePath = new File(imgUploadPath+"/resources/static/images/").getAbsolutePath();
 
 
-        // UUID로 랜덤으로 이름 생성
-        String newImageName = UUID.randomUUID().toString() + ".png";
-
         // 마지막 이미지 번호+1
         int last_img_num = imageRepository.getLastNumber();
 
@@ -51,7 +48,7 @@ public class ImageService {
         imageRepository.imgInsert(imageVO);
 
         // 파일을 전송하기
-        File file = new File(absolutePath + "/" + newImageName);
+        File file = new File(absolutePath + "/" + "default.png");
         if (!file.exists()) {
             file.mkdirs();
         }
