@@ -1,7 +1,10 @@
 package com.mypet.doublelifebackend.controller;
 
+import com.mypet.doublelifebackend.service.ImageService;
 import com.mypet.doublelifebackend.service.MemberService;
+import com.mypet.doublelifebackend.service.MyPetService;
 import com.mypet.doublelifebackend.vo.MemberVO;
+import com.mypet.doublelifebackend.vo.MyPetVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -16,6 +22,10 @@ import java.util.Objects;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private MyPetService myPetService;
+    @Autowired
+    private ImageService imageService;
     @Autowired
     MemberVO memberVO ;
 
@@ -95,6 +105,19 @@ public class MemberController {
         // 마이 페이지로 return
         return "redirect:mypage";
     }
+
+    // 로그아웃
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+        // 마이 페이지로 return
+        return "redirect:signin?logout";
+    }
+
+
 
     // 새로운 멤버 추가
     @RequestMapping(value = "/addmember", method = RequestMethod.POST)
@@ -176,7 +199,7 @@ public class MemberController {
 
     // 멤버 삭제
     @RequestMapping(value = "/removemember", method = RequestMethod.GET)
-    public String removemember(HttpServletRequest request, MemberVO delete_member){
+    public String removemember(HttpServletRequest request) throws IOException {
 
         HttpSession session = request.getSession();
         Object memberObject = session.getAttribute("member");
@@ -186,16 +209,27 @@ public class MemberController {
             return "redirect:/signin?NotLogin";
         }
 
-        delete_member = (MemberVO)memberObject;
 
-        String del_m_id = delete_member.getMemId();
+        MemberVO del_member = (MemberVO)memberObject;
+        String del_m_id = del_member.getMemId();
 
-        memberService.removeAllPet(del_m_id);
+        List<MyPetVO> del_petList = myPetService.getAllMyPets(del_m_id);
+
+        if (del_petList != null){
+            for (MyPetVO del_pet : del_petList){
+                HashMap<String, Object> map = new HashMap<String, Object>();
+                map.put("memId", del_pet.getMemId());
+                map.put("petNo", del_pet.getPetNo());
+
+                myPetService.removeMyPet(map);
+
+                imageService.deleteImage(del_pet.getImgNum());
+            }
+        }
+
         memberService.removeMember(del_m_id);
 
-        request.removeAttribute("member");
-        session.removeAttribute("member");
-
+        session.invalidate();
 
         // 삭제 성공 로그인 페이지로 return
         return "redirect:/signin?deleteSuccess'";

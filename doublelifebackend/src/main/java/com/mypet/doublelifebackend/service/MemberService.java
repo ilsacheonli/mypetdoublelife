@@ -61,7 +61,6 @@ public class MemberService{     // sql문과 연결된 MemberRepository 함수 �
     }
 
 
-    
     public int getLastMemNumber(){
 
         // getLastNumber()함수 호출 후 memNumber return

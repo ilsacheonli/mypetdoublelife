@@ -1,10 +1,12 @@
 package com.mypet.doublelifebackend.service;
 
+import com.mypet.doublelifebackend.repository.ImageRepository;
 import com.mypet.doublelifebackend.repository.MyPetRepository;
 import com.mypet.doublelifebackend.vo.MyPetVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -12,9 +14,9 @@ public class MyPetService {
     @Autowired
     private MyPetRepository myPetRepository;
 
-    public MyPetVO getMyPetByName(String memId, String petName) {
+    public MyPetVO getMyPetByName(HashMap<String, Object> map) {
 
-        return myPetRepository.selectMyPetByName(memId, petName);
+        return myPetRepository.selectMyPetByName(map);
     }
 
 
@@ -35,9 +37,15 @@ public class MyPetService {
         myPetRepository.updateMyPet(mypet);
     }
 
-    public void removeMyPet(String memId, String petName) {
+    public void removeMyPet(HashMap<String, Object> map) {
 
-        myPetRepository.deleteMyPet(memId, petName);
+        myPetRepository.deleteMyPet(map);
+    }
+
+    public int getLastPetNumber(){
+
+        // getLastNumber()함수 호출 후 memNumber return
+        return myPetRepository.getLastNumber();
     }
 
 }

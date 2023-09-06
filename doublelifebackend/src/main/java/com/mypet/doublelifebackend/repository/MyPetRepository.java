@@ -3,12 +3,13 @@ package com.mypet.doublelifebackend.repository;
 import com.mypet.doublelifebackend.vo.MyPetVO;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 
 @Repository
 public interface MyPetRepository {
-    MyPetVO selectMyPetByName(String memId, String petName);
+    MyPetVO selectMyPetByName(HashMap<String, Object> map);
 
     List<MyPetVO> selectAllMyPet(String memId);
 
@@ -16,7 +17,9 @@ public interface MyPetRepository {
 
     void updateMyPet(MyPetVO mypet);
 
-    void deleteMyPet(String memId, String petName);
+    void deleteMyPet(HashMap<String, Object> map);
+
+    int getLastNumber();
 
 
 
