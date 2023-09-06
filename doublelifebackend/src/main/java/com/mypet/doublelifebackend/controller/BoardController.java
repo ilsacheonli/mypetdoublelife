@@ -42,26 +42,26 @@ public class BoardController {
 
     // 중고거래 게시판 목록 페이지로 이동
     @GetMapping("petmunity/trade")
-    public String listTrade(String category, Model model) {
+    public List<BoardVO> listTrade() {
 
-        category = "중고거래";
+        String category = "trade";
         List<BoardVO> list = null;
         list = service.list(category);
-        model.addAttribute("list", list);
+        // model.addAttribute("list", list);
 
-        return "PetMunity/trade";
+        return list;
     }
 
     // 산책메이트 게시판 목록 페이지로 이동
     @GetMapping("petmunity/walkingmate")
-    public String listWalkingmate(String category, Model model) {
+    public List<BoardVO> listWalkingmate() {
 
-        category = "산책메이트";
+        String category = "산책메이트";
         List<BoardVO> list = null;
         list = service.list(category);
-        model.addAttribute("list", list);
+        // model.addAttribute("list", list);
 
-        return "PetMunity/walkingmate";
+        return list;
     }
 
     // qna 게시물 작성 화면으로 이동
