@@ -10,11 +10,11 @@
 <form name="writeForm" method="post" enctype="multipart/form-data">
     <div>
 <!--        <div style="display: none;">-->
-<!--        <div>-->
-<!--            게시글 번호 : <input type="text" th:value="${bno}" name="bno">-->
-<!--        </div>-->
         <div>
-            게시판 분류 : <input type="text" name="category">
+            게시글 번호 : <input type="text" th:value="${bno}" name="bno">
+        </div>
+        <div>
+            게시판 분류 : <input type="text" th:value="${category}" name="category">
         </div>
         <div>
             제목: <input type="text" name="title">
@@ -26,8 +26,8 @@
             내용: <textarea name="content" rows="4" cols="30"></textarea>
         </div>
     </div>
-    <h4>다중 파일 업로드</h4>
-    <input type="file" multiple="multiple" name="files">
+    <h4>파일 업로드</h4>
+    <input type="file" name="files">
     <button type="submit">등록</button>
 </form>
 </body>

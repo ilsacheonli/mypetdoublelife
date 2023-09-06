@@ -75,9 +75,25 @@
         order by bno desc
     </select>
 
-    <!--  작성될 글 번호를 반환 -->
+    <!--  qna 글 작성 시 다음 글 번호를 조회 (조회만 하고 시퀀스 값에 영향 없음) -->
     <select id="getQnaBno" resultType="int">
-        select qna_bno_seq.nextval from dual
+        SELECT LAST_NUMBER
+        FROM USER_SEQUENCES
+        WHERE SEQUENCE_NAME = 'QNA_BNO_SEQ'
+    </select>
+
+    <!--  trade 글 작성 시 다음 글 번호를 조회 -->
+    <select id="getTradeBno" resultType="int">
+        SELECT LAST_NUMBER
+        FROM USER_SEQUENCES
+        WHERE SEQUENCE_NAME = 'TRADE_BNO_SEQ'
+    </select>
+
+    <!--  walkingmate 글 작성 시 다음 글 번호를 조회 -->
+    <select id="getWalkingmateBno" resultType="int">
+        SELECT LAST_NUMBER
+        FROM USER_SEQUENCES
+        WHERE SEQUENCE_NAME = 'WALKINGMATE_BNO_SEQ'
     </select>
 
     <!--  좋아요 수 증가  -->

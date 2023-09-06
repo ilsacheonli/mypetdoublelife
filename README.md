@@ -22,7 +22,7 @@ PetMunity
 - qna, 중고거래, 산책메이트 페이징  
 - 글 작성 시 첨부 파일 추가 (현재는 추가만 가능, 조회 기능 추가할 예정)  
 파일 추가 전에 저장될 경로를 로컬 환경에서 생성해야 합니다. (기본 경로 -> C:\img)
-### 변경 사항
+### 수정 사항
 - REST 방식으로 주소 변경  
 (http://localhost:8080/petmunity/qna?1 -> http://localhost:8080/petmunity/qna/1)
 
@@ -30,5 +30,29 @@ PetMunity
 ### (23-09-05)
 ### 추가 사항
 - 좋아요 버튼 추가
-### 변경 사항
+### 수정 사항
 - 글 삭제 후 목록 페이지에서 글번호가 이어지도록 변경
+---
+### (23-09-06)
+### 추가 사항
+- 게시글 상세 화면 단일 이미지 조회
+- 글 작성, 수정, 삭제 모든 게시판에서 가능
+### 테스트 주소
+펫뮤니티 홈페이지  
+http://localhost:8080/petmunity  
+qna 목록 페이지  
+http://localhost:8080/petmunity/qna/1   
+중고거래 목록 페이지  
+http://localhost:8080/petmunity/trade/1  
+산책메이트 목록 페이지  
+http://localhost:8080/petmunity/walkingmate/1  
+글 상세 보기 페이지  
+http://localhost:8080/petmunity/qna/view/1  
+qna 글작성 페이지  
+http://localhost:8080/petmunity/qna/writePage  
+중고거래 글작성 페이지  
+http://localhost:8080/petmunity/trade/writePage  
+산책메이트 글작성 페이지  
+http://localhost:8080/petmunity/walkingmate/writePage  
+글 수정 페이지  
+http://localhost:8080/petmunity/qna/modify/1 

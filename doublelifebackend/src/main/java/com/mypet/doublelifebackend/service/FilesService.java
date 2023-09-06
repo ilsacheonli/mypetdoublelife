@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.filechooser.FileSystemView;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,10 +17,8 @@ public class FilesService {
     @Autowired
     private FilesRepository filesRepository;
 
-    public void showFile(List<MultipartFile> files) {
-
-    }
-    public void uploadFile(List<MultipartFile> files, int bno) throws IOException {
+    //파일을 업로드 하는 메서드
+    public void uploadFile(List<MultipartFile> files, String category, int bno) throws IOException {
 
         List<FilesVO> filesVOList = new ArrayList<FilesVO>();
 
@@ -56,7 +52,7 @@ public class FilesService {
             System.out.println("fileSize = " + fileSize);
 
             // 파일 VO 생성
-            FilesVO filesVO = new FilesVO(bno, originName, savedName, fileSize, savedPath);
+            FilesVO filesVO = new FilesVO(category, bno, originName, savedName, fileSize, savedPath);
             System.out.println("filesVO = " + filesVO);
 
             // 파일 VO 객체를 리스트에 추가
@@ -70,5 +66,10 @@ public class FilesService {
 
         // 데이터베이스에 파일 정보 저장
         filesRepository.uploadFile(filesVOList);
+    }
+
+    // 파일 경로 반환하는 메서드
+    public List<String> readFilePath(String category, int bno) {
+        return filesRepository.readFilePath(category, bno);
     }
 }

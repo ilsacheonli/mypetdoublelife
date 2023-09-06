@@ -73,9 +73,6 @@ public class BoardController {
 
         // 현재 페이지의 게시글 목록을 리스트에 추가
         List<BoardVO> list = null;
-        System.out.println("category = " + category);
-        System.out.println("firstPost = " + firstPost);
-        System.out.println("lastPost = " + lastPost);
 
         list = service.listPage(category, firstPost, lastPost);
 
@@ -92,7 +89,24 @@ public class BoardController {
 
     // 게시판별 글 작성 화면으로 이동
     @GetMapping("petmunity/{category}/writePage")
-    public String writeQna(@PathVariable("category") String category) {
+    public String writeQna(@PathVariable("category") String category, Model model) {
+
+        int bno = 0;
+
+        // 작성되는 글 번호를 bno에 저장
+        if(category.equals("qna")) {
+            bno = service.getQnaBno();
+        }
+        else if (category.equals("trade")) {
+            bno = service.getTradeBno();
+        }
+        else if (category.equals("walkingmate")) {
+            bno = service.getWalkingmateBno();
+        }
+
+        model.addAttribute("bno", bno);
+        model.addAttribute("category", category);
+
 
         return "PetMunity/write";
     }
@@ -100,6 +114,8 @@ public class BoardController {
     // 게시물 작성 후 등록
     @PostMapping("petmunity/{category}/writePage")
     public String write(@PathVariable("category") String category, List<MultipartFile> files, BoardVO boardVO) throws IOException {
+
+        // 게시글을 db에 저장
         if(category.equals("qna")) {
             service.writeQna(boardVO);
         }
@@ -110,8 +126,8 @@ public class BoardController {
             service.writeWalkingmate(boardVO);
         }
 
-        // 게시글 번호를 변수에 저장, 글 번호 임시
-        int bno = 2;
+        // 게시글 번호
+        int bno = boardVO.getBno();
 
         // 리스트의 첫번째 파일을 변수에 저장
         MultipartFile firstFile = files.get(0);
@@ -119,7 +135,7 @@ public class BoardController {
         // 첫번째 파일이 있으면
         if(!firstFile.isEmpty()){
             //파일과 파일 정보를 db에 저장하는 메서드 실행
-            filesService.uploadFile(files, bno);
+            filesService.uploadFile(files, category, bno);
         }
 
         return "redirect:/petmunity/"+ boardVO.getCategory() + "/1";
@@ -131,6 +147,7 @@ public class BoardController {
 
         service.boardViewCnt(category,num);
         BoardVO boardVO = service.selectOne(category, num);
+
         model.addAttribute("board", boardVO);
         model.addAttribute("category", category);
 

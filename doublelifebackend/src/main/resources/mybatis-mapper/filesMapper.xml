@@ -17,8 +17,15 @@
         </selectKey>
         <foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL"
                  separator=" ">
-            INTO FILES(id, bno, origin_name, saved_name, file_size, saved_path)
-            VALUES (FILES_ID_SEQ.NEXTVAL, #{item.bno}, #{item.originName}, #{item.savedName}, #{item.fileSize}, #{item.savedPath})
+            INTO FILES(id, category, bno, origin_name, saved_name, file_size, saved_path)
+            VALUES (FILES_ID_SEQ.NEXTVAL, #{item.category}, #{item.bno}, #{item.originName}, #{item.savedName}, #{item.fileSize}, #{item.savedPath})
         </foreach>
     </insert>
+
+    <!--  다중 파일 경로 반환  -->
+    <select id="readFilePath" parameterType="hashMap" resultType="string">
+        SELECT SAVED_PATH
+        FROM FILES
+        WHERE CATEGORY= #{category} AND BNO = #{bno}
+    </select>
 </mapper>

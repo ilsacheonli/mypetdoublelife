@@ -18,15 +18,8 @@
         <h3>좋아요</h3> <a th:href="@{'/petmunity/' + ${board.category} + '/updateLike/' + ${board.bno}}">👍</a> <p th:text="${board.hitCnt}"></p>
         <h3>등록일</h3> <p th:text="${#dates.format(board.regDate, 'yyyy/MM/dd')}"></p>
         <h3>수정일</h3> <p th:text="${board.updatedDate}"></p>
+        <img th:src="@{'/petmunity/' + ${board.category} + '/fileRead/' + ${board.bno}}">
     </div>
-<!--    <h3>이미지</h3>-->
-<!--    <div>-->
-<!--        <ul>-->
-<!--            <li th:each="file : ${files}">-->
-<!--                <a th:href="${file}" th:text="${file}" />-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </div>-->
     <a th:text="수정" th:href="@{'/petmunity/' + ${board.category} + '/modify/' +${board.bno}}"></a>
     <a th:text="삭제" th:href="@{'/petmunity/' + ${board.category} + '/delete/' +${board.bno}}"></a>
 </form>
