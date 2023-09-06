@@ -45,13 +45,15 @@ export default PetMapSearch;
 
 const InputStyle = styled.div`
   height: 45px;
+  padding-top: 10px;
+
   & input {
     width: 60%;
     border: none;
     display: inline-block;
-    margin-bottom: 10px;
   }
   & button {
+    align-items: end;
     border: none;
     background-color: white;
   }

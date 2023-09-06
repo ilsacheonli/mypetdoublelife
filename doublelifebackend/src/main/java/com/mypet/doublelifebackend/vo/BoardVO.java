@@ -12,6 +12,7 @@ import java.util.Date;
 public class BoardVO {
 
     private Integer bno;
+    private Integer id;
     private String category;
     private String title;
     private String writer;
