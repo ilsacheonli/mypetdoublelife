@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>MyPet 테스트 페이지</title>
+    <style>
+        img { width:150px; height:150px; float:left;  margin-right:20px; }
+        div { float:left; }
+    </style>
+</head>
+<body>
+<h3>MyPet</h3>
+<input type="button" value="마이페이지" onClick=" location.href='/mypage' "/>
+<input type="button" value="펫 추가하기" onClick=" location.href='/mypet/insert' "><br><br/>
+
+<div th:each="pet, idx : ${petList}" style=" margin-right:20px; ">
+    <img th:src="@{|image?imgNum=${pet.imgNo}|}">
+
+    <div>
+        <b>pet <span th:text="${idx.count}"/></b><br/>
+        memId   : <span th:text="${pet.memId}"/><br/>
+        name    : <span th:text="${pet.petName}"/><br/>
+        gender  : <span th:text="${pet.petGender}"/><br/>
+        birth   : <span th:text="${#temporals.createDate(pet.petBirth, 'yyyy-MM-dd HH:mm:ss')}"/><br/>
+        intro   : <span th:text="${pet.petIntro}"/><br/>
+
+        <input type="button" value="펫 수정하기" th:onclick="|location.href='@{/mypet/update(petNo=${pet.petNo})}'|">
+
+        <form method="POST" action="/removepet" style="display: inline">
+            <input type="hidden" name="id" th:value="${pet.memId}" >
+            <input type="hidden" name="petNo" th:value="${pet.petNo}" >
+            <input type="hidden" name="imgNum" th:value="${pet.imgNo}" >
+            <button type="submit">펫 삭제하기</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

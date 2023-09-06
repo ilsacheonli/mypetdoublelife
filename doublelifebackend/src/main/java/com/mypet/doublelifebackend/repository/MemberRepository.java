@@ -23,6 +23,12 @@ public interface MemberRepository { // 정의해놓은 sql와 사용할 메서�
     void updateMember(MemberVO member);
     // member 정보를 수정하는 update sql문 함수
 
+    void deleteMember(String memId);
+    // member 정보를 삭제하는 delete sql문 함수
+
+    void deleteAllMyPet(String memId);
+    // member 관련 pet을 삭제하는 delete sql문 함수
+
     int getLastNumber();
     // 마지막으로 추가된 memNumber를 호출한 뒤 +1하여 return 하는 함수
 

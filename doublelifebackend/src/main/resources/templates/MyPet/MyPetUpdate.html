@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>MyPetUpdate 테스트 페이지</title>
+</head>
+<body>
+<h3>MyPetUpdate</h3>
+
+<form method="post" action="/updatepet" id="pet_update" enctype="multipart/form-data">
+
+    id  :
+    <span th:text="${pet.memId}"></span>
+    <input type="hidden" name="id" th:value="${pet.memId}">
+
+    <input type="hidden" name="petNo" th:value="${pet.petNo}"><br>
+
+    name :
+    <input type="text" name="name" th:value="${pet.petName}"><br>
+
+    gender :
+    <span th:if="${pet.petGender} == '남'">
+        남   <input type="checkbox" name="gender" th:value="남" th:checked="true">
+        여   <input type="checkbox" name="gender" th:value="여" th:checked="false"><br>
+    </span>
+    <span th:if="${pet.petGender} == '여' ">
+        남   <input type="checkbox" name="gender" value="남" th:value="남" th:checked="false">
+        여   <input type="checkbox" name="gender" value="여" th:value="여" th:checked="true"><br>
+    </span>
+
+    birth :
+    <input type="date" name="birth" th:value="${#temporals.createDate(pet.petBirth, 'yyyy-MM-dd HH:mm:ss')}"> <br>
+
+    introduce :
+    <br><textarea name="introduce" th:text="${pet.petIntro}" th:value="${pet.petIntro}"></textarea><br>
+
+    image :
+    <input type="hidden" name="imgNum" th:value="${pet.imgNo}">
+    <br><input type="file" multiple="multiple" name="image"><br><br>
+
+</form>
+<button type="submit" form="pet_update">수정완료</button>
+
+</body>
+</html>
