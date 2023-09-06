@@ -1,7 +1,6 @@
 import React from 'react';
 import { Mypetfeedmain, GridBox, FlexBox, ImgBox, Img, H5, NameBox, UserName, Like, Writea } from './mypet.style';
 import { RiHeart3Fill, RiPencilLine } from 'react-icons/ri';
-import { Link } from "react-router-dom";
 import MyPetFeedData from './MyPetFeedData'; // feedData.js 파일에서 데이터 가져오기
 
 function MyPetFeed() {

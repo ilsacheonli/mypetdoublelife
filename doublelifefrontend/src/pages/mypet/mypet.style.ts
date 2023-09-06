@@ -259,7 +259,8 @@ export const Imgdiv = styled.div`
 	}
 	img {
 		width: 100px;
-		height: 100px;
+		height: 96px;
+		border-radius: 0 3px 3px 0;
 		&:hover {
 			filter: brightness(0.5);
 		}

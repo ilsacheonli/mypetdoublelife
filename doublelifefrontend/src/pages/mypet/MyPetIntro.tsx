@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Intro, ProfileButton, Formbutton, Button, Default } from './mypet.style';
 import { RiDeleteBinLine, RiPencilLine } from 'react-icons/ri';
+import axios from 'axios';
 
 function MyPetIntro() {
   const initialPetData = {
     name: '',
     gender: '',
     birthday: '',
-    introduction: ''
+    introduce: ''
   };
 
   const [petData, setPetData] = useState(initialPetData);
@@ -27,13 +28,34 @@ function MyPetIntro() {
 
   const handleSaveButtonClick = () => {
     setEditing(false);
-    // 서버에 프로필 수정 요청을 보내거나 다른 처리를 수행할 수 있습니다.
-  };
+		let frm = new FormData()
+		frm.append('name', '이름')
+		frm.append('gender', '성별')
+		frm.append('birthday', '생일')
+		frm.append('introduce', '소개')
+		
+		axios.post("/mypet", frm)
+		.then(res => {
+			console.log('등록 성공', res.data);
+		})
+		.catch(error => {
+			console.error('등록 실패', error)
+		})
+	};
 
   const handleDelete = () => {
     setPetData(initialPetData); // 프로필 데이터 초기화
     alert('프로필이 삭제되었습니다.');
+		axios.delete("/mypet")
+		.then(res => {
+			console.log('삭제 성공', res)
+		})
+		.catch(error => {
+			console.log('삭제 실패', error)
+		})
   };
+
+
 
   return (
     <Intro>
@@ -53,7 +75,7 @@ function MyPetIntro() {
           </p>
           <p>
             자기소개 : {''}
-						<textarea name="introduction" value={petData.introduction} onChange={handleInputChange}/>
+						<textarea name="introduce" value={petData.introduce} onChange={handleInputChange}/>
           </p>
 					<Formbutton>
           <ProfileButton>
@@ -67,7 +89,7 @@ function MyPetIntro() {
           <p>이름 : {petData.name}</p>
           <p>성별 : {petData.gender}</p>
           <p>생일 : {petData.birthday}</p>
-          <p>자기소개 : {petData.introduction}</p>
+          <p>자기소개 : {petData.introduce}</p>
 					<Button>
           <ProfileButton>
             <button onClick={handleEditButtonClick}><RiPencilLine /></button>
