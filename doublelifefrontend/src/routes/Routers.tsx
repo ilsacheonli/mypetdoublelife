@@ -42,12 +42,13 @@ export const Routers = () => {
 					<Route path='salon' element={<PetMapSalon />} />
 				</Route>
 				<Route path='/petmunity' element={<Petmunity />}>
-					<Route path='detail' element={<PetmunityDetail />}></Route>
+
 					<Route path='qna' element={<PetmunityQna />}></Route>
 					<Route path='trade' element={<PetmunityTrade />}></Route>
 					<Route path='walkingmate' element={<PetmunityWalkingMate />}></Route>
 					<Route path='writepage' element={<PetmunityWritePage />}></Route>
 				</Route>
+				<Route path='/board/view/:id' element={<PetmunityDetail />}></Route>
 				<Route path='/petstival' element={<Petstival />} />
 				<Route path='/petstivaldetail' element={<PetstivalDetail />} />
 				<Route path='/signup' element={<Signup />} />

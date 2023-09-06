@@ -7,15 +7,15 @@
 
     <!--    게시판 상세 조회-->
     <select id="selectOne" parameterType="int" resultType="com.mypet.doublelifebackend.vo.BoardVO">
-        select bno, category, title, writer, content, view_cnt, comment_cnt, hit_cnt,reg_date, updated_date
+        select id, bno, category, title, writer, content, view_cnt, comment_cnt, hit_cnt,reg_date, updated_date
         from board
-        where bno = #{bno}
+        where id = #{id}
     </select>
 
     <!--    게시판 목록 조회-->
     <select id="list" parameterType="string" resultType="com.mypet.doublelifebackend.vo.BoardVO">
         SELECT
-            bno, title, writer, reg_date, view_cnt
+            bno, title, writer, reg_date, view_cnt, id
         FROM board
         WHERE category = #{category}
     </select>
