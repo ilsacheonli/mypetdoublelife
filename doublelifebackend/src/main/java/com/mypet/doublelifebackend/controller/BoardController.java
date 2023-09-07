@@ -56,7 +56,7 @@ public class BoardController {
     @GetMapping("petmunity/walkingmate")
     public List<BoardVO> listWalkingmate() {
 
-        String category = "산책메이트";
+        String category = "walkingMate";
         List<BoardVO> list = null;
         list = service.list(category);
         // model.addAttribute("list", list);
@@ -65,7 +65,7 @@ public class BoardController {
     }
 
     // qna 게시물 작성 화면으로 이동
-    @GetMapping("petmunity/qna/writePage")
+    @GetMapping("petmunity/writePage")
     public String writeQna() {
 
         return "PetMunity/write";
@@ -89,7 +89,7 @@ public class BoardController {
     }
 
     // 게시물 작성 후 등록
-    @PostMapping("petmunity/qna/writePage")
+    @PostMapping("petmunity/writePage")
     public String write(BoardVO boardVO) {
 
         service.write(boardVO);

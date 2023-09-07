@@ -21,7 +21,11 @@ export const WritingHeader = styled.div`
         bottom: 12px;
         right: 0;
 
-        & > .write_btn {
+        
+    }
+`
+
+export const WriteBtn = styled.button`
         min-width: 46px;
         height: 36px;
         margin-left: 10px;
@@ -34,8 +38,6 @@ export const WritingHeader = styled.div`
         font-weight: 700;
         text-align: center;
         vertical-align: top;
-    }
-    }
 `
 
 export const WritingContent = styled.div`

@@ -20,10 +20,16 @@
         WHERE category = #{category}
     </select>
 
-    <!--    게시물 작성-->
-    <insert id="write" parameterType="com.mypet.doublelifebackend.vo.BoardVO">
-        INSERT INTO board(category, bno, title, writer, content)
-        VALUES(#{category}, BNO_SEQ.NEXTVAL, #{title}, #{writer}, #{content})
+<!--    &lt;!&ndash;    게시물 작성&ndash;&gt;-->
+<!--    <insert id="write" parameterType="com.mypet.doublelifebackend.vo.BoardVO">-->
+<!--        INSERT INTO board(category, bno, title, writer, content)-->
+<!--        VALUES(#{category}, BNO_SEQ.NEXTVAL, #{title}, #{writer}, #{content})-->
+<!--    </insert>-->
+
+    <!--  Qna 글작성  -->
+    <insert id="writeQna" parameterType="com.mypet.doublelifebackend.vo.BoardVO">
+        INSERT INTO board(id, bno, title, writer, content, category)
+        VALUES(300, 300, #{title}, #{writer}, #{content}, #{category})
     </insert>
 
     <!--    게시물 수정-->
