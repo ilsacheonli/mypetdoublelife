@@ -2,86 +2,26 @@ package com.mypet.doublelifebackend.controller;
 
 import com.mypet.doublelifebackend.service.ImageService;
 import com.mypet.doublelifebackend.service.MyPetService;
-import com.mypet.doublelifebackend.vo.MemberVO;
 import com.mypet.doublelifebackend.vo.MyPetVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
 @RestController
 public class MyPetController {
     @Autowired
-    private ImageService imageService;
-    @Autowired
     private MyPetService myPetService;
+    @Autowired
+    private ImageService imageService;
+
 
 
     // pet 페이지
     @GetMapping("/mypet")
-    public List<MyPetVO> mypet(HttpServletRequest request, Model model){
-
-//        HttpSession session = request.getSession();
-//        Object memberObject = session.getAttribute("member");
-//
-//        if (memberObject == null){
-//            return "redirect:/signin?NotLogin";
-//        }
-
-//        MemberVO member = (MemberVO)memberObject;
-
-       // model.addAttribute("petList",myPetService.getAllMyPets("test"));
-
+    public List<MyPetVO> mypet(){
         return myPetService.getAllMyPets("test");
     }
-
-    // pet 추가 페이지
-//    @RequestMapping(value = "/mypet/insert", method = RequestMethod.GET)
-//    public String insert(HttpServletRequest request, Model model){
-//
-//        HttpSession session = request.getSession();
-//        Object memberObject = session.getAttribute("member");
-//
-//        if (memberObject == null){
-//            return "redirect:/signin?NotLogin";
-//        }
-//
-//        model.addAttribute("member",memberObject);
-//
-//        return "MyPet/MyPetInsert";
-//        // resources/templates/MyPet/MyPetInsert.html
-//    }
-
-//    // pet 정보 수정 페이지
-//    @RequestMapping(value = "/mypet/update", method = RequestMethod.GET)
-//    public String mypetupdate(@RequestParam("petNo") int petNo, HttpServletRequest request, Model model){
-//
-//        HttpSession session = request.getSession();
-//        Object memberObject = session.getAttribute("member");
-//
-//        if (memberObject == null) {
-//            return "redirect:/signin?NotLogin";
-//
-//        }
-//
-//        MemberVO sessionMem = (MemberVO) memberObject;
-//
-//        HashMap<String, Object> map = new HashMap<String, Object>();
-//        map.put("memId", sessionMem.getMemId());
-//        map.put("petNo", petNo);
-//
-//        model.addAttribute("pet", myPetService.getMyPetByName(map));
-//
-//        return "MyPet/MyPetUpdate";
-//        // resources/templates/MyPet/MyPetInsert.html
-//    }
-
-
 
     // 새로운 pet 추가
     @PostMapping("/mypet/insert")
@@ -90,9 +30,34 @@ public class MyPetController {
                          @RequestPart("petBirth") String petBirth,
                          @RequestPart("petIntro") String petIntro,
                          MyPetVO new_myPet) throws IOException {
+        
+        // petName이 동일한 pet 확인
+        HashMap<String, Object> pName_ck_map = new HashMap<String, Object>();
+        pName_ck_map.put("memId", "test");
+        pName_ck_map.put("petName", petName);
 
+        MyPetVO checked_myPet = myPetService.getMyPetByName(pName_ck_map);
+
+        if(!String.valueOf(checked_myPet).equals("null")){
+            String msg = updatepet(checked_myPet, petGender, petBirth, petIntro);
+
+            if(msg.equals("mypet?updateFail")){
+                try {
+                    // throw로 강제 예외 발생
+                    throw new Exception("마이펫 수정 실패");
+                } catch (Exception e)    {
+                    System.out.println("ERROR : " + e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            return "mypet?petUpdate";
+        }
+
+
+        // 펫 추가
         int pet_lastNum = myPetService.getLastPetNumber();
-        int insert_img_num = imageService.insertImage();
+        int insert_img_num = imageService.insertDefaultImg();
 
 
         new_myPet = new MyPetVO(
@@ -113,21 +78,33 @@ public class MyPetController {
         map.put("petNo", new_myPet.getPetNo());
 
 
-        MyPetVO added_myPet = myPetService.getMyPetByName(map);
+        MyPetVO added_myPet = myPetService.getMyPetByNo(map);
 
         if(String.valueOf(added_myPet).equals("null")){
 
             imageService.deleteImage(insert_img_num);
 
-            return "/mypet?petAddFail";
+            return "mypet?petAddFail";
         }
 
-        return "/mypet?petAddSuccess";
+        return "mypet?petAddSuccess";
     }
 
+
     // pet 정보 수정
-    @PostMapping("/mypet/update")
-    public String updatepet(@RequestParam("pet") MyPetVO update_myPet) throws IOException {
+    //@PostMapping("/mypet/update")
+    public String updatepet(MyPetVO checked_myPet,
+                            String petGender,String petBirth,String petIntro) {
+
+        MyPetVO update_myPet = new MyPetVO(
+                checked_myPet.getMemId(),
+                checked_myPet.getPetNo(),
+                checked_myPet.getPetName(),
+                petGender,
+                petBirth,
+                petIntro,
+                checked_myPet.getImgNo()
+        );
 
         myPetService.editMyPet(update_myPet);
 
@@ -135,19 +112,19 @@ public class MyPetController {
         map.put("memId", update_myPet.getMemId());
         map.put("petNo", update_myPet.getPetNo());
 
-        MyPetVO updated_myPet = myPetService.getMyPetByName(map);
+        MyPetVO updated_myPet = myPetService.getMyPetByNo(map);
 
         if(String.valueOf(updated_myPet).equals("null")){
 
-            return "/mypet?updateFail";
+            return "mypet?updateFail";
         }
 
-        return "/mypet?updateSuccess";
+        return "mypet?updateSuccess";
     }
 
     // pet 삭제
     @GetMapping( "/mypet/remove")
-    public String removepet(@RequestParam("pet") MyPetVO delete_myPet) throws IOException {
+    public String removepet(@RequestPart("pet") MyPetVO delete_myPet) throws IOException {
 
         int del_mP_img = delete_myPet.getImgNo();
 
@@ -158,19 +135,19 @@ public class MyPetController {
 
         myPetService.removeMyPet(map);
 
-        MyPetVO deleted_myPet = myPetService.getMyPetByName(map);
+        MyPetVO deleted_myPet = myPetService.getMyPetByNo(map);
 
         if(!String.valueOf(deleted_myPet).equals("null")){
 
-            return "/mypet?deleteFail";
+            return "mypet?deleteFail";
         }
 
         if(imageService.deleteImage(del_mP_img)!=del_mP_img){
 
-            return "/mypet?deleteImgFail";
+            return "mypet?deleteImgFail";
         }
 
-        return "/mypet?deleteSuccess";
+        return "mypet?deleteSuccess";
     }
 
 

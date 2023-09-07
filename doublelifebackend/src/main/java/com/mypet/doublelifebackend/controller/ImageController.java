@@ -18,25 +18,25 @@ public class ImageController {
     @Autowired
     private ImageService imageService;
 
-    @GetMapping("/image/profile")
-    public String setProfileImg(@RequestParam("profileImg") MultipartFile profileImg, @RequestParam("imgNo") int imgNo) throws IOException {
+    @PostMapping("/image/profile")
+    public String setProfileImg(@RequestPart("profileImg") MultipartFile profileImg, @RequestPart("imgNo") int imgNo) throws IOException {
 
         int updated_img_no = imageService.updateImage(profileImg,imgNo, "profile");
 
         ImageVO updated_img = imageService.getImageByNum(updated_img_no);
 
         if(String.valueOf(updated_img).equals("null")){
-            return "/mypet?ImgUpdateFail";
+            return "mypet?ImgUpdateFail";
         }
 
-        return "/mypet?ImgUpdateSuccess";
+        return "mypet?ImgUpdateSuccess";
     }
 
     @ResponseBody
     @GetMapping( "/image")
-    public Resource getImage(@RequestParam("imgNum") int imgNum, ImageVO geted_imageVO) throws MalformedURLException {
+    public Resource getImage(@RequestPart("imgNo") int imgNo, ImageVO geted_imageVO) throws MalformedURLException {
 
-        geted_imageVO = imageService.getImageByNum(imgNum);
+        geted_imageVO = imageService.getImageByNum(imgNo);
 
         if(geted_imageVO == null){
             return null;

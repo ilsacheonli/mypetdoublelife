@@ -4,8 +4,6 @@
 
 ---
 
-<<<<<<< HEAD
-=======
 ## 프론트엔드 합본
 
 ### npm start
@@ -163,7 +161,6 @@
 
 ---
 
->>>>>>> feature-mid
 (2023-08-22) 
 
 추가/수정된 파일 주석 참고
@@ -188,6 +185,9 @@ http://localhost:8080/signup 입니다.
 /signup -> /signin
 
 ---
+
+MyPet
+---
 (2023-08-29)
 
 member 삭제 추가
@@ -208,8 +208,8 @@ pet 테이블 crud 기능 추가
 
 /mypet \
 pet 테이블 crud 기능 수정 완료
- 
 
+---
 
 PetMunity 
 -

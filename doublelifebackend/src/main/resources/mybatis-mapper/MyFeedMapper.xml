@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mypet.doublelifebackend.repository.MyFeedRepository">
+
+    <resultMap id="feedResult" type="MyFeedVO">
+        <result property="memId" column="mid" />
+        <result property="petName" column="pname" />
+        <result property="feedNo" column="fno" />
+        <result property="feedTitle" column="title" />
+        <result property="feedContent" column="content" />
+        <result property="imgNo" column="img_no" />
+    </resultMap>
+
+
+    <select id="selectMyFeedByNo" parameterType="int" resultMap="feedResult">
+        SELECT *
+        FROM myfeed
+        WHERE fno = #{feedNo}
+    </select>
+
+
+    <select id="selectAllMyFeed" parameterType="String" resultMap="feedResult">
+        SELECT *
+        FROM myfeed
+        WHERE mid = #{memId}
+        ORDER BY reg_date
+    </select>
+
+
+    <insert id="insertMyFeed" parameterType="MyPetVO" >
+        INSERT INTO myfeed (mid, pname, fno, title, content, img_no)
+        VALUES (#{memId}, #{petName}, #{feedNo}, #{feedTitle}, #{feedContent}, #{imgNo})
+    </insert>
+
+
+    <update id="updateMyFeed" parameterType="MyPetVO" >
+        UPDATE myfeed SET pname=#{petName}, title = #{feedTitle}, content = #{feedContent}, img_no =  #{imgNo}
+        WHERE fno = #{feedNo}
+    </update>
+
+    <delete id="deleteMyFeed" parameterType="int">
+        DELETE
+        FROM myfeed
+        WHERE fno = #{feedNo}
+    </delete>
+
+    <!-- 마지막 max(m_number) = null 이면 0으로 치환 후 +1 return -->
+    <select id="getLastNumber" resultType="int">
+        select NVL(max(fno),0) +1 from myfeed
+    </select>
+</mapper>
