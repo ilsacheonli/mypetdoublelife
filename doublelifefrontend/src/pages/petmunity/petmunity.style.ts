@@ -8,16 +8,23 @@ export const Contents = styled.div`
   margin-top: 0;
 `
 
+export const TabContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 export const TabMenu = styled.ul`
   background-color: white;
   color: #3f3f3f;
   font-weight: bold;
   display: flex;
+  width: 80%;
   flex-direction: row;
   align-items: center;
   list-style: none;
   margin-bottom: 40px;
   margin-top: 10px;
+  text-align: center;
 
   .submenu {
     // 기본 Tabmenu 에 대한 CSS를 구현
@@ -174,3 +181,48 @@ export const DropdownList = styled.ul<{ active: boolean }>`
 export const FloatRight = styled.div`
   float: right;
 `;
+
+export const BoardPagination = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin: 50px auto;
+
+  & li {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: all 0.3s;
+
+    &:hover,
+    &:active,
+    &.active {
+      background-color: #3b4b9b;
+      color: white;
+    }
+
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-last-child(1),
+    &:nth-last-child(2) {
+      a {
+        align-items: baseline;
+        font-size: 20px;
+        text-decoration: none;
+      }
+    }
+
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      font-size: 12px;
+      text-decoration: none;
+      color: #3b4b9b;
+    }
+  }
+`

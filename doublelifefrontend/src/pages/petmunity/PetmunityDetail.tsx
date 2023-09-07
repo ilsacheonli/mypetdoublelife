@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ArticleBottomBtns,
   ArticleContentBox,
@@ -7,32 +7,61 @@ import {
   ListButton,
   WriterInfo,
 } from "./petmunitydetail.style";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FloatRight } from "./petmunity.style";
+import axios from "axios";
+import dayjs from "dayjs";
+import { BoardListInterface } from "./BoardListInterface";
 
 function PetmunityDetail() {
+  // hook
+  const params = useParams().id
+  const navigate = useNavigate()
+
+  // state
+  const [detailBoardData, setDetailBoardData] = useState<BoardListInterface>();
+
+  useEffect(() => {
+    axios.get(`/board/view/${params}`)
+      .then((response) => {
+        setDetailBoardData(response.data)
+      })
+
+      .catch(function(error) {
+        console.log( error)
+      })
+  }, [])
+
+  if (typeof detailBoardData === 'undefined') return <></>;
+
   return (
     <>
+    
       <ArticleContentBox>
         <div className="article_header">
           <ArticleTitle>
             <div className="title_area">
               <div className="title_text">
-                <h3 style={{ fontSize: "26px" }}>게시글 제목</h3>
+                <h3 style={{ fontSize: "26px" }}>게시글 제목: {detailBoardData.title}</h3>
+                <p>No.{detailBoardData.id}</p>
+                <p>{dayjs(detailBoardData.regDate).format('YYYY.MM.DD')}</p>
               </div>
             </div>
           </ArticleTitle>
           <WriterInfo>
             <div className="profile_info">
-              <div className="nick_box">user1</div>
+              <div className="nick_box">작성자: {detailBoardData.writer}</div>
             </div>
             <div className="article_info">
-              <span className="date">2023.08.23</span>
+              <span className="date">{dayjs(detailBoardData.regDate).format('YYYY.MM.DD')}</span>
             </div>
           </WriterInfo>
         </div>
         <div className="article_container">
-          <h5>글 내용</h5>
+        <div className="board-content">
+          <p>{detailBoardData.content}</p>
+        </div>
+          <h5>글 내용:{detailBoardData.content}</h5>
         </div>
         <hr />
         <CommentBox>
