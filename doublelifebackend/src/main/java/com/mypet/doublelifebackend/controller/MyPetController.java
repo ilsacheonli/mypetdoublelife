@@ -57,49 +57,51 @@ public class MyPetController {
 //        // resources/templates/MyPet/MyPetInsert.html
 //    }
 
-    // pet 정보 수정 페이지
-    @RequestMapping(value = "/mypet/update", method = RequestMethod.GET)
-    public String mypetupdate(@RequestParam("petNo") int petNo, HttpServletRequest request, Model model){
-
-        HttpSession session = request.getSession();
-        Object memberObject = session.getAttribute("member");
-
-        if (memberObject == null) {
-            return "redirect:/signin?NotLogin";
-
-        }
-
-        MemberVO sessionMem = (MemberVO) memberObject;
-
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("memId", sessionMem.getMemId());
-        map.put("petNo", petNo);
-
-        model.addAttribute("pet", myPetService.getMyPetByName(map));
-
-        return "MyPet/MyPetUpdate";
-        // resources/templates/MyPet/MyPetInsert.html
-    }
+//    // pet 정보 수정 페이지
+//    @RequestMapping(value = "/mypet/update", method = RequestMethod.GET)
+//    public String mypetupdate(@RequestParam("petNo") int petNo, HttpServletRequest request, Model model){
+//
+//        HttpSession session = request.getSession();
+//        Object memberObject = session.getAttribute("member");
+//
+//        if (memberObject == null) {
+//            return "redirect:/signin?NotLogin";
+//
+//        }
+//
+//        MemberVO sessionMem = (MemberVO) memberObject;
+//
+//        HashMap<String, Object> map = new HashMap<String, Object>();
+//        map.put("memId", sessionMem.getMemId());
+//        map.put("petNo", petNo);
+//
+//        model.addAttribute("pet", myPetService.getMyPetByName(map));
+//
+//        return "MyPet/MyPetUpdate";
+//        // resources/templates/MyPet/MyPetInsert.html
+//    }
 
 
 
     // 새로운 pet 추가
     @PostMapping("/mypet/insert")
-    public String addpet(@RequestParam Map<String, Objects> paramObj,
-                         @RequestParam("image") MultipartFile imageFile,
+    public String addpet(@RequestPart("petName") String petName,
+                         @RequestPart("petGender") String petGender,
+                         @RequestPart("petBirth") String petBirth,
+                         @RequestPart("petIntro") String petIntro,
                          MyPetVO new_myPet) throws IOException {
 
         int pet_lastNum = myPetService.getLastPetNumber();
-        int insert_img_num = imageService.insertImage(imageFile);
+        int insert_img_num = imageService.insertImage();
 
 
         new_myPet = new MyPetVO(
                 "test",
                 pet_lastNum,
-                String.valueOf(paramObj.get("name")),
-                String.valueOf(paramObj.get("gender")),
-                String.valueOf(paramObj.get("birth")),
-                String.valueOf(paramObj.get("introduce")),
+                petName,
+                petGender,
+                petBirth,
+                petIntro,
                 insert_img_num
                 );
 
@@ -116,37 +118,18 @@ public class MyPetController {
         if(String.valueOf(added_myPet).equals("null")){
 
             imageService.deleteImage(insert_img_num);
-            try {
-                throw new Exception("error");
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+
+            return "/mypet?petAddFail";
         }
 
-        return "/mypet";
+        return "/mypet?petAddSuccess";
     }
 
     // pet 정보 수정
-    @RequestMapping(value = "/updatepet", method = RequestMethod.POST)
-    public String updatepet(@RequestParam Map<String, Objects> paramObj,
-                            @RequestParam("image") MultipartFile imageFile,
-                            MyPetVO update_myPet) throws IOException {
-
-        int update_img_num =  Integer.parseInt(String.valueOf(paramObj.get("imgNum")));
-
-        update_myPet = new MyPetVO(
-                String.valueOf(paramObj.get("id")),
-                Integer.parseInt(String.valueOf(paramObj.get("petNo"))),
-                String.valueOf(paramObj.get("name")),
-                String.valueOf(paramObj.get("gender")),
-                String.valueOf(paramObj.get("birth")),
-                String.valueOf(paramObj.get("introduce")),
-                update_img_num
-        );
-
+    @PostMapping("/mypet/update")
+    public String updatepet(@RequestParam("pet") MyPetVO update_myPet) throws IOException {
 
         myPetService.editMyPet(update_myPet);
-
 
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("memId", update_myPet.getMemId());
@@ -156,29 +139,22 @@ public class MyPetController {
 
         if(String.valueOf(updated_myPet).equals("null")){
 
-            return "redirect:/mypet?updateFail";
+            return "/mypet?updateFail";
         }
 
-
-        int updated_image = imageService.updateImage(imageFile, update_img_num);
-
-        if(updated_image == 0){
-
-            return "redirect:/mypet?updateImgFail";
-        }
-
-        return "redirect:/mypet?updateSuccess";
+        return "/mypet?updateSuccess";
     }
 
     // pet 삭제
-    @RequestMapping(value = "/removepet", method = RequestMethod.POST)
-    public String removepet(@RequestParam Map<String, Objects> paramObj, Model model) throws IOException {
+    @GetMapping( "/mypet/remove")
+    public String removepet(@RequestParam("pet") MyPetVO delete_myPet) throws IOException {
 
-        int del_mP_img = Integer.parseInt(String.valueOf(paramObj.get("imgNum")));
+        int del_mP_img = delete_myPet.getImgNo();
 
         HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("memId", String.valueOf(paramObj.get("id")));
-        map.put("petNo", Integer.parseInt(String.valueOf(paramObj.get("petNo"))));
+        map.put("memId", delete_myPet.getMemId());
+        map.put("petNo", delete_myPet.getPetNo());
+
 
         myPetService.removeMyPet(map);
 
@@ -186,15 +162,15 @@ public class MyPetController {
 
         if(!String.valueOf(deleted_myPet).equals("null")){
 
-            return "redirect:/mypet?deleteFail";
+            return "/mypet?deleteFail";
         }
 
         if(imageService.deleteImage(del_mP_img)!=del_mP_img){
 
-            return "redirect:/mypet?deleteImgFail";
+            return "/mypet?deleteImgFail";
         }
 
-        return "redirect:/mypet?deleteSuccess";
+        return "/mypet?deleteSuccess";
     }
 
 
