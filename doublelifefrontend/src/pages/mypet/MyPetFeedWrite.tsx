@@ -4,6 +4,7 @@ import { Writecontainer, Writeform, Titlediv, Imgdiv, Contentdiv, Buttonbox } fr
 interface Post {
 	title: string;
 	content: string;
+	petName: string;
 	image: File | null;
 	imagePreviewUrl: string | null;
 }
@@ -12,6 +13,7 @@ function MyPetFeedWrite() {
 	const [post, setPost] = useState<Post>({
 		title: '',
 		content: '',
+		petName: '',
 		image: null,
 		imagePreviewUrl: '',
 	});
@@ -68,6 +70,19 @@ function MyPetFeedWrite() {
 						onChange={handleInputChange}
 						required
 						placeholder='제목을 입력하세요.'
+					/>
+				</Titlediv>
+
+				<Titlediv>
+					<label htmlFor="petName" />
+					<input
+						type="text"
+						id="petName"
+						name="petName"
+						value={post.petName}
+						onChange={handleInputChange}
+						required
+						placeholder='닉네임을 입력하세요.'
 					/>
 				</Titlediv>
 

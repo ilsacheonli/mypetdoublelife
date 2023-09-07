@@ -26,14 +26,14 @@ function MyPetIntro() {
 		setEditing(true);
 	};
 
+	let frm = new FormData()
+	frm.append('petName', petData.petName)
+	frm.append('petGender', petData.petGender)
+	frm.append('petBirth', petData.petBirth)
+	frm.append('petIntro', petData.petIntro)
+
 	const handleSaveButtonClick = () => {
 		setEditing(false);
-		let frm = new FormData()
-		frm.append('petName', petData.petName)
-		frm.append('petGender', petData.petGender)
-		frm.append('petBirth', petData.petBirth)
-		frm.append('petIntro', petData.petIntro)
-
 		axios.post("/mypet/insert", frm)
 			.then(res => {
 				console.log('등록 성공', res.data);
@@ -46,7 +46,7 @@ function MyPetIntro() {
 	const handleDelete = () => {
 		setPetData(initialPetData); // 프로필 데이터 초기화
 		alert('프로필이 삭제되었습니다.');
-		axios.delete("/mypet")
+		axios.delete("/mypet/remove", {data: {frm}})
 			.then(res => {
 				console.log('삭제 성공', res)
 			})
