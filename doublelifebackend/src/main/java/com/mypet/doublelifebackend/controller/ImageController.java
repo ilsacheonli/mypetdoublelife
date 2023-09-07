@@ -19,9 +19,10 @@ public class ImageController {
     private ImageService imageService;
 
     @PostMapping("/image/profile")
-    public String setProfileImg(@RequestPart("profileImg") MultipartFile profileImg, @RequestPart("imgNo") int imgNo) throws IOException {
+    public String setProfileImg(@RequestPart("profileImg") MultipartFile profileImg, @RequestPart("imgNo")  String imgNo) throws IOException {
 
-        int updated_img_no = imageService.updateImage(profileImg,imgNo, "profile");
+        int imgNo_to_int = Integer.parseInt(imgNo);
+        int updated_img_no = imageService.updateImage(profileImg,imgNo_to_int, "profile");
 
         ImageVO updated_img = imageService.getImageByNum(updated_img_no);
 
@@ -34,7 +35,7 @@ public class ImageController {
 
     @ResponseBody
     @GetMapping( "/image")
-    public Resource getImage(@RequestPart("imgNo") int imgNo, ImageVO geted_imageVO) throws MalformedURLException {
+    public Resource getImage(@RequestParam("imgNo") int imgNo, ImageVO geted_imageVO) throws MalformedURLException {
 
         geted_imageVO = imageService.getImageByNum(imgNo);
 
