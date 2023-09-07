@@ -6,7 +6,6 @@
     <select id="getSalonList" resultType="com.mypet.doublelifebackend.vo.PetSalonVO">
         SELECT num
              , name
-             , tel
              , address2
              , latitude
              , longitude

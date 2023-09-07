@@ -7,6 +7,6 @@ public class PetSalonVO {
     private String tel;
     private String address2;
     private String latitude;
-    private String logitude;
+    private String longitude;
 
 }

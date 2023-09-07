@@ -8,5 +8,4 @@ public class PetHospitalVO {
     private String address2;
     private String latitude;
     private String longitude;
-
 }
