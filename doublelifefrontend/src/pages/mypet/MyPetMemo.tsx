@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MyPetCalendar from './MyPetCalendar';
+import MyPetCalendar from './Mypetcalendar';
 import MyPetInput from './MyPetInput';
 import MyPetItem from './MyPetItem';
 
