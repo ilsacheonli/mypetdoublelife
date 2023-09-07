@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mypet.doublelifebackend.repository.ImageRepository">
+
+    <resultMap id="imgResult" type="ImageVO">
+        <result property="imgNo" column="img_No" />
+        <result property="originImgName" column="origin_img_name" />
+        <result property="newImgName" column="new_img_name" />
+        <result property="imgPath" column="img_path" />
+    </resultMap>
+
+    <select id="getImgByNumber" parameterType="int" resultMap="imgResult">
+        SELECT *
+        FROM image
+        WHERE IMG_NO = #{imgNo}
+    </select>
+
+
+    <insert id="imgInsert" parameterType="ImageVO">
+        INSERT INTO image(img_No, origin_img_name, new_img_name, img_path)
+        VALUES(#{imgNo},  #{originImgName}, #{newImgName}, #{imgPath})
+    </insert>
+
+    <update id="imgUpdate" parameterType="ImageVO" >
+        UPDATE image SET origin_img_name = #{originImgName}, new_img_name = #{newImgName}, img_path = #{imgPath}
+        WHERE img_No = #{imgNo}
+    </update>
+
+    <delete id="imgDelete" parameterType="int">
+        DELETE
+        FROM image
+        WHERE img_No = #{imgNo}
+    </delete>
+
+    <select id="getLastNumber" resultType="int">
+        select NVL(max(img_No),0) +1 from image
+    </select>
+
+</mapper>

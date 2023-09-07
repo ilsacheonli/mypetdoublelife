@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>PetInsert 테스트 페이지</title>
+</head>
+<body>
+<h3>PetInsert</h3>
+<form method="post" action="/addpet" enctype="multipart/form-data" id="petInsert">
+    id(hidden)  <input type="hidden" name="id" th:value="${member.memId}"> <br>
+    name    :   <input type="text" name="name"> <br>
+    gender  : 남<input type="checkbox" name="gender" value="남">
+              여<input type="checkbox" name="gender" value="여"> <br>
+    birth   :   <input type="date" name="birth"> <br>
+    introduce : <br><textarea name="introduce" ></textarea><br>
+    image :     <br><input type="file" multiple="multiple" name="image"><br><br>
+
+
+</form>
+<button type="submit" form="petInsert">펫 추가하기</button>
+
+</body>
+</html>

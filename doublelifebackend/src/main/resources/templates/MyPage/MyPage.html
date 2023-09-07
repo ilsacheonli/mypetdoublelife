@@ -6,14 +6,17 @@
 </head>
 <body>
 <h3>MyPage</h3>
-<ul>
-    <li>userNum : <span th:text="${member.memNumber}"/></li>
-    <li>name : <span th:text="${member.memName}"/></li>
-    <li>id : <span th:text="${member.memId}"/></li>
-    <li>pwd : <span th:text="${member.memPwd}"/></li>
-    <li>email : <span th:text="${member.memEmail}"/></li>
-    <li>birth : <span th:text="${member?.memBirth}"/></li>
-</ul>
+<input type="button" value="마이펫" onClick=" location.href='/mypet' "/>
+<input type="button" value="로그아웃" onClick=" location.href='/logout' "/><br><br><br/>
+
+userNum : <span th:text="${member.memNumber}"/><br/>
+name    : <span th:text="${member.memName}"/><br/>
+id      : <span th:text="${member.memId}"/><br/>
+pwd     : <span th:text="${member.memPwd}"/><br/>
+email   : <span th:text="${member.memEmail}"/><br/>
+birth   : <span th:text="${#temporals.createDate(member.memBirth, 'yyyy-MM-dd HH:mm:ss')}"/><br><br/>
+
 <input type="button" value="수정하기" onClick=" location.href='/mypage/update' "/>
+<input type="button" value="탈퇴하기" onClick=" location.href='/removemember' "/>
 </body>
 </html>
