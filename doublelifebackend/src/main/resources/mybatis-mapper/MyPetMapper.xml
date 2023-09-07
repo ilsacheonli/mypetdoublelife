@@ -15,8 +15,15 @@
         <result property="imgNo" column="img_no" />
     </resultMap>
 
-    <!-- memId와 petName이 일치하는 pet 출력 -->
+    <!-- petName이 일치하는 pet 출력 -->
     <select id="selectMyPetByName" parameterType="hashmap" resultMap="petResult">
+        SELECT *
+        FROM pet
+        WHERE mid = #{memId} AND name = #{petName}
+    </select>
+
+    <!-- memId와 petNo이 일치하는 pet 출력 -->
+    <select id="selectMyPetByNo" parameterType="hashmap" resultMap="petResult">
         SELECT *
         FROM pet
         WHERE mid = #{memId} AND pno = #{petNo}
