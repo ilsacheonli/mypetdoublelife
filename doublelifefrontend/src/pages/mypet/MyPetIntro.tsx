@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Intro, ProfileButton, Formbutton, Button, Default } from './mypet.style';
 import { RiDeleteBinLine, RiPencilLine } from 'react-icons/ri';
 import axios from 'axios';
-import { IntroList } from './MyPetList';
 
 function MyPetIntro() {
 	const initialPetData = {
@@ -27,22 +26,16 @@ function MyPetIntro() {
 		setEditing(true);
 	};
 
-	const handleSaveButtonClick = (e: any) => {
-		setEditing(false);
-		/*let frm = new FormData()
-		frm.append('petName', petData.petName)
-		frm.append('petGender', petData.petGender)
-		frm.append('petBirth', petData.petBirth)
-		frm.append('petIntro', petData.petIntro)*/
+	let frm = new FormData()
+	frm.append('petName', petData.petName)
+	frm.append('petGender', petData.petGender)
+	frm.append('petBirth', petData.petBirth)
+	frm.append('petIntro', petData.petIntro)
 
-		axios.post("/mypet/insert", {
-			petName: petData.petName,
-			petData: petData.petGender,
-			petBirth: petData.petBirth,
-			petIntro: petData.petIntro
-		})
+	const handleSaveButtonClick = () => {
+		setEditing(false);
+		axios.post("/mypet/insert", frm)
 			.then(res => {
-				/*setPetData(res.data)*/
 				console.log('등록 성공', res.data);
 			})
 			.catch(error => {
@@ -53,7 +46,7 @@ function MyPetIntro() {
 	const handleDelete = () => {
 		setPetData(initialPetData); // 프로필 데이터 초기화
 		alert('프로필이 삭제되었습니다.');
-		axios.delete("/removepet")
+		axios.delete("/mypet/remove", {data: {frm}})
 			.then(res => {
 				console.log('삭제 성공', res)
 			})
@@ -61,6 +54,8 @@ function MyPetIntro() {
 				console.log('삭제 실패', error)
 			})
 	};
+
+
 
 	return (
 		<Intro>
