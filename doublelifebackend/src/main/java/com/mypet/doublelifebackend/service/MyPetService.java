@@ -1,6 +1,5 @@
 package com.mypet.doublelifebackend.service;
 
-import com.mypet.doublelifebackend.repository.ImageRepository;
 import com.mypet.doublelifebackend.repository.MyPetRepository;
 import com.mypet.doublelifebackend.vo.MyPetVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,11 @@ public class MyPetService {
     public MyPetVO getMyPetByName(HashMap<String, Object> map) {
 
         return myPetRepository.selectMyPetByName(map);
+    }
+
+    public MyPetVO getMyPetByNo(HashMap<String, Object> map) {
+
+        return myPetRepository.selectMyPetByNo(map);
     }
 
 

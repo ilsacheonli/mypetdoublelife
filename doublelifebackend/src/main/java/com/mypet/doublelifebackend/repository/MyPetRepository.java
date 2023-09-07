@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public interface MyPetRepository {
+
     MyPetVO selectMyPetByName(HashMap<String, Object> map);
+    MyPetVO selectMyPetByNo(HashMap<String, Object> map);
 
     List<MyPetVO> selectAllMyPet(String memId);
 

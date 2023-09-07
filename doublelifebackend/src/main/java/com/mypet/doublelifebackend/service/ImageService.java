@@ -8,8 +8,6 @@ import com.mypet.doublelifebackend.repository.ImageRepository;
 
 import com.mypet.doublelifebackend.vo.ImageVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,8 +25,63 @@ public class ImageService {
         return imageRepository.getImgByNumber(imgNo);
     }
 
+    public int insertImage(MultipartFile image,  String directory) throws IOException {
 
-    public int insertImage() throws IOException {
+        //저장할 파일경로 지정
+        String absolutePath = new File(imgUploadPath+"/resources/static/images/"+directory).getAbsolutePath();
+
+
+        // 확장자 추출
+        if (!image.isEmpty()) {
+            String contentType = image.getContentType();
+            String originalImageExtension;
+            if (!StringUtils.hasText(contentType)) {
+
+                return insertDefaultImg();
+            }else{
+                if (contentType.contains("image/jpeg")) {
+                    originalImageExtension = ".jpg";
+                } else if (contentType.contains("image/jpg")) {
+                    originalImageExtension = ".jpg";
+                } else if (contentType.contains("image/png")) {
+                    originalImageExtension = ".png";
+                } else {
+
+                    return insertDefaultImg();
+                }
+            }
+
+
+            // UUID로 랜덤으로 이름 생성
+            String newImageName = UUID.randomUUID().toString() + originalImageExtension;
+
+            // 마지막 이미지 번호+1
+            int last_img_num = imageRepository.getLastNumber();
+
+            ImageVO imageVO = new ImageVO(
+                    last_img_num,
+                    image.getOriginalFilename(),
+                    newImageName,
+                    absolutePath);
+
+            // ImgInsert
+            imageRepository.imgInsert(imageVO);
+
+            // 파일을 전송하기
+            File file = new File(absolutePath + "/" + newImageName);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+
+            image.transferTo(file);
+
+            return last_img_num;
+        }
+
+        return insertDefaultImg();
+    }
+
+    public int insertDefaultImg() throws IOException {
 
         //저장할 파일경로 지정
         String absolutePath = new File(imgUploadPath+"/resources/static/images/").getAbsolutePath();
@@ -46,12 +99,6 @@ public class ImageService {
 
         // imgInsert
         imageRepository.imgInsert(imageVO);
-
-        // 파일을 전송하기
-        File file = new File(absolutePath + "/" + "default.png");
-        if (!file.exists()) {
-            file.mkdirs();
-        }
 
          return last_img_num;
     }
