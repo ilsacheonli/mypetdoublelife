@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { FlexableTextArea, WriteBtn, WritingContent, WritingEditor, WritingHeader, WritingWrap } from './petmunitywrite.style';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+//import express from 'express';
 
 const PetmunityWritePage = () => {
+    // const app = express();
+    // const cors = require('cors');
+    // app.use(cors({credentials: true, origin: "http://localhost:3000"}));
+    
     // hook
     const navigate = useNavigate();
 
@@ -23,6 +28,7 @@ const PetmunityWritePage = () => {
         } else {
             if (window.confirm('게시글을 등록하시겠습니까?')) {
                 axios.post('http://localhost:8080/petmunity/writePage', {
+                    headers: {'Content-Type': 'multipart/form-data'},
                     category: 'qna',
                     // bno: bno,
                     title: title,
@@ -72,11 +78,12 @@ const PetmunityWritePage = () => {
                 </WritingHeader>
                 <WritingContent>
                     <WritingEditor>
-                        <form>
+                        <form encType='multipart/form-data'>
                         <div className='ArticleWritingTitle' style={{textAlign: "initial"}}>
                             <FlexableTextArea>
                                 <textarea placeholder="제목을 입력해 주세요." className='textarea_input' style={{height: "40px"}}
-                                onChange={(e) => setTitle(e.target.value)}></textarea>
+                                onChange={(e) => setTitle(e.target.value)}
+                                ></textarea>
                             </FlexableTextArea>
                         </div>
                         <div className='WritingContent'>

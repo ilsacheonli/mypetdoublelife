@@ -44,7 +44,7 @@ export const Routers = () => {
                     <Route path='qna' element={ <PetmunityQna/> }></Route>
                     <Route path='trade' element={ <PetmunityTrade/> }></Route>
                     <Route path='walkingmate' element={ <PetmunityWalkingMate/> }></Route>
-                    <Route path='writepage' element={ <PetmunityWritePage/> }></Route>
+                    <Route path='writePage' element={ <PetmunityWritePage/> }></Route>
                 </Route>
                 <Route path='/board/view/:id' element={ <PetmunityDetail/> }></Route>
                 <Route path='/petstival' element={ <Petstival/> }/>
