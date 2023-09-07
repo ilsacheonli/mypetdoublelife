@@ -1,16 +1,16 @@
 import React from 'react';
-import { Navigation, History } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Styledswiper } from './mypet.style'
 
 interface SwiperProps {
-  items: JSX.Element[];
+	items: JSX.Element[];
 }
 
 function MyPetSwiper({ items }: SwiperProps) {
-	
+
 	const swiperParams = {
 		spaceBetween: 50,
 		slidesPerView: 1,

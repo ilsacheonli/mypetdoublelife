@@ -24,29 +24,29 @@ function MyPetFeedWrite() {
 		}));
 	};
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files && e.target.files[0];
-    if (file) {
-      // 이미지 미리보기 URL 생성
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPost((prevPost) => ({
-          ...prevPost,
-          image: file,
-          imagePreviewUrl: reader.result as string, // Blob URL을 할당합니다.
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files && e.target.files[0];
+		if (file) {
+			// 이미지 미리보기 URL 생성
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				setPost((prevPost) => ({
+					...prevPost,
+					image: file,
+					imagePreviewUrl: reader.result as string, // Blob URL을 할당합니다.
+				}));
+			};
+			reader.readAsDataURL(file);
+		}
+	};
 
 	const handleDeleteImage = () => {
-    setPost((prevPost) => ({
-      ...prevPost,
-      image: null,
-      imagePreviewUrl: '',
-    }));
-  };
+		setPost((prevPost) => ({
+			...prevPost,
+			image: null,
+			imagePreviewUrl: '',
+		}));
+	};
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
@@ -86,11 +86,11 @@ function MyPetFeedWrite() {
 				<Imgdiv>
 					<label htmlFor="image">이미지 업로드</label>
 					{post.imagePreviewUrl && (
-          <img 
-						src={post.imagePreviewUrl} 
-						alt="선택된 이미지" 
-						style={{ maxWidth: '100%' }} 
-						onClick={handleDeleteImage} />
+						<img
+							src={post.imagePreviewUrl}
+							alt="선택된 이미지"
+							style={{ maxWidth: '100%' }}
+							onClick={handleDeleteImage} />
 					)}
 					<input
 						type="file"
