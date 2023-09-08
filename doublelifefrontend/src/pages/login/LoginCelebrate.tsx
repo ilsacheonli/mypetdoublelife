@@ -1,8 +1,11 @@
+
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
 
 function LoginCelebrate() {
-    const Loginpage=styled.div`
+
+  const Loginpage=styled.div`
     position: absolute;
     top:0;
     bottom:0;
@@ -112,12 +115,27 @@ function LoginCelebrate() {
     return(
     <Loginpage>
         <Petimage>
-       
+       <h1>이파일 아닙니다 !!!!sign up finsish파일이 진짜 입니다.</h1>
         <h1><Colr>ooo님</Colr> 가입을 축하합니다!</h1>
         <h1><Colr>로그인</Colr> 후 서비스를 이용해주세요.</h1>
         </Petimage>
         <Menu>
-            <BottombuttonA>로그인하러가기!</BottombuttonA>
+              {/* <Link to={`/login`} style={{
+                  textDecoration:"none",
+                  color:"#000000"
+                }}>  */}
+                <tr>
+                <td>
+                <Link to={`/signup`} style={{
+                  textDecoration:"none",
+                  color:"#000000"
+                }}>
+                    <BottombuttonA>  로그인하러가기!</BottombuttonA>
+                    </Link>
+                    </td>
+                    </tr>
+{/*             </td        
+                    <Link/>  */}
             <BottombuttonA>메인으로</BottombuttonA>
             <BottombuttonB>마이펫의 이중생활이란?</BottombuttonB>
             
@@ -128,10 +146,8 @@ function LoginCelebrate() {
     
     </Loginpage>
     
-    )
+    );
     }
 
 export default LoginCelebrate;
- /* <ImageContainer>
-        <Catimage alt="logo_final" src="/loginimg/logo_final.png" />
-        </ImageContainer> */
+      

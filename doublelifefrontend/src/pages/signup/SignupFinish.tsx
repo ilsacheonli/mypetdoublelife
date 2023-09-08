@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { Link } from "react-router-dom";
 function SignupFinish() {
     const Loginpage=styled.div`
     
@@ -29,6 +29,28 @@ function SignupFinish() {
    
     
     `
+    const BottombuttonC=styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    width:18%;
+    height:35%;
+    border: 2px solid #063160;
+    font-weight:700;
+    background-color: white;
+    border-radius:10px;
+   
+
+    cursor:pointer;
+    margin-top:4px;
+    margin-bottom:8px;
+ 
+    `
+    // &:hover {
+    //   background-color:#063160;
+    //   color: white; /* 마우스를 올렸을 때 배경색 변경 */
+    // }
     const BottombuttonA=styled.button`
     display: flex;
     align-items: center;
@@ -45,11 +67,12 @@ function SignupFinish() {
     cursor:pointer;
     margin-top:4px;
     margin-bottom:8px;
-    &:hover {
-        background-color:#063160;
-        color: white; /* 마우스를 올렸을 때 배경색 변경 */
-      }
+  
     `
+    // &:hover {
+    //   background-color:#063160;
+    //   color: white; /* 마우스를 올렸을 때 배경색 변경 */
+    // }
    
     const BottombuttonB=styled.button`
     display: flex;
@@ -128,10 +151,26 @@ function SignupFinish() {
         <h3><Colr>로그인</Colr> 후 서비스를 이용해주세요.</h3>
         </Petimage>
         <Menu>
-            <BottombuttonA>로그인하러가기!</BottombuttonA>
-            <BottombuttonA>메인으로</BottombuttonA>
-            <BottombuttonB>마이펫의 이중생활이란?</BottombuttonB>
-            
+          
+            <BottombuttonA> <Link to={`/login`} style={{
+                  textDecoration:"none",
+                  color:"#063160"
+                }}>    로그인 하러가기!   </Link></BottombuttonA>
+         
+           
+         
+            <BottombuttonC><Link to={'/'} style={{
+                  textDecoration:"none",
+                  color:"#063160"
+                }}>    메인으로 GO GO  </Link> </BottombuttonC>
+           
+          
+            <BottombuttonB>
+              <Link to={`/userpage`} style={{
+                  textDecoration:"none",
+                  color:"#ffffff"
+                }}>    마이펫의 이중생활이란?    </Link></BottombuttonB>
+          
         </Menu>  
         <AdditionalImage src="/loginimg/signup_logo.png" alt="signup_logo"></AdditionalImage>
         <CongratsImage src="/loginimg/signup_logo.png" alt="signup_logo"> 
