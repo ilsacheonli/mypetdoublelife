@@ -1,9 +1,9 @@
 const feedData = [
   {
-    id: 1,
-    imgSrc: '',
-    postName: '게시글1',
-    userName: '이름1',
+    memId: 1,
+    image: '',
+    feedTitle: '게시글1',
+    petName: '이름1',
 		like: '1'
   },
   {

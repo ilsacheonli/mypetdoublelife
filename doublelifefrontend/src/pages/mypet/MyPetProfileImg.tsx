@@ -5,6 +5,7 @@ import axios from 'axios';
 function MyPetProfileImg() {
 	const [image, setImage] = useState<string>("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 	const fileInput = useRef<HTMLInputElement | null>(null);
+	const [imgNo, setImgNo] = useState<number>(1); // imgNo 상태 추가
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files[0]) {
@@ -19,9 +20,12 @@ function MyPetProfileImg() {
 			const reader = new FileReader();
 			reader.onload = () => {
 				if (reader.readyState === FileReader.DONE) {
-					setImage(reader.result as string);
+					const imageUrl = reader.result as string;
+					setImage(imageUrl);
 					// handleUpload 함수를 호출하여 파일 업로드 수행
 					handleUpload(file);
+					setImgNo((prevImgNo) => prevImgNo + 1);
+
 				}
 			};
 			reader.readAsDataURL(file);
@@ -31,8 +35,7 @@ function MyPetProfileImg() {
 	const handleUpload = (file: File) => {
 		const frm = new FormData();
 		frm.append('profileImg', file);
-
-		const imgNo = 1;
+		frm.append('newImgName', file.name)
 		frm.append('imgNo', imgNo.toString());
 
 		axios.post('/image/profile', frm, {
@@ -42,7 +45,6 @@ function MyPetProfileImg() {
 		})
 			.then((response) => {
 				console.log(response.data);
-				setImage(response.data.imageUrl);
 			})
 			.catch((error) => {
 				console.error(error);

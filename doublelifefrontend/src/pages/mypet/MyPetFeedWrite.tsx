@@ -1,9 +1,11 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Writecontainer, Writeform, Titlediv, Imgdiv, Contentdiv, Buttonbox } from './mypet.style';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 interface Post {
-	title: string;
-	content: string;
+	feedTitle: string;
+	feedContent: string;
 	petName: string;
 	image: File | null;
 	imagePreviewUrl: string | null;
@@ -11,12 +13,13 @@ interface Post {
 
 function MyPetFeedWrite() {
 	const [post, setPost] = useState<Post>({
-		title: '',
-		content: '',
+		feedTitle: '',
+		feedContent: '',
 		petName: '',
 		image: null,
 		imagePreviewUrl: '',
 	});
+	const navigate = useNavigate();
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target;
@@ -50,23 +53,38 @@ function MyPetFeedWrite() {
 		}));
 	};
 
-	const handleSubmit = (e: FormEvent) => {
+	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
-		// 여기에서 포스트를 서버로 보내거나 상태를 처리할 수 있습니다.
-		console.log('작성된 포스트:', post);
+	
+		try {
+			const formData = new FormData();
+			formData.append('feedTitle', post.feedTitle);
+			formData.append('feedContent', post.feedContent);
+			formData.append('petName', post.petName);
+			if (post.image) {
+				formData.append('image', post.image);
+			}
+	
+			const response = await axios.post('/myfeed/insert', formData);
+			console.log('게시글 등록 완료', response.data);
+			/*navigate('/mypet')*/
+		} catch (error) {
+			console.error('게시글 등록 실패', error);
+		}
 	};
+	
 
 	return (
 		<Writecontainer>
 			<Writeform onSubmit={handleSubmit}>
 
 				<Titlediv>
-					<label htmlFor="title" />
+					<label htmlFor="feedTitle" />
 					<input
 						type="text"
-						id="title"
-						name="title"
-						value={post.title}
+						id="feedTitle"
+						name="feedTitle"
+						value={post.feedTitle}
 						onChange={handleInputChange}
 						required
 						placeholder='제목을 입력하세요.'
@@ -87,11 +105,11 @@ function MyPetFeedWrite() {
 				</Titlediv>
 
 				<Contentdiv>
-					<label htmlFor="content"></label>
+					<label htmlFor="feedContent"></label>
 					<textarea
-						id="content"
-						name="content"
-						value={post.content}
+						id="feedContent"
+						name="feedContent"
+						value={post.feedContent}
 						onChange={handleInputChange}
 						required
 						placeholder='내용을 입력하세요.'

@@ -34,10 +34,12 @@ public class ImageController {
     }
 
     @ResponseBody
-    @GetMapping( "/image")
-    public Resource getImage(@RequestParam("imgNo") int imgNo, ImageVO geted_imageVO) throws MalformedURLException {
+    @GetMapping( "/image/{imgNo}")
+    public Resource getImage(@PathVariable String imgNo, ImageVO geted_imageVO) throws MalformedURLException {
 
-        geted_imageVO = imageService.getImageByNum(imgNo);
+        int imgNo_to_int = Integer.parseInt(imgNo);
+
+        geted_imageVO = imageService.getImageByNum(imgNo_to_int);
 
         if(geted_imageVO == null){
             return null;

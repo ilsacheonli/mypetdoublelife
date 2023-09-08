@@ -132,7 +132,7 @@ export const Img = styled.img`
   width: 250px;
   height: 250px;
   border-radius: 25px;
-	background-color: #DAEBFD;
+	/*background-color: #DAEBFD;*/
 
 `;
 
@@ -146,8 +146,8 @@ export const H5 = styled.h5`
 
 `
 export const ImgBox = styled.div`
-	width: 250px;
-	height: 280px;	
+	/*width: 250px;
+	height: 280px;	*/
 	position: relative;
 	border-radius: 25px;
   &:hover {
