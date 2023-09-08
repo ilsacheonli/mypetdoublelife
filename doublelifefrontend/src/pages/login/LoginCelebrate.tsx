@@ -112,9 +112,7 @@ function LoginCelebrate() {
     return(
     <Loginpage>
         <Petimage>
-        <ImageContainer>
-        <Catimage alt="logo_final" src="/loginimg/logo_final.png" />
-        </ImageContainer>
+       
         <h1><Colr>ooo님</Colr> 가입을 축하합니다!</h1>
         <h1><Colr>로그인</Colr> 후 서비스를 이용해주세요.</h1>
         </Petimage>
@@ -134,3 +132,6 @@ function LoginCelebrate() {
     }
 
 export default LoginCelebrate;
+ /* <ImageContainer>
+        <Catimage alt="logo_final" src="/loginimg/logo_final.png" />
+        </ImageContainer> */
