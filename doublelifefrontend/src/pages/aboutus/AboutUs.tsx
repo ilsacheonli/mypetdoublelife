@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import yeji from '../../img/about/yeji.jpg'; // 개발자 1 이미지 경로
 import kichan from '../../img/about/kichan.jpg';
@@ -14,7 +15,18 @@ Textsmall,LastBox,ProfileCard,ProfileCard1,Introimg,Pink,Apiimg} from './aboutus
 // 나머지 개발자 이미지 경로 추가
 
 function AboutUs() 
-{ interface Pet {
+{ 
+//   const CustomButton = styled.button`
+//   background-color: white;
+//   border: 1px solid lightgray;
+//   padding: 4px 8px; /* 크기를 더 작게 조정 */
+//   font-size: 5px; /* 텍스트 크기를 더 작게 조정 */
+//   cursor: pointer;
+//   float: right; /* 오른쪽에 위치시킴 */
+//   margin-right:40px;
+// `;
+
+interface Pet {
   img:string;
   name: string;
   description: string;
@@ -49,8 +61,11 @@ const [currentIndex, setCurrentIndex] = useState(0);
     
       <Main>
         
-        <UpimageContainer>
-          <Mainimage alt="mainimage" src="/aboutimg/banner.png" />
+        <UpimageContainer><Link to={`/mypet`} style={{
+                  textDecoration:"none",
+                  color:"#000000"
+                }}>
+          <Mainimage alt="mainimage" src="/aboutimg/banner.png" /></Link>
           <Mypetintro>
           <br/>
           <Maintext><Miniimg src="/aboutimg/king.png"/> 금주의 마이펫 <Miniimg src="/aboutimg/king.png"/></Maintext>
@@ -100,11 +115,17 @@ const [currentIndex, setCurrentIndex] = useState(0);
           <TextContainer>
             
             <Textsmall>
-            마이펫의 이중생활은 펫을 위한 완벽한 온라인 공간을 제공합니다.
-            펫과의 특별한 순간을 공유하고, 펫 시설의 정보를 얻고, 다른 펫 사랑자들과 연결되는 즐거움을 느껴보세요.
-            마이펫은 펫과 함께하는 모든 순간들을 응원합니다! 
+            펫과 함께하는 즐거운 시간을 기록하고 <br/>나누는 공간으로,
+            여러분과 펫을 위한 <br/>완벽한 온라인 공간을 제공합니다.
+            <br/>당신의 펫과 특별한 순간을 추억하며,<br/>
+            펫 릴레이션쉽을 깊게 쌓을 수 있도록 <br/>마이펫의 이중생활이 응원하겠습니다.
             </Textsmall>
-        
+            <br/>
+            {/* <p><Link to={`/UserPage`} style={{
+                  textDecoration:"none",
+                  color:"#000000"
+                }}><CustomButton>더보기</CustomButton></Link></p> */}
+            
           </TextContainer>
           </WhiteBox>
           <br></br>
@@ -121,7 +142,11 @@ const [currentIndex, setCurrentIndex] = useState(0);
           
           
           <LastBox>
-          <Apiimg alt="map" src="/aboutimg/apimap.PNG"/>
+          <Link to={`/petmap`} style={{
+                  textDecoration:"none",
+                  color:"#000000"
+                }}>
+          <Apiimg alt="map" src="/aboutimg/apimap.PNG"/></Link>
           </LastBox>
           </ProfileCard>
           <ProfileCard1>
