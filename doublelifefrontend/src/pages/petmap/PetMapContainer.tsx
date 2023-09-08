@@ -3,6 +3,7 @@ import { PetMapList } from "./PetMapList";
 import axios from "axios";
 import { MapList, PetMapPagination } from "./petmap.style";
 import Pagination from "react-js-pagination";
+import { PetMapAroundList } from "./PetMapAroundList";
 
 declare global {
   interface Window {
@@ -14,6 +15,11 @@ const PetMapContainer = () => {
   const [petMapList, setPetMapList] = useState<PetMapList[]>([]);
   const [currentPetMap, setCurrentPetMap] = useState<PetMapList[]>(petMapList);
   const [page, setPage] = useState<number>(1); // 현재 페이지 번호
+
+  const [aroundPetMap, setAroundPetMap] = useState<PetMapAroundList[]>([]);
+
+  let obj;
+  let lists;
 
   const postPerPage = 5; // 페이지 당 게시글 개수
   const indexOfLastPost = page * postPerPage;
@@ -125,11 +131,12 @@ const PetMapContainer = () => {
 
                 clusterer.addMarkers(markers);
 
-                // 현재 위치에서 5km 이내의 병원 리스트
+                // 현재 위치에서 3km 이내의 병원 리스트
                 fetch(`/pethospital?lat=${lat}&lon=${lon}`)
                   .then((response) => response.json())
                   .then((allData) => {
                     var hospitalListHTML = "";
+                    var hospitalListJSON = []; // JSON 형식의 배열
 
                     for (var i = 0; i < allData.length; i++) {
                       var hospitalLat = allData[i].latitude;
@@ -141,13 +148,32 @@ const PetMapContainer = () => {
                         hospitalLon
                       );
 
-                      if (calculatedDistance <= 5) {
-                        // 5km 이내
-                        hospitalListHTML += `<li>${allData[i].name} - ${allData[i].address2} - ${allData[i].tel}</li>`;
+                      if (calculatedDistance <= 3) {
+                        // 3km 이내
+                        var hospitalInfo = {
+                          name: allData[i].name,
+                          distance: calculatedDistance.toFixed(2) + "km"
+                        };
+                        hospitalListJSON.push(hospitalInfo);
+                        // hospitalListHTML += `<li>${allData[i].name} - ${allData[i].address2} - ${allData[i].tel}</li>`;
+                        // console.log("hospitalListHTML: " + hospitalListHTML); // 3km 이내 병원 확인용 로그
                       }
                     }
-                    if (hospitalListContainer === null) return <></>;
-                    hospitalListContainer.innerHTML = `<ul>${hospitalListHTML}</ul>`;
+                    // JSON.stringfy()를 사용하여 JSON 문자열로 변환
+                    var hospitalListJSONString = JSON.stringify(hospitalListJSON);
+                    obj = JSON.stringify(hospitalListJSON);
+                    console.log("obj: "+obj);
+
+                    setAroundPetMap(hospitalListJSON);
+                    console.log("aroundPetMap: " + aroundPetMap);
+                    
+                    // console.log("lists.name: " + lists.name);
+
+                    // 이제 hospitalListJSONString 변수에는 원하는 형식의 JSON 데이터가 들어 있습니다.
+                    // console.log(hospitalListJSONString);
+                    // if (hospitalListContainer === null) return <></>;
+                    // hospitalListContainer.innerHTML = `<ul>${hospitalListHTML}</ul>`;
+                    
                   })
                   .catch((error) =>
                     console.error("데이터 가져오기 오류:", error)
@@ -222,10 +248,37 @@ const PetMapContainer = () => {
         }}
       />
 
+        <MapList>
+        {
+        aroundPetMap &&
+        aroundPetMap.map((aroundlistdata) => {
+          return (
+            <ul>
+              <li>
+              <div className="txt">
+                    <div className="title" key={aroundlistdata.name}>
+                      {aroundlistdata.name}
+                    </div>
+                    <div className="info">
+                      <ul>
+                        <li>distance: {aroundlistdata.distance}</li>
+                      </ul>
+                    </div>
+                  </div>
+              </li>
+            </ul>
+          );
+        })
+      }
+
+        </MapList>
+      
+
       <MapList>
         {currentPetMap &&
           currentPetMap.map((petmaplistdata) => {
             return (
+              <>
               <ul>
                 <li>
                   <div className="txt">
@@ -241,6 +294,8 @@ const PetMapContainer = () => {
                   </div>
                 </li>
               </ul>
+              
+              </>
             );
           })}
       </MapList>
