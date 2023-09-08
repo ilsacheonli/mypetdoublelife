@@ -6,6 +6,7 @@ import axios from 'axios';
 
 interface MyPetFeedItem {
 	feedNo: number,
+	imgNo : number,
 	image: string,
 	feedTitle: string,
 	petName: string,
@@ -14,19 +15,18 @@ interface MyPetFeedItem {
 
 function MyPetFeed() {
 	const [myPetFeedData, setMyPetFeedData] = useState<MyPetFeedItem[]>([]);
-  const [imageData, setImageData] = useState<string>(''); // 이미지 데이터 상태 추가
+  	const [imageData, setImageData] = useState<string>(''); // 이미지 데이터 상태 추가
 
 	useEffect(() => {
 		const apiUrl = '/myfeed';
-		const imgUrl = '/image';
 
-		axios.get(imgUrl)
-			.then((res) => {
-				setImageData(res.data)
-			})
-			.catch((error) => {
-				console.log(error)
-			})
+		// axios.get(imgUrl)
+		// 	.then((res) => {
+		// 		setImageData(res.data)
+		// 	})
+		// 	.catch((error) => {
+		// 		console.log(error)
+		// 	})
 
 		axios.get(apiUrl)
 			.then((res) => {
@@ -38,14 +38,15 @@ function MyPetFeed() {
 			});
 			}, []);
 
+
 	return (
 		<>
 		<Mypetfeedmain>
 			<FlexBox>
 				{myPetFeedData.map((item) => (
-					<GridBox key={item.feedNo}>
+					<GridBox key={item.feedNo} >
 						<ImgBox>
-							<Img src={imageData} /*alt={item.postName}*/ />
+							<Img src={'/image/'+item.imgNo} /*alt={item.postName}*/ />
 							<H5>{item.feedTitle}</H5>
 							<NameBox>
 								<UserName>{item.petName}</UserName>

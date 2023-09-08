@@ -99,8 +99,22 @@ public class MyFeedController {
                 imgNo
         );
 
+        myFeedService.editMyFeed(update_myFeed);
 
+        MyFeedVO updated_myFeed = myFeedService.getMyFeedByNo(update_myFeed.getFeedNo());
 
+        if(String.valueOf(updated_myFeed).equals("null")){
+            try {
+                // throw로 강제 예외 발생
+                throw new Exception("마이 피드 수정 실패");
+            } catch (Exception e) {
+                System.out.println("ERROR : " + e.getMessage());
+                e.printStackTrace();
+            }
+
+        }
+
+        imageService.updateImage(image, imgNo, "feed");
 
 
         return "/myfeed/update";
