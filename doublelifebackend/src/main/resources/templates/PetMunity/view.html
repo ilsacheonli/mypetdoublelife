@@ -15,12 +15,13 @@
         <h3>내용</h3> <p th:text="${board.content}"></p>
         <h3>조회수</h3> <p th:text="${board.viewCnt}"></p>
         <h3>댓글수</h3> <p th:text="${board.commentCnt}"></p>
-        <h3>좋아요</h3> <p th:text="${board.hitCnt}"></p>
+        <h3>좋아요</h3> <a th:href="@{'/petmunity/' + ${board.category} + '/updateLike/' + ${board.bno}}">👍</a> <p th:text="${board.hitCnt}"></p>
         <h3>등록일</h3> <p th:text="${#dates.format(board.regDate, 'yyyy/MM/dd')}"></p>
         <h3>수정일</h3> <p th:text="${board.updatedDate}"></p>
+        <img th:src="@{'/petmunity/' + ${board.category} + '/fileRead/' + ${board.bno}}">
     </div>
-    <a th:href="@{/board/modify(bno=${board.bno})}">수정</a>
-    <a th:href="@{/board/delete(bno=${board.bno})}">삭제</a>
+    <a th:text="수정" th:href="@{'/petmunity/' + ${board.category} + '/modify/' +${board.bno}}"></a>
+    <a th:text="삭제" th:href="@{'/petmunity/' + ${board.category} + '/delete/' +${board.bno}}"></a>
 </form>
 </body>
 </html>

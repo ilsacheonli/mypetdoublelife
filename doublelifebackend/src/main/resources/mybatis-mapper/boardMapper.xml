@@ -5,36 +5,107 @@
 
 <mapper namespace="com.mypet.doublelifebackend.repository.BoardRepository">
 
-    <!--    게시판 상세 조회-->
-    <select id="selectOne" parameterType="int" resultType="com.mypet.doublelifebackend.vo.BoardVO">
-        select id, bno, category, title, writer, content, view_cnt, comment_cnt, hit_cnt,reg_date, updated_date
+    <!--  게시판 상세 조회  -->
+    <select id="selectOne" parameterType="hashMap" resultType="com.mypet.doublelifebackend.vo.BoardVO">
+        select id, bno, category, title, writer, content, view_cnt, comment_cnt, hit_cnt, reg_date, updated_date
         from board
-        where id = #{id}
+        where category=#{category} and bno = #{bno}
     </select>
 
-    <!--    게시판 목록 조회-->
+    <!--  게시글 전체 목록 조회  -->
     <select id="list" parameterType="string" resultType="com.mypet.doublelifebackend.vo.BoardVO">
         SELECT
-            bno, title, writer, reg_date, view_cnt, id
+            bno, title, writer, reg_date, view_cnt, category
         FROM board
         WHERE category = #{category}
     </select>
 
-    <!--    게시물 작성-->
-    <insert id="write" parameterType="com.mypet.doublelifebackend.vo.BoardVO">
-        INSERT INTO board(category, bno, title, writer, content)
-        VALUES(#{category}, BNO_SEQ.NEXTVAL, #{title}, #{writer}, #{content})
+    <!--  Qna 글작성  -->
+    <insert id="writeQna" parameterType="com.mypet.doublelifebackend.vo.BoardVO">
+        INSERT INTO board(id, bno, title, writer, content, category)
+        VALUES(ID_SEQ.NEXTVAL, QNA_BNO_SEQ.NEXTVAL, #{title}, #{writer}, #{content}, #{category})
     </insert>
 
-    <!--    게시물 수정-->
+    <!--  Trade 글작성  -->
+    <insert id="writeTrade" parameterType="com.mypet.doublelifebackend.vo.BoardVO">
+        INSERT INTO board(id, bno, title, writer, content, category)
+        VALUES(ID_SEQ.NEXTVAL, TRADE_BNO_SEQ.NEXTVAL, #{title}, #{writer}, #{content}, #{category})
+    </insert>
+
+    <!--  Walkingmate 글작성  -->
+    <insert id="writeWalkingmate" parameterType="com.mypet.doublelifebackend.vo.BoardVO">
+        INSERT INTO board(id, bno, title, writer, content, category)
+        VALUES(ID_SEQ.NEXTVAL, WALKINGMATE_BNO_SEQ.NEXTVAL, #{title}, #{writer}, #{content}, #{category})
+    </insert>
+
+    <!--  게시물 수정  -->
     <update id="modify" parameterType="com.mypet.doublelifebackend.vo.BoardVO">
         update board
         set title = #{title}, content = #{content}, updated_date = sysdate
-        where bno = #{bno}
+        where category = #{category} and bno = #{bno}
     </update>
 
-    <!--    게시물 삭제-->
-    <delete id="delete" parameterType="int">
-        delete from board where bno=#{bno}
+    <!--  게시물 삭제  -->
+    <delete id="delete" parameterType="hashMap">
+        delete from board where category=#{category} and bno=#{bno}
     </delete>
+
+    <!--  조회수 증가  -->
+    <update id="boardViewCnt" parameterType="hashMap">
+        update board set view_cnt=view_cnt+1 where category=#{category} and bno=#{bno}
+    </update>
+
+    <!--  저장된 게시물 총 개수 반환 -->
+    <select id="countList" parameterType="string" resultType="int">
+        select count(bno) from board where category = #{category}
+    </select>
+
+    <!--  현재 페이지의 게시글 리스트 반환  -->
+    <select id="listPage" parameterType="hashMap" resultType="com.mypet.doublelifebackend.vo.BoardVO">
+        select * from
+            (select row_number() over(order by bno) as bno
+                  ,title
+                  ,writer
+                  ,reg_date
+                  ,view_cnt
+                  ,category
+             from board
+             WHERE category = #{category})
+        where bno between #{firstPost} and #{lastPost}
+        order by bno desc
+    </select>
+
+    <!--  qna 글 작성 시 다음 글 번호를 조회 (조회만 하고 시퀀스 값에 영향 없음) -->
+    <select id="getQnaBno" resultType="int">
+        SELECT LAST_NUMBER
+        FROM USER_SEQUENCES
+        WHERE SEQUENCE_NAME = 'QNA_BNO_SEQ'
+    </select>
+
+    <!--  trade 글 작성 시 다음 글 번호를 조회 -->
+    <select id="getTradeBno" resultType="int">
+        SELECT LAST_NUMBER
+        FROM USER_SEQUENCES
+        WHERE SEQUENCE_NAME = 'TRADE_BNO_SEQ'
+    </select>
+
+    <!--  walkingmate 글 작성 시 다음 글 번호를 조회 -->
+    <select id="getWalkingmateBno" resultType="int">
+        SELECT LAST_NUMBER
+        FROM USER_SEQUENCES
+        WHERE SEQUENCE_NAME = 'WALKINGMATE_BNO_SEQ'
+    </select>
+
+    <!--  좋아요 수 증가  -->
+    <update id="updateLike" parameterType="hashMap">
+        update board set hit_cnt=hit_cnt+1 where category=#{category} and bno=#{bno}
+    </update>
+
+    <!--  글 삭제 후 글 번호 조정  -->
+    <update id="updateBno" parameterType="hashMap">
+        update board
+        set bno=bno-1
+        where category=#{category} and
+            bno between #{nextPostNum} and #{lastPostNum}
+    </update>
 </mapper>

@@ -6,21 +6,28 @@
     <title>index</title>
 </head>
 <body>
-<form name="writeForm" method="post">
+<!-- 이미지 첨부를 위해서 인코딩 방식을 multipart/form-data로 설정-->
+<form name="writeForm" method="post" enctype="multipart/form-data">
     <div>
+<!--        <div style="display: none;">-->
         <div>
-        게시판 분류 : <input type="text" name="category">
+            게시글 번호 : <input type="text" th:value="${bno}" name="bno">
         </div>
         <div>
-        제목: <input type="text" name="title">
+            게시판 분류 : <input type="text" th:value="${category}" name="category">
         </div>
         <div>
-        작성자: <input type="text" name="writer">
+            제목: <input type="text" name="title">
         </div>
         <div>
-        내용: <textarea name="content" rows="4" cols="30"></textarea>
+            작성자: <input type="text" name="writer">
+        </div>
+        <div>
+            내용: <textarea name="content" rows="4" cols="30"></textarea>
         </div>
     </div>
+    <h4>파일 업로드</h4>
+    <input type="file" name="files">
     <button type="submit">등록</button>
 </form>
 </body>
