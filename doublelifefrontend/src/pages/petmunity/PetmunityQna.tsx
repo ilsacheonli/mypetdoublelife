@@ -21,7 +21,7 @@ const PetmunityQna = () => {
   const [page, setPage] = useState<number>(1); // 현재 페이지 번호
 
   const boardLength = boardList.length;
-  const postPerPage = 5; // 페이지 당 게시글 개수
+  const postPerPage = 10; // 페이지 당 게시글 개수
   const indexOfLastPost = page * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
 
@@ -78,6 +78,7 @@ const PetmunityQna = () => {
                 <th>작성자</th>
                 <th>등록일</th>
                 <th>조회수</th>
+                <th>id</th>
               </tr>
             </thead>
 
@@ -88,13 +89,14 @@ const PetmunityQna = () => {
                     <tr key={index}>
                       <td>{board.bno}</td>
                       <td className="title">
-                        <Link to={`/board/view/${board.bno}`}>
+                        <Link to={`/board/view/${board.id}`}>
                           {board.title}
                         </Link>
                       </td>
                       <td>{board.writer}</td>
                       <td>{dayjs(board.regDate).format("YYYY.MM.DD")}</td>
                       <td>{board.viewCnt}</td>
+                      <td>{board.id}</td>
                     </tr>
                   );
                 })}

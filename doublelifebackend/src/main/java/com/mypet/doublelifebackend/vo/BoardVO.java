@@ -11,8 +11,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class BoardVO {
 
-    private Integer bno;
-    private Integer id;
+    private int id;
+    private int bno;
     private String category;
     private String title;
     private String writer;

@@ -26,7 +26,7 @@ function Petmunity() {
           {menuArr.map((el,index) => (
               <li className={index === currentTab ? "submenu focused" : "submenu" }
               onClick={() => selectMenuHandler(index)}>
-                <Link to={`/petmunity/${menuArr[currentTab].content}`}
+                <Link to={`/petmunity/${menuArr[currentTab].content}/1`}
                 >
                   {el.name}
                   </Link>
