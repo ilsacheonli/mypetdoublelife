@@ -2,17 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>SignIn 테스트 페이지</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
 </head>
 <body>
-<h3>SignIn</h3>
-<form method="post" action="/login" id="signin">
-    id <input type="text" name="id"> <br/>
-    pwd <input type="text" name="pwd"> <br/>
-
+<h2>로그인</h2>
+<form action="/signIn" method="post">
+    <span th:if="${session.member == null}">로그인이 필요합니다.</span>
+    <div>
+        ID : <input type="text"  name="id">
+    </div>
+    <div>
+        PASSWORD : <input type="text" name="password">
+    </div>
+    <button type="submit">로그인</button>
 </form>
-<button type="submit" form="signin">로그인</button>
-<input type="button" value="회원가입" onClick=" location.href='/signup' "/> <br/>
-
+<a href="/signUp">회원가입</a>
 </body>
 </html>

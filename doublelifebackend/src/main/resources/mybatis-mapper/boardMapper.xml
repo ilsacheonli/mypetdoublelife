@@ -15,7 +15,7 @@
     <!--  게시글 전체 목록 조회  -->
     <select id="list" parameterType="string" resultType="com.mypet.doublelifebackend.vo.BoardVO">
         SELECT
-            bno, title, writer, reg_date, view_cnt, category
+            id, bno, title, writer, reg_date, view_cnt, category
         FROM board
         WHERE category = #{category}
     </select>

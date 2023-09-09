@@ -7,6 +7,11 @@
 </head>
 <body>
     <form>
+        <div th:if="${session.member != null}">
+            <span >[[ ${session.member.id} ]]</span>
+            <span>님  </span>
+            <a href="/signOut">로그아웃</a>
+        </div>
         <a href="/petmunity/qna/1">QNA</a>
         <a href="/petmunity/trade/1">중고거래</a>
         <a href="/petmunity/walkingmate/1">산책 메이트</a>

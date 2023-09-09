@@ -20,8 +20,10 @@
         <h3>수정일</h3> <p th:text="${board.updatedDate}"></p>
         <img th:src="@{'/petmunity/' + ${board.category} + '/fileRead/' + ${board.bno}}">
     </div>
-    <a th:text="수정" th:href="@{'/petmunity/' + ${board.category} + '/modify/' +${board.bno}}"></a>
-    <a th:text="삭제" th:href="@{'/petmunity/' + ${board.category} + '/delete/' +${board.bno}}"></a>
+    <div th:if="${#strings.equals(session.member.id, board.writer)}">
+        <a th:text="수정" th:href="@{'/petmunity/' + ${board.category} + '/modify/' +${board.bno}}"></a>
+        <a th:text="삭제" th:href="@{'/petmunity/' + ${board.category} + '/delete/' +${board.bno}}"></a>
+    </div>
 </form>
 </body>
 </html>

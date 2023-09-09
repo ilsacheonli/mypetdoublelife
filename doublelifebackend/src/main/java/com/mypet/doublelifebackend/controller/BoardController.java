@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,16 @@ public class BoardController {
 
     // 게시판별 목록 페이지로 이동
     @GetMapping("petmunity/{category}/{num}")
-    public String listTrade(@PathVariable("category") String category, @PathVariable("num") int num, Model model) { // num은 페이지 번호
+    public String boardList(@PathVariable("category") String category, @PathVariable("num") int num, Model model, HttpServletRequest request) { // num은 페이지 번호
+
+        // 세션에 member Object 여부 확인
+        HttpSession session = request.getSession();
+        Object memberObject = session.getAttribute("member");
+
+        if (memberObject == null){
+            // 로그인 x면 signin 페이지로 return
+            return "redirect:/signIn";
+        }
 
         // 게시물의 총 개수
         int totalPost = service.countList(category);
@@ -88,8 +99,8 @@ public class BoardController {
     }
 
     // 게시판별 글 작성 화면으로 이동
-    @GetMapping("petmunity/{category}/writePage")
-    public String writeQna(@PathVariable("category") String category, Model model) {
+    @GetMapping("petmunity/writePage")
+    public String writePost(@PathVariable("category") String category, Model model) {
 
         int bno = 0;
 
@@ -107,14 +118,21 @@ public class BoardController {
         model.addAttribute("bno", bno);
         model.addAttribute("category", category);
 
-
         return "PetMunity/write";
+    }
+
+    @PostMapping("petmunity/writePage")
+    public String write(@RequestPart("category") String category, @RequestPart("title") String title) throws IOException {
+        System.out.println("category = " + category);
+        System.out.println("title = " + title);
+
+        return "redirect:/petmunity/"+ category + "/1";
     }
 
     // 게시물 작성 후 등록
     @PostMapping("petmunity/{category}/writePage")
     public String write(@PathVariable("category") String category, List<MultipartFile> files, BoardVO boardVO) throws IOException {
-
+        System.out.println("boardVO = " + boardVO);
         // 게시글을 db에 저장
         if(category.equals("qna")) {
             service.writeQna(boardVO);
