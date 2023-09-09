@@ -11,7 +11,11 @@ public interface BoardRepository {
     void writeQna(BoardVO boardVO);
     void writeTrade(BoardVO boardVO);
     void writeWalkingmate(BoardVO boardVO);
-    BoardVO selectOne(String category, int bno);
+
+    //BoardVO selectOne(String category, int bno);
+
+    BoardVO selectOne(int id);
+
     void modify(BoardVO boardVO);
     void delete(String category, int bno);
     void boardViewCnt(String category, int bno);

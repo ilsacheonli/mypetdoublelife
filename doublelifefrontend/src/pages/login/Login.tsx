@@ -44,91 +44,91 @@ function Login() {
 
   const handleLogin = () => {
     MemberAPI.login(id, pwd)
-      .then((response) => {
-        console.log('로그인 성공', response.data);
-        
-      })
-      .catch((error) => {
-        console.error('로그인 실패', error);
-        // 로그인 실패 시 필요한 작업을 수행하세요.
-      });
+        .then((response) => {
+          console.log('로그인 성공', response.data);
+
+        })
+        .catch((error) => {
+          console.error('로그인 실패', error);
+          // 로그인 실패 시 필요한 작업을 수행하세요.
+        });
   };
 
   return (
-    <Loginpage>
-      <Petimage>
-        <ImageContainer>
-          <Catimage alt="logo_final" src="/loginimg/logo_final.png" />
-        </ImageContainer>
-        <Idbox>
-          <InputWrap>
-            <Input
-              type="text"
-              placeholder="아이디"
-              value={id}
-              onChange={handleIdChange}
-            />
-          </InputWrap>
-          <InputWrap>
-            <Input
-              type="password"
-              placeholder="비밀번호"
-              value={pwd}
-              onChange={handlePwdChange}
-            />
-          </InputWrap>
-          <BottomButton onClick={handleLogin}>로그인</BottomButton>
-        </Idbox>
-        <Apilogin>
-          <tr>
-            <Logo>
-              <Apw
-                alt="naver_login_white"
-                width="60"
-                height="60"
-                src="/loginimg/naver_login_white.png"
-              ></Apw>
-            </Logo>
-            <Logo>
-              <Apss
-                alt="google_login"
-                width="60"
-                height="60"
-                src="/loginimg/google_login.png"
-              ></Apss>{' '}
-            </Logo>
-            <Logo>
-              <Api
-                alt="kakao_login"
-                width="60"
-                height="60"
-                src="/loginimg/kakao_login.png"
-              ></Api>
-            </Logo>
-          </tr>
-        </Apilogin>
-        <Apilogin>
-          <tr>
-            <td>
-              <img
-                alt="footprint"
-                width="20"
-                height="20"
-                src="/loginimg/footprint.png"
+      <Loginpage>
+        <Petimage>
+          <ImageContainer>
+            <Catimage alt="logo_final" src="/loginimg/logo_final.png" />
+          </ImageContainer>
+          <Idbox>
+            <InputWrap>
+              <Input
+                  type="text"
+                  placeholder="아이디"
+                  value={id}
+                  onChange={handleIdChange}
               />
-            </td>
-            <td>
-              <Link to={`/signup`} style={{
-                textDecoration:"none",
-                color:"#000000"
-              }}>
-                <Colr>회원가입</Colr> 하러가기!
-              </Link>
-            </td>
-          </tr>
-        </Apilogin>
-      </Petimage>
-    </Loginpage>
+            </InputWrap>
+            <InputWrap>
+              <Input
+                  type="password"
+                  placeholder="비밀번호"
+                  value={pwd}
+                  onChange={handlePwdChange}
+              />
+            </InputWrap>
+            <BottomButton onClick={handleLogin}>로그인</BottomButton>
+          </Idbox>
+          <Apilogin>
+            <tr>
+              <Logo>
+                <Apw
+                    alt="naver_login_white"
+                    width="60"
+                    height="60"
+                    src="/loginimg/naver_login_white.png"
+                ></Apw>
+              </Logo>
+              <Logo>
+                <Apss
+                    alt="google_login"
+                    width="60"
+                    height="60"
+                    src="/loginimg/google_login.png"
+                ></Apss>{' '}
+              </Logo>
+              <Logo>
+                <Api
+                    alt="kakao_login"
+                    width="60"
+                    height="60"
+                    src="/loginimg/kakao_login.png"
+                ></Api>
+              </Logo>
+            </tr>
+          </Apilogin>
+          <Apilogin>
+            <tr>
+              <td>
+                <img
+                    alt="footprint"
+                    width="20"
+                    height="20"
+                    src="/loginimg/footprint.png"
+                />
+              </td>
+              <td>
+                <Link to={`/signup`} style={{
+                  textDecoration:"none",
+                  color:"#000000"
+                }}>
+                  <Colr>회원가입</Colr> 하러가기!
+                </Link>
+              </td>
+            </tr>
+          </Apilogin>
+        </Petimage>
+      </Loginpage>
   );
 }
 

@@ -33,8 +33,12 @@ public class BoardService {
     }
 
     // 게시글 상세 조회
-    public BoardVO selectOne(String category, int bno) {
-        return boardRepository.selectOne(category, bno);
+//    public BoardVO selectOne(String category, int bno) {
+//        return boardRepository.selectOne(category, bno);
+
+    public BoardVO selectOne(int id) {
+        return boardRepository.selectOne(id);
+
     }
 
     // 게시글 수정

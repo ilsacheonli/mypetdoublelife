@@ -132,8 +132,18 @@ export const Img = styled.img`
   width: 250px;
   height: 250px;
   border-radius: 25px;
-	/*background-color: #DAEBFD;*/
-
+	/*&:hover {
+		background: linear-gradient(
+        to bottom,
+				rgba(159, 149, 242, 0) 65%,
+				rgba(159, 149, 242, 0.25) 75%,
+				rgba(159, 149, 242, 0.6) 85%,
+				rgba(159, 149, 242, 0.75) 90%,
+				rgba(159, 149, 242, 1) 100%
+      );
+      background-size: cover;
+			transition: 0.1s linear;
+	}*/
 `;
 
 export const H5 = styled.h5`
@@ -146,8 +156,8 @@ export const H5 = styled.h5`
 
 `
 export const ImgBox = styled.div`
-	/*width: 250px;
-	height: 280px;	*/
+	width: 250px;
+	height: 280px;
 	position: relative;
 	border-radius: 25px;
   &:hover {
@@ -163,6 +173,18 @@ export const ImgBox = styled.div`
       );
       background-size: cover;
 			transition: 0.1s linear;
+			/*-webkit-mask-image: linear-gradient(to top, 				
+				rgba(159, 149, 242, 0) 15%,
+				rgba(159, 149, 242, 0.25) 75%,
+				rgba(159, 149, 242, 0.6) 85%,
+				rgba(159, 149, 242, 0.75) 90%,
+				rgba(159, 149, 242, 1) 100%);
+  		mask-image: linear-gradient(to top, 				
+				rgba(159, 149, 242, 0) 15%,
+				rgba(159, 149, 242, 0.25) 75%,
+				rgba(159, 149, 242, 0.6) 85%,
+				rgba(159, 149, 242, 0.75) 90%,
+				rgba(159, 149, 242, 1) 100%);*/
 		}
 		span, svg {
 			color: #3c4da7;

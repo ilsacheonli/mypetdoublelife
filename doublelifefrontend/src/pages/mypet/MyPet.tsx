@@ -1,7 +1,8 @@
 import React from 'react';
-import MyPetProfile from './Mypetprofile'
-import MyPetSwiper from './Mypetswiper'
-import MyPetTeb from './Mypetteb'
+import MyPetProfile from './Mypetprofile';
+import MyPetSwiper from './Mypetswiper';
+import MyPetTeb from './Mypetteb';
+
 
 function MyPet() {
 	const swiperItems = [

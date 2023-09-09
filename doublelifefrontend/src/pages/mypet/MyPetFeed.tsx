@@ -20,13 +20,13 @@ function MyPetFeed() {
 	useEffect(() => {
 		const apiUrl = '/myfeed';
 
-		// axios.get(imgUrl)
-		// 	.then((res) => {
-		// 		setImageData(res.data)
-		// 	})
-		// 	.catch((error) => {
-		// 		console.log(error)
-		// 	})
+		/*axios.get(imgUrl)
+		.then((res) => {
+			setImageData(res.data)
+		})
+		.catch((error) => {
+			console.log(error)
+		})*/
 
 		axios.get(apiUrl)
 			.then((res) => {
