@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import MyPetCalendar from './MyPetCalendar';
 import MyPetInput from './MyPetInput';
 import MyPetItem from './MyPetItem';
 
 import { Mypetrecordbox, Mypetrecordmemo, Mypetrecordmemo1 } from './mypet.style'
+import MyPetCalendar from './Mypetcalendar';
 
 interface Item {
 	id: number;
