@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, ChangeEvent } from 'react';
+import axios from 'axios';
 import {
   Api,
   Apilogin,
@@ -17,23 +18,66 @@ import {
 } from "./login.style";
 import { Link } from "react-router-dom";
 
+const API_BASE_URL = 'http://localhost:8080';
+
+const MemberAPI = {
+  login: (id: string, pwd: string) => {
+    return axios.post(`${API_BASE_URL}/login`, { id : id, pwd : pwd }, {
+      headers: {
+        'Content-Type' : 'application/json'
+      },
+    });
+  },
+};
+
 function Login() {
+  const [id, setId] = useState<string>('');
+  const [pwd, setPwd] = useState<string>('');
+
+  const handleIdChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setId(e.target.value);
+  };
+
+  const handlePwdChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPwd(e.target.value);
+  };
+
+  const handleLogin = () => {
+    MemberAPI.login(id, pwd)
+      .then((response) => {
+        console.log('로그인 성공', response.data);
+        
+      })
+      .catch((error) => {
+        console.error('로그인 실패', error);
+        // 로그인 실패 시 필요한 작업을 수행하세요.
+      });
+  };
+
   return (
     <Loginpage>
       <Petimage>
         <ImageContainer>
-          <Link to={`/`}>
-            <Catimage alt="logo_final" src="/loginimg/logo_final.png" />
-          </Link>
+          <Catimage alt="logo_final" src="/loginimg/logo_final.png" />
         </ImageContainer>
         <Idbox>
           <InputWrap>
-            <Input placeholder="아이디"></Input>
+            <Input
+              type="text"
+              placeholder="아이디"
+              value={id}
+              onChange={handleIdChange}
+            />
           </InputWrap>
           <InputWrap>
-            <Input placeholder="비밀번호"></Input>
+            <Input
+              type="password"
+              placeholder="비밀번호"
+              value={pwd}
+              onChange={handlePwdChange}
+            />
           </InputWrap>
-          <BottomButton>로그인</BottomButton>
+          <BottomButton onClick={handleLogin}>로그인</BottomButton>
         </Idbox>
         <Apilogin>
           <tr>
@@ -51,7 +95,7 @@ function Login() {
                 width="60"
                 height="60"
                 src="/loginimg/google_login.png"
-              ></Apss>{" "}
+              ></Apss>{' '}
             </Logo>
             <Logo>
               <Api
@@ -63,7 +107,6 @@ function Login() {
             </Logo>
           </tr>
         </Apilogin>
-
         <Apilogin>
           <tr>
             <td>
@@ -75,13 +118,12 @@ function Login() {
               />
             </td>
             <td>
-                <Link to={`/signup`} style={{
-                  textDecoration:"none",
-                  color:"#000000"
-                }}>
-                <Colr>회원가입 </Colr>
-                </Link>
-                하러가기!
+              <Link to={`/signup`} style={{
+                textDecoration:"none",
+                color:"#000000"
+              }}>
+                <Colr>회원가입</Colr> 하러가기!
+              </Link>
             </td>
           </tr>
         </Apilogin>

@@ -107,31 +107,27 @@
                         fetch(`/pethospital?lat=${lat}&lon=${lon}`)
                             .then(response => response.json())
                             .then(allData => {
-                                var hospitalListHTML = '';
+                                var hospitalListJSON = []; // JSON 형식의 배열
 
                                 for (var i = 0; i < allData.length; i++) {
                                     var hospitalLat = allData[i].latitude;
                                     var hospitalLon = allData[i].longitude;
                                     var calculatedDistance = calculateDistance(lat, lon, hospitalLat, hospitalLon);
 
-                                    if (calculatedDistance <= 3) { // 5km 이내
-                                        hospitalListHTML += `<li>${allData[i].name} (약 ${calculatedDistance.toFixed(2)} km)
-                                                             <button class="detail-button" data-index="${i}">자세히</button>
-                                                             </li>`;
+                                    if (calculatedDistance <= 3) { // 3km 이내
+                                        var hospitalInfo = {
+                                            name: allData[i].name,
+                                            distance: calculatedDistance.toFixed(2) + " km"
+                                        };
+                                        hospitalListJSON.push(hospitalInfo);
                                     }
                                 }
 
-                                hospitalListContainer.innerHTML = `<ul>${hospitalListHTML}</ul>`;
-                                // 자세히 버튼 클릭 시 이벤트 처리
-                                const detailButtons = document.querySelectorAll('.detail-button');
-                                detailButtons.forEach((button, index) => {
-                                    button.addEventListener('click', () => {
-                                        const selectedHospital = allData[index];
-                                        const url = `/showdetail.html?lat=${selectedHospital.latitude}&lon=${selectedHospital.longitude}`;
-                                        window.open(url, '_blank');
-                                    });
-                                });
+                                // JSON.stringify()를 사용하여 JSON 문자열로 변환
+                                var hospitalListJSONString = JSON.stringify(hospitalListJSON);
 
+                                // 이제 hospitalListJSONString 변수에는 원하는 형식의 JSON 데이터가 들어 있습니다.
+                                console.log(hospitalListJSONString);
                             })
                             .catch(error => console.error('데이터 가져오기 오류:', error));
                     })

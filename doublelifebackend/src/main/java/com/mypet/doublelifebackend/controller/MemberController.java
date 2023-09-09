@@ -18,7 +18,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class MemberController {
     @Autowired
     private MemberService memberService;
@@ -28,7 +29,6 @@ public class MemberController {
     private ImageService imageService;
     @Autowired
     MemberVO memberVO ;
-
 
     // 로그인 페이지
     @RequestMapping(value = "/signin", method = RequestMethod.GET)
@@ -83,26 +83,24 @@ public class MemberController {
         // resources/templates/MyPageUpdate.html
     }
 
-
     // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestParam("id") String id, @RequestParam("pwd") String pwd,
-                        HttpServletRequest request, Model model){
+    public String login(@RequestBody Map<String, String> loginData,
+                        HttpServletRequest request, Model model) {
+
+        String id = loginData.get("id");
+        String pwd = loginData.get("pwd");
 
         MemberVO member = memberService.getMemberByLogin(id, pwd);
 
-        // 로그인 실패
-        if(member == null){
-
-            // 다시 로그인 페이지 return
-            return "redirect:/signin?loginFail";
+        if (member == null) {
+            return "redirect:/login";
         }
 
         HttpSession session = request.getSession();
         session.setAttribute("member", member);
 
-        // 마이 페이지로 return
-        return "redirect:mypage";
+        return "redirect:/mypage";
     }
 
     // 로그아웃
@@ -112,22 +110,17 @@ public class MemberController {
         HttpSession session = request.getSession();
         session.invalidate();
 
-        // 마이 페이지로 return
         return "redirect:signin?logout";
     }
-
-
 
     // 새로운 멤버 추가
     @RequestMapping(value = "/addmember", method = RequestMethod.POST)
     public String addmember(@RequestParam Map<String, Objects> paramObj, MemberVO new_Member){
 
-        // 마지막 멤버 번호 getLastMemNumber() 함수 호출
         int lastMemNumber = memberService.getLastMemNumber();
 
-        // 새로운 멤버 MemberVO() 생성자로 생성
         new_Member = new MemberVO(
-                lastMemNumber,           // "number"
+                lastMemNumber,
                 String.valueOf(paramObj.get("name")),
                 String.valueOf(paramObj.get("id")),
                 String.valueOf(paramObj.get("pwd")),
@@ -135,20 +128,15 @@ public class MemberController {
                 String.valueOf(paramObj.get("birth"))
         );
 
-        // 새로운 멤버 MemberVO 인자로 멤버 추가 addMember() 함수 호출
         int Member_number = memberService.addMember(new_Member);
 
-        // DB 멤버 번호 조회로 추가한 멤버가 있는지 확인하기 위한 변수 처리
         MemberVO addedMember = memberService.getMemberByNum(Member_number);
 
-        // 회원가입 실패
         if(String.valueOf(addedMember).equals("null")){
 
-            // 다시 회원가입 페이지로  return
             return "redirect:/signup?signUpFail";
         }
 
-        // 회원가입 성공 로그인 페이지로 return
         return "redirect:/signin?signUpSuccess";
     }
 
@@ -157,12 +145,10 @@ public class MemberController {
     public String updatemember(@RequestParam Map<String, Objects> paramObj, MemberVO update_member,
                                HttpServletRequest request){
 
-        // number object -> int형으로
         int number = Integer.parseInt(String.valueOf(paramObj.get("number")));
 
-        // 수정한 멤버 정보 MemberVO() 생성자로 생성
         update_member = new MemberVO(
-                number,                   //"number"
+                number,
                 String.valueOf(paramObj.get("name")),
                 String.valueOf(paramObj.get("id")),
                 String.valueOf(paramObj.get("pwd")),
@@ -170,29 +156,19 @@ public class MemberController {
                 String.valueOf(paramObj.get("birth"))
         );
 
-
-        // 수정한 멤버 MemberVO 인자로 멤버 수정 editMember() 함수 호출
         int Member_number = memberService.editMember(update_member);
 
-        // DB 멤버 번호 조회로 추가한 멤버가 있는지 확인하기 위한 변수 처리
         MemberVO updated_member = memberService.getMemberByNum(Member_number);
 
-        // 회원 정보 수정 실패
         if(String.valueOf(updated_member).equals("null")){
 
-            // 다시 mypage로 return
             return "redirect:/mypage?updateFail";
         }
 
-        // 회원 정보 수정 성공
-        // 기존 member 세션 삭제
         HttpSession session = request.getSession();
         session.removeAttribute("member");
-
-        // 수정한 member memNumber로 불러온 후 세션에 추가
         session.setAttribute("member",updated_member);
 
-        // mypage로 return
         return "redirect:/mypage?updateSuccess";
     }
 
@@ -204,10 +180,8 @@ public class MemberController {
         Object memberObject = session.getAttribute("member");
 
         if (memberObject == null){
-            // 로그인 x면 signin 페이지로 return
             return "redirect:/signin?NotLogin";
         }
-
 
         MemberVO del_member = (MemberVO)memberObject;
         String del_m_id = del_member.getMemId();
@@ -230,9 +204,6 @@ public class MemberController {
 
         session.invalidate();
 
-        // 삭제 성공 로그인 페이지로 return
-        return "redirect:/signin?deleteSuccess'";
+        return "redirect:/signin?deleteSuccess";
     }
-
-
 }
