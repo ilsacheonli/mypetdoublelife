@@ -122,12 +122,14 @@ public class MyFeedController {
 
     @PostMapping("/myfeed/delete")
     public String myFeedDelete( @RequestPart("feedNo") int feedNo,
-                                MyFeedVO deleted_myFeed) throws IOException {
+                                MyFeedVO delete_myFeed) throws IOException {
 
+        delete_myFeed = myFeedService.getMyFeedByNo(feedNo);
+        int del_imgNo = delete_myFeed.getImgNo();
 
         myFeedService.removeMyFeed(feedNo);
 
-        deleted_myFeed = myFeedService.getMyFeedByNo(feedNo);
+        MyFeedVO deleted_myFeed = myFeedService.getMyFeedByNo(feedNo);
 
         if(!String.valueOf(deleted_myFeed).equals("null")){
             try {
@@ -139,6 +141,8 @@ public class MyFeedController {
             }
 
         }
+
+        imageService.deleteImage(del_imgNo);
 
         return "myfeed?deleteSuccess";
     }
