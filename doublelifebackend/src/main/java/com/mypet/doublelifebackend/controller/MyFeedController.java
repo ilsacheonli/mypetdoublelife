@@ -117,7 +117,34 @@ public class MyFeedController {
         imageService.updateImage(image, imgNo, "feed");
 
 
-        return "/myfeed/update";
+        return "myfeed?updateSuccess";
+    }
+
+    @PostMapping("/myfeed/delete")
+    public String myFeedDelete( @RequestPart("feedNo") int feedNo,
+                                MyFeedVO delete_myFeed) throws IOException {
+
+        delete_myFeed = myFeedService.getMyFeedByNo(feedNo);
+        int del_imgNo = delete_myFeed.getImgNo();
+
+        myFeedService.removeMyFeed(feedNo);
+
+        MyFeedVO deleted_myFeed = myFeedService.getMyFeedByNo(feedNo);
+
+        if(!String.valueOf(deleted_myFeed).equals("null")){
+            try {
+                // throw로 강제 예외 발생
+                throw new Exception("마이 피드 삭제 실패");
+            } catch (Exception e) {
+                System.out.println("ERROR : " + e.getMessage());
+                e.printStackTrace();
+            }
+
+        }
+
+        imageService.deleteImage(del_imgNo);
+
+        return "myfeed?deleteSuccess";
     }
 
 

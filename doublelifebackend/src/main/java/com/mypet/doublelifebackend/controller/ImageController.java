@@ -37,15 +37,13 @@ public class ImageController {
     @GetMapping( "/image/{imgNo}")
     public Resource getImage(@PathVariable int imgNo, ImageVO geted_imageVO) throws MalformedURLException {
 
-        //int imgNo_to_int = Integer.parseInt(imgNo);
-
         geted_imageVO = imageService.getImageByNum(imgNo);
 
         if(geted_imageVO == null){
             return null;
         }
 
-        String absolutePath = geted_imageVO.getImgPath();
+        String absolutePath = imageService.getImgUploadPath()+geted_imageVO.getImgPath();
         String newImageName = geted_imageVO.getNewImgName();
 
         return new UrlResource("file:"+absolutePath+"/"+newImageName);
