@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class petHospitalController {
+public class PetHospitalInfoController {
     @Autowired
     HospitalRepository hospitalRepository;
 
     @GetMapping("/pethospital")
-    public List<PetHospitalVO> getPetHospitals() {
-        return hospitalRepository.selectList();
+    public List<PetHospitalVO> GetHospitalList() {
+        return hospitalRepository.getHospitalList();
     }
 }

@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class petHospitalTestController {
+public class PetHospitalController {
 
     @GetMapping("/findpethospital")
     public ModelAndView showMap(){
-        return new ModelAndView("FindPetHospital/findpethospital");
+        return new ModelAndView("FindPetFacility/findpethospital"); //
     }
 }

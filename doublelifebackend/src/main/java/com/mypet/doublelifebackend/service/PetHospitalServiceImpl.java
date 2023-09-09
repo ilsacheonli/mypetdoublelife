@@ -12,7 +12,7 @@ public class PetHospitalServiceImpl implements PetHospitalService {
     @Autowired
     HospitalRepository hospitalRepository;
 
-    public List<PetHospitalVO> selectList() {
-        return hospitalRepository.selectList();
+    public List<PetHospitalVO> GetHospitalList() {
+        return hospitalRepository.getHospitalList();
     }
 }
