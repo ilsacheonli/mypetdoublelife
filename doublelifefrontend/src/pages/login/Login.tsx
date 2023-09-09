@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import {
   Api,
   Apilogin,
@@ -16,8 +16,20 @@ import {
   Petimage,
 } from "./login.style";
 import { Link } from "react-router-dom";
+import React, { useState } from 'react';
 
-function Login() {
+const Login: React.FC = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = () => {
+    if (username.trim() === "" || password.trim() === "") {
+      alert("아이디와 비밀번호를 입력해주세요.");
+      return;
+    }
+  };
+
+// function Login() {
   return (
     <Loginpage>
       <Petimage>
@@ -28,12 +40,12 @@ function Login() {
         </ImageContainer>
         <Idbox>
           <InputWrap>
-            <Input placeholder="아이디"></Input>
+            <Input  value={username}  onChange={(e) => setUsername(e.target.value)} placeholder="아이디"></Input>
           </InputWrap>
           <InputWrap>
-            <Input placeholder="비밀번호"></Input>
+            <Input  value={password}  onChange={(e) => setPassword(e.target.value)} placeholder="비밀번호"></Input>
           </InputWrap>
-          <BottomButton>로그인</BottomButton>
+          <BottomButton onClick={handleLogin}>로그인</BottomButton>
         </Idbox>
         <Apilogin>
           <tr>

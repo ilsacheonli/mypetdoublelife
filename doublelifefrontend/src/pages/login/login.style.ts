@@ -29,7 +29,7 @@ export const BottomButton = styled.button`
   align-items: center;
   justify-content: center;
   padding: 10px 20px;
-  width: 32.3%;
+  width: 30%;
   height: 48px;
   border: none;
   font-weight: 700;

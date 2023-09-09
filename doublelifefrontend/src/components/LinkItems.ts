@@ -21,7 +21,7 @@ export const LinkItems = [
     },
     {
         title: 'about us',
-        url: '/',
+        url: '/UserPage',
         alt: 'aboutus'
     },
 ]
