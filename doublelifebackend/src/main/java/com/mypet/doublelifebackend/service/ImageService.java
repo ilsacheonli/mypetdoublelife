@@ -7,6 +7,7 @@ import java.util.UUID;
 import com.mypet.doublelifebackend.repository.ImageRepository;
 
 import com.mypet.doublelifebackend.vo.ImageVO;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -18,7 +19,8 @@ public class ImageService {
     @Autowired
     private ImageRepository imageRepository;
 
-    private final String imgUploadPath = "mypetdoublelife/doublelifebackend/src/main";
+    @Getter
+    private final String imgUploadPath = new File("mypetdoublelife/doublelifebackend/src/main").getAbsolutePath();
 
     public ImageVO getImageByNum(int imgNo){
 
@@ -28,7 +30,7 @@ public class ImageService {
     public int insertImage(MultipartFile image,  String directory) throws IOException {
 
         //저장할 파일경로 지정
-        String absolutePath = new File(imgUploadPath+"/resources/static/images/"+directory).getAbsolutePath();
+        String absolutePath = "/resources/static/images/"+directory;
 
 
         // 확장자 추출
@@ -68,7 +70,7 @@ public class ImageService {
             imageRepository.imgInsert(imageVO);
 
             // 파일을 전송하기
-            File file = new File(absolutePath + "/" + newImageName);
+            File file = new File(imgUploadPath+absolutePath + "/" + newImageName);
             if (!file.exists()) {
                 file.mkdirs();
             }
@@ -84,7 +86,7 @@ public class ImageService {
     public int insertDefaultImg() throws IOException {
 
         //저장할 파일경로 지정
-        String absolutePath = new File(imgUploadPath+"/resources/static/images/").getAbsolutePath();
+        String absolutePath ="/resources/static/images/";
 
 
         // 마지막 이미지 번호+1
@@ -107,7 +109,7 @@ public class ImageService {
     public int updateImage(MultipartFile image, int update_img_Num, String directory) throws IOException {
 
         //저장할 파일경로 지정
-        String absolutePath = new File(imgUploadPath+"/resources/static/images/"+directory).getAbsolutePath();
+        String absolutePath = "/resources/static/images/"+directory;
 
 
         // 확장자 추출
@@ -134,7 +136,7 @@ public class ImageService {
             ImageVO imageVO = getImageByNum(update_img_Num);
 
             //파일 경로 지정
-            String del_image_path = imageVO.getImgPath()+"/"+imageVO.getNewImgName();
+            String del_image_path = imgUploadPath+imageVO.getImgPath()+"/"+imageVO.getNewImgName();
 
             //현재 게시판에 존재하는 파일객체를 만듬
             File delete_file = new File(del_image_path);
@@ -152,7 +154,7 @@ public class ImageService {
             String newImageName = UUID.randomUUID().toString() + originalImageExtension;
 
             // 파일을 전송하기
-            File update_file = new File(absolutePath + "/" + newImageName);
+            File update_file = new File(imgUploadPath+absolutePath + "/" + newImageName);
             if (!update_file.exists()) {
                 update_file.mkdirs();
             }
@@ -179,7 +181,7 @@ public class ImageService {
         ImageVO del_imageVO = getImageByNum(del_img_Num);
 
         //파일 경로 지정
-        String del_image_path = del_imageVO.getImgPath()+"/"+del_imageVO.getNewImgName();
+        String del_image_path = imgUploadPath+del_imageVO.getImgPath()+"/"+del_imageVO.getNewImgName();
 
         //현재 게시판에 존재하는 파일객체를 만듬
         File delete_file = new File(del_image_path);
