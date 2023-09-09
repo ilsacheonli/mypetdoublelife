@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>펫스티벌 상세 뷰 테스트 페이지</title>
+</head>
+<body>
+<h1>펫스티벌 상세뷰</h1>
+
+<div th:each="petstival">
+  <div>
+    <span th:text="${petstival.contentTitle}"></span><br/>
+    <!-- 컨텐츠 이미지 자리 -->
+    <!-- 유저 프로필 이미지 자리 -->
+    <span th:text="${petstival.user_name}"></span><br/>
+      <span th:text="${petstival.user_id}"></span><br/>
+      <span th:text="${petstival.contentText}"></span><br/>
+      <span th:text="${petstival.likeNum}"></span><br/>
+      <span th:text="${petstival.regTime}"></span><br/>
+  </div>
+</div>
+</body>
+</html>

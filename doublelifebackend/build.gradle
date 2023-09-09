@@ -33,6 +33,19 @@ dependencies {
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//마이바티스 설정
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+
+	//타임리프 사용을 위한 설정
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+	//ojdbc 인코딩 관련 오류 해결을 위한 디펜던시
+	implementation group: 'com.oracle.ojdbc', name: 'orai18n', version: '19.3.0.0'
+
+
 }
 
 tasks.named('test') {
