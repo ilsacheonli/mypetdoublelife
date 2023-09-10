@@ -68,7 +68,8 @@ public class BoardFrontController {
 
     // 게시물 수정
     @PostMapping("/board/modify/{id}")
-    public void modify(BoardVO boardVO) {
+    public void modify(@RequestBody BoardVO boardVO) {
+        System.out.println("boardVO: " + boardVO);
         service.modify(boardVO);
     }
 

@@ -53,11 +53,14 @@ export const TabMenu = styled.ul`
 
   & div.desc {
     text-align: center;
+    justify-content: center;
   }
 `;
 
 export const Desc = styled.div`
+  display: flex;
   text-align: center;
+  justify-content: center;
 `;
 
 export const SearchIcon = styled.img`

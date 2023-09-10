@@ -82,12 +82,14 @@ export const SearchIcon = styled.img`
 `
 
 export const Board = styled.div`
-  display: inline-block;
+  display: flex;
   margin-top: 0;
+  justify-content: center;
 `
 
 export const BoardList = styled.div`
-  display: inline-block;
+  // display: inline-block;
+  width: 80%;
   & h4 {
     margin-left: 0;
     padding-left: 0;
@@ -119,10 +121,8 @@ export const BoardList = styled.div`
 
           a {
             padding-bottom: 2px;
-
-            &:hover {
-              border-bottom: 1px solid #3b4b9b;
-            }
+            text-decoration: none;
+            color: black;
           }
         }
       }

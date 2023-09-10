@@ -78,7 +78,6 @@ const PetmunityQna = () => {
                 <th>작성자</th>
                 <th>등록일</th>
                 <th>조회수</th>
-                <th>id</th>
               </tr>
             </thead>
 
@@ -96,7 +95,6 @@ const PetmunityQna = () => {
                       <td>{board.writer}</td>
                       <td>{dayjs(board.regDate).format("YYYY.MM.DD")}</td>
                       <td>{board.viewCnt}</td>
-                      <td>{board.id}</td>
                     </tr>
                   );
                 })}

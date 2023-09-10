@@ -107,7 +107,14 @@ function PetmunityDetail() {
       </ArticleContentBox>
       <FloatRight>
         <ArticleBottomBtns>
-          <ListButton children="Delete" onClick={formDelete} />
+          <ListButton>
+            <Link
+              to={`/board/modify/${detailBoardData.id}`}
+            >
+              수정
+            </Link>
+          </ListButton>
+          <ListButton children="삭제" onClick={formDelete} />
           <ListButton>
             <Link
               to={"/petmunity/qna"}

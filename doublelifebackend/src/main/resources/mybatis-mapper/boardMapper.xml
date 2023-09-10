@@ -42,7 +42,7 @@
     <update id="modify" parameterType="com.mypet.doublelifebackend.vo.BoardVO">
         update board
         set title = #{title}, content = #{content}, updated_date = sysdate
-        where category = id=#{id}
+        where id=#{id}
     </update>
 
     <!--  게시물 삭제  -->
