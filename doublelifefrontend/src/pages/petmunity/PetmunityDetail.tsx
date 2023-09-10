@@ -32,6 +32,24 @@ function PetmunityDetail() {
       })
   }, [])
 
+  const formDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e. preventDefault();
+
+    if (window.confirm('게시글을 삭제하시겠습니까?')) {
+      axios.get(`http://localhost:8080/petmunity/qna/delete/${params}`, {
+      })
+      .then(function(response) {
+        alert('게시글이 삭제되었습니다.');
+        navigate('/petmunity/qna');
+      })
+      .catch(function(error) {
+        console.log(error);
+      })
+    } else {
+      return false;
+    }
+  }
+
   if (typeof detailBoardData === 'undefined') return <></>;
 
   return (
@@ -89,6 +107,7 @@ function PetmunityDetail() {
       </ArticleContentBox>
       <FloatRight>
         <ArticleBottomBtns>
+          <ListButton children="Delete" onClick={formDelete} />
           <ListButton>
             <Link
               to={"/petmunity/qna"}
