@@ -36,7 +36,7 @@ function PetmunityDetail() {
     e. preventDefault();
 
     if (window.confirm('게시글을 삭제하시겠습니까?')) {
-      axios.get(`http://localhost:8080/petmunity/qna/delete/${params}`, {
+      axios.get(`http://localhost:8080/board/delete/${params}`, {
       })
       .then(function(response) {
         alert('게시글이 삭제되었습니다.');
