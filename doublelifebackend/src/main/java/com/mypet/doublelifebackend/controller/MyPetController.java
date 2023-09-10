@@ -16,30 +16,64 @@ public class MyPetController {
     private ImageService imageService;
 
 
+    // petByNo
+    @GetMapping("/mypet/{petNo}")
+    public MyPetVO getMypetByNo(@PathVariable int petNo){
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("memId", "test");
+        map.put("petNo", petNo);
 
-    // pet 페이지
-    @GetMapping("/mypet")
-    public List<MyPetVO> mypet(){
-        return myPetService.getAllMyPets("test");
+        return myPetService.getMyPetByNo(map);
     }
+
+    // petImgByNo
+    @GetMapping("/mypet/image/{petNo}")
+    public int getMypetImgByNo(@PathVariable int petNo) {
+        if (petNo == 0){
+            return 0;
+        }
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("memId", "test");
+        map.put("petNo", petNo);
+
+        return myPetService.getMyPetImgByNo(map);
+    }
+
+
+    // petNoList
+    @GetMapping("/mypet/List")
+    public List<Integer> getMypetNoList(){
+        return myPetService.getAllMyPetNo("test");
+    }
+
 
     // 새로운 pet 추가
     @PostMapping("/mypet/insert")
-    public String addpet(@RequestPart("petName") String petName,
+    public String addpet(@RequestPart("petNo") String petNo,
+                         @RequestPart("petName") String petName,
                          @RequestPart("petGender") String petGender,
                          @RequestPart("petBirth") String petBirth,
                          @RequestPart("petIntro") String petIntro,
                          MyPetVO new_myPet) throws IOException {
-        
-        // petName이 동일한 pet 확인
-        HashMap<String, Object> pName_ck_map = new HashMap<String, Object>();
-        pName_ck_map.put("memId", "test");
-        pName_ck_map.put("petName", petName);
 
-        MyPetVO checked_myPet = myPetService.getMyPetByName(pName_ck_map);
+        // 이미 있는 pet일 경우
+        if(!petNo.equals("0")){
 
-        if(!String.valueOf(checked_myPet).equals("null")){
-            String msg = updatepet(checked_myPet, petGender, petBirth, petIntro);
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("memId", "test");
+            map.put("petNo", Integer.parseInt(petNo));
+
+            MyPetVO update_myPet = new MyPetVO(
+                    "test",
+                    Integer.parseInt(petNo),
+                    petName,
+                    petGender,
+                    petBirth,
+                    petIntro,
+                    myPetService.getMyPetImgByNo(map)
+            );
+
+            String msg = updatepet(update_myPet);
 
             if(msg.equals("mypet?updateFail")){
                 try {
@@ -93,18 +127,8 @@ public class MyPetController {
 
     // pet 정보 수정
     //@PostMapping("/mypet/update")
-    public String updatepet(MyPetVO checked_myPet,
-                            String petGender,String petBirth,String petIntro) {
+    public String updatepet(MyPetVO update_myPet) {
 
-        MyPetVO update_myPet = new MyPetVO(
-                checked_myPet.getMemId(),
-                checked_myPet.getPetNo(),
-                checked_myPet.getPetName(),
-                petGender,
-                petBirth,
-                petIntro,
-                checked_myPet.getImgNo()
-        );
 
         myPetService.editMyPet(update_myPet);
 

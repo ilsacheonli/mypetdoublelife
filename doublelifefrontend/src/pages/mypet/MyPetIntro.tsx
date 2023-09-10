@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Intro, ProfileButton, Formbutton, Button, Default } from './mypet.style';
 import { RiDeleteBinLine, RiPencilLine } from 'react-icons/ri';
 import axios from 'axios';
 
-function MyPetIntro() {
+interface prop{
+	petNo:number;
+}
+
+
+function MyPetIntro(petNoProp : prop) {
 	const initialPetData = {
 		petName: '',
 		petGender: '',
@@ -13,6 +18,18 @@ function MyPetIntro() {
 
 	const [petData, setPetData] = useState(initialPetData);
 	const [editing, setEditing] = useState(false);
+
+	useEffect(() => {
+		axios
+			.get('/mypet/'+petNoProp.petNo)
+			.then((res) => {
+				setPetData(res.data);
+			})
+			.catch(function (error){
+				console.log(error);
+			})
+
+	}, []);
 
 	const handleInputChange = (e: any) => {
 		const { name, value } = e.target;
@@ -27,19 +44,22 @@ function MyPetIntro() {
 	};
 
 	let frm = new FormData()
+	frm.append('petNo', petNoProp.petNo.toString())
 	frm.append('petName', petData.petName)
 	frm.append('petGender', petData.petGender)
 	frm.append('petBirth', petData.petBirth)
 	frm.append('petIntro', petData.petIntro)
 
 	const handleSaveButtonClick = () => {
-		setEditing(false);
+
 		axios.post("/mypet/insert", frm)
 			.then(res => {
 				console.log('등록 성공', res.data);
+				setEditing(false);
 			})
 			.catch(error => {
 				console.error('등록 실패', error)
+				setEditing(false);
 			})
 	};
 

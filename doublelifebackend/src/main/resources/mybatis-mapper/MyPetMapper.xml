@@ -29,9 +29,23 @@
         WHERE mid = #{memId} AND pno = #{petNo}
     </select>
 
+
+    <select id="selectMyPetImgByNo" parameterType="hashmap" resultType="Integer">
+        SELECT IMG_NO
+        FROM pet
+        WHERE mid = #{memId} AND pno = #{petNo}
+    </select>
+
     <!-- memId가 일치하는 pet 전체 출력 -->
     <select id="selectAllMyPet" parameterType="String" resultMap="petResult">
         SELECT *
+        FROM pet
+        WHERE mid = #{memId}
+        ORDER BY reg_date
+    </select>
+
+    <select id="selectAllMyPetNo" parameterType="String" resultType="Integer">
+        SELECT pno
         FROM pet
         WHERE mid = #{memId}
         ORDER BY reg_date

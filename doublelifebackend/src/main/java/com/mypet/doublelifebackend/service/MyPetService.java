@@ -23,10 +23,20 @@ public class MyPetService {
         return myPetRepository.selectMyPetByNo(map);
     }
 
+    public int getMyPetImgByNo(HashMap<String, Object> map) {
+
+        return myPetRepository.selectMyPetImgByNo(map);
+    }
+
 
     public List<MyPetVO> getAllMyPets(String memId) {
 
         return myPetRepository.selectAllMyPet(memId);
+    }
+
+    public List<Integer> getAllMyPetNo(String memId) {
+
+        return myPetRepository.selectAllMyPetNo(memId);
     }
 
 
