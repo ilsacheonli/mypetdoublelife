@@ -16,8 +16,8 @@ public class FeedController {
 
     @Autowired
     private FeedService feedService;
-//    @Autowired
-//    FeedVO feedVO;
+    @Autowired
+    FeedVO feedVO;
 
     @GetMapping (value = "/feedlist")
     public List<FeedVO> showFeedMainPage() { // 펫스티벌 메인 피드 화면
