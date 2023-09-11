@@ -2,12 +2,10 @@ package com.mypet.doublelifebackend.controller;
 
 import com.mypet.doublelifebackend.service.ImageService;
 import com.mypet.doublelifebackend.service.MyFeedService;
+import com.mypet.doublelifebackend.vo.BoardVO;
 import com.mypet.doublelifebackend.vo.MyFeedVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -27,6 +25,11 @@ public class MyFeedController {
         return myFeedService.getAllMyFeed(memId);
     }
 
+    // feedByNo
+    @GetMapping("/myfeed/{feedNo}")
+    public MyFeedVO getMyFeedByNo(@PathVariable int feedNo){
+        return myFeedService.getMyFeedByNo(feedNo);
+    }
 
     @GetMapping("/myfeed/insert")
     public String myFeedInsertPage(){

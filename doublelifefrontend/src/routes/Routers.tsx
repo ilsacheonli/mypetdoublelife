@@ -6,6 +6,7 @@ import Login from 'pages/login/Login';
 import MyPet from '../pages/mypet/MyPet';
 import MyPetFeed from '../pages/mypet/MyPetFeed';
 import MyPetFeedWrite from '../pages/mypet/MyPetFeedWrite';
+import MyPetFeedView from '../pages/mypet/MyPetFeedView';
 import MyPetMemo from '../pages/mypet/MyPetMemo';
 
 import PetMapHospital from 'pages/petmap/PetMapHospital';
@@ -36,6 +37,7 @@ export const Routers = () => {
 				<Route path='/mypet' element={<MyPet />} />
 				<Route path='/mypetfeed' element={<MyPetFeed />} />
 				<Route path='/mypetfeedwrite' element={<MyPetFeedWrite />} />
+				<Route path='/myfeed/:feedNo' element={<MyPetFeedView />} />
 				<Route path='/mypetmemo' element={<MyPetMemo />} />
 				<Route path='/petmap' element={<PetMap />}>
 					<Route path='hospital' element={<PetMapHospital />} />

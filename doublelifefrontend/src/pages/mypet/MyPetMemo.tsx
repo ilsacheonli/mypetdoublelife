@@ -3,7 +3,7 @@ import MyPetInput from './MyPetInput';
 import MyPetItem from './MyPetItem';
 
 import { Mypetrecordbox, Mypetrecordmemo, Mypetrecordmemo1 } from './mypet.style'
-import MyPetCalendar from './Mypetcalendar';
+import MyPetCalendar from './MyPetCalendar';
 
 interface Item {
 	id: number;

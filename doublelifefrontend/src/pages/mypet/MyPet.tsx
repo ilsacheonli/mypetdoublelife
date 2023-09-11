@@ -1,28 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import MyPetProfile from './Mypetprofile';
 import MyPetSwiper from './Mypetswiper';
-import MyPetTeb from './Mypetteb';
+import MyPetTeb from './MyPetTeb';
 import axios from 'axios';
 
 
 function MyPet() {
-	const [petNoList , setPetNoList]= useState<number[]>([]);
+	const [petNoList, setPetNoList] = useState<number[]>([]);
 
-	useEffect(() =>{
+	useEffect(() => {
 		axios
 			.get('/mypet/List')
 			.then((res) => {
 				setPetNoList(res.data);
 			})
-			.catch(function (error){
+			.catch(function (error) {
 				console.log(error);
 			})
 
 	}, [])
 
 
-	const swiperItems = petNoList.map((petNo, idx) =>{
-		return <div key={idx} className="swiper-slide"><MyPetProfile petNo={petNo}/></div>;
+	const swiperItems = petNoList.map((petNo, idx) => {
+		return <div key={idx} className="swiper-slide"><MyPetProfile petNo={petNo} /></div>;
 	});
 	// 추가적인 슬라이드 아이템들을 배열로 생성
 
