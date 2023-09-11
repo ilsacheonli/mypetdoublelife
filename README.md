@@ -211,9 +211,22 @@ pet 테이블 crud 기능 추가
 pet 테이블 crud 기능 수정 완료
 
 ---
+(2023-09-11)
 
-=======
->>>>>>> 3987f781262ccfec81f19d94096b25ae94f22f3d
+feed기능과 관리기록기능 추가와 다른파일 코드정리
+
+관리기록 매핑주소와 필요한 값 
+
+- 날짜별 할일 출력 주소
+  - Get , /mytodo/{doDate} -> doDate:날짜(string) 
+- 할일 추가 주소
+  - Post, /mytodo/insert -> form [ doDate:날짜(string), doContent:내용(string) ]
+- 할일 수정 주소
+  - Post, /mytodo/update -> form [ doNo:할일 번호(string), doDate:날짜(string), doContent:내용(string) ]
+- 할일 삭제 주소
+  - Post, /mytodo/delete/{doNo} -> doNo:할일 번호(string)
+
+
 PetMunity 
 -
 ### (23-08-25)  

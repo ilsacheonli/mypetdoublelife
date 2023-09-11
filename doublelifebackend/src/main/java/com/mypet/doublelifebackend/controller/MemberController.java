@@ -190,11 +190,7 @@ public class MemberController {
 
         if (del_petList != null){
             for (MyPetVO del_pet : del_petList){
-                HashMap<String, Object> map = new HashMap<String, Object>();
-                map.put("memId", del_pet.getMemId());
-                map.put("petNo", del_pet.getPetNo());
-
-                myPetService.removeMyPet(map);
+                myPetService.removeMyPet(del_pet.getPetNo());
 
                 imageService.deleteImage(del_pet.getImgNo());
             }

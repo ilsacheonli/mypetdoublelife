@@ -13,19 +13,14 @@ public class MyPetService {
     @Autowired
     private MyPetRepository myPetRepository;
 
-    public MyPetVO getMyPetByName(HashMap<String, Object> map) {
+    public MyPetVO getMyPetByNo(int petNo) {
 
-        return myPetRepository.selectMyPetByName(map);
+        return myPetRepository.selectMyPetByNo(petNo);
     }
 
-    public MyPetVO getMyPetByNo(HashMap<String, Object> map) {
+    public int getMyPetImgByNo(int petNo) {
 
-        return myPetRepository.selectMyPetByNo(map);
-    }
-
-    public int getMyPetImgByNo(HashMap<String, Object> map) {
-
-        return myPetRepository.selectMyPetImgByNo(map);
+        return myPetRepository.selectMyPetImgByNo(petNo);
     }
 
 
@@ -51,9 +46,9 @@ public class MyPetService {
         myPetRepository.updateMyPet(mypet);
     }
 
-    public void removeMyPet(HashMap<String, Object> map) {
+    public void removeMyPet(int petNo) {
 
-        myPetRepository.deleteMyPet(map);
+        myPetRepository.deleteMyPet(petNo);
     }
 
     public int getLastPetNumber(){
