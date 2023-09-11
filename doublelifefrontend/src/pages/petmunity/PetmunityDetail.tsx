@@ -3,12 +3,14 @@ import {
   ArticleBottomBtns,
   ArticleContentBox,
   ArticleTitle,
+  Buttonbox,
   CommentBox,
+  FloatRight,
   ListButton,
+  Viewcontainer,
   WriterInfo,
 } from "./petmunitydetail.style";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { FloatRight } from "./petmunity.style";
 import axios from "axios";
 import dayjs from "dayjs";
 import { BoardListInterface } from "./BoardListInterface";
@@ -32,6 +34,14 @@ function PetmunityDetail() {
       })
   }, [])
 
+  if (typeof detailBoardData === 'undefined') return <></>;
+
+  const formModify = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e. preventDefault();
+
+    navigate(`/board/modify/${detailBoardData.id}`);
+  }
+
   const formDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     e. preventDefault();
 
@@ -50,19 +60,23 @@ function PetmunityDetail() {
     }
   }
 
+  const formList = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e. preventDefault();
+
+    navigate('/petmunity/qna');
+  }
+
   if (typeof detailBoardData === 'undefined') return <></>;
 
   return (
     <>
-    
+    <Viewcontainer>
       <ArticleContentBox>
         <div className="article_header">
           <ArticleTitle>
             <div className="title_area">
               <div className="title_text">
-                <h3 style={{ fontSize: "26px" }}>게시글 제목: {detailBoardData.title}</h3>
-                <p>No.{detailBoardData.id}</p>
-                <p>{dayjs(detailBoardData.regDate).format('YYYY.MM.DD')}</p>
+                <h3 style={{ fontSize: "26px" }}>{detailBoardData.title}</h3>
               </div>
             </div>
           </ArticleTitle>
@@ -71,15 +85,16 @@ function PetmunityDetail() {
               <div className="nick_box">작성자: {detailBoardData.writer}</div>
             </div>
             <div className="article_info">
+            <span>No.{detailBoardData.id} | </span>
               <span className="date">{dayjs(detailBoardData.regDate).format('YYYY.MM.DD')}</span>
+              
             </div>
           </WriterInfo>
         </div>
         <div className="article_container">
         <div className="board-content">
-          <p>{detailBoardData.content}</p>
+          <h5>{detailBoardData.content}</h5>
         </div>
-          <h5>글 내용:{detailBoardData.content}</h5>
         </div>
         <hr />
         <CommentBox>
@@ -105,28 +120,13 @@ function PetmunityDetail() {
         </ul>
       </CommentBox>
       </ArticleContentBox>
+      </Viewcontainer>
       <FloatRight>
-        <ArticleBottomBtns>
-          <ListButton>
-            <Link
-              to={`/board/modify/${detailBoardData.id}`}
-            >
-              수정
-            </Link>
-          </ListButton>
-          <ListButton children="삭제" onClick={formDelete} />
-          <ListButton>
-            <Link
-              to={"/petmunity/qna"}
-              style={{
-                textDecoration: "none",
-                color: "#202020",
-              }}
-            >
-              목록
-            </Link>
-          </ListButton>
-        </ArticleBottomBtns>
+          <Buttonbox>
+            <button onClick={formModify}>수정</button>
+            <button onClick={formDelete}>삭제</button>
+            <button onClick={formList}>목록</button>
+          </Buttonbox>
       </FloatRight>
     </>
   );

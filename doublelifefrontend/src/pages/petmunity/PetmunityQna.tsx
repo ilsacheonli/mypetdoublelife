@@ -55,7 +55,7 @@ const PetmunityQna = () => {
   }, [boardList, indexOfFirstPost, indexOfLastPost, page]);
 
   return (
-    <div style={{ display: "inline-block", width: "100%" }}>
+    <div style={{ width: "100%" }}>
       <SearchBar>
         <Dropdown />
       </SearchBar>
@@ -121,7 +121,7 @@ const PetmunityQna = () => {
               to={"/petmunity/writepage"}
               style={{
                 textDecoration: "none",
-                color: "#0a0a0a",
+                color: "white",
               }}
             >
               글쓰기
@@ -141,13 +141,10 @@ const PostBtn = styled.div`
 `;
 
 const PostWrite = styled.button`
-  width: 74px;
-  padding: 9px 0;
-  display: inline-block;
-  height: 36px;
-  box-sizing: border-box;
-  border: 1px solid #d3d3d3;
-  text-align: center;
-  vertical-align: top;
-  background-color: white;
+  width: 55px;
+  height: 35px;
+  background-color: #063160;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
 `;

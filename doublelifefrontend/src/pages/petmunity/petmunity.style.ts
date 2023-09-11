@@ -85,11 +85,13 @@ export const Board = styled.div`
   display: flex;
   margin-top: 0;
   justify-content: center;
+  padding-left: 250px;
 `
 
 export const BoardList = styled.div`
-  // display: inline-block;
-  width: 80%;
+  //display: inline;
+  justify-content: center;
+  width: 100%;
   & h4 {
     margin-left: 0;
     padding-left: 0;
@@ -99,6 +101,7 @@ export const BoardList = styled.div`
   }
 
   table {
+    width: 80%;
     thead {
       th {
         padding: 20px 0;
@@ -131,6 +134,8 @@ export const BoardList = styled.div`
 `
 export const Wrapper = styled.div`
   position: relative;
+  display: inline-flex;
+  width: 100%;
 `;
 
 export const ActivatorButton = styled.button`
@@ -144,6 +149,7 @@ export const ActivatorButton = styled.button`
   font-size: inherit;
   max-width: 160px;
   padding: 1em;
+  margin-bottom: 10px; 
 
   &:after {
     content: "";
@@ -180,6 +186,7 @@ export const DropdownList = styled.ul<{ active: boolean }>`
 
 export const FloatRight = styled.div`
   float: right;
+  margin-right: 250px;
 `;
 
 export const BoardPagination = styled.div`
@@ -188,6 +195,8 @@ export const BoardPagination = styled.div`
   align-items: center;
   gap: 5px;
   margin: 50px auto;
+  margin-bottom: 10px;
+  padding-right: 220px;
 
   & li {
     width: 30px;
@@ -199,7 +208,7 @@ export const BoardPagination = styled.div`
     &:hover,
     &:active,
     &.active {
-      background-color: #3b4b9b;
+      background-color: #a4c4eb;
       color: white;
     }
 

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { writer } from "repl";
-import { WritingWrap, WritingHeader, WriteBtn, WritingContent, WritingEditor, FlexableTextArea } from "./petmunitywrite.style";
+import { Buttonbox, Contentdiv, Titlediv, Writecontainer, Writeform } from "./petmunitywrite.style";
 import { BoardListInterface } from "./BoardListInterface";
 
 const PetmunityModify = () => {
@@ -113,44 +113,29 @@ const PetmunityModify = () => {
 
       return (
         <>
-            <WritingWrap>
-                <WritingHeader>
-                    <h2 className='title'>글쓰기</h2>
-                    <div className='tool_area'>
-                        {/* <a href="/" role="button" className='write_btn' style={{color: "#000", textDecoration: "none"}}>
-                            <span>등록</span>
-                        </a>
-                        <a href="/" role="button" className='write_btn' style={{color: "#000", textDecoration: "none"}}>
-                            <span>취소</span>
-                        </a> */}
-                        <WriteBtn children="Confirm" onClick={formSubmit} />
-                        <WriteBtn children="Cancel" onClick={formCancel} />
-                    </div>
-                </WritingHeader>
-                <WritingContent>
-                    <WritingEditor>
-                        <form encType='multipart/form-data'>
-                        <div className='ArticleWritingTitle' style={{textAlign: "initial"}}>
-                            <FlexableTextArea>
-                                <textarea value={title || ""} placeholder="제목을 입력해 주세요." className='textarea_input' style={{height: "40px"}}
+            <Writecontainer>
+                <Writeform>
+                    <Titlediv>
+                        <input value={title || ""} placeholder="제목을 입력해 주세요." className='textarea_input' style={{height: "40px"}}
                                 onChange={(e) => {setTitle(e.target.value)
-                                }}
-                                ></textarea>
-                            </FlexableTextArea>
-                        </div>
-                        <div className='WritingContent'>
-                            <FlexableTextArea>
-                                <textarea value={content || ""} placeholder="내용을 입력해 주세요." className='textarea_input'
-                                onChange={(e) => {setContent(e.target.value)}}></textarea>
-                                <div className="nick_box">작성자: {detailBoardData.writer}</div>
-                                
-                            </FlexableTextArea>
+                                }} />
+                    </Titlediv>
 
-                        </div>
-                        </form>
-                    </WritingEditor>
-                </WritingContent>
-            </WritingWrap>
+                    <Titlediv>
+                        <div>작성자: {detailBoardData.writer}</div>
+                    </Titlediv>
+
+                    <Contentdiv>
+                        <textarea value={content || ""} placeholder="내용을 입력해 주세요."
+                                onChange={(e) => {setContent(e.target.value)}} />
+                    </Contentdiv>
+
+                    <Buttonbox>
+                        <button onClick={formSubmit}>수정</button>
+                        <button onClick={formCancel}>취소</button>
+                    </Buttonbox>
+                </Writeform>
+            </Writecontainer>
         </>
       )
 }

@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-import { FlexableTextArea, WriteBtn, WritingContent, WritingEditor, WritingHeader, WritingWrap } from './petmunitywrite.style';
+import { Buttonbox, Contentdiv, Titlediv, Writecontainer, Writeform } from './petmunitywrite.style';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-//import express from 'express';
 
-const PetmunityWritePage = () => {
-    // const app = express();
-    // const cors = require('cors');
-    // app.use(cors({credentials: true, origin: "http://localhost:3000"}));
-    
+const PetmunityWritePage = () => {  
     // hook
     const navigate = useNavigate();
 
@@ -62,46 +57,31 @@ const PetmunityWritePage = () => {
 
     return (
         <>
-            <WritingWrap>
-                <WritingHeader>
-                    <h2 className='title'>글쓰기</h2>
-                    <div className='tool_area'>
-                        {/* <a href="/" role="button" className='write_btn' style={{color: "#000", textDecoration: "none"}}>
-                            <span>등록</span>
-                        </a>
-                        <a href="/" role="button" className='write_btn' style={{color: "#000", textDecoration: "none"}}>
-                            <span>취소</span>
-                        </a> */}
-                        <WriteBtn children="Confirm" onClick={formSubmit} />
-                        <WriteBtn children="Cancel" onClick={formCancel} />
-                    </div>
-                </WritingHeader>
-                <WritingContent>
-                    <WritingEditor>
-                        <form encType='multipart/form-data'>
-                        <div className='ArticleWritingTitle' style={{textAlign: "initial"}}>
-                            <FlexableTextArea>
-                                <textarea placeholder="제목을 입력해 주세요." className='textarea_input' style={{height: "40px"}}
-                                onChange={(e) => setTitle(e.target.value)}
-                                ></textarea>
-                            </FlexableTextArea>
-                        </div>
-                        <div className='WritingContent'>
-                            <FlexableTextArea>
-                                <textarea placeholder="내용을 입력해 주세요." className='textarea_input'
-                                onChange={(e) => {setContent(e.target.value)
-                                console.log("content: " + content)}}></textarea>
-                                <textarea placeholder="작성자" className='textarea_input'
-                                onChange={(e) => {setWriter(e.target.value)
-                                console.log("writer: " + writer)}}></textarea>
-                                
-                            </FlexableTextArea>
+            <Writecontainer>
+                <Writeform>
+                    <Titlediv>
+                        <input placeholder="제목을 입력하세요."
+                                onChange={(e) => setTitle(e.target.value)} />
+                    </Titlediv>
 
-                        </div>
-                        </form>
-                    </WritingEditor>
-                </WritingContent>
-            </WritingWrap>
+                    <Titlediv>
+                        <input placeholder="닉네임을 입력하세요."
+                                onChange={(e) => {setWriter(e.target.value)
+                                console.log("writer: " + writer)}} />
+                    </Titlediv>
+
+                    <Contentdiv>
+                        <textarea placeholder="내용을 입력하세요."
+                                onChange={(e) => {setContent(e.target.value)
+                                console.log("content: " + content)}} />
+                    </Contentdiv>
+
+                    <Buttonbox>
+                        <button onClick={formSubmit}>게시</button>
+                        <button onClick={formCancel}>취소</button>
+                    </Buttonbox>
+                </Writeform>
+            </Writecontainer>
         </>
     );
 }
