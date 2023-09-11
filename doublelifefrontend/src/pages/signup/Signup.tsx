@@ -1,128 +1,96 @@
 import { Loginpage, Petimage, ImageContainer, Catimage, Idbox, InputWrap, Input, BottomButton, Apilogin, Apw, Apss, Api, Colr, Logo } from "pages/login/login.style";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import React, { useState } from 'react';
 
-const Signup: React.FC = () => {
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthdate, setBirthdate] = useState("");
+function Signup() {
+  // 사용자 입력을 관리할 상태 변수 생성
+  const [formData, setFormData] = useState({
+    name: "",
+    id: "",
+    password: "",
+    email: "",
+    birth: "",
+  });
 
-const handleRegister = () => {
-    // 각 입력 필드의 빈 값 체크
-    if (name.trim() === "") {
-      alert("이름을 입력해주세요.");
-      return;
-    }
+  // 입력 양식 값이 변경될 때마다 상태 업데이트
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
-    if (username.trim() === "") {
-      alert("아이디를 입력해주세요.");
-      return;
-    }
+  // 회원 가입 양식 제출 시 실행
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // 백엔드로 회원 가입 요청을 보냄
+      const response = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (password.trim() === "") {
-      alert("비밀번호를 입력해주세요.");
-      return;
-    }
-
-    if (email.trim() === "") {
-      alert("이메일을 입력해주세요.");
-      return;
-    }
-      if (birthdate.trim() === "") {
-        alert("생년월일을 입력해주세요.");
-        return;
+      if (response.ok) {
+        // 회원 가입 성공 시, 다른 페이지로 리디렉션 또는 성공 메시지 표시 가능
+        // 예시: history.push("/login");
+        console.log("회원 가입 성공!");
+      } else {
+        // 회원 가입 실패 시, 에러 처리
+        console.error("회원 가입 실패");
       }
-  
-      // 모든 입력 필드가 빈 값이 아닌 경우, 등록 로직을 수행하거나 다른 작업을 수행할 수 있습니다.
-    };
-  
-// function Signup() {
+    } catch (error) {
+      console.error("에러:", error);
+    }
+  };
+
   return (
-    <Loginpage>
-      <Petimage>
-        <ImageContainer>
-            <Link to={`/`}>
-                <Catimage alt="logo_final" src="/loginimg/logo_final.png" />
-            </Link>
-        </ImageContainer>
-        <Idbox>
-          <InputWrap>
-            <Input value={name}
-          onChange={(e) => setName(e.target.value)} placeholder="이름"></Input>
-          </InputWrap>
-          <InputWrap>
-            <Input value={username}
-          onChange={(e) => setUsername(e.target.value)} placeholder="아이디"></Input>
-          </InputWrap>
-          <InputWrap>
-            <Input value={password}
-          onChange={(e) => setPassword(e.target.value)} placeholder="비밀번호"></Input>
-          </InputWrap>
-          <InputWrap>
-            <Input  value={email}
-          onChange={(e) => setEmail(e.target.value)} placeholder="이메일"></Input>
-          </InputWrap>
-          <InputWrap>
-            <Input  value={birthdate}
-          onChange={(e) => setBirthdate(e.target.value)} placeholder="생년월일"></Input>
-          </InputWrap>
-
-          <BottomButton onClick={handleRegister}>회원가입</BottomButton>
-        </Idbox>
-        <Apilogin>
-          <tr>
-            <Logo>
-              <Apw
-                alt="naver_login_white"
-                width="60"
-                height="60"
-                src="/loginimg/naver_login_white.png"
-              ></Apw>
-            </Logo>
-            <Logo>
-              <Apss
-                alt="google_login"
-                width="60"
-                height="60"
-                src="/loginimg/google_login.png"
-              ></Apss>{" "}
-            </Logo>
-            <Logo>
-              <Api
-                alt="kakao_login"
-                width="60"
-                height="60"
-                src="/loginimg/kakao_login.png"
-              ></Api>
-            </Logo>
-          </tr>
-        </Apilogin>
-
-        <Apilogin>
-          <tr>
-            <td>
-              <img
-                alt="footprint"
-                width="20"
-                height="20"
-                src="/loginimg/footprint.png"
-              />
-            </td>
-            <td>
-                <Link to={`/login`} style={{
-                  textDecoration:"none",
-                  color:"#000000"
-                }}>
-                <Colr>로그인 </Colr>
-                </Link>
-                하러가기!
-            </td>
-          </tr>
-        </Apilogin>
-      </Petimage>
-    </Loginpage>
+    <div>
+      {/* ... */}
+      <form onSubmit={handleSubmit}>
+        {/* ... */}
+        <input
+          type="text"
+          name="name"
+          placeholder="이름"
+          value={formData.name}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="id"
+          placeholder="아이디"
+          value={formData.id}
+          onChange={handleChange}
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="비밀번호"
+          value={formData.password}
+          onChange={handleChange}
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="이메일"
+          value={formData.email}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="birth"
+          placeholder="생년월일"
+          value={formData.birth}
+          onChange={handleChange}
+        />
+        <button type="submit">회원 가입</button>
+      </form>
+      {/* ... */}
+    </div>
   );
 }
 
