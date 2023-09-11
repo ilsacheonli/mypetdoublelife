@@ -19,11 +19,8 @@ public class MyPetController {
     // petByNo
     @GetMapping("/mypet/{petNo}")
     public MyPetVO getMypetByNo(@PathVariable int petNo){
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("memId", "test");
-        map.put("petNo", petNo);
 
-        return myPetService.getMyPetByNo(map);
+        return myPetService.getMyPetByNo(petNo);
     }
 
     // petImgByNo
@@ -32,11 +29,8 @@ public class MyPetController {
         if (petNo == 0){
             return 0;
         }
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("memId", "test");
-        map.put("petNo", petNo);
 
-        return myPetService.getMyPetImgByNo(map);
+        return myPetService.getMyPetImgByNo(petNo);
     }
 
 
@@ -56,12 +50,10 @@ public class MyPetController {
                          @RequestPart("petIntro") String petIntro,
                          MyPetVO new_myPet) throws IOException {
 
+        int new_mypet_No = Integer.parseInt(petNo);
+
         // 이미 있는 pet일 경우
         if(!petNo.equals("0")){
-
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("memId", "test");
-            map.put("petNo", Integer.parseInt(petNo));
 
             MyPetVO update_myPet = new MyPetVO(
                     "test",
@@ -70,7 +62,7 @@ public class MyPetController {
                     petGender,
                     petBirth,
                     petIntro,
-                    myPetService.getMyPetImgByNo(map)
+                    myPetService.getMyPetImgByNo(new_mypet_No)
             );
 
             String msg = updatepet(update_myPet);
@@ -90,13 +82,13 @@ public class MyPetController {
 
 
         // 펫 추가
-        int pet_lastNum = myPetService.getLastPetNumber();
+        int lastNumber = myPetService.getLastPetNumber();
         int insert_img_num = imageService.insertDefaultImg();
 
 
         new_myPet = new MyPetVO(
                 "test",
-                pet_lastNum,
+                lastNumber,
                 petName,
                 petGender,
                 petBirth,
@@ -107,12 +99,7 @@ public class MyPetController {
 
         myPetService.addMyPet(new_myPet);
 
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("memId", new_myPet.getMemId());
-        map.put("petNo", new_myPet.getPetNo());
-
-
-        MyPetVO added_myPet = myPetService.getMyPetByNo(map);
+        MyPetVO added_myPet = myPetService.getMyPetByNo(lastNumber);
 
         if(String.valueOf(added_myPet).equals("null")){
 
@@ -132,11 +119,7 @@ public class MyPetController {
 
         myPetService.editMyPet(update_myPet);
 
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("memId", update_myPet.getMemId());
-        map.put("petNo", update_myPet.getPetNo());
-
-        MyPetVO updated_myPet = myPetService.getMyPetByNo(map);
+        MyPetVO updated_myPet = myPetService.getMyPetByNo(update_myPet.getPetNo());
 
         if(String.valueOf(updated_myPet).equals("null")){
 
@@ -147,26 +130,21 @@ public class MyPetController {
     }
 
     // pet 삭제
-    @GetMapping( "/mypet/remove")
-    public String removepet(@RequestPart("pet") MyPetVO delete_myPet) throws IOException {
+    @PostMapping( "/mypet/remove/{petNo}")
+    public String removepet(@PathVariable("petNo") int petNo) throws IOException {
 
-        int del_mP_img = delete_myPet.getImgNo();
+        myPetService.removeMyPet(petNo);
 
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("memId", delete_myPet.getMemId());
-        map.put("petNo", delete_myPet.getPetNo());
-
-
-        myPetService.removeMyPet(map);
-
-        MyPetVO deleted_myPet = myPetService.getMyPetByNo(map);
+        MyPetVO deleted_myPet = myPetService.getMyPetByNo(petNo);
 
         if(!String.valueOf(deleted_myPet).equals("null")){
 
             return "mypet?deleteFail";
         }
 
-        if(imageService.deleteImage(del_mP_img)!=del_mP_img){
+        int del_mpImg_Number = myPetService.getMyPetImgByNo(petNo);
+
+        if(imageService.deleteImage(del_mpImg_Number)!=del_mpImg_Number){
 
             return "mypet?deleteImgFail";
         }

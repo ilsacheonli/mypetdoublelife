@@ -10,9 +10,8 @@ import java.util.List;
 @Repository
 public interface MyPetRepository {
 
-    MyPetVO selectMyPetByName(HashMap<String, Object> map);
-    MyPetVO selectMyPetByNo(HashMap<String, Object> map);
-    int selectMyPetImgByNo(HashMap<String, Object> map);
+    MyPetVO selectMyPetByNo(int petNo);
+    int selectMyPetImgByNo(int petNo);
 
     List<MyPetVO> selectAllMyPet(String memId);
     List<Integer> selectAllMyPetNo(String memId);
@@ -22,7 +21,7 @@ public interface MyPetRepository {
 
     void updateMyPet(MyPetVO mypet);
 
-    void deleteMyPet(HashMap<String, Object> map);
+    void deleteMyPet(int petNo);
 
     int getLastNumber();
 
