@@ -123,8 +123,8 @@ public class MyFeedController {
         return "myfeed?updateSuccess";
     }
 
-    @PostMapping("/myfeed/delete")
-    public String myFeedDelete( @RequestPart("feedNo") int feedNo,
+    @PostMapping("/myfeed/delete/{feedNo}")
+    public String myFeedDelete( @PathVariable("feedNo") int feedNo,
                                 MyFeedVO delete_myFeed) throws IOException {
 
         delete_myFeed = myFeedService.getMyFeedByNo(feedNo);

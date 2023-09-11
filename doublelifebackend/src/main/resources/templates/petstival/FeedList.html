@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>펫스티벌 테스트 페이지</title>
+</head>
+<body>
+<h1>펫스티벌</h1>
+
+<!--<div th:each="petstival, idx : ${feedList}"> -->
+<div th:each="petstival">
+    <div>
+    <!--        <img th:src="${feed.}" alt="Product Image" width="100">-->
+            <span th:text="${petstival.user_id}"></span><br/>
+            <span th:text="${petstival.user_name}"></span><br/>
+            <span th:text="${petstival.contentTitle}"></span><br/>
+            <span th:text="${petstival.likeNum}"></span><br/>
+    </div>
+</div>
+</body>
+</html>
