@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { PetMapList } from "./PetMapList";
 import axios from "axios";
 import { MapList, PetMapPagination } from "./petmap.style";
 import Pagination from "react-js-pagination";
 import { PetMapAroundList } from "./PetMapAroundList";
+import Modal from "pages/petmunity/Modal";
+import styled from "styled-components";
+import { ListDivide } from "./petmapcontainer.style";
 
 declare global {
   interface Window {
@@ -13,20 +16,41 @@ declare global {
 
 const PetMapContainer = () => {
   const [petMapList, setPetMapList] = useState<PetMapList[]>([]);
-  const [currentPetMap, setCurrentPetMap] = useState<PetMapList[]>(petMapList);
+  const [currentPetMap, setCurrentPetMap] = useState<PetMapList[]>(petMapList); // 전국 미용실 페이지네이션
   const [page, setPage] = useState<number>(1); // 현재 페이지 번호
 
   const [aroundPetMap, setAroundPetMap] = useState<PetMapAroundList[]>([]);
+  const [currentAroundPetMap, setCurrentAroundPetMap] =
+    useState<PetMapAroundList[]>(aroundPetMap); // 주변 병원 페이지네이션
+  const [aroundPage, setAroundPage] = useState<number>(1); // 주변 병원 현재 페이지 번호
+
+  // Modal
+  const [isOpenModal, setOpenModal] = useState<boolean>(false);
+
+  const onClickToggleModal = useCallback(() => {
+    setOpenModal(!isOpenModal);
+  }, [isOpenModal]);
 
   let obj;
-  let lists;
 
+  // 전국 병원 페이지네이션 변수
   const postPerPage = 5; // 페이지 당 게시글 개수
   const indexOfLastPost = page * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
 
+  // 주변 병원 페이지네이션 변수
+  const postAroundPerPage = 5; // 페이지 당 게시글 개수
+  const indexOfAroundLastPost = aroundPage * postAroundPerPage;
+  const indexOfAroundFirstPost = indexOfAroundLastPost - postAroundPerPage;
+
+  // 전국 병원 페이지네이션 변경 함수
   const handlePageChange = (page: number) => {
     setPage(page);
+  };
+
+  // 주변 병원 페이지네이션 변경 함수
+  const handleAroundPetMapPageChange = (pageAround: number) => {
+    setAroundPage(pageAround);
   };
 
   const getPetMapList = async () => {
@@ -94,13 +118,14 @@ const PetMapContainer = () => {
                   var content = `<div style="padding: 10px;">
                                     <strong>${data[i].name}</strong><br>
                                     주소: ${data[i].address2}<br>
-                                    전화번호: ${data[i].tel}
+                                    전화번호: ${data[i].tel}<br>
+                                    <p style="color:white;"></p><br>
                                 </div>`;
 
                   var infowindow = new window.kakao.maps.InfoWindow({
                     content: content,
                     removable: true,
-                    maxWidth: 300,
+                    maxWidth: 500,
                   });
 
                   infowindows.push(infowindow);
@@ -131,11 +156,10 @@ const PetMapContainer = () => {
 
                 clusterer.addMarkers(markers);
 
-                // 현재 위치에서 3km 이내의 병원 리스트
+                // 현재 위치에서 3km 이내의 미용실 리스트
                 fetch(`/pethospital?lat=${lat}&lon=${lon}`)
                   .then((response) => response.json())
                   .then((allData) => {
-                    var hospitalListHTML = "";
                     var hospitalListJSON = []; // JSON 형식의 배열
 
                     for (var i = 0; i < allData.length; i++) {
@@ -152,28 +176,16 @@ const PetMapContainer = () => {
                         // 3km 이내
                         var hospitalInfo = {
                           name: allData[i].name,
-                          distance: calculatedDistance.toFixed(2) + "km"
+                          distance: calculatedDistance.toFixed(2) + "km",
                         };
                         hospitalListJSON.push(hospitalInfo);
-                        // hospitalListHTML += `<li>${allData[i].name} - ${allData[i].address2} - ${allData[i].tel}</li>`;
-                        // console.log("hospitalListHTML: " + hospitalListHTML); // 3km 이내 병원 확인용 로그
                       }
                     }
                     // JSON.stringfy()를 사용하여 JSON 문자열로 변환
-                    var hospitalListJSONString = JSON.stringify(hospitalListJSON);
                     obj = JSON.stringify(hospitalListJSON);
-                    console.log("obj: "+obj);
 
+                    // 받아온 JSON 정보를 aroundPetMap에 저장
                     setAroundPetMap(hospitalListJSON);
-                    console.log("aroundPetMap: " + aroundPetMap);
-                    
-                    // console.log("lists.name: " + lists.name);
-
-                    // 이제 hospitalListJSONString 변수에는 원하는 형식의 JSON 데이터가 들어 있습니다.
-                    // console.log(hospitalListJSONString);
-                    // if (hospitalListContainer === null) return <></>;
-                    // hospitalListContainer.innerHTML = `<ul>${hospitalListHTML}</ul>`;
-                    
                   })
                   .catch((error) =>
                     console.error("데이터 가져오기 오류:", error)
@@ -236,6 +248,12 @@ const PetMapContainer = () => {
     setCurrentPetMap(petMapList.slice(indexOfFirstPost, indexOfLastPost));
   }, [petMapList, indexOfFirstPost, indexOfLastPost, page]);
 
+  useEffect(() => {
+    setCurrentAroundPetMap(
+      aroundPetMap.slice(indexOfAroundFirstPost, indexOfAroundLastPost)
+    );
+  }, [aroundPetMap, indexOfAroundFirstPost, indexOfAroundLastPost, aroundPage]);
+
   return (
     <>
       <div
@@ -247,15 +265,72 @@ const PetMapContainer = () => {
           marginBottom: "20px",
         }}
       />
+      <Main>
+        {isOpenModal && (
+          <Modal onClickToggleModal={onClickToggleModal}>
+            <ModalTitle>
+              <h1>전국 병원</h1>
+            </ModalTitle>
+            <ModalContents>
+              <MapList>
+                {currentPetMap &&
+                  currentPetMap.map((petmaplistdata) => {
+                    return (
+                      <>
+                        <ul>
+                          <li>
+                            <div className="txt">
+                              <div className="title" key={petmaplistdata.num}>
+                                {petmaplistdata.name}
+                              </div>
+                              <div className="info">
+                                <ul>
+                                  <li>주소: {petmaplistdata.address2}</li>
+                                  <li>전화번호: {petmaplistdata.tel}</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </>
+                    );
+                  })}
+              </MapList>
+              <PetMapPagination>
+                <Pagination
+                  activePage={page}
+                  itemsCountPerPage={postPerPage}
+                  totalItemsCount={petMapList.length}
+                  pageRangeDisplayed={5}
+                  prevPageText={"<"}
+                  nextPageText={">"}
+                  onChange={handlePageChange}
+                />
+              </PetMapPagination>
+            </ModalContents>
+            <CloseButton
+              onClick={() => {
+                setOpenModal(!isOpenModal);
+              }}
+            >
+              Close
+            </CloseButton>
+          </Modal>
+        )}
+        <DialogButton onClick={onClickToggleModal}>
+          전국 병원 보러 가기
+        </DialogButton>
+      </Main>
 
-        <MapList>
-        {
-        aroundPetMap &&
-        aroundPetMap.map((aroundlistdata) => {
-          return (
-            <ul>
-              <li>
-              <div className="txt">
+      <ListDivide>주변 병원</ListDivide>
+
+      <MapList>
+        {currentAroundPetMap &&
+          currentAroundPetMap.map((aroundlistdata) => {
+            return (
+              <ul>
+                <li>
+                  <div className="txt">
                     <div className="title" key={aroundlistdata.name}>
                       {aroundlistdata.name}
                     </div>
@@ -265,49 +340,20 @@ const PetMapContainer = () => {
                       </ul>
                     </div>
                   </div>
-              </li>
-            </ul>
-          );
-        })
-      }
-
-        </MapList>
-      
-
-      <MapList>
-        {currentPetMap &&
-          currentPetMap.map((petmaplistdata) => {
-            return (
-              <>
-              <ul>
-                <li>
-                  <div className="txt">
-                    <div className="title" key={petmaplistdata.num}>
-                      {petmaplistdata.name}
-                    </div>
-                    <div className="info">
-                      <ul>
-                        <li>주소: {petmaplistdata.address2}</li>
-                        <li>전화번호: {petmaplistdata.tel}</li>
-                      </ul>
-                    </div>
-                  </div>
                 </li>
               </ul>
-              
-              </>
             );
           })}
       </MapList>
       <PetMapPagination>
         <Pagination
-          activePage={page}
-          itemsCountPerPage={postPerPage}
-          totalItemsCount={petMapList.length}
+          activePage={aroundPage}
+          itemsCountPerPage={postAroundPerPage}
+          totalItemsCount={aroundPetMap.length}
           pageRangeDisplayed={5}
           prevPageText={"<"}
           nextPageText={">"}
-          onChange={handlePageChange}
+          onChange={handleAroundPetMapPageChange}
         />
       </PetMapPagination>
     </>
@@ -315,3 +361,59 @@ const PetMapContainer = () => {
 };
 
 export default PetMapContainer;
+
+const Main = styled.main`
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ModalTitle = styled.div`
+  color: #3b4b9b;
+  margin-top: 30px;
+  font-size: 32px;
+`;
+const ModalContents = styled.div`
+  color: #3b4b9b;
+  margin-top: 10px;
+  font-size: 18px;
+`;
+
+const DialogButton = styled.button`
+  width: auto;
+  height: auto;
+  background-color: #3b4b9b;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 400;
+  border-radius: 50px;
+  margin-bottom: 10px;
+  padding: 5px 10px 5px 10px;
+  border: none;
+  cursor: pointer;
+`;
+const CloseButton = styled.button`
+  background: none;
+  color: gray;
+  border: 2px solid;
+  padding: 5px 20px;
+  font-size: 18px;
+  transition: color 0.2s, border-color 1s, transform 0.5s;
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+
+  cursor: pointer;
+
+  &:hover {
+    border-color: black;
+    color: black;
+    box-shadow: 0 0.5em 0.5em -0.4em;
+    transform: translateY(-5px);
+    cursor: pointer;
+  }
+`;

@@ -8,7 +8,7 @@ function PetMapHospital() {
     console.log(form);
   };
   return (
-    <div>
+    <div style={{ display: "inline-block", width: "100%" }}>
       <SearchBar>
         <PetMapSearch onSubmit={onSubmit} />
       </SearchBar>

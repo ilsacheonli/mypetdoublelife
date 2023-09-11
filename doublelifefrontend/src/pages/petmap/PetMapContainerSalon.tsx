@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { PetMapList } from "./PetMapList";
 import axios from "axios";
 import { MapList, PetMapPagination } from "./petmap.style";
 import Pagination from "react-js-pagination";
 import { PetMapAroundList } from "./PetMapAroundList";
 import { ListDivide } from "./petmapcontainer.style";
-import { Link } from "react-router-dom";
+import styled from "styled-components";
+import Modal from "pages/petmunity/Modal";
 
 declare global {
   interface Window {
@@ -19,8 +20,16 @@ const PetMapContainerSalon = () => {
   const [page, setPage] = useState<number>(1); // 현재 페이지 번호
 
   const [aroundPetMap, setAroundPetMap] = useState<PetMapAroundList[]>([]);
-  const [currentAroundPetMap, setCurrentAroundPetMap] = useState<PetMapAroundList[]>(aroundPetMap); // 주변 미용실 페이지네이션
+  const [currentAroundPetMap, setCurrentAroundPetMap] =
+    useState<PetMapAroundList[]>(aroundPetMap); // 주변 미용실 페이지네이션
   const [aroundPage, setAroundPage] = useState<number>(1); // 주변 미용실 현재 페이지 번호
+
+  // Modal
+  const [isOpenModal, setOpenModal] = useState<boolean>(false);
+
+  const onClickToggleModal = useCallback(() => {
+    setOpenModal(!isOpenModal);
+  }, [isOpenModal]);
 
   let obj;
 
@@ -42,7 +51,7 @@ const PetMapContainerSalon = () => {
   // 주변 미용실 페이지네이션 변경 함수
   const handleAroundPetMapPageChange = (pageAround: number) => {
     setAroundPage(pageAround);
-  }
+  };
 
   const getPetMapList = async () => {
     // res는 http response의 header + body를 모두 갖고 있다.
@@ -65,7 +74,7 @@ const PetMapContainerSalon = () => {
 
     let mapLoad = new window.kakao.maps.load(function () {
       var mapContainer = document.getElementById("map");
-      var hospitalListContainer = document.getElementById("salonList");
+      var salonListContainer = document.getElementById("salonList");
 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -109,13 +118,13 @@ const PetMapContainerSalon = () => {
                   var content = `<div style="padding: 10px;">
                                     <strong>${data[i].name}</strong><br>
                                     주소: ${data[i].address2}<br>
-                                    전화번호: ${data[i].tel}
+                                    <p style="color:white;"></p><br>
                                 </div>`;
 
                   var infowindow = new window.kakao.maps.InfoWindow({
                     content: content,
                     removable: true,
-                    maxWidth: 300,
+                    maxWidth: 500,
                   });
 
                   infowindows.push(infowindow);
@@ -166,10 +175,10 @@ const PetMapContainerSalon = () => {
                         // 3km 이내
                         var salonInfo = {
                           name: allData[i].name,
-                          distance: calculatedDistance.toFixed(2) + "km"
+                          distance: calculatedDistance.toFixed(2) + "km",
                         };
                         salonListJSON.push(salonInfo);
-                        }
+                      }
                     }
                     // JSON.stringfy()를 사용하여 JSON 문자열로 변환
                     obj = JSON.stringify(salonListJSON);
@@ -239,7 +248,9 @@ const PetMapContainerSalon = () => {
   }, [petMapList, indexOfFirstPost, indexOfLastPost, page]);
 
   useEffect(() => {
-    setCurrentAroundPetMap(aroundPetMap.slice(indexOfAroundFirstPost, indexOfAroundLastPost));
+    setCurrentAroundPetMap(
+      aroundPetMap.slice(indexOfAroundFirstPost, indexOfAroundLastPost)
+    );
   }, [aroundPetMap, indexOfAroundFirstPost, indexOfAroundLastPost, aroundPage]);
 
   return (
@@ -253,19 +264,72 @@ const PetMapContainerSalon = () => {
           marginBottom: "20px",
         }}
       />
+      <Main>
+        {isOpenModal && (
+          <Modal onClickToggleModal={onClickToggleModal}>
+            <ModalTitle>
+              <h1>전국 미용실</h1>
+            </ModalTitle>
+            <ModalContents>
+              <MapList>
+                {currentPetMap &&
+                  currentPetMap.map((petmaplistdata) => {
+                    return (
+                      <>
+                        <ul>
+                          <li>
+                            <div className="txt">
+                              <div className="title" key={petmaplistdata.num}>
+                                {petmaplistdata.name}
+                              </div>
+                              <div className="info">
+                                <ul>
+                                  <li>주소: {petmaplistdata.address2}</li>
+                                  <li>전화번호: {petmaplistdata.tel}</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </>
+                    );
+                  })}
+              </MapList>
+              <PetMapPagination>
+                <Pagination
+                  activePage={page}
+                  itemsCountPerPage={postPerPage}
+                  totalItemsCount={petMapList.length}
+                  pageRangeDisplayed={5}
+                  prevPageText={"<"}
+                  nextPageText={">"}
+                  onChange={handlePageChange}
+                />
+              </PetMapPagination>
+            </ModalContents>
+            <CloseButton
+              onClick={() => {
+                setOpenModal(!isOpenModal);
+              }}
+            >
+              Close
+            </CloseButton>
+          </Modal>
+        )}
+        <DialogButton onClick={onClickToggleModal}>
+          전국 미용실 보러 가기
+        </DialogButton>
+      </Main>
 
-        <ListDivide>
-            주변 미용실
-        </ListDivide>
+      <ListDivide>주변 미용실</ListDivide>
 
-        <MapList>
-        {
-        currentAroundPetMap &&
-        currentAroundPetMap.map((aroundlistdata) => {
-          return (
-            <ul>
-              <li>
-              <div className="txt">
+      <MapList>
+        {currentAroundPetMap &&
+          currentAroundPetMap.map((aroundlistdata) => {
+            return (
+              <ul>
+                <li>
+                  <div className="txt">
                     <div className="title" key={aroundlistdata.name}>
                       {aroundlistdata.name}
                     </div>
@@ -275,14 +339,12 @@ const PetMapContainerSalon = () => {
                       </ul>
                     </div>
                   </div>
-              </li>
-            </ul>
-          );
-        })
-      }
-
-        </MapList>
-        <PetMapPagination>
+                </li>
+              </ul>
+            );
+          })}
+      </MapList>
+      <PetMapPagination>
         <Pagination
           activePage={aroundPage}
           itemsCountPerPage={postAroundPerPage}
@@ -293,50 +355,64 @@ const PetMapContainerSalon = () => {
           onChange={handleAroundPetMapPageChange}
         />
       </PetMapPagination>
-
-      
-        <ListDivide>
-            전국 미용실
-        </ListDivide>      
-
-      <MapList>
-        {currentPetMap &&
-          currentPetMap.map((petmaplistdata) => {
-            return (
-              <>
-              <ul>
-                <li>
-                  <div className="txt">
-                    <div className="title" key={petmaplistdata.num}>
-                      {petmaplistdata.name}
-                    </div>
-                    <div className="info">
-                      <ul>
-                        <li>주소: {petmaplistdata.address2}</li>
-                        <li>전화번호: {petmaplistdata.tel}</li>
-                      </ul>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              
-              </>
-            );
-          })}
-      </MapList>
-      <PetMapPagination>
-        <Pagination
-          activePage={page}
-          itemsCountPerPage={postPerPage}
-          totalItemsCount={petMapList.length}
-          pageRangeDisplayed={5}
-          prevPageText={"<"}
-          nextPageText={">"}
-          onChange={handlePageChange}
-        />
-      </PetMapPagination>
     </>
   );
 };
 
 export default PetMapContainerSalon;
+
+const Main = styled.main`
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ModalTitle = styled.div`
+  color: #3b4b9b;
+  margin-top: 30px;
+  font-size: 32px;
+`;
+const ModalContents = styled.div`
+  color: #3b4b9b;
+  margin-top: 10px;
+  font-size: 18px;
+`;
+
+const DialogButton = styled.button`
+  width: auto;
+  height: auto;
+  background-color: #3b4b9b;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 400;
+  border-radius: 50px;
+  margin-bottom: 10px;
+  padding: 5px 10px 5px 10px;
+  border: none;
+  cursor: pointer;
+`;
+const CloseButton = styled.button`
+  background: none;
+  color: gray;
+  border: 2px solid;
+  padding: 5px 20px;
+  font-size: 18px;
+  transition: color 0.2s, border-color 1s, transform 0.5s;
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+
+  cursor: pointer;
+
+  &:hover {
+    border-color: black;
+    color: black;
+    box-shadow: 0 0.5em 0.5em -0.4em;
+    transform: translateY(-5px);
+    cursor: pointer;
+  }
+`;

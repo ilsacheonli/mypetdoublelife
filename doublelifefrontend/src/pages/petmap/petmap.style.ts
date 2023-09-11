@@ -188,7 +188,7 @@ export const PetMapPagination = styled.div`
     &:hover,
     &:active,
     &.active {
-      background-color: #3b4b9b;
+      background-color: #a4c4eb;
       color: white;
     }
 
