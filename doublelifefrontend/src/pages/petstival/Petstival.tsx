@@ -6,13 +6,11 @@ import { Link } from "react-router-dom";
 
 
 interface MyPetFeedItem {
-	memId: string,
-	feedNo: number,
-	imgNo: number,
-	image: string,
-	feedTitle: string,
-	petName: string,
-	like: number
+	user_id: string,
+	user_name: string,
+	likeNum: number,
+	contentTitle: string,
+	contentText: string 
 }
 
 function MyPetFeed() {
@@ -20,7 +18,7 @@ function MyPetFeed() {
 	/*const [imageData, setImageData] = useState<string>(''); */
 
 	useEffect(() => {
-		const apiUrl = '/myfeed';
+		const apiUrl = '/feedlist';
 
 		/*axios.get(imgUrl)
 		.then((res) => {
@@ -46,16 +44,16 @@ function MyPetFeed() {
 			<Mypetfeedmain>
 				<FlexBox>
 					{myPetFeedList.map((item) => (
-						<GridBox key={item.feedNo} >
+						<GridBox /*key={item.feedNo}*/ >
 							<ImgBox>
-								<Link to={`/mypetfeedview/${item.feedNo}`}>
-									<Img src={'/image/'+item.imgNo} /*alt={item.postName}*/ />
-									<H5>{item.feedTitle}</H5>
+								<Link to={`/feedview/${item.user_id}`}>
+									<Img /*src={'/image/'+item.imgNo} alt={item.postName}*/ />
+									<H5>{item.contentTitle}</H5>
 								</Link>
 								<NameBox>
-									<UserName>{item.petName}</UserName>
+									<UserName>{item.user_name}</UserName>
 									<RiHeart3Fill />
-									<Like>{item.like}</Like>
+									<Like>{item.likeNum}</Like>
 								</NameBox>
 							</ImgBox>
 						</GridBox>

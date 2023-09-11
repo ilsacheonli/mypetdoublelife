@@ -46,7 +46,7 @@ function MyPetFeedView() {
 	};
 
 	const handleDeleteClick = () => {
-		axios.delete(`/myfeed/delete/${feedNo}`)
+		axios.post(`/myfeed/delete/${feedNo}`)
 			.then((res) => {
 				navigate('/mypet')
 				alert('삭제완료')

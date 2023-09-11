@@ -300,6 +300,7 @@ export const Viewcontent = styled.div`
 	height: 200px;
 	margin: 10px;
 	font-size: 1.2rem;
+	white-space: pre-line;
 	/*border: 2px solid #333;*/
 `
 

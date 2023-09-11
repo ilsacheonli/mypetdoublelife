@@ -55,7 +55,7 @@ function MyPetFeedWrite() {
 
 	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
-	
+
 		try {
 			const formData = new FormData();
 			formData.append('feedTitle', post.feedTitle);
@@ -64,15 +64,15 @@ function MyPetFeedWrite() {
 			if (post.image) {
 				formData.append('image', post.image);
 			}
-	
+
 			const response = await axios.post('/myfeed/insert', formData);
 			console.log('게시글 등록 완료', response.data);
-			/*navigate('/mypet')*/
+			navigate('/mypet')
 		} catch (error) {
 			console.error('게시글 등록 실패', error);
 		}
 	};
-	
+
 
 	return (
 		<Writecontainer>
