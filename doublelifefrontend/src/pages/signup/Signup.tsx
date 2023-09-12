@@ -1,96 +1,256 @@
-import { Loginpage, Petimage, ImageContainer, Catimage, Idbox, InputWrap, Input, BottomButton, Apilogin, Apw, Apss, Api, Colr, Logo } from "pages/login/login.style";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, ChangeEvent } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  Loginpage,
+  Petimage,
+  ImageContainer,
+  Catimage,
+  Idbox,
+  InputWrap,
+  Input,
+  BottomButton,
+  Apilogin,
+  Apw,
+  Apss,
+  Api,
+  Colr,
+  Logo,
+  Buttonbox 
+} from "pages/login/login.style";
 
 function Signup() {
-  // 사용자 입력을 관리할 상태 변수 생성
   const [formData, setFormData] = useState({
-    name: "",
-    id: "",
-    password: "",
-    email: "",
-    birth: "",
+    memName: "",
+    memId: "",
+    memPwd: "",
+    memPwdConfirm: "",
+    memEmail: "",
+    memBirth: ""
   });
 
-  // 입력 양식 값이 변경될 때마다 상태 업데이트
-  const handleChange = (e) => {
+  const navigate = useNavigate();
+  const [isIdDuplicate, setIsIdDuplicate] = useState(false); //default 값을 false로설정 (중복체크로직)
+  const [isCheckingDuplicate, setIsCheckingDuplicate] = useState(false); //중복 체크 
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    
+
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: value
     });
   };
 
-  // 회원 가입 양식 제출 시 실행
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      // 백엔드로 회원 가입 요청을 보냄
-      const response = await fetch("/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+  const handleCheckDuplicate = () => {
+    setIsCheckingDuplicate(true);
 
-      if (response.ok) {
-        // 회원 가입 성공 시, 다른 페이지로 리디렉션 또는 성공 메시지 표시 가능
-        // 예시: history.push("/login");
-        console.log("회원 가입 성공!");
-      } else {
-        // 회원 가입 실패 시, 에러 처리
-        console.error("회원 가입 실패");
-      }
-    } catch (error) {
-      console.error("에러:", error);
+    fetch("/checkDuplicateID", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ memId: formData.memId }) // JSON 형식으로 아이디를 전달
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("중복 체크 요청에 실패했습니다.");
+        }
+      })
+      .then((data) => {
+        setIsCheckingDuplicate(false);
+        if (data) {
+          setIsIdDuplicate(true);
+          alert("중복된 ID 입니다. 다른 아이디를 사용하세요.");
+        } else {
+          setIsIdDuplicate(false);
+          alert("사용가능한 아이디 입니다.");
+        }
+      })
+      .catch((error) => {
+        setIsCheckingDuplicate(false);
+        console.error("Error:", error);
+        alert("중복 체크 요청에 실패했습니다.");
+      });
+  };
+
+  const handleSignup = () => {
+    if (isCheckingDuplicate) {
+      alert("중복 체크를 완료해주세요.");
+      return;
     }
+
+    if (!formData.memId || !formData.memPwd || !formData.memName || !formData.memEmail || !formData.memBirth) {
+      alert("모든 필드를 채워주세요.");
+      return;
+    }
+
+    if (formData.memPwd !== formData.memPwdConfirm) {
+      alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+      return;
+    }
+    if (formData.memPwd.length < 6) {
+      alert("비밀번호는 6자리 이상이어야 합니다.");
+      return;
+    }
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if (!emailRegex.test(formData.memEmail)) {
+      alert("올바른 이메일 형식을 입력하세요.");
+      return;
+    }
+
+    fetch("/addmember", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+      .then((response) => {
+        if (response.ok) {
+          navigate("/SignupFinish", { state: { memName: formData.memName } });
+        } else {
+          alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+        }
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
-    <div>
-      {/* ... */}
-      <form onSubmit={handleSubmit}>
-        {/* ... */}
-        <input
-          type="text"
-          name="name"
-          placeholder="이름"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="id"
-          placeholder="아이디"
-          value={formData.id}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="비밀번호"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="이메일"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="birth"
-          placeholder="생년월일"
-          value={formData.birth}
-          onChange={handleChange}
-        />
-        <button type="submit">회원 가입</button>
-      </form>
-      {/* ... */}
-    </div>
+    <Loginpage>
+      <Petimage>
+        <ImageContainer>
+          <Link to={`/`}>
+            <Catimage alt="logo_final" src="/loginimg/logo_final.png" />
+          </Link>
+        </ImageContainer>
+        <Idbox>
+        <InputWrap style={{ display: 'flex', alignItems: 'center', height: '55px' }}>
+          <Input
+            type="text"
+            placeholder="아이디(영문 및 숫자만 가능합니다.)"
+            name="memId"
+            value={formData.memId}
+            pattern="[a-zA-Z0-9]+"
+            onChange={handleInputChange}
+          />
+          <Buttonbox>
+            <button onClick={handleCheckDuplicate} style={{ fontSize: '12px', width: '70px', height: '100%' }}>중복확인</button>
+            {isIdDuplicate}
+          </Buttonbox>
+        </InputWrap>
+          <InputWrap>
+            <Input
+              type="password"
+              placeholder="비밀번호(6자리 이상만 가능합니다.)"
+              name="memPwd"
+              value={formData.memPwd}
+              onChange={handleInputChange}
+            />
+          </InputWrap>
+          <InputWrap>
+            <Input
+              type="password"
+              placeholder="비밀번호 확인"
+              name="memPwdConfirm"
+              value={formData.memPwdConfirm}
+              onChange={handleInputChange}
+              />
+          </InputWrap>
+          <InputWrap>
+            <Input
+              type="text"
+              placeholder="이름"
+              name="memName"
+              value={formData.memName}
+              onChange={handleInputChange}
+            />
+          </InputWrap>
+          <InputWrap>
+            <Input
+              type="email"
+              placeholder="이메일"
+              name="memEmail"
+              value={formData.memEmail}
+              onChange={handleInputChange}
+            />
+          </InputWrap>
+          <InputWrap>
+            <Input
+              type="date"
+              placeholder="생년월일"
+              name="memBirth"
+              value={formData.memBirth}
+              onChange={handleInputChange}
+            />
+          </InputWrap>
+
+          <BottomButton onClick={handleSignup}>회원가입</BottomButton>
+        </Idbox>
+        <Apilogin>
+          <tr>
+            <Logo>
+              <Apw
+                alt="naver_login_white"
+                width="60"
+                height="60"
+                src="/loginimg/naver_login_white.png"
+              ></Apw>
+            </Logo>
+            <Logo>
+              <Apss
+                alt="google_login"
+                width="60"
+                height="60"
+                src="/loginimg/google_login.png"
+              ></Apss>{" "}
+            </Logo>
+            <Logo>
+              <Api
+                alt="kakao_login"
+                width="60"
+                height="60"
+                src="/loginimg/kakao_login.png"
+              ></Api>
+            </Logo>
+          </tr>
+        </Apilogin>
+
+        <Apilogin>
+          <tr>
+            <td>
+              <img
+                alt="footprint"
+                width="20"
+                height="20"
+                src="/loginimg/footprint.png"
+              />
+            </td>
+            <td>
+              <Link
+                to={`/login`}
+                style={{
+                  textDecoration: "none",
+                  color: "#000000"
+                }}
+              >
+                <Colr>로그인 </Colr>
+              </Link>
+              하러가기!
+            </td>
+          </tr>
+        </Apilogin>
+      </Petimage>
+    </Loginpage>
   );
 }
 

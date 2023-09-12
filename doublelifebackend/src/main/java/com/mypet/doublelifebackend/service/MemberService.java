@@ -2,10 +2,12 @@ package com.mypet.doublelifebackend.service;
 
 import com.mypet.doublelifebackend.vo.MemberVO;
 import com.mypet.doublelifebackend.repository.MemberRepository;
+import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.TooManyListenersException;
 
 @Service
 public class MemberService{     // sql문과 연결된 MemberRepository 함수 호출
@@ -13,9 +15,13 @@ public class MemberService{     // sql문과 연결된 MemberRepository 함수 �
     private MemberRepository memberRepository;
 
     public MemberVO getMemberByNum(int memNumber) {
-
-        // selectMemberByNum() 호출 후 해당 member return
-        return memberRepository.selectMemberByNum(memNumber);
+        try {
+            // selectMemberByNum() 호출 후 해당 member return
+            return memberRepository.selectMemberByNum(memNumber);
+        } catch (TooManyResultsException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public MemberVO getMemberByLogin(String id, String pwd) {
@@ -65,5 +71,10 @@ public class MemberService{     // sql문과 연결된 MemberRepository 함수 �
 
         // getLastNumber()함수 호출 후 memNumber return
         return memberRepository.getLastNumber();
+    }
+
+    public boolean isMemberIdDuplicate(String memId) {
+        MemberVO existingMember = memberRepository.selectMemberById(memId);
+        return existingMember != null;
     }
 }

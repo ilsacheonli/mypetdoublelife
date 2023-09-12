@@ -108,3 +108,29 @@ export const ImageContainer = styled.div`
   margin-top: 10px;
   margin-bottom: -30px;
 `;
+export const Buttonbox = styled.div`
+	display: flex;
+	:last-child {
+		margin-left: 10px;
+	}
+	button {
+		width: 50px;
+		height: 30px;
+		border: none;
+		background-color: #063160;
+		color: #fff;
+		border-radius: 5px;
+	}
+	a:link, a:visited {
+		text-decoration: none;
+		text-align: center;
+		display: inline-block;
+		color: #fff;
+		width: 50px;
+		height: 30px;
+		padding-top: 3px;
+		background-color: #063160;
+		border-radius: 5px;
+
+	}
+  `

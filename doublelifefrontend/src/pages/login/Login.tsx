@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import {
   Api,
   Apilogin,
@@ -31,6 +32,7 @@ const MemberAPI = {
 };
 
 function Login() {
+  const navigate = useNavigate();
   const [id, setId] = useState<string>('');
   const [pwd, setPwd] = useState<string>('');
 
@@ -43,13 +45,25 @@ function Login() {
   };
 
   const handleLogin = () => {
+    // ID를 입력하지 않았을 때 알림 창 표시
+    if (id === ''){
+      alert('ID를 입력해주세요.');
+      return;
+    }
+    // 비밀번호를 입력하지 않았을 때 알림 창 표시
+    if(pwd === ''){
+      alert('비밀번호를 입력해주세요.');
+      return;
+    }
     MemberAPI.login(id, pwd)
         .then((response) => {
           console.log('로그인 성공', response.data);
+          navigate('/mypet');
 
         })
         .catch((error) => {
           console.error('로그인 실패', error);
+          alert('등록되지 않은 ID 이거나 ID 또는 비밀번호를 잘못 입력했습니다.');
           // 로그인 실패 시 필요한 작업을 수행하세요.
         });
   };
