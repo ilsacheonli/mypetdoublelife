@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import { RiAddLine } from 'react-icons/ri';
-
+import axios from 'axios';
 
 const InsertFormPositioner = styled.div`
   width: 600px;
@@ -16,7 +16,6 @@ const InsertForm = styled.form`
 	border-bottom: 2px solid #063160;
 	display: flex;
 	margin-left: 50px;
-	
 `;
 
 const Input = styled.input`
@@ -46,17 +45,42 @@ interface InputFormProps {
 }
 
 function MyPetInput({ inputValue, onInputChange, onAddItem }: InputFormProps) {
-	const [keyCounter, setKeyCounter] = useState<number>(0); // 초기값은 0으로 설정
+	const [keyCounter, setKeyCounter] = useState<number>(0);
+
+  async function sendDataToServer() {
+    try {
+      const serverURL = '/mytodo/insert';
+
+      // 서버로 보낼 데이터 객체 생성
+      const dataToSend = {
+        doContent: inputValue, // 서버에서 사용하는 필드 이름으로 변경
+				doDate: 'YYYY-MM-DD'
+      };
+
+      // Axios를 사용하여 POST 요청 보내기
+      await axios.post(serverURL, dataToSend, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				}
+			});
+
+      console.log('데이터가 성공적으로 서버로 전송되었습니다.');
+    } catch (error) {
+      console.error('데이터 전송 중 오류 발생:', error);
+    }
+  }
+	
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
+
     if (inputValue.trim()) {
+
+      sendDataToServer();
+			
       onInputChange('');
-      setKeyCounter(prevKey => {
-        const newKey = prevKey + 1;
-        console.log("New key value:", newKey); // 생성된 key 값 콘솔로그로 확인
-        return newKey;
-      });
+      setKeyCounter((prevKey) => prevKey + 1);
+
     }
   }
 

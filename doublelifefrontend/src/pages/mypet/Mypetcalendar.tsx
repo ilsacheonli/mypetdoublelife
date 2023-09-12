@@ -17,8 +17,9 @@ function MyPetCalendar({ onDateClick }: CalendarProps) {
 
 	const handleDateClick = (arg: any) => {
 		const dateId = generateDateId(arg.date); // 날짜에 대한 ID 생성
-		onDateClick(arg.date, dateId); // 새로운 시그니처에 날짜와 ID 전달
+		onDateClick(arg.date, dateId); // 날짜와 ID 전달
 		setSelectedDate(arg.date); // 클릭한 날짜를 선택된 날짜 상태에 저장
+		console.log(generateDateId)
 	};
 
 	const dateCellClassNames = (arg: any) => {
