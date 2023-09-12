@@ -5,13 +5,13 @@
 
 <mapper namespace="com.mypet.doublelifebackend.repository.MemberRepository">
 
-    <resultMap id="memResult" type="memberVO">
+    <resultMap id="memResult" type="MemberVO">
         <result property="memNumber" column="MNo" />
         <result property="memName" column="NAME" />
         <result property="memId" column="ID" />
         <result property="memPwd" column="PASSWORD" />
         <result property="memEmail" column="EMAIL" />
-        <result property="memBirth" column="BIRTH" />
+        <result property="memBirth" column="BIRTH" javaType="java.util.Date" />
     </resultMap>
 
     <!-- memNumber와 일치하는 member 출력 -->
@@ -37,12 +37,12 @@
     <!-- 새로운 member 추가 -->
     <insert id="insertMember" parameterType="MemberVO" >
         INSERT INTO member (MNo, NAME, ID, PASSWORD, EMAIL, BIRTH)
-        VALUES (#{memNumber}, #{memName}, #{memId}, #{memPwd}, #{memEmail}, #{memBirth})
+        VALUES (MNO_SEQ.NEXTVAL, #{memName}, #{memId}, #{memPwd}, #{memEmail}, #{memBirth, jdbcType=DATE})
     </insert>
 
     <!-- member 정보 수정 -->
     <update id="updateMember" parameterType="MemberVO" >
-        UPDATE member SET NAME = #{memName}, ID = #{memId}, PASSWORD = #{memPwd}, EMAIL = #{memEmail}, BIRTH = #{memBirth}
+        UPDATE member SET NAME = #{memName}, ID = #{memId}, PASSWORD = #{memPwd}, EMAIL = #{memEmail}, BIRTH = #{memBirth, jdbcType=DATE}
         WHERE MNo = #{memNumber}
     </update>
 
@@ -55,7 +55,13 @@
 
     <!-- 마지막 max(m_number) = null 이면 0으로 치환 후 +1 return -->
     <select id="getLastNumber" resultType="int">
-        select NVL(max(MNo),0) +1 from member
+        SELECT NVL(MAX(MNo), 0) + 1 FROM member
+    </select>
+
+    <select id="selectMemberById" parameterType="String" resultMap="memResult">
+        SELECT *
+        FROM member
+        WHERE ID = #{memId}
     </select>
 
 

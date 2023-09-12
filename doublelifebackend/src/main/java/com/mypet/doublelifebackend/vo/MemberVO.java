@@ -2,6 +2,8 @@ package com.mypet.doublelifebackend.vo;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Getter
 @Component
 public class MemberVO {
@@ -10,13 +12,14 @@ public class MemberVO {
     private String memId;
     private String memPwd;
     private String memEmail;
-    private String memBirth;
+    private Date memBirth; // Date 타입으로 변경
 
     public MemberVO(){
 
     }
 
-    public MemberVO(int memNumber, String memName, String memId, String memPwd, String memEmail, String memBirth){
+
+    public MemberVO(int memNumber, String memName, String memId, String memPwd, String memEmail, Date memBirth) { // 생성자 역시 Date 타입으로 변경
         this.memNumber = memNumber;
         this.memName = memName;
         this.memId = memId;
