@@ -15,7 +15,7 @@ function PetmunityWalkingMate() {
   const [page, setPage] = useState<number>(1); // 현재 페이지 번호
 
   const boardLength = boardList.length;
-  const postPerPage = 5; // 페이지 당 게시글 개수
+  const postPerPage = 10; // 페이지 당 게시글 개수
   const indexOfLastPost = page * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
 
@@ -99,7 +99,7 @@ function PetmunityWalkingMate() {
               activePage={page}
               itemsCountPerPage={postPerPage}
               totalItemsCount={boardList.length}
-              pageRangeDisplayed={5}
+              pageRangeDisplayed={10}
               prevPageText={"<"}
               nextPageText={">"}
               onChange={handlePageChange}
@@ -112,10 +112,10 @@ function PetmunityWalkingMate() {
         <FloatRight>
           <PostWrite>
             <Link
-              to={"/petmunity/writepage"}
+              to={"/petmunity/writepage3"}
               style={{
                 textDecoration: "none",
-                color: "#0a0a0a",
+                color: "white",
               }}
             >
               글쓰기
@@ -135,13 +135,10 @@ const PostBtn = styled.div`
 `;
 
 const PostWrite = styled.button`
-  width: 74px;
-  padding: 9px 0;
-  display: inline-block;
-  height: 36px;
-  box-sizing: border-box;
-  border: 1px solid #d3d3d3;
-  text-align: center;
-  vertical-align: top;
-  background-color: white;
+  width: 55px;
+  height: 35px;
+  background-color: #063160;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
 `;
