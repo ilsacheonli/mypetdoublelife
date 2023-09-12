@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
@@ -72,6 +74,8 @@ public class MemberController {
     }
 
     // 로그인
+// 로그인
+    // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody Map<String, String> loginData,
                         HttpServletRequest request, Model model) {
@@ -89,7 +93,6 @@ public class MemberController {
 
         return "redirect:/mypage";
     }
-
     // 로그아웃
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request){
