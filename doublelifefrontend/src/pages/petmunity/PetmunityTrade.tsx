@@ -88,7 +88,7 @@ function PetmunityTrade() {
                     <tr key={index}>
                       <td>{board.bno}</td>
                       <td className="title">
-                        <Link to={`/board/view/${board.bno}`}>
+                        <Link to={`/board/view/${board.id}`}>
                           {board.title}
                         </Link>
                       </td>
