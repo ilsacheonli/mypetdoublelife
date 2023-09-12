@@ -20,15 +20,4 @@ public class FeedImageVO {
         this.f_img_path = f_img_path;
     } //constructor 생성
 
-//    public int getF_img_no() {
-//        return f_img_no;
-//    }
-//
-//    public String getF_img_name() {
-//        return f_img_name;
-//    }
-//
-//    public String getF_img_path() {
-//        return f_img_path;
-//    }
 }
