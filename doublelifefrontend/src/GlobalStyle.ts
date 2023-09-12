@@ -44,8 +44,9 @@ export const Links = styled.ul`
       list-style: none;
       & a {
         font-family: "Noto Sans KR", "sans-serif";
-        color: #656565;
+        color: #3b4b9b;
         opacity: 0.8;
+        font-weight: 600;
         text-decoration: none;
         &:hover {
           opacity: 1;

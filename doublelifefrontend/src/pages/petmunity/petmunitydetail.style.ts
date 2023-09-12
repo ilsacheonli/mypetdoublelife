@@ -13,6 +13,9 @@ export const ArticleContentBox = styled.div`
     padding-bottom: 20px;
     border-bottom: 1px solid;
   }
+  & > .article_container {
+    height: 300px;
+  }
 `;
 
 export const ArticleTitle = styled.div`
@@ -76,7 +79,6 @@ export const ListButton = styled.button`
 
 export const CommentBox = styled.div`
   margin-top: -17px;
-  border-top: 1px solid;
 
   & h4 {
     padding-top: 10px;
@@ -98,17 +100,22 @@ export const CommentBox = styled.div`
       font-size: 13px;
       word-break: break-all;
       word-wrap: break-word;
+      
+      & span {
+        
+      }
 
       & > .comment_text_view {
         overflow: hidden;
-      }
-
-      & > .text_comment {
+        & > .text_comment {
         line-height: 17px;
         word-break: break-all;
         word-wrap: break-word;
         vertical-align: top;
       }
+      }
+
+      
     }
 
     & > .comment_info_box {
@@ -116,6 +123,7 @@ export const CommentBox = styled.div`
       font-size: 12px;
 
       & > .comment_info_date {
+        text-align: right;
         margin-right: 8px;
       }
     }
@@ -183,7 +191,7 @@ export const Buttonbox = styled.div`
 	}
 `
 
-export const FloatRight = styled.div`
-  float: right;
-  margin-right: 200px;
+export const FloatLeft = styled.div`
+  float: left;
+  margin-left: 180px;
 `;

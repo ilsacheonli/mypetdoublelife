@@ -3,7 +3,7 @@ import { LinkItems } from "./LinkItems";
 import { NavContainer, Content, Logo, Links, LinkSign } from "GlobalStyle";
 
 function Header() {
-  const [btnActive, setBtnActive] = useState(4);
+  const [btnActive, setBtnActive] = useState(0);
 
   const toggleActive = (index: React.SetStateAction<number>) => {
     console.log("toggleActive index: " + index);
@@ -26,7 +26,7 @@ function Header() {
             {LinkItems.map((item, index) => (
               <ul>
                 <li key={item.url} value={index}>
-                  <a
+                  <a 
                     // className={index === btnActive ? "active" : ""}
                     //className={`${btnActive == index && 'active'}`}
                     onClick={() => {
