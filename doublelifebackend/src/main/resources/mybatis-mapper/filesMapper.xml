@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mypet.doublelifebackend.repository.FilesRepository">
     <!--  단일 파일 업로드  -->
     <insert id="uploadFileOne" parameterType="java.util.List">
         INSERT INTO FILES(id, bno, origin_name, saved_name, file_size, saved_path)
-        VALUES(1, #{bno}, #{originName}, #{savedName}, #{fileSize}, #{savedPath})
+        VALUES(FILES_ID_SEQ.NEXTVAL, #{bno}, #{originName}, #{savedName}, #{fileSize}, #{savedPath})
     </insert>
 
     <!--  다중 파일 업로드  -->
@@ -17,15 +17,15 @@
         </selectKey>
         <foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL"
                  separator=" ">
-            INTO FILES(id, category, bno, origin_name, saved_name, file_size, saved_path)
-            VALUES (FILES_ID_SEQ.NEXTVAL, #{item.category}, #{item.bno}, #{item.originName}, #{item.savedName}, #{item.fileSize}, #{item.savedPath})
+            INTO FILES(id, board_id, origin_name, saved_name, file_size, saved_path)
+            VALUES (FILES_ID_SEQ.NEXTVAL, #{item.boardId} #{item.originName}, #{item.savedName}, #{item.fileSize}, #{item.savedPath})
         </foreach>
     </insert>
 
     <!--  다중 파일 경로 반환  -->
-    <select id="readFilePath" parameterType="hashMap" resultType="string">
+    <select id="readFilePath" parameterType="int" resultType="string">
         SELECT SAVED_PATH
         FROM FILES
-        WHERE CATEGORY= #{category} AND BNO = #{bno}
+        WHERE id = #{boardId}
     </select>
 </mapper>

@@ -62,29 +62,14 @@ public class BoardService {
         return boardRepository.listPage(category, firstPost, lastPost);
     }
 
-    // Qna에 글 작성 시 글 번호를 반환하는 메서드
-    public int getQnaBno() {
-        return boardRepository.getQnaBno();
-    }
-
-    // Trade에 글 작성 시 글 번호를 반환하는 메서드
-    public int getTradeBno() {
-        return boardRepository.getTradeBno();
-    }
-
-    // 산책메이트에 글 작성 시 글 번호를 반환하는 메서드
-    public int getWalkingmateBno() {
-        return boardRepository.getWalkingmateBno();
-    }
-
     // 좋아요 수 증가시키는 메서드
     public void updateLike(int id) {
 
         boardRepository.updateLike(id);
     }
 
-    // 글 삭제 후 글 번호를 재조정하는 메서드
-    public void updateBno(String category, int nextPostNum, int lastPostNum) {
-        boardRepository.updateBno(category,nextPostNum,lastPostNum);
+    // 다음 게시글 id를 반환하는 메서드
+    public int selectNextBoardId() {
+        return boardRepository.selectNextBoardId();
     }
 }

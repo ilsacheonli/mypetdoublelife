@@ -23,11 +23,11 @@ public class FilesController {
     private FilesService filesService;
 
     // http body에 파일을 담아서 json 형식으로 전송
-    @GetMapping("/petmunity/{category}/fileRead/{bno}")
-    public ResponseEntity<byte[]> readFile(@PathVariable("category")String category, @PathVariable("bno")int bno) throws IOException {
+    @GetMapping("/board/fileRead/{boardId}")
+    public ResponseEntity<byte[]> readFile(@PathVariable("boardId")int boardId) throws IOException {
 
         // 파일 경로를 저장한 변수
-        List<String> saved_path = filesService.readFilePath(category, bno);
+        List<String> saved_path = filesService.readFilePath(boardId);
 
         // 응답 보낼 객체 생성
         ResponseEntity<byte[]> result = null;
