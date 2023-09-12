@@ -56,9 +56,9 @@ const PetmunityQna = () => {
 
   return (
     <div style={{ width: "100%" }}>
-      <SearchBar>
+      {/* <SearchBar>
         <Dropdown />
-      </SearchBar>
+      </SearchBar> */}
       <Board>
         <BoardList>
           <h4>Total {boardLength}</h4>

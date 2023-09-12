@@ -50,9 +50,9 @@ function PetmunityWalkingMate() {
 
   return (
     <div style={{ display: "inline-block", width: "100%" }}>
-      <SearchBar>
+      {/* <SearchBar>
         <Dropdown />
-      </SearchBar>
+      </SearchBar> */}
       <Board>
         <BoardList>
           <h4>Total {boardLength}</h4>
