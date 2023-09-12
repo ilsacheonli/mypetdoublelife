@@ -49,24 +49,21 @@ function MyPetInput({ inputValue, onInputChange, onAddItem }: InputFormProps) {
 
   async function sendDataToServer() {
     try {
-      const serverURL = '/mytodo/insert';
-
-      // 서버로 보낼 데이터 객체 생성
-      const dataToSend = {
-        doContent: inputValue, // 서버에서 사용하는 필드 이름으로 변경
-				doDate: 'YYYY-MM-DD'
+      const apiUrl = '/mytodo/insert';
+      const sendData = {
+        doContent: inputValue,
+				doDate: Date
       };
 
-      // Axios를 사용하여 POST 요청 보내기
-      await axios.post(serverURL, dataToSend, {
+      await axios.post(apiUrl, sendData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				}
 			});
 
-      console.log('데이터가 성공적으로 서버로 전송되었습니다.');
+      console.log('성공');
     } catch (error) {
-      console.error('데이터 전송 중 오류 발생:', error);
+      console.error('실패', error);
     }
   }
 	

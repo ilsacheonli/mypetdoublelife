@@ -4,7 +4,6 @@ import { RiHeart3Fill, RiPencilLine } from 'react-icons/ri';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
-
 interface MyPetFeedItem {
 	user_id: string,
 	user_name: string,
@@ -19,6 +18,7 @@ function MyPetFeed() {
 
 	useEffect(() => {
 		const apiUrl = '/feedlist';
+		const imgUrl = '/image/petstival';
 
 		/*axios.get(imgUrl)
 		.then((res) => {

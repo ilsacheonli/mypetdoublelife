@@ -7,7 +7,6 @@ interface prop{
 	petNo:number;
 }
 
-
 function MyPetIntro(petNoProp : prop) {
 	const initialPetData = {
 		petName: '',
