@@ -17,9 +17,9 @@ public class FeedImageService {
     @Getter
     private final String imgUploadPath = new File("mypetdoublelife/doublelifebackend/src/main").getAbsolutePath();
 
-    public static FeedImageVO getImageNo(int f_img_No){
+    public FeedImageVO getImageNo(int f_img_No){
 
-        return FeedImageRepository.getImgNo(f_img_No);
+        return feedImageRepository.getImgNo(f_img_No);
     }
 
 }
