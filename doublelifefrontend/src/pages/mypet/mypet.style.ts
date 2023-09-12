@@ -79,7 +79,6 @@ export const ProfileButton = styled.div`
 	svg {
 		width: 28px;
 		height: 28px;
-		color: #063160;
 	}
 	button {
 		background-color: #fff;
@@ -132,18 +131,6 @@ export const Img = styled.img`
   width: 250px;
   height: 250px;
   border-radius: 25px;
-	/*&:hover {
-		background: linear-gradient(
-        to bottom,
-				rgba(159, 149, 242, 0) 65%,
-				rgba(159, 149, 242, 0.25) 75%,
-				rgba(159, 149, 242, 0.6) 85%,
-				rgba(159, 149, 242, 0.75) 90%,
-				rgba(159, 149, 242, 1) 100%
-      );
-      background-size: cover;
-			transition: 0.1s linear;
-	}*/
 `;
 
 export const H5 = styled.h5`
@@ -152,7 +139,8 @@ export const H5 = styled.h5`
 	position: absolute;
 	bottom: 40px;
 	left: 16px;
-	color: white;
+	color: #333;
+	font-weight: bold;
 
 `
 export const ImgBox = styled.div`
@@ -162,29 +150,29 @@ export const ImgBox = styled.div`
 	border-radius: 25px;
   &:hover {
 		img {
-			border: 5px solid #9f95f2;
-			background: linear-gradient(
+			border: 5px solid #DAEBFD;
+			/*background: linear-gradient(
         to bottom,
 				rgba(159, 149, 242, 0) 65%,
 				rgba(159, 149, 242, 0.25) 75%,
 				rgba(159, 149, 242, 0.6) 85%,
 				rgba(159, 149, 242, 0.75) 90%,
 				rgba(159, 149, 242, 1) 100%
-      );
+      );*/
       background-size: cover;
 			transition: 0.1s linear;
-			/*-webkit-mask-image: linear-gradient(to top, 				
-				rgba(159, 149, 242, 0) 15%,
-				rgba(159, 149, 242, 0.25) 75%,
-				rgba(159, 149, 242, 0.6) 85%,
-				rgba(159, 149, 242, 0.75) 90%,
+			-webkit-mask-image: linear-gradient(to top, 				
+				rgba(159, 149, 242, 0.2) 0%,
+				rgba(159, 149, 242, 0.25) 10%,
+				rgba(159, 149, 242, 0.6) 20%,
+				rgba(159, 149, 242, 0.75) 25%,
 				rgba(159, 149, 242, 1) 100%);
   		mask-image: linear-gradient(to top, 				
-				rgba(159, 149, 242, 0) 15%,
-				rgba(159, 149, 242, 0.25) 75%,
-				rgba(159, 149, 242, 0.6) 85%,
-				rgba(159, 149, 242, 0.75) 90%,
-				rgba(159, 149, 242, 1) 100%);*/
+				rgba(159, 149, 242, 0.2) 0%,
+				rgba(159, 149, 242, 0.2) 10%,
+				rgba(159, 149, 242, 0.6) 20%,
+				rgba(159, 149, 242, 0.75) 25%,
+				rgba(159, 149, 242, 1) 100%);
 		}
 		span, svg {
 			color: #3c4da7;
@@ -212,7 +200,7 @@ export const NameBox = styled.div`
 export const Writea = styled.a`
 	background-color: #fff;
 	border: none;
-	color: #063160;
+	color: #333;
 	svg {
 		width: 30px;
 		height: 30px;
@@ -251,11 +239,23 @@ export const Maincontainer = styled.div`
 	button {
 		width: 25px;
 		height: 25px;
-		margin-right: 10px;
 		color: bule;
+		border: none;
+		background-color: #fff;
+	}
+	a {
+		width: 25px;
+		height: 25px;
+		margin-right: 10px;
+		margin-left: auto;
+
+	}
+	svg {
+		width: 25px;
+		height: 25px;
 	}
 	.update {
-			margin-left: auto;
+
 		}
 	.buttonDiv {
 		display: flex;
@@ -322,13 +322,11 @@ export const Input = styled.input`
 `;
 
 export const Commentbutton = styled.button`
-	width: 30px;
-	height: 30px;
 	border: none;
 	background-color: #fff;
 	svg {
-		width: 40px;
-		height: 40px;
+		width: 33px;
+		height: 33px;
 		color: #063160;
 	}
 `;

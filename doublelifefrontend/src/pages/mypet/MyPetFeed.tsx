@@ -49,7 +49,7 @@ function MyPetFeed() {
 						<GridBox key={item.feedNo} >
 							<ImgBox>
 								<Link to={`/myfeed/${item.feedNo}`}>
-									<Img src={'/image/'+item.imgNo} /*alt={item.postName}*/ />
+									<Img src={'/image/'+item.imgNo} alt={item.petName} />
 									<H5>{item.feedTitle}</H5>
 								</Link>
 								<NameBox>

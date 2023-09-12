@@ -3,7 +3,6 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { MypetfullCalendar, Mypetrecordbox } from './mypet.style';
-import dayjs from "dayjs";
 
 interface CalendarProps {
 	onDateClick: (date: Date, id: number) => void;
@@ -12,13 +11,15 @@ interface CalendarProps {
 function MyPetCalendar({ onDateClick }: CalendarProps) {
 	const [selectedDate, setSelectedDate] = useState<Date | null>(null); // 선택된 날짜 상태 추가
 
-
+	const generateDateId = (date: Date): number => {
+		return date.getTime();
+	};
 
 	const handleDateClick = (arg: any) => {
-		const formattedDate = dayjs(arg.date).format('YYYY-MM-DD');
-		onDateClick(arg.date, formattedDate); // 날짜와 형식화된 날짜 전달
+		const dateId = generateDateId(arg.date); // 날짜에 대한 ID 생성
+		onDateClick(arg.date, dateId); // 새로운 시그니처에 날짜와 ID 전달
 		setSelectedDate(arg.date); // 클릭한 날짜를 선택된 날짜 상태에 저장
-		console.log(formattedDate);
+		console.log(generateDateId)
 	};
 
 	const dateCellClassNames = (arg: any) => {

@@ -59,7 +59,6 @@ function MyPetFeed() {
 						</GridBox>
 					))}
 				</FlexBox>
-				<Writea href="/MyPetFeedWrite"><RiPencilLine /></Writea>
 			</Mypetfeedmain>
 		</>
 	);
