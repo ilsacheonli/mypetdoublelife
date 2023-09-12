@@ -5,6 +5,7 @@ import com.mypet.doublelifebackend.service.MyFeedService;
 import com.mypet.doublelifebackend.vo.BoardVO;
 import com.mypet.doublelifebackend.vo.MyFeedVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -88,9 +89,18 @@ public class MyFeedController {
                                 @RequestPart("petName") String petName,
                                 @RequestPart("feedTitle") String feedTitle,
                                 @RequestPart("feedContent") String feedContent,
-                                @RequestPart("imgNo") int imgNo,
-                                @RequestPart("image") MultipartFile image,
+                                @RequestPart(value = "image", required = false) MultipartFile image,
                                 MyFeedVO update_myFeed) throws IOException {
+
+
+        MyFeedVO db_MyFeed =  myFeedService.getMyFeedByNo(feedNo);
+        int imgNo = db_MyFeed.getImgNo();
+
+        MultipartFile getImage = null;
+
+        if (!(image==null)){
+            getImage = image;
+        }
 
 
         update_myFeed = new MyFeedVO(
@@ -117,7 +127,10 @@ public class MyFeedController {
 
         }
 
-        imageService.updateImage(image, imgNo, "feed");
+        if (!(getImage==null)){
+            imageService.updateImage(image, imgNo, "feed");
+        }
+
 
 
         return "myfeed?updateSuccess";

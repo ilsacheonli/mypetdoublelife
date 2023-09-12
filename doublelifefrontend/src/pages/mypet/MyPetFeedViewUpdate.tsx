@@ -96,12 +96,12 @@ function MyPetFeedWrite() {
       formData.append('petName', post.petName);
       if (post.image) {
         formData.append('image', post.image);
-				formData.append('imgNo', post.imgNo.toString());
+		formData.append('imgNo', post.imgNo.toString());
       }
 
       const response = await axios.post(`/myfeed/update/${feedNo}`, formData);
       console.log('게시글 수정 완료', response.data);
-      navigate(`/myfeed/${feedNo}`)
+      navigate(`/myfeed/${feedNo}`, {replace:true})
     } catch (error) {
       console.error('게시글 수정 실패', error);
     }
