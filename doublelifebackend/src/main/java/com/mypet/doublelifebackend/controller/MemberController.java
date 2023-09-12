@@ -6,17 +6,20 @@ import com.mypet.doublelifebackend.service.MyPetService;
 import com.mypet.doublelifebackend.vo.MemberVO;
 import com.mypet.doublelifebackend.vo.MyPetVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -27,67 +30,55 @@ public class MemberController {
     private MyPetService myPetService;
     @Autowired
     private ImageService imageService;
-    @Autowired
-    MemberVO memberVO ;
 
     // 로그인 페이지
     @RequestMapping(value = "/signin", method = RequestMethod.GET)
     public String signin(Model model) {
-
         return "SignIn";
-        // resources/templates/SignIn.html
     }
 
     // 회원 가입 페이지
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String signup(Model model){
-
         return "SignUp";
-        // resources/templates/SignUp.html
     }
 
     // 회원 페이지
     @RequestMapping(value = "/mypage", method = RequestMethod.GET)
     public String mypage(HttpServletRequest request, Model model) {
-
-        // 세션에 member Object 여부 확인
         HttpSession session = request.getSession();
         Object memberObject = session.getAttribute("member");
 
         if (memberObject == null){
-            // 로그인 x면 signin 페이지로 return
             return "redirect:/signin?NotLogin";
         }
 
-        model.addAttribute("member",memberObject);
+        model.addAttribute("member", memberObject);
 
         return "MyPage/MyPage";
-        // resources/templates/MyPage.html
     }
 
     // 회원 정보 수정 페이지
     @RequestMapping(value = "/mypage/update", method = RequestMethod.GET)
     public String mypageupdate(HttpServletRequest request, Model model){
-        // 세션에 member Object 여부 확인
         HttpSession session = request.getSession();
         Object memberObject = session.getAttribute("member");
 
         if (memberObject == null){
-            // 로그인 x면 signin 페이지로 return
             return "redirect:/signin?NotLogin";
         }
 
-        model.addAttribute("member",memberObject);
+        model.addAttribute("member", memberObject);
 
         return "MyPage/MyPageUpdate";
-        // resources/templates/MyPageUpdate.html
     }
 
+    // 로그인
+// 로그인
     // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody Map<String, String> loginData,
                         HttpServletRequest request, Model model) {
-
         String id = loginData.get("id");
         String pwd = loginData.get("pwd");
 
@@ -102,11 +93,9 @@ public class MemberController {
 
         return "redirect:/mypage";
     }
-
     // 로그아웃
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request){
-
         HttpSession session = request.getSession();
         session.invalidate();
 
@@ -115,37 +104,35 @@ public class MemberController {
 
     // 새로운 멤버 추가
     @RequestMapping(value = "/addmember", method = RequestMethod.POST)
-    public String addmember(@RequestParam Map<String, Objects> paramObj, MemberVO new_Member){
-
+    public String addmember(@RequestBody MemberVO new_Member) {
         int lastMemNumber = memberService.getLastMemNumber();
-
-        new_Member = new MemberVO(
-                lastMemNumber,
-                String.valueOf(paramObj.get("name")),
-                String.valueOf(paramObj.get("id")),
-                String.valueOf(paramObj.get("pwd")),
-                String.valueOf(paramObj.get("email")),
-                String.valueOf(paramObj.get("birth"))
-        );
 
         int Member_number = memberService.addMember(new_Member);
 
         MemberVO addedMember = memberService.getMemberByNum(Member_number);
 
-        if(String.valueOf(addedMember).equals("null")){
-
+        if (addedMember == null) {
             return "redirect:/signup?signUpFail";
         }
 
         return "redirect:/signin?signUpSuccess";
     }
-
     // 멤버 정보 수정
     @RequestMapping(value = "/updatemember", method = RequestMethod.POST)
     public String updatemember(@RequestParam Map<String, Objects> paramObj, MemberVO update_member,
                                HttpServletRequest request){
-
         int number = Integer.parseInt(String.valueOf(paramObj.get("number")));
+
+        String birthString = String.valueOf(paramObj.get("birth"));
+        Date birthDate = null;
+
+        // 문자열을 Date로 변환
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            birthDate = dateFormat.parse(birthString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         update_member = new MemberVO(
                 number,
@@ -153,15 +140,14 @@ public class MemberController {
                 String.valueOf(paramObj.get("id")),
                 String.valueOf(paramObj.get("pwd")),
                 String.valueOf(paramObj.get("email")),
-                String.valueOf(paramObj.get("birth"))
+                birthDate
         );
 
         int Member_number = memberService.editMember(update_member);
 
         MemberVO updated_member = memberService.getMemberByNum(Member_number);
 
-        if(String.valueOf(updated_member).equals("null")){
-
+        if(updated_member == null){
             return "redirect:/mypage?updateFail";
         }
 
@@ -175,7 +161,6 @@ public class MemberController {
     // 멤버 삭제
     @RequestMapping(value = "/removemember", method = RequestMethod.GET)
     public String removemember(HttpServletRequest request) throws IOException {
-
         HttpSession session = request.getSession();
         Object memberObject = session.getAttribute("member");
 
@@ -201,5 +186,13 @@ public class MemberController {
         session.invalidate();
 
         return "redirect:/signin?deleteSuccess";
+    }
+
+    // 중복 아이디 체크
+    @RequestMapping(value = "/checkDuplicateID", method = RequestMethod.POST)
+    public ResponseEntity<Boolean> checkDuplicateID(@RequestBody Map<String, String> requestBody) {
+        String memId = requestBody.get("memId");
+        boolean isDuplicate = memberService.isMemberIdDuplicate(memId);
+        return new ResponseEntity<>(isDuplicate, HttpStatus.OK);
     }
 }

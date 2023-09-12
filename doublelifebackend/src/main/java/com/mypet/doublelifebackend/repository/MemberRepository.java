@@ -1,6 +1,7 @@
 package com.mypet.doublelifebackend.repository;
 
 import com.mypet.doublelifebackend.vo.MemberVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,6 +11,9 @@ import java.util.List;
 public interface MemberRepository { // 정의해놓은 sql와 사용할 메서드를 연결하고, 결괏값을 정의해놓은 타입으로 매핑
     MemberVO selectMemberByNum(int memNumber);
     // 인자로 받은 memNumber로 해당 member 정보를 select하는 sql문 함수
+
+    MemberVO selectMemberById(@Param("memId") String memId);
+
 
     MemberVO selectMemberByLogin(String id, String pwd);
     // 인자로 받은 memNumber로 해당 member 정보를 select하는 sql문 함수
