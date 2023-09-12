@@ -42,17 +42,18 @@ interface InputFormProps {
 	inputValue: string;
 	onInputChange: (value: string) => void;
 	onAddItem: () => void;
+    inputDate:string;
 }
 
-function MyPetInput({ inputValue, onInputChange, onAddItem }: InputFormProps) {
+function MyPetInput({ inputValue, onInputChange, onAddItem, inputDate }: InputFormProps) {
 	const [keyCounter, setKeyCounter] = useState<number>(0);
 
   async function sendDataToServer() {
     try {
       const apiUrl = '/mytodo/insert';
       const sendData = {
-        doContent: inputValue,
-				doDate: Date
+          doContent: inputValue,
+	      doDate : inputDate,
       };
 
       await axios.post(apiUrl, sendData, {

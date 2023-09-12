@@ -83,9 +83,9 @@ public class MyFeedController {
 
     }
 
-    @PostMapping("/myfeed/update")
-    public String myFeedUpdate( @RequestPart("petName") String petName,
-                                @RequestPart("feedNo") int feedNo,
+    @PostMapping("/myfeed/update/{feedNo}")
+    public String myFeedUpdate( @PathVariable("feedNo") int feedNo,
+                                @RequestPart("petName") String petName,
                                 @RequestPart("feedTitle") String feedTitle,
                                 @RequestPart("feedContent") String feedContent,
                                 @RequestPart("imgNo") int imgNo,
