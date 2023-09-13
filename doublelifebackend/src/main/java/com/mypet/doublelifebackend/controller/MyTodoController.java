@@ -13,13 +13,9 @@ public class MyTodoController {
     @Autowired
     MyTodoService myTodoService;
 
-    @GetMapping("/mytodo/{doDate}")
-    public List<TodoVO> getAllMyTodoByDate (@PathVariable String doDate){
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("memId", "test");
-        map.put("doDate", doDate);
-
-        return myTodoService.getAllMyTodoByDate(map);
+    @GetMapping("/mytodo")
+    public List<TodoVO> getAllMyTodo (){
+        return myTodoService.getAllMyTodo("test");
     }
 
     @PostMapping("/mytodo/insert")
