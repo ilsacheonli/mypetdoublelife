@@ -36,7 +36,6 @@ function MyPetMemo() {
 		setItems(updatedItems);
 	};
 
-
 	const handleDateClick = (date: string, id: number) => {
 		setSelectDate(date);
 		setSelectedDateId(id); // 선택한 날짜의 ID를 저장
