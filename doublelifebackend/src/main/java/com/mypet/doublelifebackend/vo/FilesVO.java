@@ -10,8 +10,7 @@ import java.util.Date;
 public class FilesVO {
 
     private int id;
-    private String category;
-    private int bno;
+    private int boardId;
     private String originName;
     private String savedName;
     private long fileSize;
@@ -20,9 +19,8 @@ public class FilesVO {
     private Date deletedDate;
     private int deleted;
 
-    public FilesVO(String category, int bno, String originName, String savedName, long fileSize, String savedPath) {
-        this.category = category;
-        this.bno = bno;
+    public FilesVO(int boardId, String originName, String savedName, long fileSize, String savedPath) {
+        this.boardId = boardId;
         this.originName = originName;
         this.savedName = savedName;
         this.savedPath = savedPath;
