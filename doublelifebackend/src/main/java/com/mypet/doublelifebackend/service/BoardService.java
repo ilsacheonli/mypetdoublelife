@@ -33,12 +33,8 @@ public class BoardService {
     }
 
     // 게시글 상세 조회
-//    public BoardVO selectOne(String category, int bno) {
-//        return boardRepository.selectOne(category, bno);
-
     public BoardVO selectOne(int id) {
         return boardRepository.selectOne(id);
-
     }
 
     // 게시글 수정
@@ -47,13 +43,13 @@ public class BoardService {
     }
 
     // 게시글 삭제
-    public void delete(String category, int bno) {
-        boardRepository.delete(category, bno);
+    public void delete(int id) {
+        boardRepository.delete(id);
     }
 
     // 게시글 클릭 시 조회수 증가
-    public void boardViewCnt(String category, int bno) {
-        boardRepository.boardViewCnt(category, bno);
+    public void boardViewCnt(int id) {
+        boardRepository.boardViewCnt(id);
     }
 
     // 카테고리별 저장된 게시물의 총 개수를 반환하는 메서드
@@ -82,9 +78,9 @@ public class BoardService {
     }
 
     // 좋아요 수 증가시키는 메서드
-    public void updateLike(String category, int bno) {
+    public void updateLike(int id) {
 
-        boardRepository.updateLike(category, bno);
+        boardRepository.updateLike(id);
     }
 
     // 글 삭제 후 글 번호를 재조정하는 메서드
