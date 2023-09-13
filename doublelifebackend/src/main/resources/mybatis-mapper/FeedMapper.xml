@@ -6,19 +6,24 @@
 <mapper namespace = "com.mypet.doublelifebackend.repository.FeedRepository">
 
     <resultMap id="petstivalResult" type="feedVO">
+        <result property="feed_no" column="feed_no" />
         <result property="user_id" column="user_id" />
         <result property="user_name" column="user_name" />
-        <result property="likeNum" column="likeNum" />
-        <result property="contentTitle" column="contentTitle" />
-        <result property="regTime" column="regTime" />
-        <result property="contentText" column="contentText" />
+        <result property="likenum" column="likenum" />
+        <result property="contenttitle" column="contenttitle" />
+        <result property="contenttext" column="contenttext" />
+        <result property="regtime" column="regtime" />
+        <result property="f_img_no" column="f_img_no" />
+        <result property="f_img_name" column="f_img_name" />
+        <result property="f_img_path" column="f_img_path" />
     </resultMap>
 
     <select id="selectAllFeed" resultMap="petstivalResult">
-        SELECT user_id, user_name, contentTitle, likeNum FROM PETSTIVAL
+        SELECT feed_no, user_id, user_name, likenum, contenttitle, f_img_no, f_img_name, f_img_path FROM PETSTIVAL
     </select>
 
     <select id="selectFeedView" resultMap="petstivalResult">
         SELECT * FROM PETSTIVAL
     </select>
+
 </mapper>

@@ -2,9 +2,10 @@ package com.mypet.doublelifebackend.service;
 
 import com.mypet.doublelifebackend.repository.FeedRepository;
 import com.mypet.doublelifebackend.vo.FeedVO;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.io.File;
 import java.util.List;
 
 @Service
