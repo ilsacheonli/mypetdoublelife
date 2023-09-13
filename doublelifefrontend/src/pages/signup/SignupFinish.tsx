@@ -3,21 +3,25 @@ import styled from 'styled-components';
 import { Link } from "react-router-dom";
 function SignupFinish() {
     const Loginpage=styled.div`
-    
-    position: absolute;
-    padding-top: 0;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
     width: 100%;
-    max-width: 1500px;
-    padding: 0 20px;
-    left: 50%;
-    transform: translate(-50%, 0);
+    
+    
+    `// position: absolute;
+    // padding-top: 0;
+    // width: 100%;
+    // max-width: 1500px;
+    // padding: 0 20px;
+    // left: 50%;
+    // transform: translate(-50%, 0);
   
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    // overflow: hidden;
+    // display: flex;
+    // flex-direction: column;
     
-    
-    `
+ 
     // position: absolute;
     const Petimage=styled.div`
     
@@ -110,7 +114,7 @@ function SignupFinish() {
     const CongratsImage = styled.img`
     width: 150px; /* 이미지 크기 조절 */
     position: absolute;
-    bottom: 20px;
+    bottom: 110px;
     right: 400px;
     margin-bottom: -10px;
     /* 이미지를 좌우로 반전시킵니다. */
@@ -124,7 +128,7 @@ function SignupFinish() {
     const AdditionalImage = styled.img`
       width: 150px; /* 이미지 크기 조절 */
       position: absolute;
-      bottom: 20px;
+      bottom: 110px;
       left: 400px;
       margin-bottom: -10px;
     

@@ -1,6 +1,10 @@
+
 import { Loginpage, Petimage, ImageContainer, Catimage, Idbox, InputWrap, Input, BottomButton, Apilogin, Apw, Apss, Api, Colr, Logo } from "pages/login/login.style";
 import { Link } from "react-router-dom";
 import React, { useState } from 'react';
+import styled from 'styled-components';
+
+
 
 const Signup: React.FC = () => {
   const [name, setName] = useState("");
@@ -40,7 +44,7 @@ const handleRegister = () => {
   
 // function Signup() {
   return (
-    <Loginpage>
+    // <Loginpage>
       <Petimage>
         <ImageContainer>
             <Link to={`/`}>
@@ -122,7 +126,7 @@ const handleRegister = () => {
           </tr>
         </Apilogin>
       </Petimage>
-    </Loginpage>
+    // </Loginpage>
   );
 }
 

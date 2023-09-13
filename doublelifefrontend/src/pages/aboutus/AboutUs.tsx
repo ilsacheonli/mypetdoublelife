@@ -19,7 +19,7 @@ function AboutUs()
 //   const CustomButton = styled.button`
 //   background-color: white;
 //   border: 1px solid lightgray;
-//   padding: 4px 8px; /* 크기를 더 작게 조정 */
+//   padding: 4px 8px; 
 //   font-size: 5px; /* 텍스트 크기를 더 작게 조정 */
 //   cursor: pointer;
 //   float: right; /* 오른쪽에 위치시킴 */

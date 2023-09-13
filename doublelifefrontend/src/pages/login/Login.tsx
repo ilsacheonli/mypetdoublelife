@@ -31,7 +31,7 @@ const Login: React.FC = () => {
 
 // function Login() {
   return (
-    <Loginpage>
+    // <Loginpage>
       <Petimage>
         <ImageContainer>
           <Link to={`/`}>
@@ -98,7 +98,7 @@ const Login: React.FC = () => {
           </tr>
         </Apilogin>
       </Petimage>
-    </Loginpage>
+    // </Loginpage>
   );
 }
 
