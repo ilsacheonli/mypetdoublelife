@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MyPetProfile from './Mypetprofile';
 import MyPetSwiper from './Mypetswiper';
-import MyPetTeb from './MyPetTeb';
+import MyPetTeb from './Mypetteb';
 import axios from 'axios';
 
 function MyPet() {

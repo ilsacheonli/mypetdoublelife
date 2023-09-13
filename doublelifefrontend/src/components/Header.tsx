@@ -78,26 +78,26 @@ function Header() {
             </li>
           </ul>
         ))}
-            {LinkItems.map((item, index) => (
-              <ul>
-                <li key={item.url} value={index}>
-                  <a 
-                    // className={index === btnActive ? "active" : ""}
-                    //className={`${btnActive == index && 'active'}`}
-                    onClick={() => {
-                      console.log("onClick: "+ index)
-                      //console.log(index.target.value)
-                      // toggleActive(index)
-                      setBtnActive(index)
-                    }}
-                    // className={index === btnActive ? "active" : ""}
-                    href={item.url}
-                  >
-                    {item.title}
-                  </a>
-                </li>
-              </ul>
-            ))}
+            {/*{LinkItems.map((item, index) => (*/}
+            {/*  <ul>*/}
+            {/*    <li key={item.url} value={index}>*/}
+            {/*      <a */}
+            {/*        // className={index === btnActive ? "active" : ""}*/}
+            {/*        //className={`${btnActive == index && 'active'}`}*/}
+            {/*        onClick={() => {*/}
+            {/*          console.log("onClick: "+ index)*/}
+            {/*          //console.log(index.target.value)*/}
+            {/*          // toggleActive(index)*/}
+            {/*          setBtnActive(index)*/}
+            {/*        }}*/}
+            {/*        // className={index === btnActive ? "active" : ""}*/}
+            {/*        href={item.url}*/}
+            {/*      >*/}
+            {/*        {item.title}*/}
+            {/*      </a>*/}
+            {/*    </li>*/}
+            {/*  </ul>*/}
+            {/*))}*/}
           </Links>
           <LinkSign>
             <li>

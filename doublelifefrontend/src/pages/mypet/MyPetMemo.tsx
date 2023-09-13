@@ -9,31 +9,43 @@ import { Mypetrecordbox, Mypetrecordmemo, Mypetrecordmemo1 } from './mypet.style
 import MyPetCalendar from './Mypetcalendar';
 
 interface Item {
-	id: number;
-	text: string;
-	doDate: number;
+	doNo: number;
+	doContent: string;
+	doDate: string;
+
 }
 
 function MyPetMemo() {
 	const [selectedDateId, setSelectedDateId] = useState<number | null>(null);
 	const [items, setItems] = useState<Item[]>([]);
+	const [delDoNo , setDelDoNo] = useState<number>();
 	const [inputValue, setInputValue] = useState<string>('');
-	const [selectDate, setSelectDate] = useState<string>('');
+	const [selectDate, setSelectDate] = useState<string>(dayjs(Date()).format('YYYY-MM-DD'));
 
-	const handleAddItem = () => {
-		if (selectedDateId !== null) {
-			const newItem: Item = {
-				id: selectedDateId,
-				text: inputValue,
-				doDate: selectedDateId
-			};
-			setItems(prevItems => [...prevItems, newItem]);
-		}
-	};
+	useEffect(() => {
+		axios.get('/mytodo/'+selectDate)
+			.then((res) => {
+				setItems(res.data)
+				console.log('불러오기 성공', res.data)
+			})
+			.catch((error) => {
+				console.log('불러오기 실패', error)
+			});
+	}, [selectDate,delDoNo]);
 
-	const handleDeleteItem = (id: number) => {
-		const updatedItems = items.filter(item => item.id !== id);
-		setItems(updatedItems);
+
+	const handleDeleteItem = (doNo : number) => {
+		console.log('2');
+		axios
+			.get('/mytodo/delete/'+doNo)
+			.then((res) => {
+				setDelDoNo(doNo)
+				console.log('삭제 성공', res.data)
+			})
+			.catch((error) => {
+				console.log('삭제 실패', error)
+			})
+
 	};
 
 
@@ -52,15 +64,15 @@ function MyPetMemo() {
 						<MyPetInput
 							inputValue={inputValue}
 							onInputChange={setInputValue}
-							onAddItem={handleAddItem}
 							inputDate={selectDate}
 						/>
-						{selectedDateId !== null && (
-							<MyPetItem
-								items={items.filter(item => item.id === selectedDateId)}
+						{items.map((item, index)=>(
+							<MyPetItem key={index}
+								item={item}
 								onDeleteItem={handleDeleteItem}
 							/>
-						)}
+							))
+						}
 					</Mypetrecordmemo1>
 				</Mypetrecordmemo>
 			</Mypetrecordbox>
