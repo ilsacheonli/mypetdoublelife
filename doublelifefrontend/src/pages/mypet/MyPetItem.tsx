@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useParams } from "react-router-dom";
+import axios from 'axios';
 import { Li, Ul } from './mypet.style'
 import { RiDeleteBinLine } from 'react-icons/ri';
-import styled from 'styled-components';
 
 interface Item {
   id: number;
   text: string;
+}
+
+interface todoItem {
+	id: number;
+	memId: string;
+	doContent: string;
+	doDate: string;
 }
 
 interface ItemListProps {
@@ -14,7 +22,19 @@ interface ItemListProps {
 }
 
 function MyPetItem({ items, onDeleteItem }: ItemListProps) {
-	console.log(items)
+	const [todoData, setTodoData] = useState<todoItem[]>([]);
+	const { doDate } = useParams()
+	
+	useEffect(() => {
+		axios.get(`/mytodo/${doDate}`)
+			.then((res) => {
+				setTodoData(res.data)
+			})
+			.catch((error) => {
+				console.log('불러오기 실패', error)
+			});
+	}, [doDate]);
+
 	return (
 		<Ul>
 			{items.map((item, index) => (

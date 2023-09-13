@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react'
 import styled from 'styled-components';
 import { RiAddLine } from 'react-icons/ri';
 import axios from 'axios';
@@ -42,45 +42,45 @@ interface InputFormProps {
 	inputValue: string;
 	onInputChange: (value: string) => void;
 	onAddItem: () => void;
-    inputDate:string;
+	inputDate: string;
 }
 
 function MyPetInput({ inputValue, onInputChange, onAddItem, inputDate }: InputFormProps) {
 	const [keyCounter, setKeyCounter] = useState<number>(0);
 
-  async function sendDataToServer() {
-    try {
-      const apiUrl = '/mytodo/insert';
-      const sendData = {
-          doContent: inputValue,
-	      doDate : inputDate,
-      };
+	async function sendDataToServer() {
+		try {
+			const apiUrl = '/mytodo/insert';
+			const sendData = {
+				doContent: inputValue,
+				doDate: inputDate,
+			};
 
-      await axios.post(apiUrl, sendData, {
+			await axios.post(apiUrl, sendData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				}
 			});
 
-      console.log('성공');
-    } catch (error) {
-      console.error('실패', error);
-    }
-  }
-	
+			console.log('성공');
+		} catch (error) {
+			console.error('실패', error);
+		}
+	}
 
-  function handleSubmit(event: React.FormEvent) {
-    event.preventDefault();
 
-    if (inputValue.trim()) {
+	function handleSubmit(event: React.FormEvent) {
+		event.preventDefault();
 
-      sendDataToServer();
-			
-      onInputChange('');
-      setKeyCounter((prevKey) => prevKey + 1);
+		if (inputValue.trim()) {
 
-    }
-  }
+			sendDataToServer();
+
+			onInputChange('');
+			setKeyCounter((prevKey) => prevKey + 1);
+
+		}
+	}
 
 	return (
 		<>
