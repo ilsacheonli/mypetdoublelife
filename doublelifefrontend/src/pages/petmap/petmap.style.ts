@@ -53,11 +53,14 @@ export const TabMenu = styled.ul`
 
   & div.desc {
     text-align: center;
+    justify-content: center;
   }
 `;
 
 export const Desc = styled.div`
+  display: flex;
   text-align: center;
+  justify-content: center;
 `;
 
 export const SearchIcon = styled.img`
@@ -185,7 +188,7 @@ export const PetMapPagination = styled.div`
     &:hover,
     &:active,
     &.active {
-      background-color: #3b4b9b;
+      background-color: #a4c4eb;
       color: white;
     }
 

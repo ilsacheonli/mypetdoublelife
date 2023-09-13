@@ -4,9 +4,9 @@ import axios from "axios";
 import { MapList, PetMapPagination } from "./petmap.style";
 import Pagination from "react-js-pagination";
 import { PetMapAroundList } from "./PetMapAroundList";
-import Modal from "pages/petmunity/Modal";
-import styled from "styled-components";
 import { ListDivide } from "./petmapcontainer.style";
+import styled from "styled-components";
+import Modal from "pages/petmunity/Modal";
 
 declare global {
   interface Window {
@@ -14,15 +14,15 @@ declare global {
   }
 }
 
-const PetMapContainer = () => {
+const PetMapContainerSalon = () => {
   const [petMapList, setPetMapList] = useState<PetMapList[]>([]);
   const [currentPetMap, setCurrentPetMap] = useState<PetMapList[]>(petMapList); // 전국 미용실 페이지네이션
   const [page, setPage] = useState<number>(1); // 현재 페이지 번호
 
   const [aroundPetMap, setAroundPetMap] = useState<PetMapAroundList[]>([]);
   const [currentAroundPetMap, setCurrentAroundPetMap] =
-    useState<PetMapAroundList[]>(aroundPetMap); // 주변 병원 페이지네이션
-  const [aroundPage, setAroundPage] = useState<number>(1); // 주변 병원 현재 페이지 번호
+    useState<PetMapAroundList[]>(aroundPetMap); // 주변 미용실 페이지네이션
+  const [aroundPage, setAroundPage] = useState<number>(1); // 주변 미용실 현재 페이지 번호
 
   // Modal
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
@@ -33,29 +33,29 @@ const PetMapContainer = () => {
 
   let obj;
 
-  // 전국 병원 페이지네이션 변수
+  // 전국 미용실 페이지네이션 변수
   const postPerPage = 5; // 페이지 당 게시글 개수
   const indexOfLastPost = page * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
 
-  // 주변 병원 페이지네이션 변수
+  // 주변 미용실 페이지네이션 변수
   const postAroundPerPage = 5; // 페이지 당 게시글 개수
   const indexOfAroundLastPost = aroundPage * postAroundPerPage;
   const indexOfAroundFirstPost = indexOfAroundLastPost - postAroundPerPage;
 
-  // 전국 병원 페이지네이션 변경 함수
+  // 전국 미용실 페이지네이션 변경 함수
   const handlePageChange = (page: number) => {
     setPage(page);
   };
 
-  // 주변 병원 페이지네이션 변경 함수
+  // 주변 미용실 페이지네이션 변경 함수
   const handleAroundPetMapPageChange = (pageAround: number) => {
     setAroundPage(pageAround);
   };
 
   const getPetMapList = async () => {
     // res는 http response의 header + body를 모두 갖고 있다.
-    const res = await axios.get("/pethospital");
+    const res = await axios.get("/petsalon");
     console.log(res.data);
     setPetMapList([...res.data]);
   };
@@ -74,7 +74,7 @@ const PetMapContainer = () => {
 
     let mapLoad = new window.kakao.maps.load(function () {
       var mapContainer = document.getElementById("map");
-      var hospitalListContainer = document.getElementById("hospitalList");
+      var salonListContainer = document.getElementById("salonList");
 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -99,7 +99,7 @@ const PetMapContainer = () => {
 
             var infowindows: any[] = [];
 
-            fetch(`/pethospital`)
+            fetch(`/petsalon`)
               .then((response) => response.json())
               .then((data) => {
                 var markers = [];
@@ -118,7 +118,6 @@ const PetMapContainer = () => {
                   var content = `<div style="padding: 10px;">
                                     <strong>${data[i].name}</strong><br>
                                     주소: ${data[i].address2}<br>
-                                    전화번호: ${data[i].tel}<br>
                                     <p style="color:white;"></p><br>
                                 </div>`;
 
@@ -157,35 +156,35 @@ const PetMapContainer = () => {
                 clusterer.addMarkers(markers);
 
                 // 현재 위치에서 3km 이내의 미용실 리스트
-                fetch(`/pethospital?lat=${lat}&lon=${lon}`)
+                fetch(`/petsalon?lat=${lat}&lon=${lon}`)
                   .then((response) => response.json())
                   .then((allData) => {
-                    var hospitalListJSON = []; // JSON 형식의 배열
+                    var salonListJSON = []; // JSON 형식의 배열
 
                     for (var i = 0; i < allData.length; i++) {
-                      var hospitalLat = allData[i].latitude;
-                      var hospitalLon = allData[i].longitude;
+                      var salonLat = allData[i].latitude;
+                      var salonLon = allData[i].longitude;
                       var calculatedDistance = calculateDistance(
                         lat,
                         lon,
-                        hospitalLat,
-                        hospitalLon
+                        salonLat,
+                        salonLon
                       );
 
                       if (calculatedDistance <= 3) {
                         // 3km 이내
-                        var hospitalInfo = {
+                        var salonInfo = {
                           name: allData[i].name,
                           distance: calculatedDistance.toFixed(2) + "km",
                         };
-                        hospitalListJSON.push(hospitalInfo);
+                        salonListJSON.push(salonInfo);
                       }
                     }
                     // JSON.stringfy()를 사용하여 JSON 문자열로 변환
-                    obj = JSON.stringify(hospitalListJSON);
+                    obj = JSON.stringify(salonListJSON);
 
                     // 받아온 JSON 정보를 aroundPetMap에 저장
-                    setAroundPetMap(hospitalListJSON);
+                    setAroundPetMap(salonListJSON);
                   })
                   .catch((error) =>
                     console.error("데이터 가져오기 오류:", error)
@@ -269,7 +268,7 @@ const PetMapContainer = () => {
         {isOpenModal && (
           <Modal onClickToggleModal={onClickToggleModal}>
             <ModalTitle>
-              <h1>전국 병원</h1>
+              <h1>전국 미용실</h1>
             </ModalTitle>
             <ModalContents>
               <MapList>
@@ -318,11 +317,11 @@ const PetMapContainer = () => {
           </Modal>
         )}
         <DialogButton onClick={onClickToggleModal}>
-          전국 병원 보러 가기
+          전국 미용실 보러 가기
         </DialogButton>
       </Main>
 
-      <ListDivide>주변 병원</ListDivide>
+      <ListDivide>주변 미용실</ListDivide>
 
       <MapList>
         {currentAroundPetMap &&
@@ -360,7 +359,7 @@ const PetMapContainer = () => {
   );
 };
 
-export default PetMapContainer;
+export default PetMapContainerSalon;
 
 const Main = styled.main`
   width: 100%;

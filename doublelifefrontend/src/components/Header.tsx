@@ -3,7 +3,7 @@ import { LinkItems } from "./LinkItems";
 import { NavContainer, Content, Logo, Links, LinkSign } from "GlobalStyle";
 
 function Header() {
-  const [btnActive, setBtnActive] = useState(4);
+  const [btnActive, setBtnActive] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // 로그아웃 버튼 클릭 시 실행될 함수입니다~~
@@ -53,6 +53,26 @@ function Header() {
             </li>
           </ul>
         ))}
+            {LinkItems.map((item, index) => (
+              <ul>
+                <li key={item.url} value={index}>
+                  <a 
+                    // className={index === btnActive ? "active" : ""}
+                    //className={`${btnActive == index && 'active'}`}
+                    onClick={() => {
+                      console.log("onClick: "+ index)
+                      //console.log(index.target.value)
+                      // toggleActive(index)
+                      setBtnActive(index)
+                    }}
+                    // className={index === btnActive ? "active" : ""}
+                    href={item.url}
+                  >
+                    {item.title}
+                  </a>
+                </li>
+              </ul>
+            ))}
           </Links>
           <LinkSign>
             <li>

@@ -3,7 +3,7 @@ import { Buttonbox, Contentdiv, Titlediv, Writecontainer, Writeform } from './pe
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const PetmunityWritePage = () => {  
+const PetmunityWritePageTrade = () => {  
     // hook
     const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ const PetmunityWritePage = () => {
             if (window.confirm('게시글을 등록하시겠습니까?')) {
                 axios.post('http://localhost:8080/petmunity/writePage', {
                     headers: {'Content-Type': 'multipart/form-data'},
-                    category: 'qna',
+                    category: 'trade',
                     // bno: bno,
                     title: title,
                     writer: writer,
@@ -32,7 +32,7 @@ const PetmunityWritePage = () => {
                 })
                 .then(function(response) {
                     alert('게시글이 등록되었습니다.');
-                    navigate('/petmunity/qna');
+                    navigate('/petmunity/trade');
                 })
 
                 .catch(function(error) {
@@ -49,7 +49,7 @@ const PetmunityWritePage = () => {
         e.preventDefault();
 
         if (window.confirm('게시글 작성을 취소하시겠습니까?')) {
-            navigate('/petmunity/qna');
+            navigate('/petmunity/trade');
         } else {
             return false;
         }
@@ -86,4 +86,4 @@ const PetmunityWritePage = () => {
     );
 }
 
-export default PetmunityWritePage;
+export default PetmunityWritePageTrade;

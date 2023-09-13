@@ -1,7 +1,7 @@
 import React from 'react';
 import { PetMapContainerBox, SearchBar } from './petmap.style';
 import PetMapSearch from './PetMapSearch';
-import PetMapContainer from './PetMapContainer';
+import PetMapContainerSalon from './PetMapContainerSalon';
 
 function PetMapSalon() {
     const onSubmit = (form: { name: string; }) => {
@@ -14,7 +14,7 @@ function PetMapSalon() {
         <PetMapSearch onSubmit={onSubmit}/>
       </SearchBar>
       <PetMapContainerBox>
-        <PetMapContainer/>
+        <PetMapContainerSalon />
       </PetMapContainerBox>
       </div>
     );

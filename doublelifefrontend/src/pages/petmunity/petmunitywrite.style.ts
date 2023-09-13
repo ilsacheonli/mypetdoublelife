@@ -1,82 +1,113 @@
 import styled from "styled-components";
 
-export const WritingWrap = styled.div`
-    color: #000;
+export const Writecontainer = styled.div`
+	display: flex;
+	justify-content: center;
+	margin-top: 40px;
+	margin-bottom: 40px;
 `
 
-export const WritingHeader = styled.div`
-    position: relative;
-    margin-top: 20px;
-    border-bottom: 1px solid #323232;
-    text-align: left;
+export const Writeform = styled.form`
+	width: 700px;
+	display: flex;
+	flex-direction: column;
 
-    & > .title {
-        margin-bottom: 16px;
-        font-size: 22px;
-        color: #000000;
-    }
-
-    & > .tool_area {
-        position: absolute;
-        bottom: 12px;
-        right: 0;
-
-        
-    }
 `
 
-export const WriteBtn = styled.button`
-        min-width: 46px;
-        height: 36px;
-        margin-left: 10px;
-        padding: 0 12px;
-        font-size: 13px;
-        line-height: 36px;
-        display: inline-block;
-        border-radius: 6px;
-        box-sizing: border-box;
-        font-weight: 700;
-        text-align: center;
-        vertical-align: top;
+export const Titlediv = styled.div`
+	margin-bottom: 15px;
+	input {
+		width: 700px;
+		height: 40px;
+		border: 2px solid #757678;
+		border-radius: 5px;
+		padding-left: 10px;
+		box-shadow: none;
+		outline: none;
+	}
+
+    div {
+		width: 700px;
+		height: 40px;
+		border: 2px solid #757678;
+		border-radius: 5px;
+		padding-left: 10px;
+        padding-top: 5px;
+		box-shadow: none;
+		outline: none;
+        color: #757678;
+	}
+
 `
 
-export const WritingContent = styled.div`
-    position: relative;
-    padding-top: 12px;
-    padding-bottom: 50px;
+export const Imgdiv = styled.div`
+	margin-bottom: 15px;
+	height: 100px;
+	border: 2px solid #757678;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	border-radius: 5px;
+	label {
+		cursor: pointer;
+		padding: 10px;
+		color: #757678;
+	}
+	input {
+		width: 700px;
+		height: 40px;
+		border: 1px soild #333 ;
+		display: none;
+	}
+	img {
+		width: 100px;
+		height: 96px;
+		border-radius: 0 3px 3px 0;
+		&:hover {
+			filter: brightness(0.5);
+		}
+	}
 `
 
-export const WritingEditor = styled.div`
-    float: left;
-    width: 862px;
+export const Contentdiv = styled.div`
+	margin-bottom: 10px;
+	textarea {
+		width: 700px;
+		height: 450px;
+		resize: none;
+		outline: none;
+		border-radius: 5px;
+		padding: 10px;
+		border: 2px solid #757678;
+	}
 `
 
-export const FlexableTextArea = styled.div`
-    & > .textarea_input {
-        display: inline-block;
-        width: 100%;
-        min-height: 40px;
-        padding: 11px 12px 10px;
-        border: 1px solid #ebecef;
-        box-sizing: border-box;
-        overflow: hidden;
-        resize: none;
-        word-break: break-all;
-        font-size: 15px;
-        letter-spacing: -.23px;
-        line-height: 17px;
-        outline: none;
-    }
+export const Buttonbox = styled.div`
+	display: flex;
+	:last-child {
+		margin-left: 10px;
+	}
+	button {
+		width: 50px;
+		height: 30px;
+		border: none;
+		background-color: #063160;
+		color: #fff;
+		border-radius: 5px;
+	}
+	a:link, a:visited {
+		text-decoration: none;
+		text-align: center;
+		display: inline-block;
+		color: #fff;
+		width: 50px;
+		height: 30px;
+		padding-top: 3px;
+		background-color: #063160;
+		border-radius: 5px;
 
-    & textarea {
-        font-weight: 400;
-        writing-mode: horizontal-tb !important;        
-    }
+	}
 `
 
-export const Editor = styled.div`
-    margin-top: 12px;
-    border: 1px solid #ebecef;
-    border-bottom: 0;
-    background: #ffffff;
-`
+
