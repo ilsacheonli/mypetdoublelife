@@ -35,8 +35,11 @@ public class BoardFrontController {
 
     // 게시물 작성 후 등록
     @PostMapping("petmunity/{category}")
-    public void write(@PathVariable("category") String category, @RequestBody BoardVO boardVO, @RequestPart List<MultipartFile> files) throws IOException {
+    public void write(@PathVariable("category") String category, @RequestBody BoardVO boardVO, @RequestBody List<MultipartFile> files) throws IOException {
 
+        System.out.println("boardVO: " + boardVO);
+        System.out.println("category: " + category);
+        System.out.println("files: " + files);
         // 작성될 글 id 값
         int board_id = service.selectNextBoardId();
 
@@ -50,6 +53,8 @@ public class BoardFrontController {
         else if (category.equals("writepage3")) {
             service.writeWalkingmate(boardVO);
         }
+
+        // System.out.println("files: " + files.isEmpty());
 
         // 리스트의 첫번째 파일을 변수에 저장
         MultipartFile firstFile = files.get(0);

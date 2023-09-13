@@ -31,13 +31,29 @@ const PetmunityWritePage = () => {
             alert('내용을 입력해 주세요.');
         } else {
             if (window.confirm('게시글을 등록하시겠습니까?')) {
-                axios.post('http://localhost:8080/petmunity/writePage', {
+                const formData = new FormData();
+                console.log(postImg.image);
+
+                if (postImg.image) {
+                    formData.append('image', postImg.image);
+                    // axios.post(`http://localhost:8080/board/fileRead/${params}`, {
+                    //     headers: {'Content-Type': 'multipart/form-data'},
+                    //     formData
+                    // })
+                    // .catch(function(error) {
+                    //     console.log(error);
+                    // });
+                }
+                console.log("formData: " + formData.has('image'));
+                
+                axios.post('http://localhost:8080/petmunity/writepage', {
                     headers: {'Content-Type': 'multipart/form-data'},
-                    category: 'qna',
+                    category: 'writepage',
                     // bno: bno,
                     title: title,
                     writer: writer,
                     content: content,
+                    formData
                 })
                 .then(function(response) {
                     alert('게시글이 등록되었습니다.');
@@ -48,15 +64,6 @@ const PetmunityWritePage = () => {
                     console.log(error);
                 });
 
-                const formData = new FormData();
-
-                if (postImg.image) {
-                    formData.append('image', postImg.image);
-                    axios.post(`http://localhost:8080//petmunity/qna/fileRead/${params}`, {
-                        headers: {'Content-Type': 'multipart/form-data'},
-                        formData
-                    });
-                }
                 
 
             } else {
@@ -76,9 +83,17 @@ const PetmunityWritePage = () => {
                     image: file,
                     imagePreviewUrl: reader.result as string, // Blobl URL 할당
                 }));
-                reader.readAsDataURL(file);
             }
+            reader.readAsDataURL(file);
         }
+    }
+
+    const handleDeleteImage = () => {
+        setPostImg((prevPost) => ({
+            ...prevPost,
+            image: null,
+            imagePreviewUrl: '',
+        }));
     }
 
     const formCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -94,7 +109,7 @@ const PetmunityWritePage = () => {
     return (
         <>
             <Writecontainer>
-                <Writeform>
+                <Writeform encType='multipart/form-data'>
                     <Titlediv>
                         <input placeholder="제목을 입력하세요."
                                 onChange={(e) => setTitle(e.target.value)} />
@@ -102,18 +117,23 @@ const PetmunityWritePage = () => {
 
                     <Titlediv>
                         <input placeholder="닉네임을 입력하세요."
-                                onChange={(e) => {setWriter(e.target.value)
-                                console.log("writer: " + writer)}} />
+                                onChange={(e) => {setWriter(e.target.value)}}/>
                     </Titlediv>
 
                     <Contentdiv>
                         <textarea placeholder="내용을 입력하세요."
-                                onChange={(e) => {setContent(e.target.value)
-                                console.log("content: " + content)}} />
+                                onChange={(e) => {setContent(e.target.value)}} />
                     </Contentdiv>
 
                     <Imgdiv>
                         <label htmlFor='image'>이미지 업로드</label>
+                        {postImg.imagePreviewUrl && (
+                            <img
+                                src={postImg.imagePreviewUrl}
+                                alt="선택된 이미지"
+                                style={{ maxWidth: '100%' }}
+                                onClick={handleDeleteImage} />
+                        )}
                         <input 
                             type='file'
                             id='image'
