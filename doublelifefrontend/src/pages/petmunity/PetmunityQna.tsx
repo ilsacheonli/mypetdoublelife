@@ -31,7 +31,7 @@ const PetmunityQna = () => {
 
   useEffect(() => {
     axios
-      .get("/petmunity/qna")
+      .get("/petmunity/writepage")
       .then((response) => {
         setBoardList([...response.data].reverse());
       })
@@ -44,7 +44,7 @@ const PetmunityQna = () => {
 
   const getBoardList = async () => {
     // res는 http response의 header + body를 모두 갖고 있다.
-    const res = await axios.get("/petmunity/qna");
+    const res = await axios.get("/petmunity/writepage");
     console.log(res.data);
     setBoardList([...res.data].reverse());
   };

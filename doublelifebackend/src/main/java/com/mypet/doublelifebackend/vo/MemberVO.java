@@ -1,12 +1,11 @@
 package com.mypet.doublelifebackend.vo;
-
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@Component
 public class MemberVO {
     private int memNumber;
     private String memName;

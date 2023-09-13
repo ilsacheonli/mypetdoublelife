@@ -35,11 +35,11 @@ public class BoardFrontController {
 
     // 게시물 작성 후 등록
     @PostMapping("petmunity/{category}")
-    public void write(@PathVariable("category") String category, @RequestBody BoardVO boardVO, @RequestBody List<MultipartFile> files) throws IOException {
-
+    public void write(@PathVariable("category") String category, @RequestBody BoardVO boardVO) throws IOException {
+//, @RequestBody List<MultipartFile> files
         System.out.println("boardVO: " + boardVO);
         System.out.println("category: " + category);
-        System.out.println("files: " + files);
+//        System.out.println("files: " + files);
         // 작성될 글 id 값
         int board_id = service.selectNextBoardId();
 
@@ -55,15 +55,15 @@ public class BoardFrontController {
         }
 
         // System.out.println("files: " + files.isEmpty());
-
-        // 리스트의 첫번째 파일을 변수에 저장
-        MultipartFile firstFile = files.get(0);
-
-        // 첫번째 파일이 있으면
-        if(!firstFile.isEmpty()){
-            //파일과 파일 정보를 db에 저장하는 메서드 실행
-            filesService.uploadFile(files, board_id);
-        }
+//
+//        // 리스트의 첫번째 파일을 변수에 저장
+//        MultipartFile firstFile = files.get(0);
+//
+//        // 첫번째 파일이 있으면
+//        if(!firstFile.isEmpty()){
+//            //파일과 파일 정보를 db에 저장하는 메서드 실행
+//            filesService.uploadFile(files, board_id);
+//        }
 
     }
 

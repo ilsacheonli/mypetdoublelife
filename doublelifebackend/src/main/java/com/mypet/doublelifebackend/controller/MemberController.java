@@ -1,16 +1,17 @@
 package com.mypet.doublelifebackend.controller;
 
+import com.mypet.doublelifebackend.service.ImageService;
 import com.mypet.doublelifebackend.service.MemberService;
 import com.mypet.doublelifebackend.service.MyPetService;
 import com.mypet.doublelifebackend.vo.BoardVO;
 import com.mypet.doublelifebackend.vo.MemberVO;
+import com.mypet.doublelifebackend.vo.MyPetVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +22,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class MemberController {
-
     @Autowired
     private MemberService memberService;
     @Autowired
@@ -87,7 +88,7 @@ public class MemberController {
     // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody Map<String, String> loginData,
-                        HttpServletRequest request, Model model) {
+        HttpServletRequest request, Model model) {
         String id = loginData.get("id");
         String pwd = loginData.get("pwd");
 
@@ -99,6 +100,7 @@ public class MemberController {
         }
 
         HttpSession session = request.getSession();
+        session.setAttribute("member", member);
 
         return id;
     }
@@ -123,9 +125,6 @@ public class MemberController {
         if (addedMember == null) {
             return "redirect:/signup?signUpFail";
         }
-        else { // 로그인 실패 시
-            // 세션에 member 속성값을 null로 세팅
-            session.setAttribute("member", null);
 
         return "redirect:/signin?signUpSuccess";
     }
@@ -133,7 +132,7 @@ public class MemberController {
     // 멤버 정보 수정
     @RequestMapping(value = "/updatemember", method = RequestMethod.POST)
     public String updatemember(@RequestParam Map<String, Objects> paramObj, MemberVO update_member,
-                               HttpServletRequest request){
+        HttpServletRequest request){
         int number = Integer.parseInt(String.valueOf(paramObj.get("number")));
 
         String birthString = String.valueOf(paramObj.get("birth"));
@@ -148,12 +147,12 @@ public class MemberController {
         }
 
         update_member = new MemberVO(
-                number,
-                String.valueOf(paramObj.get("name")),
-                String.valueOf(paramObj.get("id")),
-                String.valueOf(paramObj.get("pwd")),
-                String.valueOf(paramObj.get("email")),
-                birthDate
+            number,
+            String.valueOf(paramObj.get("name")),
+            String.valueOf(paramObj.get("id")),
+            String.valueOf(paramObj.get("pwd")),
+            String.valueOf(paramObj.get("email")),
+            birthDate
         );
 
         int Member_number = memberService.editMember(update_member);
@@ -163,6 +162,12 @@ public class MemberController {
         if(updated_member == null){
             return "redirect:/mypage?updateFail";
         }
+
+        HttpSession session = request.getSession();
+        session.removeAttribute("member");
+        session.setAttribute("member",updated_member);
+
+        return "redirect:/mypage?updateSuccess";
     }
 
     // 멤버 삭제

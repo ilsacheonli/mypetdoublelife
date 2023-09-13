@@ -78,7 +78,7 @@ function Header() {
             </li>
           </ul>
         ))}
-            {LinkItems.map((item, index) => (
+            {/* {LinkItems.map((item, index) => (
               <ul>
                 <li key={item.url} value={index}>
                   <a 
@@ -97,7 +97,7 @@ function Header() {
                   </a>
                 </li>
               </ul>
-            ))}
+            ))} */}
           </Links>
           <LinkSign>
             <li>

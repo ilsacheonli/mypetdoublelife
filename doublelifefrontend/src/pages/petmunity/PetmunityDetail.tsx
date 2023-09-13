@@ -131,11 +131,18 @@ function PetmunityDetail() {
         </ArticleContentBox>
       </Viewcontainer>
       <FloatLeft>
+      {sessionStorage.getItem("id") === `${detailBoardData.writer}` ?
         <Buttonbox>
+          <button onClick={formList}>목록</button>
           <button onClick={formModify}>수정</button>
           <button onClick={formDelete}>삭제</button>
+          
+        </Buttonbox>
+        :
+        <Buttonbox>
           <button onClick={formList}>목록</button>
         </Buttonbox>
+}
       </FloatLeft>
     </>
   );

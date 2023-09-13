@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Buttonbox, Contentdiv, Imgdiv, Titlediv, Writecontainer, Writeform } from './petmunitywrite.style';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -51,9 +51,9 @@ const PetmunityWritePage = () => {
                     category: 'writepage',
                     // bno: bno,
                     title: title,
-                    writer: writer,
+                    writer: sessionStorage.getItem('id'),
                     content: content,
-                    files: files
+                    // files: files
                 })
                 .then(function(response) {
                     setPostImg(response.data);
@@ -117,8 +117,7 @@ const PetmunityWritePage = () => {
                     </Titlediv>
 
                     <Titlediv>
-                        <input placeholder="닉네임을 입력하세요." name='writer'
-                                onChange={(e) => {setWriter(e.target.value)}}/>
+                        <div style={{textAlign:'initial'}}>작성자: {sessionStorage.getItem('id')}</div>
                     </Titlediv>
 
                     <Contentdiv>
@@ -126,7 +125,7 @@ const PetmunityWritePage = () => {
                                 onChange={(e) => {setContent(e.target.value)}} />
                     </Contentdiv>
 
-                    <Imgdiv>
+                    {/* <Imgdiv>
                         <label htmlFor='image'>이미지 업로드</label>
                         {postImg.imagePreviewUrl && (
                             <img
@@ -142,7 +141,7 @@ const PetmunityWritePage = () => {
                             accept='image/*'
                             onChange={handleImage}
                         />
-                    </Imgdiv>
+                    </Imgdiv> */}
 
                     <Buttonbox>
                         <button onClick={formSubmit}>게시</button>
