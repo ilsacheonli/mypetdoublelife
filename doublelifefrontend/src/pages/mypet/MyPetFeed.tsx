@@ -40,7 +40,6 @@ function MyPetFeed() {
 			});
 	}, []);
 
-
 	return (
 		<>
 			<Mypetfeedmain>
