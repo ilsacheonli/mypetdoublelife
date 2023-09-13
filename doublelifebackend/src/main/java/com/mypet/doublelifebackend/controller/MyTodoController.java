@@ -1,6 +1,7 @@
 package com.mypet.doublelifebackend.controller;
 
 import com.mypet.doublelifebackend.service.MyTodoService;
+import com.mypet.doublelifebackend.vo.MemberVO;
 import com.mypet.doublelifebackend.vo.TodoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,12 @@ public class MyTodoController {
     MyTodoService myTodoService;
 
     @GetMapping("/mytodo/{doDate}")
-    public List<TodoVO> getAllMyTodo (@PathVariable("doDate") String doDate){
+    public List<TodoVO> getAllMyTodo (@PathVariable("doDate") String doDate, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        MemberVO login_member = (MemberVO) session.getAttribute("member");
+
         HashMap<String, Object> map = new HashMap<String,Object>();
-        map.put("memId", "test");
+        map.put("memId", login_member.getMemId());
         map.put("doDate", doDate);
 
         return myTodoService.getAllMyTodo(map);
@@ -27,12 +31,15 @@ public class MyTodoController {
     @PostMapping("/mytodo/insert")
     public String addMyTodo( @RequestPart String doDate,
                              @RequestPart String doContent,
-                             TodoVO new_todo){
+                             TodoVO new_todo, HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        MemberVO login_member = (MemberVO) session.getAttribute("member");
 
         int lastNumber = myTodoService.getLastTodoNumber();
 
         new_todo = new TodoVO(
-                "test",
+                login_member.getMemId(),
                 lastNumber,
                 doDate,
                 doContent
@@ -54,12 +61,13 @@ public class MyTodoController {
     public String updateMyTodo( @RequestPart String doNo,
                                 @RequestPart String doDate,
                                 @RequestPart String doContent,
-                                TodoVO update_todo){
+                                TodoVO update_todo, HttpServletRequest request){
 
-
+        HttpSession session = request.getSession();
+        MemberVO login_member = (MemberVO) session.getAttribute("member");
 
         update_todo = new TodoVO(
-                "test",
+                login_member.getMemId(),
                 Integer.parseInt(doNo),
                 doDate,
                 doContent
