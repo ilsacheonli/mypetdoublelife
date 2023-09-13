@@ -31,12 +31,12 @@ const PetmunityWritePage = () => {
             alert('내용을 입력해 주세요.');
         } else {
             if (window.confirm('게시글을 등록하시겠습니까?')) {
-                const formData = new FormData();
+                const files = new FormData();
                 console.log(postImg.image);
 
                 if (postImg.image) {
-                    formData.append('image', postImg.image);
-                    // axios.post(`http://localhost:8080/board/fileRead/${params}`, {
+                    files.append('image', postImg.image);
+                    // axios.post(`http://localhost:8080/petmunity/writepage`, {
                     //     headers: {'Content-Type': 'multipart/form-data'},
                     //     formData
                     // })
@@ -44,7 +44,7 @@ const PetmunityWritePage = () => {
                     //     console.log(error);
                     // });
                 }
-                console.log("formData: " + formData.has('image'));
+                console.log("files: " + files.has('image'));
                 
                 axios.post('http://localhost:8080/petmunity/writepage', {
                     headers: {'Content-Type': 'multipart/form-data'},
@@ -53,9 +53,10 @@ const PetmunityWritePage = () => {
                     title: title,
                     writer: writer,
                     content: content,
-                    formData
+                    files: files
                 })
                 .then(function(response) {
+                    setPostImg(response.data);
                     alert('게시글이 등록되었습니다.');
                     navigate('/petmunity/qna');
                 })
@@ -111,17 +112,17 @@ const PetmunityWritePage = () => {
             <Writecontainer>
                 <Writeform encType='multipart/form-data'>
                     <Titlediv>
-                        <input placeholder="제목을 입력하세요."
+                        <input placeholder="제목을 입력하세요." name='title'
                                 onChange={(e) => setTitle(e.target.value)} />
                     </Titlediv>
 
                     <Titlediv>
-                        <input placeholder="닉네임을 입력하세요."
+                        <input placeholder="닉네임을 입력하세요." name='writer'
                                 onChange={(e) => {setWriter(e.target.value)}}/>
                     </Titlediv>
 
                     <Contentdiv>
-                        <textarea placeholder="내용을 입력하세요."
+                        <textarea placeholder="내용을 입력하세요." name='content'
                                 onChange={(e) => {setContent(e.target.value)}} />
                     </Contentdiv>
 
@@ -137,7 +138,7 @@ const PetmunityWritePage = () => {
                         <input 
                             type='file'
                             id='image'
-                            name='image'
+                            name='files'
                             accept='image/*'
                             onChange={handleImage}
                         />
