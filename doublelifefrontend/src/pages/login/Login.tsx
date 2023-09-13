@@ -58,7 +58,7 @@
         .then((response) => {
           console.log('로그인 성공', response.data);
           sessionStorage.setItem('loggedIn', 'true');
-          sessionStorage.setItem('id', response.data.id);
+          sessionStorage.setItem('id', response.data);
           setLoggedIn(true);
           window.location.href = "/";
         })
