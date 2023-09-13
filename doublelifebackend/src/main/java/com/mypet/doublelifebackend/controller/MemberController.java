@@ -72,9 +72,6 @@ public class MemberController {
 
         return "MyPage/MyPageUpdate";
     }
-
-    // 로그인
-// 로그인
     // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody Map<String, String> loginData,
@@ -85,13 +82,14 @@ public class MemberController {
         MemberVO member = memberService.getMemberByLogin(id, pwd);
 
         if (member == null) {
-            return "redirect:/login";
+            id = "이건잘못된것";
+            return "id";
         }
 
         HttpSession session = request.getSession();
         session.setAttribute("member", member);
 
-        return "redirect:/mypage";
+        return id;
     }
     // 로그아웃
     @RequestMapping(value = "/logout", method = RequestMethod.GET)

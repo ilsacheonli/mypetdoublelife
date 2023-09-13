@@ -1,4 +1,3 @@
-
 package com.mypet.doublelifebackend.controller;
 
 import com.mypet.doublelifebackend.service.BoardService;
@@ -31,34 +30,10 @@ public class BoardFrontController {
         return list;
     }
 
-    // qna 게시물 작성 화면으로 이동
-    @GetMapping("petmunity/{category}/writePage")
-    public int writePost(@PathVariable("category") String category) {
-
-        int bno = 0;
-
-        // 작성되는 글 번호를 bno에 저장
-        if(category.equals("qna")) {
-            bno = service.getQnaBno();
-        }
-        else if (category.equals("trade")) {
-            bno = service.getTradeBno();
-        }
-        else if (category.equals("walkingmate")) {
-            bno = service.getWalkingmateBno();
-        }
-
-        return bno;
-    }
-
     // 게시물 작성 후 등록
     @PostMapping("petmunity/writePage")
-    public String write(@RequestBody BoardVO boardVO) throws IOException {
-        String category = "qna";
-
-        System.out.println("category = " + category);
-//        System.out.println("title = " + title);
-        System.out.println("BoardVO : " + boardVO);
+    public void write(@RequestBody BoardVO boardVO) throws IOException {
+        String category = boardVO.getCategory();
 
         // 게시글을 db에 저장
         if(category.equals("qna")) {
@@ -70,45 +45,43 @@ public class BoardFrontController {
         else if (category.equals("walkingmate")) {
             service.writeWalkingmate(boardVO);
         }
-
-        return "redirect:/petmunity/qna";
     }
 
     // 게시물 상세 조회
     @GetMapping("/board/view/{id}")
     public BoardVO read(@PathVariable("id") int id) {
-        // service.boardViewCnt(category,bno);
+        service.boardViewCnt(id);
         BoardVO boardVO = service.selectOne(id);
 
         return boardVO;
     }
 
     // 수정 화면으로 이동
-    @GetMapping("/petmunity/{category}/modify/{bno}")
-    public void modify(@PathVariable("category") String category, @PathVariable("bno") int bno) {
+    @GetMapping("/board/modify/{id}")
+    public BoardVO modify(@PathVariable("id") int id) {
 
-        // BoardVO boardVO = service.selectOne(category, bno);
+        BoardVO boardVO = service.selectOne(id);
 
-        // return boardVO;
+        return boardVO;
 
     }
 
     // 게시물 수정
-    @PostMapping("/petmunity/{category}/modify/{bno}")
-    public void modify(BoardVO boardVO) {
+    @PostMapping("/board/modify/{id}")
+    public void modify(@RequestBody BoardVO boardVO) {
+        System.out.println("boardVO: " + boardVO);
         service.modify(boardVO);
     }
 
     // 게시물 삭제
-    @GetMapping("petmunity/{category}/delete/{bno}")
-    public void delete(@PathVariable("category") String category, @PathVariable("bno") int bno) {
-        service.delete(category, bno);
+    @GetMapping("board/delete/{id}")
+    public void delete(@PathVariable("id") int id) {
+        service.delete(id);
     }
 
     // 좋아요 수 증가
-    @GetMapping("/petmunity/{category}/updateLike/{bno}")
-    public void updateLike(@PathVariable("category") String category, @PathVariable("bno") int bno) {
-        service.updateLike(category, bno);
+    @GetMapping("board/updateLike/{id}")
+    public void updateLike(@PathVariable("id") int id) {
+        service.updateLike(id);
     }
 }
-

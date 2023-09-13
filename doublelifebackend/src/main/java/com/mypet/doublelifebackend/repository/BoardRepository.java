@@ -11,19 +11,15 @@ public interface BoardRepository {
     void writeQna(BoardVO boardVO);
     void writeTrade(BoardVO boardVO);
     void writeWalkingmate(BoardVO boardVO);
-
-    //BoardVO selectOne(String category, int bno);
-
     BoardVO selectOne(int id);
-
     void modify(BoardVO boardVO);
-    void delete(String category, int bno);
-    void boardViewCnt(String category, int bno);
+    void delete(int id);
+    void boardViewCnt(int id);
     int countList(String category);
     List<BoardVO> listPage(String category, int firstPost, int lastPost);
     int getQnaBno();
     int getTradeBno();
     int getWalkingmateBno();
-    void updateLike(String category, int bno);
+    void updateLike(int id);
     void updateBno(String category, int nextPostNum, int lastPostNum);
 }
