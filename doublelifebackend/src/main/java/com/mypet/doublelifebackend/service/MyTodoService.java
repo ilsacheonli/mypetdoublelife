@@ -21,9 +21,9 @@ public class MyTodoService {
     }
 
 
-    public List<TodoVO> getAllMyTodoByDate(HashMap<String, Object> map) {
+    public List<TodoVO> getAllMyTodo(String memId) {
 
-        return myTodoRepository.selectMyTodoByDate(map);
+        return myTodoRepository.selectMyTodo(memId);
     }
 
 

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Intro, ProfileButton, Formbutton, Button, Default } from './mypet.style';
 import { RiDeleteBinLine, RiPencilLine } from 'react-icons/ri';
 import axios from 'axios';
+import dayjs from "dayjs";
 
 interface prop{
 	petNo:number;
@@ -17,6 +18,12 @@ function MyPetIntro(petNoProp : prop) {
 
 	const [petData, setPetData] = useState(initialPetData);
 	const [editing, setEditing] = useState(false);
+
+	const setDate=(petBirth:string)=>{
+		let date = new Date(petBirth);
+		let formatDate = dayjs(date).format('YYYY-MM-DD');
+		return formatDate;
+	}
 
 	useEffect(() => {
 		axios
@@ -46,7 +53,7 @@ function MyPetIntro(petNoProp : prop) {
 	frm.append('petNo', petNoProp.petNo.toString())
 	frm.append('petName', petData.petName)
 	frm.append('petGender', petData.petGender)
-	frm.append('petBirth', petData.petBirth)
+	frm.append('petBirth', setDate(petData.petBirth))
 	frm.append('petIntro', petData.petIntro)
 
 	const handleSaveButtonClick = () => {
@@ -90,7 +97,7 @@ function MyPetIntro(petNoProp : prop) {
 					</p>
 					<p>
 						생일 : {''}
-						<input type="text" name="petBirth" value={petData.petBirth} onChange={handleInputChange} />
+						<input type="date" name="petBirth" value={setDate(petData.petBirth)} onChange={handleInputChange} />
 					</p>
 					<p>
 						자기소개 : {''}
@@ -107,7 +114,7 @@ function MyPetIntro(petNoProp : prop) {
 				<Default>
 					<p>이름 : {petData.petName}</p>
 					<p>성별 : {petData.petGender}</p>
-					<p>생일 : {petData.petBirth}</p>
+					<p>생일 : {setDate(petData.petBirth)}</p>
 					<p>자기소개 : {petData.petIntro}</p>
 					<Button>
 						<ProfileButton>

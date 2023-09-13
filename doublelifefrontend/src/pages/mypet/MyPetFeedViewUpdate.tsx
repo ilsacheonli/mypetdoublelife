@@ -32,7 +32,7 @@ function MyPetFeedWrite() {
 		imgNo: 0,
   });
   const [myPetFeedData, setMyPetFeedData] = useState<MyPetFeedItem>();
-  const { feedNo } = useParams()
+  const { feedNo } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,6 +48,7 @@ function MyPetFeedWrite() {
           imagePreviewUrl: '',
 					imgNo: res.data.imgNo,
         });
+
       })
       .catch((error) => {
         console.log('불러오기 실패', error)
@@ -101,7 +102,8 @@ function MyPetFeedWrite() {
 
       const response = await axios.post(`/myfeed/update/${feedNo}`, formData);
       console.log('게시글 수정 완료', response.data);
-      navigate(`/myfeed/${feedNo}`, {replace:true})
+      navigate(`/myfeed/${feedNo}`, {replace:true});
+      //window.location.reload();
     } catch (error) {
       console.error('게시글 수정 실패', error);
     }
