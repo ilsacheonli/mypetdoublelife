@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Styledswiper } from './mypet.style'
+import MyPetProfile from "./Mypetprofile";
 
 interface SwiperProps {
 	items: JSX.Element[];
@@ -24,6 +25,9 @@ function MyPetSwiper({ items }: SwiperProps) {
 				{items.map((item, index) => (
 					<SwiperSlide key={index}>{item}</SwiperSlide>
 				))}
+				<SwiperSlide key={items.length}>
+					<div key={items.length} className="swiper-slide"><MyPetProfile petNo={0}/></div>
+				</SwiperSlide>
 			</Swiper>
 		</Styledswiper>
 	);

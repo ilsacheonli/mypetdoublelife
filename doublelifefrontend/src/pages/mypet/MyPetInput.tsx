@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import { RiAddLine } from 'react-icons/ri';
-
+import axios from 'axios';
 
 const InsertFormPositioner = styled.div`
   width: 600px;
@@ -16,7 +16,6 @@ const InsertForm = styled.form`
 	border-bottom: 2px solid #063160;
 	display: flex;
 	margin-left: 50px;
-	
 `;
 
 const Input = styled.input`
@@ -43,20 +42,43 @@ interface InputFormProps {
 	inputValue: string;
 	onInputChange: (value: string) => void;
 	onAddItem: () => void;
+    inputDate:string;
 }
 
-function MyPetInput({ inputValue, onInputChange, onAddItem }: InputFormProps) {
-	const [keyCounter, setKeyCounter] = useState<number>(0); // 초기값은 0으로 설정
+function MyPetInput({ inputValue, onInputChange, onAddItem, inputDate }: InputFormProps) {
+	const [keyCounter, setKeyCounter] = useState<number>(0);
+
+  async function sendDataToServer() {
+    try {
+      const apiUrl = '/mytodo/insert';
+      const sendData = {
+          doContent: inputValue,
+	      doDate : inputDate,
+      };
+
+      await axios.post(apiUrl, sendData, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				}
+			});
+
+      console.log('성공');
+    } catch (error) {
+      console.error('실패', error);
+    }
+  }
+	
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
+
     if (inputValue.trim()) {
+
+      sendDataToServer();
+			
       onInputChange('');
-      setKeyCounter(prevKey => {
-        const newKey = prevKey + 1;
-        console.log("New key value:", newKey); // 생성된 key 값 콘솔로그로 확인
-        return newKey;
-      });
+      setKeyCounter((prevKey) => prevKey + 1);
+
     }
   }
 

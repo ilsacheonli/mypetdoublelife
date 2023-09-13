@@ -3,13 +3,17 @@ import MyPetProfileImg from './MyPetProfileImg'
 import MyPetIntro from './MyPetIntro'
 import { Container, Section } from './mypet.style'
 
-function MyPetProfile() {
+interface prop{
+	petNo:number;
+}
+
+function MyPetProfile(petNoProp : prop) {
 
 	return (
 		<Container>
 			<Section>
-				<MyPetProfileImg />
-				<MyPetIntro />
+				<MyPetProfileImg petNo={petNoProp.petNo}/>
+				<MyPetIntro petNo={petNoProp.petNo}/>
 			</Section>
 		</Container>
 	)

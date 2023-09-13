@@ -15,23 +15,30 @@
         <result property="imgNo" column="img_no" />
     </resultMap>
 
-    <!-- petName이 일치하는 pet 출력 -->
-    <select id="selectMyPetByName" parameterType="hashmap" resultMap="petResult">
+    <!-- memId와 petNo이 일치하는 pet 출력 -->
+    <select id="selectMyPetByNo" parameterType="int" resultMap="petResult">
         SELECT *
         FROM pet
-        WHERE mid = #{memId} AND name = #{petName}
+        WHERE pno = #{petNo}
     </select>
 
-    <!-- memId와 petNo이 일치하는 pet 출력 -->
-    <select id="selectMyPetByNo" parameterType="hashmap" resultMap="petResult">
-        SELECT *
+
+    <select id="selectMyPetImgByNo" parameterType="int" resultType="Integer">
+        SELECT IMG_NO
         FROM pet
-        WHERE mid = #{memId} AND pno = #{petNo}
+        WHERE pno = #{petNo}
     </select>
 
     <!-- memId가 일치하는 pet 전체 출력 -->
     <select id="selectAllMyPet" parameterType="String" resultMap="petResult">
         SELECT *
+        FROM pet
+        WHERE mid = #{memId}
+        ORDER BY reg_date
+    </select>
+
+    <select id="selectAllMyPetNo" parameterType="String" resultType="Integer">
+        SELECT pno
         FROM pet
         WHERE mid = #{memId}
         ORDER BY reg_date
@@ -46,13 +53,13 @@
     <!-- pet 정보 수정 -->
     <update id="updateMyPet" parameterType="MyPetVO" >
         UPDATE pet SET name = #{petName}, gender = #{petGender}, birth = #{petBirth}, introduce = #{petIntro}, img_no = #{imgNo}
-        WHERE mid = #{memId} AND pno = #{petNo}
+        WHERE pno = #{petNo}
     </update>
 
-    <delete id="deleteMyPet" parameterType="hashmap">
+    <delete id="deleteMyPet" parameterType="int">
         DELETE
         FROM pet
-        WHERE mid = #{memId} AND pno = #{petNo}
+        WHERE pno = #{petNo}
     </delete>
 
     <!-- 마지막 max(m_number) = null 이면 0으로 치환 후 +1 return -->

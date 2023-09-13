@@ -11,7 +11,7 @@ public class TestController {
 	@RequestMapping(value = "/test/hello")
 	@ResponseBody
 	public String test(Model model) {
-		return "Test";
+		return "Test - GitTest1try";
 	}
 	
 }

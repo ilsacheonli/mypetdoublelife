@@ -2,14 +2,16 @@ package com.mypet.doublelifebackend.controller;
 
 import com.mypet.doublelifebackend.service.ImageService;
 import com.mypet.doublelifebackend.service.MyFeedService;
+import com.mypet.doublelifebackend.vo.BoardVO;
+import com.mypet.doublelifebackend.vo.MemberVO;
 import com.mypet.doublelifebackend.vo.MyFeedVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.lang.Nullable;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,37 +24,57 @@ public class MyFeedController {
 
 
     @GetMapping("/myfeed")
-    public List<MyFeedVO> myFeed(/*@RequestPart("memId")*/String memId){
-        memId = "test";
-        return myFeedService.getAllMyFeed(memId);
+    public List<MyFeedVO> myFeed(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        MemberVO login_member = (MemberVO) session.getAttribute("member");
+
+        if(login_member == null){
+            try {
+                // throw로 강제 예외 발생
+                throw new Exception("로그인 확인필요");
+            } catch (Exception e) {
+                System.out.println("ERROR : " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        return myFeedService.getAllMyFeed(login_member.getMemId());
     }
 
-
-    @GetMapping("/myfeed/insert")
-    public String myFeedInsertPage(){
-        return "/myfeed/insert";
-    }
-
-    @GetMapping("/myfeed/update")
-    public String myFeedUpdatePage(){
-        // myfeed 정보 return 변경필요
-        return "/myfeed/insert";
+    // feedByNo
+    @GetMapping("/myfeed/{feedNo}")
+    public MyFeedVO getMyFeedByNo(@PathVariable int feedNo){
+        return myFeedService.getMyFeedByNo(feedNo);
     }
 
     @PostMapping("/myfeed/insert")
-    public String myFeedInsert(/*@RequestPart("memId") String memId,*/
-                                   @RequestPart("petName") String petName,
-                                   @RequestPart("feedTitle") String feedTitle,
-                                   @RequestPart("feedContent") String feedContent,
-                                   @RequestPart("image")MultipartFile image,
-                                   MyFeedVO new_myFeed) throws IOException {
+    public String myFeedInsert( @RequestPart("petName") String petName,
+                                @RequestPart("feedTitle") String feedTitle,
+                                @RequestPart("feedContent") String feedContent,
+                                @RequestPart("image")MultipartFile image,
+                                HttpServletRequest request,
+                                MyFeedVO new_myFeed) throws IOException {
+
+        HttpSession session = request.getSession();
+        MemberVO login_member = (MemberVO) session.getAttribute("member");
+
+        if(login_member == null){
+            try {
+                // throw로 강제 예외 발생
+                throw new Exception("로그인 확인필요");
+            } catch (Exception e) {
+                System.out.println("ERROR : " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
 
         int feedNo = myFeedService.getLastFeedNumber();
         int imgNo = imageService.insertImage(image, "feed");
 
 
         new_myFeed = new MyFeedVO(
-                "test" /*memId*/,
+                login_member.getMemId(), /*memId*/
                 petName,
                 feedNo,
                 feedTitle,
@@ -80,14 +102,36 @@ public class MyFeedController {
 
     }
 
-    @PostMapping("/myfeed/update")
-    public String myFeedUpdate( @RequestPart("petName") String petName,
-                                @RequestPart("feedNo") int feedNo,
+    @PostMapping("/myfeed/update/{feedNo}")
+    public String myFeedUpdate( @PathVariable("feedNo") int feedNo,
+                                @RequestPart("petName") String petName,
                                 @RequestPart("feedTitle") String feedTitle,
                                 @RequestPart("feedContent") String feedContent,
-                                @RequestPart("imgNo") int imgNo,
-                                @RequestPart("image") MultipartFile image,
+                                @RequestPart(value = "image", required = false) MultipartFile image,
+                                HttpServletRequest request,
                                 MyFeedVO update_myFeed) throws IOException {
+
+        HttpSession session = request.getSession();
+        MemberVO login_member = (MemberVO) session.getAttribute("member");
+
+        if(login_member == null){
+            try {
+                // throw로 강제 예외 발생
+                throw new Exception("로그인 확인필요");
+            } catch (Exception e) {
+                System.out.println("ERROR : " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        MyFeedVO db_MyFeed =  myFeedService.getMyFeedByNo(feedNo);
+        int imgNo = db_MyFeed.getImgNo();
+
+        MultipartFile getImage = null;
+
+        if (!(image==null)){
+            getImage = image;
+        }
 
 
         update_myFeed = new MyFeedVO(
@@ -114,15 +158,31 @@ public class MyFeedController {
 
         }
 
-        imageService.updateImage(image, imgNo, "feed");
+        if (!(getImage==null)){
+            imageService.updateImage(image, imgNo, "feed");
+        }
+
 
 
         return "myfeed?updateSuccess";
     }
 
-    @PostMapping("/myfeed/delete")
-    public String myFeedDelete( @RequestPart("feedNo") int feedNo,
-                                MyFeedVO delete_myFeed) throws IOException {
+    @PostMapping("/myfeed/delete/{feedNo}")
+    public String myFeedDelete( @PathVariable("feedNo") int feedNo,MyFeedVO delete_myFeed,
+                                HttpServletRequest request) throws IOException {
+
+        HttpSession session = request.getSession();
+        MemberVO login_member = (MemberVO) session.getAttribute("member");
+
+        if(login_member == null){
+            try {
+                // throw로 강제 예외 발생
+                throw new Exception("로그인 확인필요");
+            } catch (Exception e) {
+                System.out.println("ERROR : " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
 
         delete_myFeed = myFeedService.getMyFeedByNo(feedNo);
         int del_imgNo = delete_myFeed.getImgNo();

@@ -14,12 +14,13 @@ function MyPetMemo() {
 	const [selectedDateId, setSelectedDateId] = useState<number | null>(null);
 	const [items, setItems] = useState<Item[]>([]);
 	const [inputValue, setInputValue] = useState<string>('');
+	const [selectDate, setSelectDate] = useState<string>('');
 
 	const handleAddItem = () => {
 		if (selectedDateId !== null) {
 			const newItem: Item = {
 				id: selectedDateId,
-				text: inputValue,
+				text: inputValue
 			};
 			setItems(prevItems => [...prevItems, newItem]);
 		}
@@ -31,7 +32,8 @@ function MyPetMemo() {
 	};
 
 
-	const handleDateClick = (date: Date, id: number) => {
+	const handleDateClick = (date: string, id: number) => {
+		setSelectDate(date);
 		setSelectedDateId(id); // 선택한 날짜의 ID를 저장
 		console.log(id)
 	};
@@ -46,6 +48,7 @@ function MyPetMemo() {
 							inputValue={inputValue}
 							onInputChange={setInputValue}
 							onAddItem={handleAddItem}
+							inputDate={selectDate}
 						/>
 						{selectedDateId !== null && (
 							<MyPetItem

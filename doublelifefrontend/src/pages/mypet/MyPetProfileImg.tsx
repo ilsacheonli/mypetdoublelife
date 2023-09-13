@@ -1,11 +1,30 @@
-import React, { useState, useRef, ChangeEvent } from 'react';
+import React, {useState, useRef, ChangeEvent, useEffect} from 'react';
 import { Profileimg } from './mypet.style'
 import axios from 'axios';
 
-function MyPetProfileImg() {
+interface prop{
+	petNo:number;
+}
+
+function MyPetProfileImg(petNoProp : prop) {
 	const [image, setImage] = useState<string>("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 	const fileInput = useRef<HTMLInputElement | null>(null);
-	const [imgNo, setImgNo] = useState<number>(1); // imgNo 상태 추가
+	const [imgNo, setImgNo] = useState<number>(0); // imgNo 상태 추가
+
+
+	useEffect(() => {
+		axios
+			.get('/mypet/image/'+petNoProp.petNo)
+			.then((res) => {
+				if (res.data !== 0){
+					setImgNo(res.data);
+					setImage('/image/'+res.data.toString());
+				}
+			})
+			.catch(function (error){
+				console.log(error);
+			})
+	}, []);
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files[0]) {
@@ -24,7 +43,6 @@ function MyPetProfileImg() {
 					setImage(imageUrl);
 					// handleUpload 함수를 호출하여 파일 업로드 수행
 					handleUpload(file);
-					setImgNo((prevImgNo) => prevImgNo + 1);
 
 				}
 			};
