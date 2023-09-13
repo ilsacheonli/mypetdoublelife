@@ -2,12 +2,17 @@ package com.mypet.doublelifebackend.controller;
 
 import com.mypet.doublelifebackend.service.ImageService;
 import com.mypet.doublelifebackend.service.MyPetService;
+import com.mypet.doublelifebackend.vo.MemberVO;
 import com.mypet.doublelifebackend.vo.MyPetVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class MyPetController {
     @Autowired
@@ -36,8 +41,21 @@ public class MyPetController {
 
     // petNoList
     @GetMapping("/mypet/List")
-    public List<Integer> getMypetNoList(){
-        return myPetService.getAllMyPetNo("test");
+    public List<Integer> getMypetNoList(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        MemberVO login_member = (MemberVO) session.getAttribute("member");
+
+        if(login_member==null){
+            try {
+                // throw로 강제 예외 발생
+                throw new Exception("로그인 확인필요");
+            } catch (Exception e) {
+                System.out.println("ERROR : " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        return myPetService.getAllMyPetNo(login_member.getMemId());
     }
 
 
@@ -48,7 +66,21 @@ public class MyPetController {
                          @RequestPart("petGender") String petGender,
                          @RequestPart("petBirth") String petBirth,
                          @RequestPart("petIntro") String petIntro,
+                         HttpServletRequest request,
                          MyPetVO new_myPet) throws IOException {
+
+        HttpSession session = request.getSession();
+        MemberVO login_member = (MemberVO) session.getAttribute("member");
+
+        if(login_member==null){
+            try {
+                // throw로 강제 예외 발생
+                throw new Exception("로그인 확인필요");
+            } catch (Exception e) {
+                System.out.println("ERROR : " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
 
         int new_mypet_No = Integer.parseInt(petNo);
 
@@ -56,7 +88,7 @@ public class MyPetController {
         if(!petNo.equals("0")){
 
             MyPetVO update_myPet = new MyPetVO(
-                    "test",
+                    login_member.getMemId(),
                     Integer.parseInt(petNo),
                     petName,
                     petGender,

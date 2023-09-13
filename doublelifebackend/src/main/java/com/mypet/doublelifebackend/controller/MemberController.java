@@ -3,6 +3,7 @@ package com.mypet.doublelifebackend.controller;
 import com.mypet.doublelifebackend.service.ImageService;
 import com.mypet.doublelifebackend.service.MemberService;
 import com.mypet.doublelifebackend.service.MyPetService;
+import com.mypet.doublelifebackend.vo.BoardVO;
 import com.mypet.doublelifebackend.vo.MemberVO;
 import com.mypet.doublelifebackend.vo.MyPetVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,18 @@ public class MemberController {
 
         return "MyPage/MyPageUpdate";
     }
+    /////////////////////////////////////////////////////////////////////////
+
+
+    // 로그인 체크
+    @GetMapping("/loginCheck")
+    public Boolean loginCehck(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Object member = session.getAttribute("member");
+
+        return member != null;
+    }
+
     // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody Map<String, String> loginData,
@@ -115,6 +128,7 @@ public class MemberController {
 
         return "redirect:/signin?signUpSuccess";
     }
+
     // 멤버 정보 수정
     @RequestMapping(value = "/updatemember", method = RequestMethod.POST)
     public String updatemember(@RequestParam Map<String, Objects> paramObj, MemberVO update_member,

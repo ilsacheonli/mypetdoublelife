@@ -4,7 +4,6 @@ import MyPetSwiper from './Mypetswiper';
 import MyPetTeb from './Mypetteb';
 import axios from 'axios';
 
-
 function MyPet() {
 	const [petNoList, setPetNoList] = useState<number[]>([]);
 

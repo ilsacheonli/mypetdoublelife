@@ -18,6 +18,8 @@
   } from "./login.style";
   import { Link } from "react-router-dom";
 
+  axios.defaults.withCredentials = true;
+
   const API_BASE_URL = 'http://localhost:8080';
 
   const MemberAPI = {
@@ -57,8 +59,8 @@
       MemberAPI.login(id, pwd)
         .then((response) => {
           console.log('로그인 성공', response.data);
-          sessionStorage.setItem('loggedIn', 'true');
-          sessionStorage.setItem('id', response.data);
+          //sessionStorage.setItem('loggedIn', 'true');
+          //sessionStorage.setItem('id', response.data);
           setLoggedIn(true);
           window.location.href = "/";
         })
