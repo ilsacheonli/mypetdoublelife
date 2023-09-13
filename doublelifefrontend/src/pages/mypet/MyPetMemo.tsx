@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 import MyPetInput from './MyPetInput';
 import MyPetItem from './MyPetItem';
+import dayjs from "dayjs";
 
 import { Mypetrecordbox, Mypetrecordmemo, Mypetrecordmemo1 } from './mypet.style'
 import MyPetCalendar from './Mypetcalendar';
@@ -10,6 +11,7 @@ import MyPetCalendar from './Mypetcalendar';
 interface Item {
 	id: number;
 	text: string;
+	doDate: number;
 }
 
 function MyPetMemo() {
@@ -22,7 +24,8 @@ function MyPetMemo() {
 		if (selectedDateId !== null) {
 			const newItem: Item = {
 				id: selectedDateId,
-				text: inputValue
+				text: inputValue,
+				doDate: selectedDateId
 			};
 			setItems(prevItems => [...prevItems, newItem]);
 		}
@@ -37,7 +40,7 @@ function MyPetMemo() {
 	const handleDateClick = (date: string, id: number) => {
 		setSelectDate(date);
 		setSelectedDateId(id); // 선택한 날짜의 ID를 저장
-		console.log(id)
+		console.log(selectedDateId)
 	};
 
 	return (

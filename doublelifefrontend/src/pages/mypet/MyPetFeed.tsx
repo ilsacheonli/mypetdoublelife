@@ -33,7 +33,7 @@ function MyPetFeed() {
 		axios.get(apiUrl)
 			.then((res) => {
 				console.log('불러오기 성공', res.data)
-				setMyPetFeedList(res.data)
+				setMyPetFeedList(res.data.reverse());
 			})
 			.catch((error) => {
 				console.log('불러오기 실패', error)

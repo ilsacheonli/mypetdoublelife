@@ -10,7 +10,7 @@ interface Item {
 }
 
 interface todoItem {
-	id: number;
+	doNo: number;
 	memId: string;
 	doContent: string;
 	doDate: string;
@@ -23,24 +23,24 @@ interface ItemListProps {
 
 function MyPetItem({ items, onDeleteItem }: ItemListProps) {
 	const [todoData, setTodoData] = useState<todoItem[]>([]);
-	const { doDate } = useParams()
 	
 	useEffect(() => {
-		axios.get(`/mytodo/${doDate}`)
+		axios.get('/mytodo')
 			.then((res) => {
-				setTodoData(res.data)
+				setTodoData(res.data.reverse())
+				console.log('불러오기 성공', res.data)
 			})
 			.catch((error) => {
 				console.log('불러오기 실패', error)
 			});
-	}, [doDate]);
+	}, []);
 
 	return (
 		<Ul>
-			{items.map((item, index) => (
+			{todoData.map((item, index) => (
 				<Li key={index}>
-					{item.text}
-					<button onClick={() => onDeleteItem(item.id)}><RiDeleteBinLine /></button>
+					{item.doContent}
+					<button onClick={() => onDeleteItem(item.doNo)}><RiDeleteBinLine /></button>
 				</Li>
 			))}
 		</Ul>		

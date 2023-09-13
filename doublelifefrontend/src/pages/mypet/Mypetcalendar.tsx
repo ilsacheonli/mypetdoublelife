@@ -38,7 +38,6 @@ function MyPetCalendar({ onDateClick }: CalendarProps) {
 				<FullCalendar
 					plugins={[dayGridPlugin, interactionPlugin]}
 					initialView="dayGridMonth"
-					dayMaxEvents={true}
 					editable={true}
 					expandRows={true}
 					locale="ko"
