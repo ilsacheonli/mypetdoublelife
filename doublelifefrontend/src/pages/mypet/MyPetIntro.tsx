@@ -20,8 +20,14 @@ function MyPetIntro(petNoProp : prop) {
 	const [editing, setEditing] = useState(false);
 
 	const setDate=(petBirth:string)=>{
+
+		if (petBirth==null){
+			return '';
+		}
+
 		let date = new Date(petBirth);
 		let formatDate = dayjs(date).format('YYYY-MM-DD');
+
 		return formatDate;
 	}
 

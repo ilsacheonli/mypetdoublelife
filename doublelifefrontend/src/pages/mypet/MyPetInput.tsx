@@ -1,7 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components';
 import { RiAddLine } from 'react-icons/ri';
-import axios from 'axios';
 
 const InsertFormPositioner = styled.div`
   width: 600px;
@@ -41,37 +40,16 @@ const Button = styled.button`
 interface InputFormProps {
 	inputValue: string;
 	onInputChange: (value: string) => void;
-	inputDate: string;
+	onAddItem: () => void;
 }
 
-function MyPetInput({ inputValue, onInputChange,inputDate }: InputFormProps) {
-
-	function sendDataToServer() {
-		const apiUrl = '/mytodo/insert';
-		const sendData = {
-			doContent: inputValue,
-			doDate: inputDate,
-		};
-		axios.post(apiUrl, sendData, {
-			headers: {
-				'Content-Type': 'multipart/form-data',
-			}
-		}).then(() =>{
-			console.log('추가 성공');
-		}).catch((error) => {
-			console.error('추가 실패', error);
-		})
-
-	}
-
+function MyPetInput({ inputValue, onInputChange, onAddItem }: InputFormProps) {
+	const [keyCounter, setKeyCounter] = useState<number>(0);
 
 	function handleSubmit() {
-
 		if (inputValue.trim()) {
-
-			sendDataToServer();
 			onInputChange('');
-
+			setKeyCounter((prevKey) => prevKey + 1);
 
 
 		}
@@ -89,7 +67,7 @@ function MyPetInput({ inputValue, onInputChange,inputDate }: InputFormProps) {
 							onChange={(e) => onInputChange(e.target.value)}
 							autoFocus
 						/>
-						<Button type={"submit"}><RiAddLine /></Button>
+						<Button onClick={onAddItem} key={keyCounter}><RiAddLine /></Button>
 					</InsertForm>
 				</InsertFormPositioner>
 			)}

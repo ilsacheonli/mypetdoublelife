@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from "react-router-dom";
 import axios from 'axios';
 import MyPetInput from './MyPetInput';
 import MyPetItem from './MyPetItem';
@@ -33,9 +32,24 @@ function MyPetMemo() {
 			});
 	}, [selectDate,delDoNo]);
 
+	const handleAddItem = () => {
+		const apiUrl = '/mytodo/insert';
+		const sendData = {
+			doContent: inputValue,
+			doDate: selectDate,
+		};
+		axios.post(apiUrl, sendData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			}
+		}).then(() =>{
+			console.log('추가 성공');
+		}).catch((error) => {
+			console.error('추가 실패', error);
+		})
+	};
 
 	const handleDeleteItem = (doNo : number) => {
-		console.log('2');
 		axios
 			.get('/mytodo/delete/'+doNo)
 			.then((res) => {
@@ -63,7 +77,7 @@ function MyPetMemo() {
 						<MyPetInput
 							inputValue={inputValue}
 							onInputChange={setInputValue}
-							inputDate={selectDate}
+							onAddItem={handleAddItem}
 						/>
 						{items.map((item, index)=>(
 							<MyPetItem key={index}
