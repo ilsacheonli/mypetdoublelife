@@ -19,7 +19,7 @@ function AboutUs()
 //   const CustomButton = styled.button`
 //   background-color: white;
 //   border: 1px solid lightgray;
-//   padding: 4px 8px; /* 크기를 더 작게 조정 */
+//   padding: 4px 8px; 
 //   font-size: 5px; /* 텍스트 크기를 더 작게 조정 */
 //   cursor: pointer;
 //   float: right; /* 오른쪽에 위치시킴 */
@@ -78,7 +78,7 @@ const [currentIndex, setCurrentIndex] = useState(0);
           <ImgBox><Img  alt="petstar" src="/aboutimg/petstar1.jpg" ></Img>
           </ImgBox>
           <NameBox>
-          <UserName>쥬시 <Wom>여</Wom> </UserName>
+          <UserName>콩이의 여름 나들이 <Wom>콩이</Wom> </UserName>
 					
           </NameBox>
           </GridBox>
@@ -86,7 +86,7 @@ const [currentIndex, setCurrentIndex] = useState(0);
           <ImgBox><Img alt="petstar" src="/aboutimg/petstar2.jpg" ></Img>
           </ImgBox>
           <NameBox>
-          <UserName>아랑이 <Wom>여</Wom></UserName>
+          <UserName>별이의 프로필 사진 <Wom>별이</Wom></UserName>
 					
           </NameBox>
           </GridBox>
@@ -94,7 +94,7 @@ const [currentIndex, setCurrentIndex] = useState(0);
           <ImgBox><Img alt="petstar" src="/aboutimg/petstar3.jpg"></Img>
           </ImgBox>
           <NameBox>
-          <UserName>서른 아홉번째 밤 <Man>남</Man></UserName>
+          <UserName>햄스터 증명사진 <Wom>해미</Wom></UserName>
 					
           </NameBox>
           </GridBox>

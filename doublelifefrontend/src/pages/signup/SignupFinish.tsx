@@ -97,7 +97,7 @@ function SignupFinish() {
   const CongratsImage = styled.img`
     width: 150px;
     position: absolute;
-    bottom: 20px;
+    bottom: 110px;
     right: 400px;
     margin-bottom: -10px;
     transform: scaleX(-1);

@@ -126,7 +126,7 @@ function Signup() {
   };
 
   return (
-    <Loginpage>
+    // <Loginpage>
       <Petimage>
         <ImageContainer>
           <Link to={`/`}>
@@ -250,7 +250,7 @@ function Signup() {
           </tr>
         </Apilogin>
       </Petimage>
-    </Loginpage>
+    // </Loginpage>
   );
 }
 
