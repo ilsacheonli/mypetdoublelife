@@ -52,7 +52,8 @@ export const H5 = styled.h5`
 	position: absolute;
 	bottom: 40px;
 	left: 16px;
-	color: white;
+	color: #3B3B3B;
+	font-weight: bold;
 
 `
 export const ImgBox = styled.div`
@@ -62,29 +63,29 @@ export const ImgBox = styled.div`
 	border-radius: 25px;
   &:hover {
 		img {
-			border: 5px solid #9f95f2;
-			background: linear-gradient(
+			border: 5px solid #DADDE2;
+			/*background: linear-gradient(
         to bottom,
 				rgba(159, 149, 242, 0) 65%,
 				rgba(159, 149, 242, 0.25) 75%,
 				rgba(159, 149, 242, 0.6) 85%,
 				rgba(159, 149, 242, 0.75) 90%,
 				rgba(159, 149, 242, 1) 100%
-      );
+      );*/
       background-size: cover;
 			transition: 0.1s linear;
-			/*-webkit-mask-image: linear-gradient(to top, 				
-				rgba(159, 149, 242, 0) 15%,
-				rgba(159, 149, 242, 0.25) 75%,
-				rgba(159, 149, 242, 0.6) 85%,
-				rgba(159, 149, 242, 0.75) 90%,
+			-webkit-mask-image: linear-gradient(to top, 				
+				rgba(159, 149, 242, 0.2) 0%,
+				rgba(159, 149, 242, 0.25) 10%,
+				rgba(159, 149, 242, 0.6) 20%,
+				rgba(159, 149, 242, 0.75) 25%,
 				rgba(159, 149, 242, 1) 100%);
   		mask-image: linear-gradient(to top, 				
-				rgba(159, 149, 242, 0) 15%,
-				rgba(159, 149, 242, 0.25) 75%,
-				rgba(159, 149, 242, 0.6) 85%,
-				rgba(159, 149, 242, 0.75) 90%,
-				rgba(159, 149, 242, 1) 100%);*/
+				rgba(159, 149, 242, 0.2) 0%,
+				rgba(159, 149, 242, 0.2) 10%,
+				rgba(159, 149, 242, 0.6) 20%,
+				rgba(159, 149, 242, 0.75) 25%,
+				rgba(159, 149, 242, 1) 100%);
 		}
 		span, svg {
 			color: #3c4da7;

@@ -67,12 +67,13 @@ const [currentIndex, setCurrentIndex] = useState(0);
                 }}>
           <Mainimage alt="mainimage" src="/aboutimg/banner.png" /></Link>
           <Mypetintro>
-          <br/>
-          <Maintext><Miniimg src="/aboutimg/king.png"/> 금주의 마이펫 <Miniimg src="/aboutimg/king.png"/></Maintext>
-          <TextWithBar><HorizontalBar /></TextWithBar>
-          <Detail>이번 주 제일 HOT한 마이펫을 소개합니다.</Detail>
-          <br/>
+						<br/>
+						<Maintext><Miniimg src="/aboutimg/king.png"/> 금주의 마이펫 <Miniimg src="/aboutimg/king.png"/></Maintext>
+						<TextWithBar><HorizontalBar /></TextWithBar>
+						<Detail>이번 주 제일 HOT한 마이펫을 소개합니다.</Detail>
+						<br/>
           </Mypetintro>
+
           <FlexBox>
           <GridBox>
           <ImgBox><Img  alt="petstar" src="/aboutimg/petstar1.jpg" ></Img>
@@ -99,6 +100,7 @@ const [currentIndex, setCurrentIndex] = useState(0);
           </NameBox>
           </GridBox>
           </FlexBox>
+
           <Description>
           <Mypetintro>
           <br/>
@@ -162,7 +164,9 @@ const [currentIndex, setCurrentIndex] = useState(0);
           <FlexBox>
           <LastBox>
           <ImgBox>
+					<Link to={'/userpage'}>
           <Introimg src={petData[currentIndex].img} />
+					</Link>
           </ImgBox>
           <NameBox >
           <UserName><p> {petData[currentIndex].name}    

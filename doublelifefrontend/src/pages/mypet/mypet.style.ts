@@ -139,7 +139,7 @@ export const H5 = styled.h5`
 	position: absolute;
 	bottom: 40px;
 	left: 16px;
-	color: #333;
+	color: #3B3B3B;
 	font-weight: bold;
 
 `
@@ -150,7 +150,7 @@ export const ImgBox = styled.div`
 	border-radius: 25px;
   &:hover {
 		img {
-			border: 5px solid #DAEBFD;
+			border: 5px solid #DADDE2;
 			/*background: linear-gradient(
         to bottom,
 				rgba(159, 149, 242, 0) 65%,
