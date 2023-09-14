@@ -4,7 +4,7 @@ import axios from "axios";
 import { MapList, PetMapPagination, SearchIcon } from "./petmap.style";
 import Pagination from "react-js-pagination";
 import { PetMapAroundList } from "./PetMapAroundList";
-import Modal from "pages/petmunity/Modal";
+import Modal from "pages/petmap/Modal";
 import styled from "styled-components";
 import { ListDivide } from "./petmapcontainer.style";
 
@@ -194,6 +194,7 @@ const PetMapContainer = () => {
                         var hospitalInfo = {
                           name: allData[i].name,
                           distance: calculatedDistance.toFixed(2) + "km",
+                          address: allData[i].address2,
                         };
                         hospitalListJSON.push(hospitalInfo);
                       }
@@ -432,7 +433,8 @@ const handleSearch = (query: string) => {
                     </div>
                     <div className="info">
                       <ul>
-                        <li>distance: {aroundlistdata.distance}</li>
+                        <li>{aroundlistdata.address}</li>
+                        <li>{aroundlistdata.distance}</li>
                       </ul>
                     </div>
                   </div>

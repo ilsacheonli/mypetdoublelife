@@ -43,8 +43,8 @@ public class MyFeedController {
 
     // feedByNo
     @GetMapping("/myfeed/{feedNo}")
-    public MyFeedVO getMyFeedByNo(@PathVariable int feedNo){
-        return myFeedService.getMyFeedByNo(feedNo);
+    public MyFeedVO getMyFeedByNo(@PathVariable String feedNo){
+        return myFeedService.getMyFeedByNo(Integer.parseInt(feedNo));
     }
 
     @PostMapping("/myfeed/insert")

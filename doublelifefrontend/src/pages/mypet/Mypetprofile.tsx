@@ -5,15 +5,16 @@ import { Container, Section } from './mypet.style'
 
 interface prop{
 	petNo:number;
+	petReload:()=>void;
 }
 
-function MyPetProfile(petNoProp : prop) {
+function MyPetProfile({petNo, petReload} : prop) {
 
 	return (
 		<Container>
 			<Section>
-				<MyPetProfileImg petNo={petNoProp.petNo}/>
-				<MyPetIntro petNo={petNoProp.petNo}/>
+				<MyPetProfileImg petNo={petNo}/>
+				<MyPetIntro petNo={petNo} petReload={petReload}/>
 			</Section>
 		</Container>
 	)

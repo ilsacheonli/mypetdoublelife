@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.web.bind.annotation.*;
-
 import java.net.MalformedURLException;
 
 @CrossOrigin(origins = "http://localhost:3000") //CORS 에러 방지를 위한 어노테이션
@@ -30,7 +29,9 @@ public class FeedImageController {
 
         String absolutePath = feedImageService.getImgUploadPath()+get_FeedImageVO.getF_img_path();
         String ImageName = get_FeedImageVO.getF_img_name();
+
         return new UrlResource("file:"+absolutePath+"/"+ImageName);
 
     }
+
 }

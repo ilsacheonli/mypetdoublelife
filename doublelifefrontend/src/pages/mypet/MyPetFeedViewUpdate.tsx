@@ -4,110 +4,109 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
 interface Post {
-  feedTitle: string;
-  feedContent: string;
-  petName: string;
-  image: File | null;
-  imagePreviewUrl: string | null;
+	feedTitle: string;
+	feedContent: string;
+	petName: string;
+	image: File | null;
+	imagePreviewUrl: string | null;
 	imgNo: number;
 }
 
 interface MyPetFeedItem {
-  feedNo: number,
-  imgNo: number,
-  image: string,
-  feedTitle: string,
-  feedContent: string,
-  petName: string,
-  like: number
+	feedNo: number,
+	imgNo: number,
+	image: string,
+	feedTitle: string,
+	feedContent: string,
+	petName: string,
+	like: number
 }
 
 function MyPetFeedWrite() {
-  const [post, setPost] = useState<Post>({
-    feedTitle: '',
-    feedContent: '',
-    petName: '',
-    image: null,
-    imagePreviewUrl: '',
+	const [post, setPost] = useState<Post>({
+		feedTitle: '',
+		feedContent: '',
+		petName: '',
+		image: null,
+		imagePreviewUrl: '',
 		imgNo: 0,
-  });
-  const [myPetFeedData, setMyPetFeedData] = useState<MyPetFeedItem>();
-  const { feedNo } = useParams();
-  const navigate = useNavigate();
+	});
+	const [myPetFeedData, setMyPetFeedData] = useState<MyPetFeedItem>();
+	const { feedNo } = useParams()
+	const navigate = useNavigate();
 
-  useEffect(() => {
-    axios.get(`/myfeed/${feedNo}`)
-      .then((res) => {
-        setMyPetFeedData(res.data);
-        // 수정 대상 게시물 데이터를 받아와 폼 필드에 채웁니다.
-        setPost({
-          feedTitle: res.data.feedTitle,
-          feedContent: res.data.feedContent,
-          petName: res.data.petName,
-          image: null,
-          imagePreviewUrl: '',
+	useEffect(() => {
+		axios.get(`/myfeed/${feedNo}`)
+			.then((res) => {
+				setMyPetFeedData(res.data);
+				// 수정 대상 게시물 데이터를 받아와 폼 필드에 채웁니다.
+				setPost({
+					feedTitle: res.data.feedTitle,
+					feedContent: res.data.feedContent,
+					petName: res.data.petName,
+					image: null,
+					imagePreviewUrl: '',
 					imgNo: res.data.imgNo,
-        });
+				});
+			})
+			.catch((error) => {
+				console.log('불러오기 실패', error)
+			});
+	}, [feedNo]);
 
-      })
-      .catch((error) => {
-        console.log('불러오기 실패', error)
-      });
-  }, [feedNo]);
+	const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+		const { name, value } = e.target;
+		setPost((prevPost) => ({
+			...prevPost,
+			[name]: value,
+		}));
+	};
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setPost((prevPost) => ({
-      ...prevPost,
-      [name]: value,
-    }));
-  };
+	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files && e.target.files[0];
+		if (file) {
+			// 이미지 미리보기 URL 생성
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				setPost((prevPost) => ({
+					...prevPost,
+					image: file,
+					imagePreviewUrl: reader.result as string, // Blob URL을 할당합니다.
+				}));
+			};
+			reader.readAsDataURL(file);
+		}
+	};
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files && e.target.files[0];
-    if (file) {
-      // 이미지 미리보기 URL 생성
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPost((prevPost) => ({
-          ...prevPost,
-          image: file,
-          imagePreviewUrl: reader.result as string, // Blob URL을 할당합니다.
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+	const handleDeleteImage = () => {
+		setPost((prevPost) => ({
+			...prevPost,
+			image: null,
+			imagePreviewUrl: '',
+		}));
+	};
 
-  const handleDeleteImage = () => {
-    setPost((prevPost) => ({
-      ...prevPost,
-      image: null,
-      imagePreviewUrl: '',
-    }));
-  };
+	const handleSubmit = async (e: FormEvent) => {
+		e.preventDefault();
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+		try {
+			const formData = new FormData();
+			formData.append('feedTitle', post.feedTitle);
+			formData.append('feedContent', post.feedContent);
+			formData.append('petName', post.petName);
+			if (post.image) {
+				formData.append('image', post.image);
+				formData.append('imgNo', post.imgNo.toString());
+			}
 
-    try {
-      const formData = new FormData();
-      formData.append('feedTitle', post.feedTitle);
-      formData.append('feedContent', post.feedContent);
-      formData.append('petName', post.petName);
-      if (post.image) {
-        formData.append('image', post.image);
-		formData.append('imgNo', post.imgNo.toString());
-      }
-
-      const response = await axios.post(`/myfeed/update/${feedNo}`, formData);
-      console.log('게시글 수정 완료', response.data);
-      navigate(`/myfeed/${feedNo}`, {replace:true});
-      //window.location.reload();
-    } catch (error) {
-      console.error('게시글 수정 실패', error);
-    }
-  };
+			const response = await axios.post(`/myfeed/update/${feedNo}`, formData);
+			console.log('게시글 수정 완료', response.data);
+			navigate(`/myfeed/${feedNo}`, { replace: true });
+			window.location.reload();
+		} catch (error) {
+			console.error('게시글 수정 실패', error);
+		}
+	};
 
 	return (
 		<Writecontainer>

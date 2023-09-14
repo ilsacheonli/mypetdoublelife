@@ -13,6 +13,16 @@
 </head>
 <body>
 <h2>산책 메이트 게시판</h2>
+
+<div th:if="${session.member != null}">
+    <span>[[ ${session.member.id} ]]</span>
+    <span>님  </span>
+    <a href="/signOut" style="font-weight: bold; text-decoration-line:none; color:#000000;">로그아웃</a>
+</div>
+<br>
+<a href="/petmunity/qna/1" style="font-weight: bold; text-decoration-line:none; color:#000000;">QNA</a>
+<a href="/petmunity/trade/1" style="font-weight: bold; text-decoration-line:none; color:#000000;">중고거래</a>
+<br><br>
 <table>
     <tr>
         <th width="80">번호</th>

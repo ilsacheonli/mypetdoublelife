@@ -1,15 +1,19 @@
-import axios from 'axios';
-import dayjs from 'dayjs';
-import React, { useEffect, useState } from 'react';
-import Pagination from 'react-js-pagination';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { BoardListInterface } from './BoardListInterface';
-import Dropdown from './Dropdown';
-import { SearchBar, Board, BoardList, BoardPagination, FloatRight } from './petmunity.style';
+import axios from "axios";
+import dayjs from "dayjs";
+import React, { useEffect, useState } from "react";
+import Pagination from "react-js-pagination";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { BoardListInterface } from "./BoardListInterface";
+import {
+  Board,
+  BoardList,
+  BoardPagination,
+  FloatRight,
+} from "./petmunity.style";
 
 function PetmunityWalkingMate() {
-    const [boardList, setBoardList] = useState<BoardListInterface[]>([]); // axios에서 받아온 전체 게시글 데이터
+  const [boardList, setBoardList] = useState<BoardListInterface[]>([]); // axios에서 받아온 전체 게시글 데이터
   const [currentPost, setCurrentPost] =
     useState<BoardListInterface[]>(boardList); // 페이지네이션을 통해 보여줄 게시글
   const [page, setPage] = useState<number>(1); // 현재 페이지 번호
@@ -33,26 +37,14 @@ function PetmunityWalkingMate() {
       .catch(function (error) {
         console.log(error);
       });
-    // getBoardList();
   }, []);
 
-  const getBoardList = async () => {
-    // res는 http response의 header + body를 모두 갖고 있다.
-    const res = await axios.get("/petmunity/walkingmate");
-    console.log(res.data);
-    setBoardList([...res.data].reverse());
-  };
-
   useEffect(() => {
-    // getBoardList();
     setCurrentPost(boardList.slice(indexOfFirstPost, indexOfLastPost));
   }, [boardList, indexOfFirstPost, indexOfLastPost, page]);
 
   return (
     <div style={{ display: "inline-block", width: "100%" }}>
-      {/* <SearchBar>
-        <Dropdown />
-      </SearchBar> */}
       <Board>
         <BoardList>
           <h4>Total {boardLength}</h4>
@@ -111,15 +103,27 @@ function PetmunityWalkingMate() {
       <PostBtn>
         <FloatRight>
           <PostWrite>
-            <Link
-              to={"/petmunity/writepage3"}
-              style={{
-                textDecoration: "none",
-                color: "white",
-              }}
-            >
-              글쓰기
-            </Link>
+            {sessionStorage.getItem("id") === null ? (
+              <Link
+                to={"/login"}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                }}
+              >
+                글쓰기
+              </Link>
+            ) : (
+              <Link
+                to={"/petmunity/writepage3"}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                }}
+              >
+                글쓰기
+              </Link>
+            )}
           </PostWrite>
         </FloatRight>
       </PostBtn>

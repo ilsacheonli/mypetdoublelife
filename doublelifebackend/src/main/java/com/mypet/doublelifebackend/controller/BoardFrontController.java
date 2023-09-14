@@ -25,15 +25,16 @@ public class BoardFrontController {
     public List<BoardVO> listPost(@PathVariable("category") String category) {
 
         List<BoardVO> list = null;
-        list = service.list(category);
+        list = service.listPage(category);
 
         return list;
     }
 
     // 게시물 작성 후 등록
-    @PostMapping("petmunity/writePage")
-    public void write(@RequestBody BoardVO boardVO) throws IOException {
+    @PostMapping("petmunity/{boardPath}")
+    public void write(@PathVariable String boardPath, @RequestBody BoardVO boardVO) throws IOException {
         String category = boardVO.getCategory();
+        System.out.println("boardPath: " + boardPath + " boardBO: " + boardVO);
 
         // 게시글을 db에 저장
         if(category.equals("qna")) {
@@ -61,7 +62,6 @@ public class BoardFrontController {
     public BoardVO modify(@PathVariable("id") int id) {
 
         BoardVO boardVO = service.selectOne(id);
-
         return boardVO;
 
     }
@@ -69,8 +69,7 @@ public class BoardFrontController {
     // 게시물 수정
     @PostMapping("/board/modify/{id}")
     public void modify(@RequestBody BoardVO boardVO) {
-        System.out.println("boardVO: " + boardVO);
-        service.modify(boardVO);
+        System.out.println("boardVO: " + boardVO);service.modify(boardVO);
     }
 
     // 게시물 삭제
@@ -79,9 +78,4 @@ public class BoardFrontController {
         service.delete(id);
     }
 
-    // 좋아요 수 증가
-    @GetMapping("board/updateLike/{id}")
-    public void updateLike(@PathVariable("id") int id) {
-        service.updateLike(id);
-    }
 }

@@ -1,10 +1,13 @@
 package com.mypet.doublelifebackend.controller;
 
 import com.mypet.doublelifebackend.service.MyTodoService;
+import com.mypet.doublelifebackend.vo.MemberVO;
 import com.mypet.doublelifebackend.vo.TodoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,20 +16,30 @@ public class MyTodoController {
     @Autowired
     MyTodoService myTodoService;
 
-    @GetMapping("/mytodo")
-    public List<TodoVO> getAllMyTodo (){
-        return myTodoService.getAllMyTodo("test");
+    @GetMapping("/mytodo/{doDate}")
+    public List<TodoVO> getAllMyTodo (@PathVariable("doDate") String doDate, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        MemberVO login_member = (MemberVO) session.getAttribute("member");
+
+        HashMap<String, Object> map = new HashMap<String,Object>();
+        map.put("memId", login_member.getMemId());
+        map.put("doDate", doDate);
+
+        return myTodoService.getAllMyTodo(map);
     }
 
     @PostMapping("/mytodo/insert")
     public String addMyTodo( @RequestPart String doDate,
                              @RequestPart String doContent,
-                             TodoVO new_todo){
+                             TodoVO new_todo, HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        MemberVO login_member = (MemberVO) session.getAttribute("member");
 
         int lastNumber = myTodoService.getLastTodoNumber();
 
         new_todo = new TodoVO(
-                "test",
+                login_member.getMemId(),
                 lastNumber,
                 doDate,
                 doContent
@@ -48,12 +61,13 @@ public class MyTodoController {
     public String updateMyTodo( @RequestPart String doNo,
                                 @RequestPart String doDate,
                                 @RequestPart String doContent,
-                                TodoVO update_todo){
+                                TodoVO update_todo, HttpServletRequest request){
 
-
+        HttpSession session = request.getSession();
+        MemberVO login_member = (MemberVO) session.getAttribute("member");
 
         update_todo = new TodoVO(
-                "test",
+                login_member.getMemId(),
                 Integer.parseInt(doNo),
                 doDate,
                 doContent
@@ -73,19 +87,37 @@ public class MyTodoController {
         return "mytodo?updateSuccess";
     }
 
-    @PostMapping("/mytodo/delete/{doNo}")
-    public String deleteMyTodo( @PathVariable String doNo){
+    @GetMapping("/mytodo/delete/{doNo}")
+    public String deleteMyTodo(@PathVariable int doNo, HttpServletRequest request){
 
-        int del_todo_No = Integer.parseInt(doNo);
+        HttpSession session = request.getSession();
+        Object login_member = session.getAttribute("member");
+        
+        if(login_member == null){
+            try {
+                // throw로 강제 예외 발생
+                throw new Exception("로그인 확인");
+            } catch (Exception e) {
+                System.out.println("ERROR : " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        
+        //int del_todo_No = Integer.parseInt(doNo);
 
+        myTodoService.removeMyTodo(doNo);
 
-        myTodoService.removeMyTodo(del_todo_No);
-
-        TodoVO deleted_todo = myTodoService.getMyTodoByNo(del_todo_No);
+        TodoVO deleted_todo = myTodoService.getMyTodoByNo(doNo);
 
         if (!String.valueOf(deleted_todo).equals("null")){
 
-            return "mytodo?deleteFail";
+            try {
+                // throw로 강제 예외 발생
+                throw new Exception("삭제 실패");
+            } catch (Exception e) {
+                System.out.println("ERROR : " + e.getMessage());
+                e.printStackTrace();
+            }
         }
 
         return "mytodo?deleteSuccess";

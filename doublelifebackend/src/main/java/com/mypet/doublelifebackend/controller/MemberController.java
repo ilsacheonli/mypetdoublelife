@@ -88,7 +88,7 @@ public class MemberController {
     // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody Map<String, String> loginData,
-                        HttpServletRequest request, Model model) {
+        HttpServletRequest request, Model model) {
         String id = loginData.get("id");
         String pwd = loginData.get("pwd");
 
@@ -132,7 +132,7 @@ public class MemberController {
     // 멤버 정보 수정
     @RequestMapping(value = "/updatemember", method = RequestMethod.POST)
     public String updatemember(@RequestParam Map<String, Objects> paramObj, MemberVO update_member,
-                               HttpServletRequest request){
+        HttpServletRequest request){
         int number = Integer.parseInt(String.valueOf(paramObj.get("number")));
 
         String birthString = String.valueOf(paramObj.get("birth"));
@@ -147,12 +147,12 @@ public class MemberController {
         }
 
         update_member = new MemberVO(
-                number,
-                String.valueOf(paramObj.get("name")),
-                String.valueOf(paramObj.get("id")),
-                String.valueOf(paramObj.get("pwd")),
-                String.valueOf(paramObj.get("email")),
-                birthDate
+            number,
+            String.valueOf(paramObj.get("name")),
+            String.valueOf(paramObj.get("id")),
+            String.valueOf(paramObj.get("pwd")),
+            String.valueOf(paramObj.get("email")),
+            birthDate
         );
 
         int Member_number = memberService.editMember(update_member);

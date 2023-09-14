@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState} from 'react'
 import styled from 'styled-components';
 import { RiAddLine } from 'react-icons/ri';
-import axios from 'axios';
 
 const InsertFormPositioner = styled.div`
   width: 600px;
@@ -42,45 +41,18 @@ interface InputFormProps {
 	inputValue: string;
 	onInputChange: (value: string) => void;
 	onAddItem: () => void;
-    inputDate:string;
 }
 
-function MyPetInput({ inputValue, onInputChange, onAddItem, inputDate }: InputFormProps) {
+function MyPetInput({ inputValue, onInputChange, onAddItem }: InputFormProps) {
 	const [keyCounter, setKeyCounter] = useState<number>(0);
 
-  async function sendDataToServer() {
-    try {
-      const apiUrl = '/mytodo/insert';
-      const sendData = {
-          doContent: inputValue,
-	      doDate : inputDate,
-      };
-
-      await axios.post(apiUrl, sendData, {
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				}
-			});
-
-      console.log('성공');
-    } catch (error) {
-      console.error('실패', error);
-    }
-  }
-	
-
-  function handleSubmit(event: React.FormEvent) {
-    event.preventDefault();
-
-    if (inputValue.trim()) {
-
-      sendDataToServer();
-			
-      onInputChange('');
-      setKeyCounter((prevKey) => prevKey + 1);
-
-    }
-  }
+	function handleSubmit(event: React.FormEvent) {
+		event.preventDefault(); 
+		if (inputValue.trim()) {
+			onInputChange('');
+			setKeyCounter((prevKey) => prevKey + 1);
+		}
+	}
 
 	return (
 		<>

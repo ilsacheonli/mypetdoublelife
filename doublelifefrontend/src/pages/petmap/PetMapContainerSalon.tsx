@@ -6,7 +6,7 @@ import Pagination from "react-js-pagination";
 import { PetMapAroundList } from "./PetMapAroundList";
 import { ListDivide } from "./petmapcontainer.style";
 import styled from "styled-components";
-import Modal from "pages/petmunity/Modal";
+import Modal from "pages/petmap/Modal";
 
 declare global {
   interface Window {
@@ -194,6 +194,7 @@ const PetMapContainerSalon = () => {
                         var salonInfo = {
                           name: allData[i].name,
                           distance: calculatedDistance.toFixed(2) + "km",
+                          address: allData[i].address2,
                         };
                         salonListJSON.push(salonInfo);
                       }
@@ -212,9 +213,9 @@ const PetMapContainerSalon = () => {
           },
           function (error) {
             var locPosition = new window.kakao.maps.LatLng(
-                33.450701,
-                126.570667
-              ),
+              33.450701,
+              126.570667
+            ),
               message =
                 "geolocation을 사용할 수 없어요.. (" + error.message + ")";
 
@@ -250,9 +251,9 @@ const PetMapContainerSalon = () => {
         const a =
           Math.sin(dLat / 2) * Math.sin(dLat / 2) +
           Math.cos(lat1 * (Math.PI / 180)) *
-            Math.cos(lat2 * (Math.PI / 180)) *
-            Math.sin(dLon / 2) *
-            Math.sin(dLon / 2);
+          Math.cos(lat2 * (Math.PI / 180)) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         const distance = R * c; // 결과 거리 (단위: km)
         return distance;
@@ -281,13 +282,14 @@ const PetMapContainerSalon = () => {
   // SearchBar 컴포넌트
   const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
     const [searchQuery, setSearchQuery] = useState<string>('');
-  
+
     const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setSearchQuery(event.target.value);
     };
-  
+
     const handleSearchSubmit = (event: React.FormEvent) => {
-      // event.preventDefault(); // 검색을 실행한 후에 검색창이 사라지지 않도록 주석 처리
+      event.preventDefault();
+      setSearchPage(1);
       onSearch(searchQuery); // 검색어를 부모 컴포넌트로 전달
     };
   return (
@@ -313,8 +315,7 @@ const PetMapContainerSalon = () => {
         alignItems: "end",
         border: "none",
         backgroundColor: "white"
-      }}><SearchIcon/>
-      </button>
+      }}><SearchIcon/></button>
     </form>
   );
   };
@@ -325,6 +326,8 @@ const PetMapContainerSalon = () => {
     );
     setSearchResults(filteredResults);
   };
+
+
 
   return (
     <>
@@ -391,13 +394,16 @@ const PetMapContainerSalon = () => {
                     :
                     <PetMapPagination>
                 <Pagination
-                  activePage={page}
+                  activePage={searchPage}
                   itemsCountPerPage={postPerPage}
-                  totalItemsCount={petMapList.length}
+                  totalItemsCount={searchResults.length > 0 ? searchResults.length : petMapList.length}
                   pageRangeDisplayed={5}
                   prevPageText={"<"}
                   nextPageText={">"}
-                  onChange={handlePageChange}
+                  onChange={(pageNumber) => {
+                    setSearchPage(pageNumber);
+
+                  }}
                 />
               </PetMapPagination>
 
@@ -431,7 +437,8 @@ const PetMapContainerSalon = () => {
                     </div>
                     <div className="info">
                       <ul>
-                        <li>distance: {aroundlistdata.distance}</li>
+                        <li>{aroundlistdata.address}</li>
+                        <li>{aroundlistdata.distance}</li>
                       </ul>
                     </div>
                   </div>
@@ -511,4 +518,4 @@ const CloseButton = styled.button`
     transform: translateY(-5px);
     cursor: pointer;
   }
-`;
+ ` ;

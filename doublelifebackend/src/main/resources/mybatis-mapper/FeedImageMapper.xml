@@ -10,8 +10,9 @@
         <result property="f_img_name" column="f_img_name" />
         <result property="f_img_path" column="f_img_path" />
     </resultMap>
-    
+
     <select id="getImgNo" parameterType="int" resultMap="petstivalImgResult">
         select * from petstival_feedimages where f_img_no = #{f_img_no}
     </select>
+
 </mapper>
