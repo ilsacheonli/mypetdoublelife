@@ -15,6 +15,7 @@ function Header() {
     
     // 사용자 로그아웃 상태로 변경
     setIsLoggedIn(false);
+    sessionStorage.removeItem("id");
 
     axios
         .get('/logout')

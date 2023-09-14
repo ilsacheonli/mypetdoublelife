@@ -10,9 +10,6 @@ function PetMapSalon() {
 
     return (
         <div style={{ display: "inline-block", width: "100%" }}>
-      <SearchBar>
-        <PetMapSearch onSubmit={onSubmit}/>
-      </SearchBar>
       <PetMapContainerBox>
         <PetMapContainerSalon />
       </PetMapContainerBox>

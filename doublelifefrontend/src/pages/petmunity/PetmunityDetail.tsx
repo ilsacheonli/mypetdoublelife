@@ -107,7 +107,7 @@ function PetmunityDetail() {
             <ul className="comment_list" style={{listStyle:"none"}}>
               <li className="CommentItem">
                 <div className="comment_area">
-                  <div className="comment_box">
+                  <div className="comment_box" style={{marginBottom:"5px"}}>
                     <div className="comment_nick_box">
                       <span className="comment_nick_info" style={{fontWeight:"bold"}}>user2 </span>
                       <span className="comment_info_date" style={{color:"#7f7f7f"}}>
@@ -117,14 +117,50 @@ function PetmunityDetail() {
                     <div className="comment_text_box">
                       <div className="comment_text_view">
                         <span className="text_comment">댓글 내용 1</span>
-                        
                       </div>
                     </div>
-                    <div className="comment_info_box">
-                      
+                  </div>
+                  <div className="comment_box" style={{marginBottom:"5px"}}>
+                    <div className="comment_nick_box">
+                      <span className="comment_nick_info" style={{fontWeight:"bold"}}>user2 </span>
+                      <span className="comment_info_date" style={{color:"#7f7f7f"}}>
+                        2023.08.23 14:00
+                        </span>
+                    </div>
+                    <div className="comment_text_box">
+                      <div className="comment_text_view">
+                        <span className="text_comment">댓글 내용 1</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="comment_box" style={{marginBottom:"5px"}}>
+                    <div className="comment_nick_box">
+                      <span className="comment_nick_info" style={{fontWeight:"bold"}}>user2 </span>
+                      <span className="comment_info_date" style={{color:"#7f7f7f"}}>
+                        2023.08.23 14:00
+                        </span>
+                    </div>
+                    <div className="comment_text_box">
+                      <div className="comment_text_view">
+                        <span className="text_comment">댓글 내용 1</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="comment_box" style={{marginBottom:"5px"}}>
+                    <div className="comment_nick_box">
+                      <span className="comment_nick_info" style={{fontWeight:"bold"}}>user2 </span>
+                      <span className="comment_info_date" style={{color:"#7f7f7f"}}>
+                        2023.08.23 14:00
+                        </span>
+                    </div>
+                    <div className="comment_text_box">
+                      <div className="comment_text_view">
+                        <span className="text_comment">댓글 내용 1</span>
+                      </div>
                     </div>
                   </div>
                 </div>
+                
               </li>
             </ul>
           </CommentBox>
@@ -149,3 +185,4 @@ function PetmunityDetail() {
 }
 
 export default PetmunityDetail;
+

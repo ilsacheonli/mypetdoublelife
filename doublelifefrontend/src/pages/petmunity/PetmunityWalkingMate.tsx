@@ -111,6 +111,17 @@ function PetmunityWalkingMate() {
       <PostBtn>
         <FloatRight>
           <PostWrite>
+          {sessionStorage.getItem("id") === null ?
+            <Link
+            to={"/login"}
+            style={{
+              textDecoration: "none",
+              color: "white",
+            }}
+          >
+            글쓰기
+          </Link>
+            :
             <Link
               to={"/petmunity/writepage3"}
               style={{
@@ -120,6 +131,7 @@ function PetmunityWalkingMate() {
             >
               글쓰기
             </Link>
+          }
           </PostWrite>
         </FloatRight>
       </PostBtn>

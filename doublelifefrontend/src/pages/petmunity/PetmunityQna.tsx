@@ -117,6 +117,17 @@ const PetmunityQna = () => {
       <PostBtn>
         <FloatRight>
           <PostWrite>
+            {sessionStorage.getItem("id") === null ?
+            <Link
+            to={"/login"}
+            style={{
+              textDecoration: "none",
+              color: "white",
+            }}
+          >
+            글쓰기
+          </Link>
+            :
             <Link
               to={"/petmunity/writepage"}
               style={{
@@ -126,6 +137,7 @@ const PetmunityQna = () => {
             >
               글쓰기
             </Link>
+          }
           </PostWrite>
         </FloatRight>
       </PostBtn>

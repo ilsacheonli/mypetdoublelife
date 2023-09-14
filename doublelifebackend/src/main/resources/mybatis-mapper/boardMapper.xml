@@ -18,6 +18,7 @@
         id, bno, title, writer, reg_date, view_cnt, category
         FROM board
         WHERE category = #{category}
+        ORDER BY id ASC
     </select>
 
     <!--  Qna 글작성  -->
