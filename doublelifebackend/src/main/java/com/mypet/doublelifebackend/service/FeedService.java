@@ -19,9 +19,18 @@ public class FeedService { // sql문과 연결된 MemberRepository 함수 호출
         return feedRepository.selectAllFeed();
     }
 
-    public List<FeedVO> getFeedDetail() {
-        //selectFeedView() 호출 후 리턴
-        return feedRepository.selectFeedView();
+    //원본
+//    public List<FeedVO> getFeedDetail() {
+//        //selectFeedView() 호출 후 리턴
+//        return feedRepository.selectFeedView();
+//    }
+
+    //테스트
+    @Getter
+    private final String imgUploadPath = new File("mypetdoublelife/doublelifebackend/src/main").getAbsolutePath();
+    public List<FeedVO> getFeedDetail(int feed_no){
+
+        return feedRepository.selectFeedView(feed_no);
     }
 
 }

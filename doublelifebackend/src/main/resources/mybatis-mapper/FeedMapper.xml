@@ -22,8 +22,13 @@
         SELECT feed_no, user_id, user_name, likenum, contenttitle, f_img_no, f_img_name, f_img_path FROM PETSTIVAL
     </select>
 
-    <select id="selectFeedView" resultMap="petstivalResult">
-        SELECT * FROM PETSTIVAL
-    </select>
+    <!-- 원본 -->
+<!--    <select id="selectFeedView" resultMap="petstivalResult">-->
+<!--        SELECT * FROM PETSTIVAL-->
+<!--    </select>-->
 
+    <!-- 테스트-->
+    <select id="selectFeedView" resultMap="petstivalResult">
+        SELECT * FROM PETSTIVAL where feed_no = #{feed_no}
+    </select>
 </mapper>
