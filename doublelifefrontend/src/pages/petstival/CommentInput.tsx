@@ -22,6 +22,11 @@ function CommentInput({ feed_no, editComment }: CommentInputProps) {
       return;
     }
 
+    if (sessionStorage.getItem('loggedIn')!== "true"){
+            window.location.href = '/login';
+            alert("로그인 좀;;;");
+        }
+        
       let frm = new FormData();
       frm.append("petstivalNo",feed_no.toString());
       frm.append("reContent",commentText);
