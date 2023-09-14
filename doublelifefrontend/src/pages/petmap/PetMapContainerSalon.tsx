@@ -7,6 +7,7 @@ import { PetMapAroundList } from "./PetMapAroundList";
 import { ListDivide } from "./petmapcontainer.style";
 import styled from "styled-components";
 import Modal from "pages/petmap/Modal";
+import Footer from "components/Footer";
 
 declare global {
   interface Window {
@@ -458,6 +459,7 @@ const PetMapContainerSalon = () => {
           onChange={handleAroundPetMapPageChange}
         />
       </PetMapPagination>
+      <Footer/>
     </>
   );
 };

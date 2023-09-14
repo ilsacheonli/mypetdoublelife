@@ -20,7 +20,7 @@ const FooterContainer = styled.footer`
   justify-content: center; /* 가운데 정렬 */
   align-items: center;
   padding: 10px;
-  
+  bottom: 0;
   
 `;
 
