@@ -1,26 +1,44 @@
 import React from 'react';
-import { Commentbox } from './mypet.style';
+import {Commentbox, Li, Ul} from './mypet.style';
+import {RiDeleteBinLine} from "react-icons/ri";
+import axios from "axios";
 
 interface Comment {
-  id: number;
-  text: string;
+    memId: string;
+    reNo: number;
+    myFeedNo: number;
+    reContent: string;
 }
 
 interface CommentListProps {
-  comments: Comment[];
+    comments: Comment[];
+    editComment: () =>void;
 }
 
-function MyPetCommentBox({ comments }: CommentListProps) {
+function MyPetCommentBox({ comments, editComment }: CommentListProps) {
+
+    const onDeleteItem = (reNo: number) =>{
+        axios.get('/reply/delete/'+reNo)
+            .then(()=>{
+                console.log('삭제 성공');
+            }).catch((error) => {
+                console.log('삭제 실패', error);
+        })
+
+        editComment();
+    }
+
   return (
     <Commentbox>
-      <ul>
+      <Ul>
         {comments.map((comment) => (
-          <li key={comment.id}>
-            <div className='idDiv'>{comment.id}</div>
-            <div className='textDiv'>{comment.text}</div>
-          </li>
+          <Li key={comment.reNo}>
+              <div className='idDiv'>{comment.memId}</div>
+              <div className='textDiv'>{comment.reContent}</div>
+              <button onClick={() => onDeleteItem(comment.reNo)}><RiDeleteBinLine /></button>
+          </Li>
         ))}
-      </ul>
+      </Ul>
     </Commentbox>
   );
 }

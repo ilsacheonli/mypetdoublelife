@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mypet.doublelifebackend.repository.PetReplyRepository">
+
+    <resultMap id="feedReplyResult" type="PetReplyVO">
+        <result property="memId" column="mid" />
+        <result property="reNo" column="rno" />
+        <result property="myFeedNo" column="mfno" />
+        <result property="reContent" column="content" />
+    </resultMap>
+
+    <resultMap id="petstivalResult" type="PetReplyVO">
+        <result property="memId" column="mid" />
+        <result property="reNo" column="rno" />
+        <result property="petstivalNo" column="ptno" />
+        <result property="reContent" column="content" />
+    </resultMap>
+
+
+
+    <select id="selectPetReplyByNo" parameterType="int" resultType="PetReplyVO">
+        SELECT mid, rno, content
+        FROM pReply
+        WHERE rno = #{reNo}
+    </select>
+
+    <select id="selectAllPetReplyByMfNo" parameterType="int" resultMap="feedReplyResult">
+        SELECT mid, rno, mfno, content
+        FROM pReply
+        WHERE mfno = #{myFeedNo}
+        ORDER BY reg_date DESC
+    </select>
+
+    <select id="selectAllPetReplyByPtNo" parameterType="int" resultMap="petstivalResult">
+        SELECT mid, rno, ptno, content
+        FROM pReply
+        WHERE ptno = #{petstivalNo}
+        ORDER BY reg_date DESC
+    </select>
+
+
+    <insert id="insertMyFeedReply" parameterType="PetReplyVO" >
+        INSERT INTO pReply (mid, rno, mfno, content)
+        VALUES (#{memId}, #{reNo}, #{myFeedNo}, #{reContent})
+    </insert>
+
+    <insert id="insertPetstivalReply" parameterType="PetReplyVO" >
+        INSERT INTO pReply (mid, rno, ptno ,content)
+        VALUES (#{memId}, #{reNo}, #{petstivalNo}, #{reContent})
+    </insert>
+
+
+    <delete id="deletePetReply" parameterType="int">
+        DELETE
+        FROM pReply
+        WHERE rno = #{reNo}
+    </delete>
+
+    <!-- 마지막 max(m_number) = null 이면 0으로 치환 후 +1 return -->
+    <select id="getLastNumber" resultType="int">
+        select NVL(max(rno),0) +1 from pReply
+    </select>
+</mapper>

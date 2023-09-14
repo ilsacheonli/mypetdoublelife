@@ -18,14 +18,17 @@ interface MyPetFeedItem {
 }
 
 interface Comment {
-	id: number;
-	text: string;
+	memId: string;
+	reNo: number;
+	myFeedNo: number;
+	reContent: string;
 }
 
 function MyPetFeedView() {
 	const [myPetFeedData, setMyPetFeedData] = useState<MyPetFeedItem>();
 	const [comments, setComments] = useState<Comment[]>([]);
 	const { feedNo } = useParams()
+	const [ editComment, setEditComment] = useState<boolean>(false);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -40,12 +43,21 @@ function MyPetFeedView() {
 			});
 	}, [feedNo]);
 
-	const handleCommentSubmit = (text: string) => {
-		console.log('Submitted Comment:', text);
-		setComments((prevComments) => [
-			...prevComments,
-			{ id: Date.now(), text },
-		]);
+	useEffect(() => {
+		axios.get(`/myfeed/replyList/${feedNo}`)
+			.then((res) => {
+				setEditComment(false);
+				setComments(res.data);
+				console.log('불러오기 성공', res.data)
+			})
+			.catch((error) => {
+				console.log('불러오기 실패', error)
+			});
+	}, [feedNo, editComment]);
+
+	const handleEditComment = () => {
+		console.log('edit Comment');
+		setEditComment(true);
 	};
 
 	const handleDeleteClick = () => {
@@ -80,8 +92,8 @@ function MyPetFeedView() {
 				<Viewcontent>{myPetFeedData.feedContent}</Viewcontent>
 			</Maincontainer>
 			<Commentcontainer>
-				<MyPetCommentInput onSubmit={handleCommentSubmit} />
-				<MyPetCommentBox comments={comments} />
+				<MyPetCommentInput feedNo={myPetFeedData.feedNo} editComment={handleEditComment} />
+				<MyPetCommentBox comments={comments} editComment={handleEditComment}  />
 			</Commentcontainer>
 		</Viewcontainer>
 	)
