@@ -5,7 +5,6 @@ import com.mypet.doublelifebackend.vo.FeedImageVO;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.io.File;
 
 @Service
