@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
+
+
 function Errorpagefive(){
+  // const Errorpagefive: React.FC = () => {
+
     const CenteredContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -32,7 +36,8 @@ function Errorpagefive(){
 `;
 
 
-    return(
+  return (
+    // return(
         <CenteredContainer>
     <Errorimg alt="error" src="/errorimg/500.png"></Errorimg>
     <Link to={`/`} style={{

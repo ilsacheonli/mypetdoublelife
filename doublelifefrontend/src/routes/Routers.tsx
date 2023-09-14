@@ -56,10 +56,10 @@ export const Routers = () => {
                 <Route path='/signupfinish' element={ <SignupFinish/> }/>
                 <Route path='/userpage' element={ <UserPage/> }/>
                  {/* 404 에러 페이지 */}
-                try(<Route path="*" element={<Errorpage/>} />)
+                <Route path="*" element={<Errorpage/>} />
                 
                 {/* 500 에러 페이지 */}
-                catch(<Route path="/500" element={<Errorpagefive/>} />);
+                <Route path="/500" element={<Errorpagefive/>} />
                   {/* 500 에러가 발생하면 /500 페이지로 이동이 왜 안돼?..........?ㅠㅠㅠㅠ */}
                 
             </Routes>
