@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import MyPetInput from './MyPetInput';
 import MyPetItem from './MyPetItem';
+import { Lidiv, Overflowdiv } from './mypet.style'
 import dayjs from "dayjs";
 
 import { Mypetrecordbox, Mypetrecordmemo, Mypetrecordmemo1 } from './mypet.style'
@@ -19,7 +20,7 @@ function MyPetMemo() {
 	const [delDoNo, setDelDoNo] = useState<number>();
 	const [inputValue, setInputValue] = useState<string>('');
 	const [selectDate, setSelectDate] = useState<string>(dayjs(Date()).format('YYYY-MM-DD'));
-	const [sentData , setSentData] = useState({});
+	const [sentData, setSentData] = useState({});
 
 	useEffect(() => {
 		axios.get('/mytodo/' + selectDate)
@@ -31,7 +32,7 @@ function MyPetMemo() {
 				console.log('불러오기 실패', error)
 			});
 
-	}, [selectDate,delDoNo,sentData]);
+	}, [selectDate, delDoNo, sentData]);
 
 	const handleAddItem = () => {
 		const apiUrl = '/mytodo/insert';
@@ -81,13 +82,17 @@ function MyPetMemo() {
 							onInputChange={setInputValue}
 							onAddItem={handleAddItem}
 						/>
-						{items.map((item, index) => (
-							<MyPetItem key={index}
-								item={item}
-								onDeleteItem={handleDeleteItem}
-							/>
-						))
-						}
+						<Lidiv>
+							<Overflowdiv>
+								{items.map((item, index) => (
+									<MyPetItem key={index}
+										item={item}
+										onDeleteItem={handleDeleteItem}
+									/>
+								))
+								}
+							</Overflowdiv>
+						</Lidiv>
 					</Mypetrecordmemo1>
 				</Mypetrecordmemo>
 			</Mypetrecordbox>

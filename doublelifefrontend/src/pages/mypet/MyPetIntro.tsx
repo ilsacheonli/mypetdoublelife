@@ -5,12 +5,12 @@ import axios from 'axios';
 import dayjs from "dayjs";
 
 
-interface prop{
-	petNo:number;
-	petReload:() => void;
+interface prop {
+	petNo: number;
+	petReload: () => void;
 }
 
-function MyPetIntro({petNo , petReload} : prop) {
+function MyPetIntro({ petNo, petReload }: prop) {
 	const initialPetData = {
 		petName: '',
 		petGender: '',
@@ -35,7 +35,7 @@ function MyPetIntro({petNo , petReload} : prop) {
 
 	useEffect(() => {
 		axios
-			.get('/mypet/'+petNo)
+			.get('/mypet/' + petNo)
 			.then((res) => {
 				setPetData(res.data);
 			})
@@ -83,7 +83,7 @@ function MyPetIntro({petNo , petReload} : prop) {
 	};
 
 	const handleDelete = () => {
-		axios.get("/mypet/remove/"+petNo)
+		axios.get("/mypet/remove/" + petNo)
 			.then(res => {
 				console.log('삭제 성공', res);
 				alert('프로필이 삭제되었습니다.');

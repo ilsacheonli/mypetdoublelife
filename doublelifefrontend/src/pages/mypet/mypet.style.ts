@@ -504,6 +504,7 @@ export const Mypetrecordbox = styled.div`
 
 export const MypetfullCalendar = styled.div`
 	width: 650px;
+	height: 550px;
 	margin-top: 30px; 
 `
 
@@ -560,6 +561,18 @@ export const Ul = styled.ul`
 	margin-left: 20px;
 	margin-right: 20px;
 	padding-right: 32px;
+`
+
+export const Lidiv = styled.div`
+	height: 480px;
+	div::-webkit-scrollbar {
+		display: none;
+	}
+`
+export const Overflowdiv = styled.div`
+	height: 480px;
+	overflow-y: scroll;
+
 `
 
 export const Li = styled.li`
