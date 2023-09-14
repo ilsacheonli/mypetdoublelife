@@ -1,5 +1,5 @@
 import React from 'react'
-import { Li, Ul } from './mypet.style'
+import { Li, Ul, Lidiv } from './mypet.style'
 import { RiDeleteBinLine } from 'react-icons/ri';
 
 
@@ -16,12 +16,12 @@ interface itemProps {
 
 function MyPetItem( {item , onDeleteItem} : itemProps) {
 	return (
-		<Ul>
-				<Li>
-					{item.doContent}
-					<button onClick={() => onDeleteItem(item.doNo)}><RiDeleteBinLine /></button>
-				</Li>
-		</Ul>		
+			<Ul>
+					<Li>
+						{item.doContent}
+						<button onClick={() => onDeleteItem(item.doNo)}><RiDeleteBinLine /></button>
+					</Li>
+			</Ul>
 	)
 }
 

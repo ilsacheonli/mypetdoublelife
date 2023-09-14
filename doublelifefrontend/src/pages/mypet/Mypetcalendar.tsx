@@ -38,7 +38,6 @@ function MyPetCalendar({ onDateClick }: CalendarProps) {
 				<FullCalendar
 					plugins={[dayGridPlugin, interactionPlugin]}
 					initialView="dayGridMonth"
-					editable={true}
 					expandRows={true}
 					locale="ko"
 					height={550}
@@ -50,6 +49,7 @@ function MyPetCalendar({ onDateClick }: CalendarProps) {
 						center: 'title',
 						right: 'next',
 					}}
+					
 				/>
 			</MypetfullCalendar>
 		</Mypetrecordbox>
