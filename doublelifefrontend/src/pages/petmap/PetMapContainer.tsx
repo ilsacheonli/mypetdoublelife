@@ -16,12 +16,12 @@ declare global {
 
 const PetMapContainer = () => {
   const [petMapList, setPetMapList] = useState<PetMapList[]>([]);
-  const [currentPetMap, setCurrentPetMap] = useState<PetMapList[]>(petMapList); // 전국 미용실 페이지네이션
+  const [currentPetMap, setCurrentPetMap] = useState<PetMapList[]>([]); // 전국 미용실 페이지네이션
   const [page, setPage] = useState<number>(1); // 현재 페이지 번호
 
   const [aroundPetMap, setAroundPetMap] = useState<PetMapAroundList[]>([]);
   const [currentAroundPetMap, setCurrentAroundPetMap] =
-    useState<PetMapAroundList[]>(aroundPetMap); // 주변 병원 페이지네이션
+    useState<PetMapAroundList[]>([]); // 주변 병원 페이지네이션
   const [aroundPage, setAroundPage] = useState<number>(1); // 주변 병원 현재 페이지 번호
 
   // Modal
@@ -86,7 +86,7 @@ const PetMapContainer = () => {
 
             var mapOption = {
               center: new window.kakao.maps.LatLng(lat, lon),
-              level: 5,
+              level: 3,
             };
 
             var map = new window.kakao.maps.Map(mapContainer, mapOption);
@@ -94,7 +94,7 @@ const PetMapContainer = () => {
             var clusterer = new window.kakao.maps.MarkerClusterer({
               map: map,
               averageCenter: true,
-              minLevel: 10,
+              minLevel: 7,
             });
 
             var infowindows: any[] = [];
@@ -195,9 +195,9 @@ const PetMapContainer = () => {
           },
           function (error) {
             var locPosition = new window.kakao.maps.LatLng(
-                33.450701,
-                126.570667
-              ),
+              33.450701,
+              126.570667
+            ),
               message =
                 "geolocation을 사용할 수 없어요.. (" + error.message + ")";
 
@@ -254,6 +254,41 @@ const PetMapContainer = () => {
     );
   }, [aroundPetMap, indexOfAroundFirstPost, indexOfAroundLastPost, aroundPage]);
 
+  // SearchBar 컴포넌트
+  const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
+    const [searchQuery, setSearchQuery] = useState<string>('');
+  
+    const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchQuery(event.target.value);
+    };
+  
+    const handleSearchSubmit = (event: React.FormEvent) => {
+      // event.preventDefault(); // 검색을 실행한 후에 검색창이 사라지지 않도록 주석 처리
+      onSearch(searchQuery); // 검색어를 부모 컴포넌트로 전달
+    };
+  
+
+    return (
+      <form onSubmit={handleSearchSubmit}>
+        <input
+          type="text"
+          placeholder="시설이름을 입력하세요."
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+        />
+        <button type="submit">검색</button>
+      </form>
+    );
+  };
+const [searchResults, setSearchResults] = useState<PetMapList[]>([]);
+
+const handleSearch = (query: string) => {
+  const filteredResults = petMapList.filter((item) =>
+    item.name.toLowerCase().includes(query.toLowerCase())
+  );
+  setSearchResults(filteredResults);
+};
+
   return (
     <>
       <div
@@ -272,29 +307,31 @@ const PetMapContainer = () => {
               <h1>전국 병원</h1>
             </ModalTitle>
             <ModalContents>
+              {/* 검색창과 버튼을 SearchBar 컴포넌트로 대체 */}
+              <SearchBar onSearch={handleSearch} />
               <MapList>
-                {currentPetMap &&
-                  currentPetMap.map((petmaplistdata) => {
+                {/* 검색 결과를 보여줍니다. */}
+                {(searchResults.length > 0 ? searchResults : currentPetMap).map(
+                  (petmaplistdata) => {
                     return (
-                      <>
-                        <ul>
-                          <li>
-                            <div className="txt">
-                              <div className="title" key={petmaplistdata.num}>
-                                {petmaplistdata.name}
-                              </div>
-                              <div className="info">
-                                <ul>
-                                  <li>주소: {petmaplistdata.address2}</li>
-                                  <li>전화번호: {petmaplistdata.tel}</li>
-                                </ul>
-                              </div>
+                      <ul key={petmaplistdata.num}>
+                        <li>
+                          <div className="txt">
+                            <div className="title" key={petmaplistdata.num}>
+                              {petmaplistdata.name}
                             </div>
-                          </li>
-                        </ul>
-                      </>
+                            <div className="info">
+                              <ul>
+                                <li>주소: {petmaplistdata.address2}</li>
+                                <li>전화번호: {petmaplistdata.tel}</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
                     );
-                  })}
+                  }
+                )}
               </MapList>
               <PetMapPagination>
                 <Pagination
@@ -416,4 +453,4 @@ const CloseButton = styled.button`
     transform: translateY(-5px);
     cursor: pointer;
   }
-`;
+`; 
