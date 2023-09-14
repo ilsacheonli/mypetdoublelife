@@ -20,6 +20,7 @@ function MyPetMemo() {
 	const [delDoNo , setDelDoNo] = useState<number>();
 	const [inputValue, setInputValue] = useState<string>('');
 	const [selectDate, setSelectDate] = useState<string>(dayjs(Date()).format('YYYY-MM-DD'));
+	const [sentData , setSentData] = useState({});
 
 	useEffect(() => {
 		axios.get('/mytodo/'+selectDate)
@@ -30,7 +31,7 @@ function MyPetMemo() {
 			.catch((error) => {
 				console.log('불러오기 실패', error)
 			});
-	}, [selectDate,delDoNo]);
+	}, [selectDate,delDoNo,sentData]);
 
 	const handleAddItem = () => {
 		const apiUrl = '/mytodo/insert';
@@ -44,6 +45,8 @@ function MyPetMemo() {
 			}
 		}).then(() =>{
 			console.log('추가 성공');
+			setSentData(sendData);
+
 		}).catch((error) => {
 			console.error('추가 실패', error);
 		})

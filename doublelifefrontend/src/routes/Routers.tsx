@@ -31,6 +31,7 @@ import PetMap from 'pages/petmap/PetMap';
 import PetmunityModify from 'pages/petmunity/PetmunityModify';
 import PetmunityWritePageTrade from 'pages/petmunity/PetmunityWritePageTrade';
 import PetmunityWritePageWalkingMate from 'pages/petmunity/PetmunityWritePageWalkingMate';
+import axios from "axios";
 
 export const Routers = () => {
 	return (
