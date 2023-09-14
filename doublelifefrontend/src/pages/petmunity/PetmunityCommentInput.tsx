@@ -1,24 +1,37 @@
 import styled from "styled-components";
+import axios from "axios";
+import {RiDeleteBinLine} from "react-icons/ri";
+import React from "react";
 
-interface Item {
-  text: string;
+interface Comment {
+  memId: string;
+  breplyNo: number;
+  boardId: number;
+  reContent: string;
+  regDate: string;
 }
 
-interface ItemListProps {
-  items: Item[];
+interface CommentListProps {
+  comments: Comment[];
+  editComment: () =>void;
 }
 
-function PetmunityCommentInput({ items }: ItemListProps) {
-  const today = new Date(); // 현재 날짜
+function PetmunityCommentInput({ comments , editComment}: CommentListProps) {
 
-  // 댓글 날짜 형식에 맞춰 출력
-  const formattedDate = `${today.getFullYear()}.${
-    today.getMonth() + 1
-  }.${today.getDate()} ${today.getHours()}:${today.getMinutes()}`;
+  const onDeleteItem = (breplyNo: number) =>{
+    axios.get('/board/reply/delete/'+breplyNo)
+        .then(()=>{
+          console.log('삭제 성공');
+        }).catch((error) => {
+          console.log('삭제 실패', error);
+    })
+
+    editComment();
+  }
 
   return (
     <>
-      {items.map((item, index) => (
+      {comments.map((comment, index) => (
         <Li key={index}>
           <CommentBox>
             <div
@@ -29,17 +42,22 @@ function PetmunityCommentInput({ items }: ItemListProps) {
                 className="comment_nick_info"
                 style={{ fontWeight: "bold" }}
               >
-                {sessionStorage.getItem("id")}{" "}
+                {comment.memId}{" "}
               </span>
               <span className="comment_info_date" style={{ color: "#7f7f7f" }}>
-                {formattedDate}
+                {comment.regDate}
               </span>
             </div>
             <div className="comment_text_box" style={{ marginTop: "1px" }}>
               <div className="comment_text_view">
-                <span className="text_comment">{item.text}</span>
+                <span className="text_comment">{comment.reContent}</span>
               </div>
             </div>
+            {sessionStorage.getItem('id') === comment.memId ? (
+                <button onClick={() => onDeleteItem(comment.breplyNo)}><RiDeleteBinLine /></button>
+            ):(
+                <></>
+            )}
           </CommentBox>
         </Li>
       ))}
