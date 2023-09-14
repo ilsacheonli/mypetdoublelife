@@ -63,6 +63,4 @@
         FROM member
         WHERE ID = #{memId}
     </select>
-
-
 </mapper>

@@ -14,16 +14,16 @@
 
 
     <select id="selectMyTodoByNo" parameterType="int" resultMap="todoResult">
-        SELECT *
+        SELECT tno, do_date, content
         FROM todo
         WHERE tno = #{doNo}
     </select>
 
 
     <select id="selectMyTodo" parameterType="String" resultMap="todoResult">
-        SELECT *
+        SELECT tno, do_date, content
         FROM todo
-        WHERE mid = #{memId}
+        WHERE mid = #{memId} and do_date = #{doDate}
         ORDER BY reg_date DESC
     </select>
 

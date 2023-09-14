@@ -5,27 +5,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class FilesController {
     @Autowired
     private FilesService filesService;
 
     // http body에 파일을 담아서 json 형식으로 전송
-    @GetMapping("/petmunity/{category}/fileRead/{bno}")
-    public ResponseEntity<byte[]> readFile(@PathVariable("category")String category, @PathVariable("bno")int bno) throws IOException {
+    @GetMapping("/board/fileRead/{boardId}")
+    public ResponseEntity<byte[]> readFile(@PathVariable("boardId")int boardId) throws IOException {
 
         // 파일 경로를 저장한 변수
-        List<String> saved_path = filesService.readFilePath(category, bno);
+        List<String> saved_path = filesService.readFilePath(boardId);
 
         // 응답 보낼 객체 생성
         ResponseEntity<byte[]> result = null;

@@ -194,4 +194,5 @@ export const Buttonbox = styled.div`
 export const FloatLeft = styled.div`
   float: left;
   margin-left: 180px;
+  margin-bottom: 100px;
 `;

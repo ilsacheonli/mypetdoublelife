@@ -10,7 +10,7 @@ import java.util.List;
 public interface MyTodoRepository {
     TodoVO selectMyTodoByNo(int doNo);
 
-    List<TodoVO> selectMyTodo(String memId);
+    List<TodoVO> selectMyTodo(HashMap<String, Object> map);
 
     void insertMyTodo(TodoVO todo);
 

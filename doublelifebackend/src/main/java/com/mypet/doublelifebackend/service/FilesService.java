@@ -18,7 +18,7 @@ public class FilesService {
     private FilesRepository filesRepository;
 
     //파일을 업로드 하는 메서드
-    public void uploadFile(List<MultipartFile> files, String category, int bno) throws IOException {
+    public void uploadFile(List<MultipartFile> files, int boardId) throws IOException {
 
         List<FilesVO> filesVOList = new ArrayList<FilesVO>();
 
@@ -52,7 +52,7 @@ public class FilesService {
             System.out.println("fileSize = " + fileSize);
 
             // 파일 VO 생성
-            FilesVO filesVO = new FilesVO(category, bno, originName, savedName, fileSize, savedPath);
+            FilesVO filesVO = new FilesVO(boardId, originName, savedName, fileSize, savedPath);
             System.out.println("filesVO = " + filesVO);
 
             // 파일 VO 객체를 리스트에 추가
@@ -69,7 +69,7 @@ public class FilesService {
     }
 
     // 파일 경로 반환하는 메서드
-    public List<String> readFilePath(String category, int bno) {
-        return filesRepository.readFilePath(category, bno);
+    public List<String> readFilePath(int boardId) {
+        return filesRepository.readFilePath(boardId);
     }
 }

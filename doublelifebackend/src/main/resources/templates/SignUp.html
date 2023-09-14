@@ -2,19 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>SignUp 테스트 페이지</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
 </head>
 <body>
-<h3>SignUp</h3>
-<form method="post" action="/addmember" id="signUp">
-    name    <input type="text" name="name"><br>
-    id      <input type="text" name="id"><br>
-    pwd     <input type="text" name="pwd"><br>
-    email   <input type="text" name="email"><br>
-    birth   <input type="date" name="birth"> <br>
-
-</form>
-<button type="submit" form="signUp">가입하기</button>
-
+<h2>회원가입</h2>
+    <form action="/signUp" method="post">
+        <div>
+            ID : <input type="text"  name="id">
+        </div>
+        <div>
+            PASSWORD : <input type="text" name="password">
+        </div>
+        <button type="submit">가입하기</button>
+    </form>
 </body>
 </html>

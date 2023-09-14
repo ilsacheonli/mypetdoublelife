@@ -11,11 +11,19 @@
         };
     </script>
 </head>
-<body>
+<body onclick="login_check()">
     <h2>QNA 게시판</h2>
+    <div th:if="${session.member != null}">
+        <span>[[ ${session.member.id} ]]</span>
+        <span>님  </span>
+        <a href="/signOut" style="font-weight: bold; text-decoration-line:none; color:#000000;">로그아웃</a>
+    </div>
+    <br>
+    <a href="/petmunity/trade/1" style="font-weight: bold; text-decoration-line:none; color:#000000;">중고거래</a>
+    <a href="/petmunity/walkingmate/1" style="font-weight: bold; text-decoration-line:none; color:#000000;">산책 메이트</a>
+    <br><br>
     <table>
         <tr>
-            <th width="80">게시판 분류</th>
             <th width="80">번호</th>
             <th width="150">제목</th>
             <th width="150">작성자</th>
@@ -23,7 +31,6 @@
             <th width="80">조회수</th>
         </tr>
         <tr th:each="board: ${list}">
-            <td th:text="${board.category}"></td>
             <td th:text="${board.bno}"></td>
             <td><a th:text="${board.title}" th:href="@{/petmunity/qna/view/{bno}(bno=${board.bno})}"></a></td>
             <td th:text="${board.writer}"></td>

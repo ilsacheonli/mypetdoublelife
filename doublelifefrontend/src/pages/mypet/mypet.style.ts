@@ -139,7 +139,7 @@ export const H5 = styled.h5`
 	position: absolute;
 	bottom: 40px;
 	left: 16px;
-	color: #333;
+	color: #3B3B3B;
 	font-weight: bold;
 
 `
@@ -150,7 +150,7 @@ export const ImgBox = styled.div`
 	border-radius: 25px;
   &:hover {
 		img {
-			border: 5px solid #DAEBFD;
+			border: 5px solid #DADDE2;
 			/*background: linear-gradient(
         to bottom,
 				rgba(159, 149, 242, 0) 65%,
@@ -239,7 +239,7 @@ export const Maincontainer = styled.div`
 	button {
 		width: 25px;
 		height: 25px;
-		color: bule;
+		// color: bule;
 		border: none;
 		background-color: #fff;
 	}
@@ -359,10 +359,20 @@ export const Commentcontainer = styled.div`
 `
 
 export const Commentbox = styled.div`
-	width: 400px;
-	height: 700px;
-	margin-top: 20px;
-	/*background-color: antiquewhite;*/
+  width: 400px;
+  height: 700px;
+  margin-top: 20px;
+  /*background-color: antiquewhite;*/
+  button {
+	/* display: inline-flex;
+	align-items: center; */
+	margin-left: 8px;
+	// margin-bottom: 5px;
+    width: 25px;
+    height: 25px;
+    border: none;
+    background-color: #fff;
+  }
 `;
 
 /* ------------------------------------------------------------------------- */
@@ -504,6 +514,7 @@ export const Mypetrecordbox = styled.div`
 
 export const MypetfullCalendar = styled.div`
 	width: 650px;
+	height: 550px;
 	margin-top: 30px; 
 `
 
@@ -560,6 +571,18 @@ export const Ul = styled.ul`
 	margin-left: 20px;
 	margin-right: 20px;
 	padding-right: 32px;
+`
+
+export const Lidiv = styled.div`
+	height: 480px;
+	div::-webkit-scrollbar {
+		display: none;
+	}
+`
+export const Overflowdiv = styled.div`
+	height: 480px;
+	overflow-y: scroll;
+
 `
 
 export const Li = styled.li`

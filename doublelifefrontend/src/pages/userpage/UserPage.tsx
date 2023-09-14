@@ -138,11 +138,11 @@ function UserPage() {
       <Feature>
         <img width="50" height="50" src="/realaboutimg/cathospital.png" alt="기능 2 사진" />
         <FeatureDescription>
-          <MainFeature>2.  🏥동물병원 찾기 🏥</MainFeature>
+          <MainFeature>2.  🏥 동물병원 찾기 🏥</MainFeature>
           <Divider />
           <small>
           <p><br/>펫의 건강은 우리 모두에게 중요합니다. 
-          <br/>'마이펫의 이중생활'은 지도 기반으로 
+          <br/>펫시설 찾기는 API 지도 기반으로 
           <br/>동물병원의 위치와 정보를 확인하고
           <br/>찾아주는 기능을 제공하여
           <br/> 긴급 상황에도 빠른 도움을 
@@ -156,13 +156,14 @@ function UserPage() {
       <Feature>
         <img width="50" height="50"   src="/realaboutimg/petmunity.png"  alt="기능 3 사진" />
         <FeatureDescription>
-          <MainFeature>3. 💬 펫 뮤니티 기능 🤝</MainFeature>
+          <MainFeature>3. 💬 펫 커뮤니티 기능 🤝</MainFeature>
           <Divider />
-          <small><p><br/>펫을 사랑하는 사람들의 소중한 공간, 
-          <br/>펫 뮤니티에서 다른 펫 맘과 
-          <br/>아빠들과의 만남을 즐겨보세요. 
+          <small><p>
+          <br/>펫 사랑자들의 소중한 공간으로, 
+          <br/>펫뮤니티에서 다른 펫 맘과 
+          <br/>대디들과의 소통을 즐겨보세요. 
           <br/>경험과 조언을 나누며, 
-          <br/>새로운 친구들을 만나보세요. 
+          <br/>새로운 친구를 만들 수 있습니다. 
           </p></small>
         </FeatureDescription>
       </Feature>

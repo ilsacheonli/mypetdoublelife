@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { PetMapList } from "./PetMapList";
 import axios from "axios";
-import { MapList, PetMapPagination } from "./petmap.style";
+import { MapList, PetMapPagination, SearchIcon } from "./petmap.style";
 import Pagination from "react-js-pagination";
 import { PetMapAroundList } from "./PetMapAroundList";
 import { ListDivide } from "./petmapcontainer.style";
 import styled from "styled-components";
-import Modal from "pages/petmunity/Modal";
+import Modal from "pages/petmap/Modal";
 
 declare global {
   interface Window {
@@ -176,6 +176,7 @@ const PetMapContainerSalon = () => {
                         var salonInfo = {
                           name: allData[i].name,
                           distance: calculatedDistance.toFixed(2) + "km",
+                          address: allData[i].address2,
                         };
                         salonListJSON.push(salonInfo);
                       }
@@ -194,9 +195,9 @@ const PetMapContainerSalon = () => {
           },
           function (error) {
             var locPosition = new window.kakao.maps.LatLng(
-                33.450701,
-                126.570667
-              ),
+              33.450701,
+              126.570667
+            ),
               message =
                 "geolocation을 사용할 수 없어요.. (" + error.message + ")";
 
@@ -232,9 +233,9 @@ const PetMapContainerSalon = () => {
         const a =
           Math.sin(dLat / 2) * Math.sin(dLat / 2) +
           Math.cos(lat1 * (Math.PI / 180)) *
-            Math.cos(lat2 * (Math.PI / 180)) *
-            Math.sin(dLon / 2) *
-            Math.sin(dLon / 2);
+          Math.cos(lat2 * (Math.PI / 180)) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         const distance = R * c; // 결과 거리 (단위: km)
         return distance;
@@ -255,28 +256,46 @@ const PetMapContainerSalon = () => {
   // SearchBar 컴포넌트
   const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
     const [searchQuery, setSearchQuery] = useState<string>('');
-  
+
     const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setSearchQuery(event.target.value);
     };
-  
+
     const handleSearchSubmit = (event: React.FormEvent) => {
-      // event.preventDefault(); // 검색을 실행한 후에 검색창이 사라지지 않도록 주석 처리
+      event.preventDefault();
+      setSearchPage(1);
       onSearch(searchQuery); // 검색어를 부모 컴포넌트로 전달
     };
-  return (
-    <form onSubmit={handleSearchSubmit}>
-    <input
-      type="text"
-      placeholder="시설이름을 입력하세요."
-      value={searchQuery}
-      onChange={handleSearchInputChange}
-    />
-    <button type="submit">검색</button>
-  </form>
-  );
+    return (
+      <form onSubmit={handleSearchSubmit} style={{
+        height: "45px",
+        marginLeft: "80px",
+        borderBottom: "2px solid #3b4b9b",
+        maxWidth: "80%",
+        
+      }}>
+        <input
+          type="text"
+          placeholder="시설이름을 입력하세요."
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+          style={{
+            width: "90%",
+            border: "none",
+            outline: "none",
+          }}
+        />
+        <button type="submit" style={{
+          alignItems: "end",
+          border: "none",
+          backgroundColor: "white"
+        }}><SearchIcon/>
+        </button>
+      </form>
+    );
   };
   const [searchResults, setSearchResults] = useState<PetMapList[]>([]);
+  const [searchPage, setSearchPage] = useState<number>(1);
 
   const handleSearch = (query: string) => {
     const filteredResults = petMapList.filter((item) =>
@@ -284,6 +303,8 @@ const PetMapContainerSalon = () => {
     );
     setSearchResults(filteredResults);
   };
+
+
 
   return (
     <>
@@ -303,40 +324,39 @@ const PetMapContainerSalon = () => {
               <h1>전국 미용실</h1>
             </ModalTitle>
             <ModalContents>
-            <SearchBar onSearch={handleSearch} />
+              <SearchBar onSearch={handleSearch} />
               <MapList>
-  {/* 검색 결과를 보여줍니다. */}
-  {(searchResults.length > 0 ? searchResults : currentPetMap).map(
-                  (petmaplistdata) => {
-                    return (
-                      <ul key={petmaplistdata.num}>
-                        <li>
-                          <div className="txt">
-                            <div className="title" key={petmaplistdata.num}>
-                              {petmaplistdata.name}
-                            </div>
-                            <div className="info">
-                              <ul>
-                                <li>주소: {petmaplistdata.address2}</li>
-                                <li>전화번호: {petmaplistdata.tel}</li>
-                              </ul>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    );
-                  }
-                )}
+                {/* 검색 결과를 보여줍니다. */}
+                {(searchResults.length > 0 ? searchResults : currentPetMap).map((petmaplistdata) => (
+                  <ul key={petmaplistdata.num}>
+                    <li>
+                      <div className="txt">
+                        <div className="title" key={petmaplistdata.num}>
+                          {petmaplistdata.name}
+                        </div>
+                        <div className="info">
+                          <ul>
+                            <li>주소: {petmaplistdata.address2}</li>
+                            <li>전화번호: {petmaplistdata.tel}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                ))}
               </MapList>
               <PetMapPagination>
                 <Pagination
-                  activePage={page}
+                  activePage={searchPage}
                   itemsCountPerPage={postPerPage}
-                  totalItemsCount={petMapList.length}
+                  totalItemsCount={searchResults.length > 0 ? searchResults.length : petMapList.length}
                   pageRangeDisplayed={5}
                   prevPageText={"<"}
                   nextPageText={">"}
-                  onChange={handlePageChange}
+                  onChange={(pageNumber) => {
+                    setSearchPage(pageNumber);
+
+                  }}
                 />
               </PetMapPagination>
             </ModalContents>
@@ -368,7 +388,8 @@ const PetMapContainerSalon = () => {
                     </div>
                     <div className="info">
                       <ul>
-                        <li>distance: {aroundlistdata.distance}</li>
+                        <li>{aroundlistdata.address}</li>
+                        <li>{aroundlistdata.distance}</li>
                       </ul>
                     </div>
                   </div>
@@ -448,4 +469,4 @@ const CloseButton = styled.button`
     transform: translateY(-5px);
     cursor: pointer;
   }
-`;
+ ` ;
