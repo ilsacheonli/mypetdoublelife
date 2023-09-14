@@ -11,19 +11,18 @@ interface Item {
 	doNo: number;
 	doContent: string;
 	doDate: string;
-
 }
 
 function MyPetMemo() {
 	const [selectedDateId, setSelectedDateId] = useState<number | null>(null);
 	const [items, setItems] = useState<Item[]>([]);
-	const [delDoNo , setDelDoNo] = useState<number>();
+	const [delDoNo, setDelDoNo] = useState<number>();
 	const [inputValue, setInputValue] = useState<string>('');
 	const [selectDate, setSelectDate] = useState<string>(dayjs(Date()).format('YYYY-MM-DD'));
 	const [sentData , setSentData] = useState({});
 
 	useEffect(() => {
-		axios.get('/mytodo/'+selectDate)
+		axios.get('/mytodo/' + selectDate)
 			.then((res) => {
 				setItems(res.data)
 				console.log('불러오기 성공', res.data)
@@ -31,6 +30,7 @@ function MyPetMemo() {
 			.catch((error) => {
 				console.log('불러오기 실패', error)
 			});
+
 	}, [selectDate,delDoNo,sentData]);
 
 	const handleAddItem = () => {
@@ -43,18 +43,17 @@ function MyPetMemo() {
 			headers: {
 				'Content-Type': 'multipart/form-data',
 			}
-		}).then(() =>{
+		}).then((res) => {
 			console.log('추가 성공');
 			setSentData(sendData);
-
 		}).catch((error) => {
 			console.error('추가 실패', error);
 		})
 	};
 
-	const handleDeleteItem = (doNo : number) => {
+	const handleDeleteItem = (doNo: number) => {
 		axios
-			.get('/mytodo/delete/'+doNo)
+			.get('/mytodo/delete/' + doNo)
 			.then((res) => {
 				setDelDoNo(doNo)
 				console.log('삭제 성공', res.data)
@@ -82,12 +81,12 @@ function MyPetMemo() {
 							onInputChange={setInputValue}
 							onAddItem={handleAddItem}
 						/>
-						{items.map((item, index)=>(
+						{items.map((item, index) => (
 							<MyPetItem key={index}
 								item={item}
 								onDeleteItem={handleDeleteItem}
 							/>
-							))
+						))
 						}
 					</Mypetrecordmemo1>
 				</Mypetrecordmemo>

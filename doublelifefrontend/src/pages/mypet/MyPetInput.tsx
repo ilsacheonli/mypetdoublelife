@@ -46,12 +46,11 @@ interface InputFormProps {
 function MyPetInput({ inputValue, onInputChange, onAddItem }: InputFormProps) {
 	const [keyCounter, setKeyCounter] = useState<number>(0);
 
-	function handleSubmit() {
+	function handleSubmit(event: React.FormEvent) {
+		event.preventDefault(); 
 		if (inputValue.trim()) {
 			onInputChange('');
 			setKeyCounter((prevKey) => prevKey + 1);
-
-
 		}
 	}
 

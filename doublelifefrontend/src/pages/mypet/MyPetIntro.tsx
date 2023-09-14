@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Intro, ProfileButton, Formbutton, Button, Default } from './mypet.style';
 import { RiDeleteBinLine, RiPencilLine } from 'react-icons/ri';
 import axios from 'axios';
 import dayjs from "dayjs";
+
 
 interface prop{
 	petNo:number;
@@ -20,9 +21,9 @@ function MyPetIntro({petNo , petReload} : prop) {
 	const [petData, setPetData] = useState(initialPetData);
 	const [editing, setEditing] = useState(false);
 
-	const setDate=(petBirth:string)=>{
+	const setDate = (petBirth: string) => {
 
-		if (petBirth==null){
+		if (petBirth == null) {
 			return '';
 		}
 
@@ -38,13 +39,14 @@ function MyPetIntro({petNo , petReload} : prop) {
 			.then((res) => {
 				setPetData(res.data);
 			})
-			.catch(function (error){
+			.catch(function (error) {
 				console.log(error);
 			})
 
 	}, []);
 
 	const handleInputChange = (e: any) => {
+
 		const { name, value } = e.target;
 		setPetData({
 			...petData,
@@ -81,7 +83,6 @@ function MyPetIntro({petNo , petReload} : prop) {
 	};
 
 	const handleDelete = () => {
-
 		axios.get("/mypet/remove/"+petNo)
 			.then(res => {
 				console.log('삭제 성공', res);

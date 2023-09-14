@@ -29,9 +29,11 @@ function MyPetFeedView() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		console.log("feedNo:", feedNo)
 		axios.get(`/myfeed/${feedNo}`)
 			.then((res) => {
 				setMyPetFeedData(res.data)
+				console.log('불러오기 성공', res.data)
 			})
 			.catch((error) => {
 				console.log('불러오기 실패', error)

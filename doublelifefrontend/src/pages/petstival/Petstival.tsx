@@ -5,20 +5,22 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 
 interface MyPetFeedItem {
+	feed_no: number,
 	user_id: string,
 	user_name: string,
-	likeNum: number,
-	contentTitle: string,
-	contentText: string 
+	likenum: number,
+	contenttitle: string,
+	contenttext: string,
+	f_img_no: number
 }
 
-function MyPetFeed() {
+function Petstival() {
 	const [myPetFeedList, setMyPetFeedList] = useState<MyPetFeedItem[]>([]);
 	/*const [imageData, setImageData] = useState<string>(''); */
 
 	useEffect(() => {
 		const apiUrl = '/feedlist';
-		const imgUrl = '/image/petstival';
+		/*const imgUrl = '/image/petstival';*/
 
 		/*axios.get(imgUrl)
 		.then((res) => {
@@ -44,16 +46,16 @@ function MyPetFeed() {
 			<Mypetfeedmain>
 				<FlexBox>
 					{myPetFeedList.map((item) => (
-						<GridBox /*key={item.feedNo}*/ >
+						<GridBox key={item.feed_no} >
 							<ImgBox>
-								<Link to={`/feedview/${item.user_id}`}>
-									<Img /*src={'/image/'+item.imgNo} alt={item.postName}*/ />
-									<H5>{item.contentTitle}</H5>
+								<Link to={`/feedview/${item.feed_no}`}>
+									<Img src={`/image/petstival/${item.f_img_no}`} alt={item.contenttitle} />
+									<H5>{item.contenttitle}</H5>
 								</Link>
 								<NameBox>
 									<UserName>{item.user_name}</UserName>
 									<RiHeart3Fill />
-									<Like>{item.likeNum}</Like>
+									<Like>{item.likenum}</Like>
 								</NameBox>
 							</ImgBox>
 						</GridBox>
@@ -64,4 +66,4 @@ function MyPetFeed() {
 	);
 }
 
-export default MyPetFeed;
+export default Petstival;

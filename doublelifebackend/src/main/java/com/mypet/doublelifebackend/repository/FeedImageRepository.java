@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FeedImageRepository {
+
      FeedImageVO getImgNo(int f_img_no);
 
 }
