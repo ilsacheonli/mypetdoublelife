@@ -36,13 +36,15 @@ function CommentBox({ comments , editComment}: CommentListProps) {
         {comments.map((comment) => (
           <li key={comment.reNo}>
 
-            <div className='idDiv'>{comment.memId} {comment.regDate}</div>
-            <div className='textDiv'>{comment.reContent}</div>
-              {sessionStorage.getItem('id') === comment.memId ? (
+            <div className='idDiv'>{comment.memId} {comment.regDate}
+            {sessionStorage.getItem('id') === comment.memId ? (
                   <button onClick={() => onDeleteItem(comment.reNo)}><RiDeleteBinLine /></button>
               ):(
                   <></>
               )}
+            </div>
+            <div className='textDiv'>{comment.reContent}</div>
+              
           </li>
         ))}
       </ul>

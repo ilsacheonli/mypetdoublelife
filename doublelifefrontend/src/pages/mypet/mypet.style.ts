@@ -239,7 +239,7 @@ export const Maincontainer = styled.div`
 	button {
 		width: 25px;
 		height: 25px;
-		color: bule;
+		// color: bule;
 		border: none;
 		background-color: #fff;
 	}
@@ -359,10 +359,20 @@ export const Commentcontainer = styled.div`
 `
 
 export const Commentbox = styled.div`
-	width: 400px;
-	height: 700px;
-	margin-top: 20px;
-	/*background-color: antiquewhite;*/
+  width: 400px;
+  height: 700px;
+  margin-top: 20px;
+  /*background-color: antiquewhite;*/
+  button {
+	/* display: inline-flex;
+	align-items: center; */
+	margin-left: 8px;
+	// margin-bottom: 5px;
+    width: 25px;
+    height: 25px;
+    border: none;
+    background-color: #fff;
+  }
 `;
 
 /* ------------------------------------------------------------------------- */

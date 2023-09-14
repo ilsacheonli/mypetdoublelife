@@ -275,6 +275,14 @@ export const Commentbox = styled.div`
 	height: 700px;
 	margin-top: 20px;
 	/*background-color: antiquewhite;*/
+	button {
+	margin-left: 8px;
+	margin-bottom: 5px;
+    width: 25px;
+    height: 25px;
+    border: none;
+    background-color: #fff;
+  }
 `;
 
 /* ------------------------------------------------------------------------- */
