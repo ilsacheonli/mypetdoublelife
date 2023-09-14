@@ -34,6 +34,7 @@ public class BoardFrontController {
     @PostMapping("petmunity/{boardPath}")
     public void write(@PathVariable String boardPath, @RequestBody BoardVO boardVO) throws IOException {
         String category = boardVO.getCategory();
+        System.out.println("boardPath: " + boardPath + " boardBO: " + boardVO);
 
         // 게시글을 db에 저장
         if(category.equals("qna")) {
@@ -67,8 +68,8 @@ public class BoardFrontController {
 
     // 게시물 수정
     @PostMapping("/board/modify/{id}")
-    public void modify(BoardVO boardVO) {
-        service.modify(boardVO);
+    public void modify(@RequestBody BoardVO boardVO) {
+        System.out.println("boardVO: " + boardVO);service.modify(boardVO);
     }
 
     // 게시물 삭제

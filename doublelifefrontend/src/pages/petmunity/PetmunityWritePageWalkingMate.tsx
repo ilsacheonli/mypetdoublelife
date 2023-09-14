@@ -22,12 +22,12 @@ const PetmunityWritePageWalkingMate = () => {
             alert('내용을 입력해 주세요.');
         } else {
             if (window.confirm('게시글을 등록하시겠습니까?')) {
-                axios.post('http://localhost:8080/petmunity/writePage', {
+                axios.post('http://localhost:8080/petmunity/walkingmate', {
                     headers: {'Content-Type': 'multipart/form-data'},
                     category: 'walkingmate',
                     // bno: bno,
                     title: title,
-                    writer: writer,
+                    writer: sessionStorage.getItem('id'),
                     content: content,
                 })
                 .then(function(response) {
@@ -65,9 +65,7 @@ const PetmunityWritePageWalkingMate = () => {
                     </Titlediv>
 
                     <Titlediv>
-                        <input placeholder="닉네임을 입력하세요."
-                                onChange={(e) => {setWriter(e.target.value)
-                                console.log("writer: " + writer)}} />
+                        <div style={{textAlign:'initial'}}>작성자: {sessionStorage.getItem('id')}</div>
                     </Titlediv>
 
                     <Contentdiv>

@@ -46,9 +46,9 @@ const PetmunityWritePage = () => {
                 }
                 console.log("files: " + files.has('image'));
                 
-                axios.post('http://localhost:8080/petmunity/writepage', {
+                axios.post('http://localhost:8080/petmunity/qna', {
                     headers: {'Content-Type': 'multipart/form-data'},
-                    category: 'writepage',
+                    category: 'qna',
                     // bno: bno,
                     title: title,
                     writer: sessionStorage.getItem('id'),

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { writer } from "repl";
 import { Buttonbox, Contentdiv, Titlediv, Writecontainer, Writeform } from "./petmunitywrite.style";
 import { BoardListInterface } from "./BoardListInterface";
 
