@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { PetMapList } from "./PetMapList";
 import axios from "axios";
-import { MapList, PetMapPagination } from "./petmap.style";
+import { MapList, PetMapPagination, SearchIcon } from "./petmap.style";
 import Pagination from "react-js-pagination";
 import { PetMapAroundList } from "./PetMapAroundList";
 import { ListDivide } from "./petmapcontainer.style";
@@ -265,15 +265,31 @@ const PetMapContainerSalon = () => {
       onSearch(searchQuery); // 검색어를 부모 컴포넌트로 전달
     };
   return (
-    <form onSubmit={handleSearchSubmit}>
-    <input
-      type="text"
-      placeholder="시설이름을 입력하세요."
-      value={searchQuery}
-      onChange={handleSearchInputChange}
-    />
-    <button type="submit">검색</button>
-  </form>
+    <form onSubmit={handleSearchSubmit} style={{
+      height: "45px",
+      marginLeft: "80px",
+      borderBottom: "2px solid #3b4b9b",
+      maxWidth: "80%",
+      
+    }}>
+      <input
+        type="text"
+        placeholder="시설이름을 입력하세요."
+        value={searchQuery}
+        onChange={handleSearchInputChange}
+        style={{
+          width: "90%",
+          border: "none",
+          outline: "none",
+        }}
+      />
+      <button type="submit" style={{
+        alignItems: "end",
+        border: "none",
+        backgroundColor: "white"
+      }}><SearchIcon/>
+      </button>
+    </form>
   );
   };
   const [searchResults, setSearchResults] = useState<PetMapList[]>([]);
