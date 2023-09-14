@@ -6,6 +6,18 @@ import axios from 'axios';
 
 function MyPet() {
 	const [petNoList, setPetNoList] = useState<number[]>([]);
+	const [isLogin , setIsLogin] = useState(false);
+	const [petReload , setPetReload] = useState<boolean>(false);
+
+	useEffect(() => {
+		if(!(sessionStorage.getItem('loggedIn') === 'true')){
+			alert('로그인좀 ;;;');
+			window.location.replace('/login');
+		}else{
+			setIsLogin(true);
+		}
+
+	}, [isLogin])
 
 	useEffect(() => {
 		axios
@@ -17,22 +29,32 @@ function MyPet() {
 				console.log(error);
 			})
 
-	}, [])
+		setPetReload(false);
 
+	}, [petReload])
+
+	const handlePetReload = () => {
+		setPetReload(true);
+	}
 
 	const swiperItems = petNoList.map((petNo, idx) => {
-		return <div key={idx} className="swiper-slide"><MyPetProfile petNo={petNo} /></div>;
+		return <div key={idx} className="swiper-slide"><MyPetProfile petNo={petNo} petReload={handlePetReload}/></div>;
 	});
 	// 추가적인 슬라이드 아이템들을 배열로 생성
 
 
+	if(isLogin){
+		return (
 
-	return (
-		<main>
-			<MyPetSwiper items={swiperItems} />
-			<MyPetTeb />
-		</main>
-	)
+			<main>
+				<MyPetSwiper items={swiperItems} petReload={handlePetReload}/>
+				<MyPetTeb/>
+			</main>
+
+		)
+	}else{
+		return <></>
+	}
 }
 
 export default MyPet;

@@ -34,6 +34,7 @@ import Errorpagefive from 'pages/errorpage/Errorpagefive';
 import PetmunityModify from 'pages/petmunity/PetmunityModify';
 import PetmunityWritePageTrade from 'pages/petmunity/PetmunityWritePageTrade';
 import PetmunityWritePageWalkingMate from 'pages/petmunity/PetmunityWritePageWalkingMate';
+import axios from "axios";
 
 export const Routers = () => {
 	return (
@@ -63,7 +64,7 @@ export const Routers = () => {
 				<Route path='/board/view/:id' element={<PetmunityDetail />}></Route>
 				<Route path='/board/modify/:id' element={<PetmunityModify />}></Route>
 				<Route path='/petstival' element={<Petstival />} />
-				<Route path='/petstivaldetail' element={<PetstivalDetail />} />
+				<Route path='/feedview/:feed_no' element={<PetstivalDetail />} />
 				<Route path='/signup' element={<Signup />} />
 				<Route path='/signupfinish' element={<SignupFinish />} />
 				<Route path='/userpage' element={<UserPage />} />

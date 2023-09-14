@@ -1,29 +1,27 @@
 import React from 'react'
-import { Li, Ul } from './mypet.style'
+import { Li, Ul, Lidiv } from './mypet.style'
 import { RiDeleteBinLine } from 'react-icons/ri';
-import styled from 'styled-components';
 
-interface Item {
-  id: number;
-  text: string;
+
+interface item {
+	doNo: number;
+	doContent: string;
+	doDate: string;
 }
 
-interface ItemListProps {
-  items: Item[];
-  onDeleteItem: (id: number) => void;
+interface itemProps {
+	item : item;
+  	onDeleteItem : (doNo: number) => void;
 }
 
-function MyPetItem({ items, onDeleteItem }: ItemListProps) {
-	console.log(items)
+function MyPetItem( {item , onDeleteItem} : itemProps) {
 	return (
-		<Ul>
-			{items.map((item, index) => (
-				<Li key={index}>
-					{item.text}
-					<button onClick={() => onDeleteItem(item.id)}><RiDeleteBinLine /></button>
-				</Li>
-			))}
-		</Ul>		
+			<Ul>
+					<Li>
+						{item.doContent}
+						<button onClick={() => onDeleteItem(item.doNo)}><RiDeleteBinLine /></button>
+					</Li>
+			</Ul>
 	)
 }
 

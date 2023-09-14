@@ -21,7 +21,7 @@ const tabsData: Tab[] = [
 		id: 2,
 		title: '관리기록',
 		content: (
-			<MyPetMemo key={1} />
+			<MyPetMemo key={2} />
 		),
 	}
 ];

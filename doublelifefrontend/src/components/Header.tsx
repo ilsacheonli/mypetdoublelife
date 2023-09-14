@@ -6,7 +6,7 @@ import {response} from "express";
 
 function Header() {
   const [btnActive, setBtnActive] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>();
 
 
   // 로그아웃 버튼 클릭 시 실행될 함수입니다~~
@@ -27,31 +27,29 @@ function Header() {
         })
 
     // 세션스토리지에서 로그인 정보를 제거
-    //sessionStorage.removeItem("loggedIn");
+    sessionStorage.removeItem("loggedIn");
+    sessionStorage.removeItem('id');
 
     // 로그아웃후 로그인창으로 이동
-    //window.location.href = "/login";
+    window.location.href = "/login";
   }
 
 
   useEffect(() => {
     // 이 부분에서 로그인 상태를 확인하고, 예를 들어 세션 스토리지에 로그인 정보가 있는지 검사합니다.
-
-    //const userIsLoggedIn = sessionStorage.getItem("loggedIn") === "true"; // 예: 세션 스토리지에서 로그인 상태 확인
-
-    axios
-        .get('/loginCheck')
-        .then((res) => {
+      if (!isLoggedIn){
+        axios.get('/loginCheck').then((res)=>{
           if(res.data){
             setIsLoggedIn(true);
+          }else{
+            setIsLoggedIn(false);
+            sessionStorage.removeItem("loggedIn");
+            sessionStorage.removeItem('id');
           }
-
         })
-        .catch(function (error) {
-          window.location.href = "/login";
-        })
+      }
 
-  }, []);
+  }, [isLoggedIn]);
 
   const toggleActive = (index: React.SetStateAction<number>) => {
     console.log("toggleActive index: " + index);
@@ -79,7 +77,8 @@ function Header() {
             </li>
           </ul>
         ))}
-            {/* {LinkItems.map((item, index) => (
+
+            {/*{LinkItems.map((item, index) => (
               <ul>
                 <li key={item.url} value={index}>
                   <a 
@@ -98,7 +97,8 @@ function Header() {
                   </a>
                 </li>
               </ul>
-            ))} */}
+            ))}*/}
+
           </Links>
           <LinkSign>
             <li>
