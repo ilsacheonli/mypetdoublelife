@@ -4,7 +4,7 @@ import axios from "axios";
 import { MapList, PetMapPagination } from "./petmap.style";
 import Pagination from "react-js-pagination";
 import { PetMapAroundList } from "./PetMapAroundList";
-import Modal from "pages/petmunity/Modal";
+import Modal from "pages/petmap/Modal";
 import styled from "styled-components";
 import { ListDivide } from "./petmapcontainer.style";
 

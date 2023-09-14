@@ -56,3 +56,5 @@ const InputStyle = styled.div`
     background-color: white;
   }
 `;
+
+// 추후 검색 기능 추가 시 사용 예정

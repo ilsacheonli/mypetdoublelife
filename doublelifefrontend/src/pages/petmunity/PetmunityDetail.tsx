@@ -16,24 +16,20 @@ import PetmunityComment from "./PetmunityComment";
 import PetmunityCommentInput from "./PetmunityCommentInput";
 
 interface Item {
-	text: string;
+  text: string;
 }
 
 function PetmunityDetail() {
-  const today = new Date();
-
-  const formattedDate = `${today.getFullYear()}.${today.getMonth()+1}.${today.getDate()} ${today.getHours()}:${today.getMinutes()}`;
-
   // hook
   const params = useParams().id;
   const navigate = useNavigate();
 
   // state
   const [detailBoardData, setDetailBoardData] = useState<BoardListInterface>();
-  const [inputValue, setInputValue] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>("");
   const [items, setItems] = useState<Item[]>([]);
 
-
+  // 게시판 정보(제목, 작성자, 내용) 가져오기
   useEffect(() => {
     axios
       .get(`/board/view/${params}`)
@@ -46,14 +42,17 @@ function PetmunityDetail() {
       });
   }, []);
 
+  // type undefined 에러 방지를 위한 코드
   if (typeof detailBoardData === "undefined") return <></>;
 
+  // 수정 버튼을 누르면 해당 수정 페이지로 이동
   const formModify = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     navigate(`/board/modify/${detailBoardData.id}`);
   };
 
+  // 서버를 통해 삭제가 완료되면 qna 페이지로 이동
   const formDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -72,18 +71,20 @@ function PetmunityDetail() {
     }
   };
 
+  // 목록 버튼을 누르면 qna 페이지로 이동
   const formList = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     navigate("/petmunity/qna");
   };
 
+  // 댓글 입력
   const handleAddItem = () => {
-			const newItem: Item = {
-				text: inputValue
-			};
-			setItems(prevItems => [...prevItems, newItem]);
-	};
+    const newItem: Item = {
+      text: inputValue,
+    };
+    setItems((prevItems) => [...prevItems, newItem]);
+  };
 
   if (typeof detailBoardData === "undefined") return <></>;
 
@@ -118,19 +119,27 @@ function PetmunityDetail() {
           </div>
         </ArticleContentBox>
       </Viewcontainer>
-      <Viewcontainer style={{marginTop:"20px"}}>
+      <Viewcontainer style={{ marginTop: "20px" }}>
         <ArticleContentBox>
           <CommentBox>
             <h4>댓글</h4>
-            <ul className="comment_list" style={{listStyle:"none"}}>
+            <ul className="comment_list" style={{ listStyle: "none" }}>
               <li className="CommentItem">
                 <div className="comment_area">
-                  <div className="comment_box" style={{marginBottom:"5px"}}>
+                  <div className="comment_box" style={{ marginBottom: "5px" }}>
                     <div className="comment_nick_box">
-                      <span className="comment_nick_info" style={{fontWeight:"bold"}}>user2 </span>
-                      <span className="comment_info_date" style={{color:"#7f7f7f"}}>
+                      <span
+                        className="comment_nick_info"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        user2{" "}
+                      </span>
+                      <span
+                        className="comment_info_date"
+                        style={{ color: "#7f7f7f" }}
+                      >
                         2023.08.23 14:00
-                        </span>
+                      </span>
                     </div>
                     <div className="comment_text_box">
                       <div className="comment_text_view">
@@ -138,12 +147,20 @@ function PetmunityDetail() {
                       </div>
                     </div>
                   </div>
-                  <div className="comment_box" style={{marginBottom:"5px"}}>
+                  <div className="comment_box" style={{ marginBottom: "5px" }}>
                     <div className="comment_nick_box">
-                      <span className="comment_nick_info" style={{fontWeight:"bold"}}>user2 </span>
-                      <span className="comment_info_date" style={{color:"#7f7f7f"}}>
+                      <span
+                        className="comment_nick_info"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        user2{" "}
+                      </span>
+                      <span
+                        className="comment_info_date"
+                        style={{ color: "#7f7f7f" }}
+                      >
                         2023.08.23 14:00
-                        </span>
+                      </span>
                     </div>
                     <div className="comment_text_box">
                       <div className="comment_text_view">
@@ -151,12 +168,20 @@ function PetmunityDetail() {
                       </div>
                     </div>
                   </div>
-                  <div className="comment_box" style={{marginBottom:"5px"}}>
+                  <div className="comment_box" style={{ marginBottom: "5px" }}>
                     <div className="comment_nick_box">
-                      <span className="comment_nick_info" style={{fontWeight:"bold"}}>user2 </span>
-                      <span className="comment_info_date" style={{color:"#7f7f7f"}}>
+                      <span
+                        className="comment_nick_info"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        user2{" "}
+                      </span>
+                      <span
+                        className="comment_info_date"
+                        style={{ color: "#7f7f7f" }}
+                      >
                         2023.08.23 14:00
-                        </span>
+                      </span>
                     </div>
                     <div className="comment_text_box">
                       <div className="comment_text_view">
@@ -164,12 +189,20 @@ function PetmunityDetail() {
                       </div>
                     </div>
                   </div>
-                  <div className="comment_box" style={{marginBottom:"5px"}}>
+                  <div className="comment_box" style={{ marginBottom: "5px" }}>
                     <div className="comment_nick_box">
-                      <span className="comment_nick_info" style={{fontWeight:"bold"}}>user2 </span>
-                      <span className="comment_info_date" style={{color:"#7f7f7f"}}>
+                      <span
+                        className="comment_nick_info"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        user2{" "}
+                      </span>
+                      <span
+                        className="comment_info_date"
+                        style={{ color: "#7f7f7f" }}
+                      >
                         2023.08.23 14:00
-                        </span>
+                      </span>
                     </div>
                     <div className="comment_text_box">
                       <div className="comment_text_view">
@@ -191,36 +224,34 @@ function PetmunityDetail() {
                       </div>
                     </div>
                   </div> */}
-                        <PetmunityCommentInput items={items}/>
+                  <PetmunityCommentInput items={items} />
                 </div>
                 <PetmunityComment
-							inputValue={inputValue}
-							onInputChange={setInputValue}
-							onAddItem={handleAddItem}
-						/>
-            
+                  inputValue={inputValue}
+                  onInputChange={setInputValue}
+                  onAddItem={handleAddItem}
+                />
               </li>
             </ul>
           </CommentBox>
         </ArticleContentBox>
       </Viewcontainer>
+      {/* 작성자 정보와 일치하는 경우에만 수정, 삭제 버튼 나타나도록 조건 추가 */}
       <FloatLeft>
-      {sessionStorage.getItem("id") === `${detailBoardData.writer}` ?
-        <Buttonbox>
-          <button onClick={formList}>목록</button>
-          <button onClick={formModify}>수정</button>
-          <button onClick={formDelete}>삭제</button>
-          
-        </Buttonbox>
-        :
-        <Buttonbox>
-          <button onClick={formList}>목록</button>
-        </Buttonbox>
-      }
+        {sessionStorage.getItem("id") === `${detailBoardData.writer}` ? (
+          <Buttonbox>
+            <button onClick={formList}>목록</button>
+            <button onClick={formModify}>수정</button>
+            <button onClick={formDelete}>삭제</button>
+          </Buttonbox>
+        ) : (
+          <Buttonbox>
+            <button onClick={formList}>목록</button>
+          </Buttonbox>
+        )}
       </FloatLeft>
     </>
   );
 }
 
 export default PetmunityDetail;
-

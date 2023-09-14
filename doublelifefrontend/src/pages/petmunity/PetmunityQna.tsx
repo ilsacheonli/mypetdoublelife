@@ -4,9 +4,7 @@ import {
   BoardList,
   BoardPagination,
   FloatRight,
-  SearchBar,
 } from "./petmunity.style";
-import Dropdown from "./Dropdown";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -39,26 +37,15 @@ const PetmunityQna = () => {
       .catch(function (error) {
         console.log(error);
       });
-    // getBoardList();
   }, []);
 
-  const getBoardList = async () => {
-    // res는 http response의 header + body를 모두 갖고 있다.
-    const res = await axios.get("/petmunity/qna");
-    console.log(res.data);
-    setBoardList([...res.data].reverse());
-  };
-
+  // 페이지네이션을 위해 전체 목록을 기준 개수에 따라 자름
   useEffect(() => {
-    // getBoardList();
     setCurrentPost(boardList.slice(indexOfFirstPost, indexOfLastPost));
   }, [boardList, indexOfFirstPost, indexOfLastPost, page]);
 
   return (
     <div style={{ width: "100%" }}>
-      {/* <SearchBar>
-        <Dropdown />
-      </SearchBar> */}
       <Board>
         <BoardList>
           <h4>Total {boardLength}</h4>
@@ -113,31 +100,31 @@ const PetmunityQna = () => {
           </BoardPagination>
         </BoardList>
       </Board>
-
+      {/* 로그인하지 않았을 경우 로그인 창으로 이동하도록 조건 추가 */}
       <PostBtn>
         <FloatRight>
           <PostWrite>
-            {sessionStorage.getItem("id") === null ?
-            <Link
-            to={"/login"}
-            style={{
-              textDecoration: "none",
-              color: "white",
-            }}
-          >
-            글쓰기
-          </Link>
-            :
-            <Link
-              to={"/petmunity/writepage"}
-              style={{
-                textDecoration: "none",
-                color: "white",
-              }}
-            >
-              글쓰기
-            </Link>
-          }
+            {sessionStorage.getItem("id") === null ? (
+              <Link
+                to={"/login"}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                }}
+              >
+                글쓰기
+              </Link>
+            ) : (
+              <Link
+                to={"/petmunity/writepage"}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                }}
+              >
+                글쓰기
+              </Link>
+            )}
           </PostWrite>
         </FloatRight>
       </PostBtn>

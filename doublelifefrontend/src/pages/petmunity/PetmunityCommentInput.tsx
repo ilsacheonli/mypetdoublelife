@@ -1,81 +1,75 @@
-import React from 'react'
-import { RiDeleteBinLine } from 'react-icons/ri';
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface Item {
-  // id: number;
   text: string;
 }
 
 interface ItemListProps {
   items: Item[];
-//   onDeleteItem: (id: number) => void;
 }
 
 function PetmunityCommentInput({ items }: ItemListProps) {
-    const today = new Date();
+  const today = new Date(); // 현재 날짜
 
-  const formattedDate = `${today.getFullYear()}.${today.getMonth()+1}.${today.getDate()} ${today.getHours()}:${today.getMinutes()}`;
+  // 댓글 날짜 형식에 맞춰 출력
+  const formattedDate = `${today.getFullYear()}.${
+    today.getMonth() + 1
+  }.${today.getDate()} ${today.getHours()}:${today.getMinutes()}`;
 
-	console.log(items)
-	return (
-        <>
-		{/* <Ul> */}
-			{items.map((item, index) => (
-				<Li key={index}>
-                    <CommentBox>
-                    <div className="comment_nick_box" style={{marginBottom:"1px", marginTop:"20px"}}>
-                      <span className="comment_nick_info" style={{fontWeight:"bold"}}>{sessionStorage.getItem("id")} </span>
-                      <span className="comment_info_date" style={{color:"#7f7f7f"}}>
-                        {formattedDate}
-                        </span>
-                    </div>
-                    <div className="comment_text_box" style={{marginTop:"1px"}}>
-                      <div className="comment_text_view">
-                        <span className="text_comment">{item.text}</span>
-                      </div>
-                    </div>
-					
-                    </CommentBox>
-					{/* <button onClick={() => onDeleteItem(item.id)}><RiDeleteBinLine /></button> */}
-				</Li>
-			))}
-		{/* </Ul> */}
-        </>
-	)
+  return (
+    <>
+      {items.map((item, index) => (
+        <Li key={index}>
+          <CommentBox>
+            <div
+              className="comment_nick_box"
+              style={{ marginBottom: "1px", marginTop: "20px" }}
+            >
+              <span
+                className="comment_nick_info"
+                style={{ fontWeight: "bold" }}
+              >
+                {sessionStorage.getItem("id")}{" "}
+              </span>
+              <span className="comment_info_date" style={{ color: "#7f7f7f" }}>
+                {formattedDate}
+              </span>
+            </div>
+            <div className="comment_text_box" style={{ marginTop: "1px" }}>
+              <div className="comment_text_view">
+                <span className="text_comment">{item.text}</span>
+              </div>
+            </div>
+          </CommentBox>
+        </Li>
+      ))}
+    </>
+  );
 }
 
 export default PetmunityCommentInput;
 
-const Ul = styled.ul`
-	margin-top: 20px;
-	margin-left: 20px;
-	margin-right: 20px;
-	padding-right: 32px;
-`
-
 const Li = styled.li`
-	list-style: none;
-	// line-height: 4;
-	display: flex;
-	justify-content: space-between;
-	font-size: 1.0rem;
-	&:hover {
-		button {
-			display: block;
-		}
-	}
-	button {
-		background-color: #fff;
-		border: none;
-		display: none;
-	}
-	svg {
-		width: 27px;
-		height: 27px;
-		color: #063160;
-	}
-`
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  &:hover {
+    button {
+      display: block;
+    }
+  }
+  button {
+    background-color: #fff;
+    border: none;
+    display: none;
+  }
+  svg {
+    width: 27px;
+    height: 27px;
+    color: #063160;
+  }
+`;
 
 const CommentBox = styled.div`
   margin-top: -17px;
@@ -100,22 +94,19 @@ const CommentBox = styled.div`
       font-size: 13px;
       word-break: break-all;
       word-wrap: break-word;
-      
+
       & span {
-        
       }
 
       & > .comment_text_view {
         overflow: hidden;
         & > .text_comment {
-        line-height: 17px;
-        word-break: break-all;
-        word-wrap: break-word;
-        vertical-align: top;
+          line-height: 17px;
+          word-break: break-all;
+          word-wrap: break-word;
+          vertical-align: top;
+        }
       }
-      }
-
-      
     }
 
     & > .comment_info_box {
@@ -152,4 +143,4 @@ const CommentBox = styled.div`
       }
     }
   }
-`
+`;

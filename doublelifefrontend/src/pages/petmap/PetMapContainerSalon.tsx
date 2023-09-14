@@ -6,7 +6,7 @@ import Pagination from "react-js-pagination";
 import { PetMapAroundList } from "./PetMapAroundList";
 import { ListDivide } from "./petmapcontainer.style";
 import styled from "styled-components";
-import Modal from "pages/petmunity/Modal";
+import Modal from "pages/petmap/Modal";
 
 declare global {
   interface Window {
