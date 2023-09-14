@@ -67,38 +67,39 @@ const [currentIndex, setCurrentIndex] = useState(0);
                 }}>
           <Mainimage alt="mainimage" src="/aboutimg/banner.png" /></Link>
           <Mypetintro>
-          <br/>
-          <Maintext><Miniimg src="/aboutimg/king.png"/> 금주의 마이펫 <Miniimg src="/aboutimg/king.png"/></Maintext>
-          <TextWithBar><HorizontalBar /></TextWithBar>
-          <Detail>이번 주 제일 HOT한 마이펫을 소개합니다.</Detail>
-          <br/>
+						<br/>
+						<Maintext><Miniimg src="/aboutimg/king.png"/> 금주의 마이펫 <Miniimg src="/aboutimg/king.png"/></Maintext>
+						<TextWithBar><HorizontalBar /></TextWithBar>
+						<Detail>이번 주 제일 HOT한 마이펫을 소개합니다.</Detail>
+						<br/>
           </Mypetintro>
+
           <FlexBox>
-          <GridBox>
-          <ImgBox><Img  alt="petstar" src="/aboutimg/petstar1.jpg" ></Img>
-          </ImgBox>
-          <NameBox>
-          <UserName>쥬시 <Wom>여</Wom> </UserName>
-					
-          </NameBox>
-          </GridBox>
-          <GridBox>
-          <ImgBox><Img alt="petstar" src="/aboutimg/petstar2.jpg" ></Img>
-          </ImgBox>
-          <NameBox>
-          <UserName>아랑이 <Wom>여</Wom></UserName>
-					
-          </NameBox>
-          </GridBox>
-          <GridBox>
-          <ImgBox><Img alt="petstar" src="/aboutimg/petstar3.jpg"></Img>
-          </ImgBox>
-          <NameBox>
-          <UserName>서른 아홉번째 밤 <Man>남</Man></UserName>
-					
-          </NameBox>
-          </GridBox>
+						<GridBox>
+							<ImgBox><Img  alt="petstar" src="/aboutimg/petstar1.jpg" ></Img>
+							</ImgBox>
+							<NameBox>
+								<UserName>콩이의 여름 나들이 <Wom>콩이</Wom> </UserName>
+							</NameBox>
+						</GridBox>
+
+						<GridBox>
+							<ImgBox><Img alt="petstar" src="/aboutimg/petstar2.jpg" ></Img>
+							</ImgBox>
+							<NameBox>
+								<UserName>별이의 프로필 사진 <Wom>별이</Wom></UserName>
+							</NameBox>
+						</GridBox>
+
+						<GridBox>
+							<ImgBox><Img alt="petstar" src="/aboutimg/petstar3.jpg"></Img>
+							</ImgBox>
+							<NameBox>
+								<UserName>햄스터 증명사진 <Man>해미</Man></UserName>
+							</NameBox>
+						</GridBox>
           </FlexBox>
+
           <Description>
           <Mypetintro>
           <br/>
@@ -162,7 +163,9 @@ const [currentIndex, setCurrentIndex] = useState(0);
           <FlexBox>
           <LastBox>
           <ImgBox>
+					<Link to={'/userpage'}>
           <Introimg src={petData[currentIndex].img} />
+					</Link>
           </ImgBox>
           <NameBox >
           <UserName><p> {petData[currentIndex].name}    

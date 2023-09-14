@@ -1,16 +1,15 @@
 import styled from "styled-components";
 
-export const UpimageContainer=styled.div
-` display: flex;
-flex-direction: column;
-align-items: center;
-text-align:center;
+export const UpimageContainer=styled.div` 
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align:center;
 
-background-size : cover;
-background-position : center;
-
-
+	background-size : cover;
+	background-position : center;
 `
+
 export const Main = styled.main`
 	display: flex;
 	justify-content: center;
@@ -67,7 +66,7 @@ export const Test = styled.div`
 
   display: flex;
   text-align: center;
-  background-color: #white; // 흰색 배경 설정
+  background-color: white; // 흰색 배경 설정
   width: 100%;
   height: 100%;
 
