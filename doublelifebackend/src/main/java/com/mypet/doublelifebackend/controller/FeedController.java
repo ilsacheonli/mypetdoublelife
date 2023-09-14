@@ -1,8 +1,10 @@
 package com.mypet.doublelifebackend.controller;
 
 import com.mypet.doublelifebackend.service.FeedService;
+import com.mypet.doublelifebackend.vo.FeedImageVO;
 import com.mypet.doublelifebackend.vo.FeedVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -24,10 +26,31 @@ public class FeedController {
         //resources/templates.FeedList.html
     }
 
-    @GetMapping (value = "/feedview")
-    public List<FeedVO> showFeedDetailPage() { // 펫스티벌 상세 뷰 페이지 화면
+    //원본
+//    @GetMapping (value = "/feedview")
+//    public List<FeedVO> showFeedDetailPage() { // 펫스티벌 상세 뷰 페이지 화면
+//
+//        return feedService.getFeedDetail();
+//        //return "petstival/FeedView.html";
+//        //resources/templates.FeedList.html
+//    }
 
-        return feedService.getFeedDetail();
+    //테스트
+    @GetMapping (value = "/feedview/{feed_no}")
+    public List<FeedVO> showFeedDetailPage(@PathVariable int feed_no) { // , FeedVO get_FeedVO
+
+//        get_FeedVO = feedService.getFeedDetail(feed_no);
+//
+//        if(get_FeedVO == null){
+//            return null;
+//        }
+//
+//        String absolutePath = feedService.getImgUploadPath()+get_FeedVO.getF_img_path();
+//        String ImageName = get_FeedVO.getF_img_name();
+
+        //return new UrlResource("file:"+absolutePath+"/"+ImageName);
+
+        return feedService.getFeedDetail(feed_no);
         //return "petstival/FeedView.html";
         //resources/templates.FeedList.html
     }
