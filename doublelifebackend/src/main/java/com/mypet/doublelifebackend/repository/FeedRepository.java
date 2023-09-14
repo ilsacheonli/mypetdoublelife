@@ -15,7 +15,11 @@ public interface FeedRepository { // 정의해놓은 sql와 사용할 메서드�
     //펫스티벌 상세 뷰 페이지
 
     //테스트
+<<<<<<< HEAD
     List<FeedVO> selectFeedView(int feed_no);
+=======
+    FeedVO selectFeedView(int feed_no);
+>>>>>>> 2cb6519a75e22c2259048a217ef724722383e1c5
 
 
 

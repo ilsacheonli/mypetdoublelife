@@ -37,7 +37,11 @@ public class FeedController {
 
     //테스트
     @GetMapping (value = "/feedview/{feed_no}")
+<<<<<<< HEAD
     public List<FeedVO> showFeedDetailPage(@PathVariable int feed_no) { // , FeedVO get_FeedVO
+=======
+    public FeedVO showFeedDetailPage(@PathVariable int feed_no) { // , FeedVO get_FeedVO
+>>>>>>> 2cb6519a75e22c2259048a217ef724722383e1c5
 
 //        get_FeedVO = feedService.getFeedDetail(feed_no);
 //
