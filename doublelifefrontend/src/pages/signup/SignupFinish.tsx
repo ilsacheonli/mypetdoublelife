@@ -1,23 +1,17 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 
 function SignupFinish() {
   const location = useLocation();
   const { memName } = location.state || {};
 
-  const Loginpage = styled.div`
-    position: absolute;
-    padding-top: 0;
+  const Loginpage=styled.div`
+    text-align: center;
+    background-size: cover;
+    background-position: center;
     width: 100%;
-    max-width: 1500px;
-    padding: 0 20px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  `;
+    `
 
   const Petimage = styled.div`
     text-align: center;
@@ -95,25 +89,27 @@ function SignupFinish() {
   `;
 
   const CongratsImage = styled.img`
-    width: 150px;
+    width: 150px; /* 이미지 크기 조절 */
     position: absolute;
     bottom: 110px;
     right: 400px;
     margin-bottom: -10px;
+    /* 이미지를 좌우로 반전시킵니다. */
     transform: scaleX(-1);
+
     @media (max-width: 1400px) {
-      display: none;
+      display: none; /* 작은 화면에서 이미지 숨김 */
     }
   `;
-
   const AdditionalImage = styled.img`
-    width: 150px;
+    width: 150px; /* 이미지 크기 조절 */
     position: absolute;
-    bottom: 20px;
+    bottom: 110px;
     left: 400px;
     margin-bottom: -10px;
+
     @media (max-width: 1400px) {
-      display: none;
+      display: none; /* 작은 화면에서 이미지 숨김 */
     }
   `;
 
@@ -126,41 +122,54 @@ function SignupFinish() {
   return (
     <Main>
       <Loginpage>
-        <Petimage>
-          <ImageContainer>
-            <Catimage alt="logo_final" src="/loginimg/logo_final.png" />
-          </ImageContainer>
-          <h3><Colr>{memName || "환영합니다!"}</Colr>님 가입을 축하합니다!</h3>
-          <h3><Colr>로그인</Colr> 후 서비스를 이용해주세요.</h3>
-        </Petimage>
-        <Menu>
-          <BottombuttonA>
-            <Link to={`/login`} style={{
+      <Petimage>
+        <ImageContainer>
+          <Catimage alt="logo_final" src="/loginimg/logo_final.png" />
+        </ImageContainer>
+        <h3>
+          <Colr>{memName || "환영합니다!"}</Colr>님 가입을 축하합니다!
+        </h3>
+        <h3>
+          <Colr>로그인</Colr> 후 서비스를 이용해주세요.
+        </h3>
+      </Petimage>
+      <Menu>
+        <BottombuttonA>
+          <Link
+            to={`/login`}
+            style={{
               textDecoration: "none",
-              color: "#063160"
-            }}>
-              로그인 하러가기!
-            </Link>
-          </BottombuttonA>
-          <BottombuttonC>
-            <Link to={'/'} style={{
+              color: "#063160",
+            }}
+          >
+            로그인 하러가기!
+          </Link>
+        </BottombuttonA>
+        <BottombuttonC>
+          <Link
+            to={"/"}
+            style={{
               textDecoration: "none",
-              color: "#063160"
-            }}>
-              메인으로 GO GO
-            </Link>
-          </BottombuttonC>
-          <BottombuttonB>
-            <Link to={`/userpage`} style={{
+              color: "#063160",
+            }}
+          >
+            메인으로 GO GO
+          </Link>
+        </BottombuttonC>
+        <BottombuttonB>
+          <Link
+            to={`/userpage`}
+            style={{
               textDecoration: "none",
-              color: "#ffffff"
-            }}>
-              마이펫의 이중생활이란?
-            </Link>
-          </BottombuttonB>
-        </Menu>
-        <AdditionalImage src="/loginimg/signup_logo.png" alt="signup_logo" />
-        <CongratsImage src="/loginimg/signup_logo.png" alt="signup_logo" />
+              color: "#ffffff",
+            }}
+          >
+            마이펫의 이중생활이란?
+          </Link>
+        </BottombuttonB>
+      </Menu>
+      <AdditionalImage src="/loginimg/signup_logo.png" alt="signup_logo" />
+      <CongratsImage src="/loginimg/signup_logo.png" alt="signup_logo" />
       </Loginpage>
     </Main>
   );

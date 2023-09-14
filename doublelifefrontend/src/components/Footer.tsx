@@ -15,7 +15,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FooterContainer = styled.footer`
-  background-color: #fffff; /* 연한 회색 배경색 */
+  background-color: "#fffff"; /* 연한 회색 배경색 */
   display: flex;
   justify-content: center; /* 가운데 정렬 */
   align-items: center;

@@ -71,7 +71,6 @@
     };
 
     return (
-        <Loginpage>
           <Petimage>
             <ImageContainer>
               <Catimage alt="logo_final" src="/loginimg/logo_final.png" />
@@ -144,7 +143,6 @@
               </tr>
             </Apilogin>
           </Petimage>
-        </Loginpage>
     );
   }
 
