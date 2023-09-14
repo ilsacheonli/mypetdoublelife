@@ -8,6 +8,7 @@ interface Comment {
     reNo: number;
     myFeedNo: number;
     reContent: string;
+    regDate: string;
 }
 
 interface CommentListProps {
@@ -30,15 +31,21 @@ function MyPetCommentBox({ comments, editComment }: CommentListProps) {
 
   return (
     <Commentbox>
-      <Ul>
+      <ul>
         {comments.map((comment) => (
-          <Li key={comment.reNo}>
-              <div className='idDiv'>{comment.memId}</div>
+          <li key={comment.reNo}>
+              <div className='idDiv'>{comment.memId} {comment.regDate}</div>
               <div className='textDiv'>{comment.reContent}</div>
-              <button onClick={() => onDeleteItem(comment.reNo)}><RiDeleteBinLine /></button>
-          </Li>
+
+              {sessionStorage.getItem('id') === comment.memId ? (
+                  <button onClick={() => onDeleteItem(comment.reNo)}><RiDeleteBinLine /></button>
+              ):(
+                  <></>
+              )}
+
+          </li>
         ))}
-      </Ul>
+      </ul>
     </Commentbox>
   );
 }

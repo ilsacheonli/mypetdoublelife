@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -102,9 +103,9 @@ public class PetReplyController {
     public String deleteMyTodo(@PathVariable("reNo") int reNo, HttpServletRequest request){
 
         HttpSession session = request.getSession();
-        Object login_member = session.getAttribute("member");
+        MemberVO login_member = (MemberVO) session.getAttribute("member");
 
-        if(login_member == null){
+        if(String.valueOf(login_member).equals("null")){
             try {
                 // throw로 강제 예외 발생
                 throw new Exception("로그인 확인");
@@ -114,7 +115,11 @@ public class PetReplyController {
             }
         }
 
-        petReplyService.removePetReply(reNo);
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("memId" ,login_member.getMemId());
+        map.put("reNo" ,reNo);
+
+        petReplyService.removePetReply(map);
 
         PetReplyVO deleted_reply = petReplyService.getPetReplyByNo(reNo);
 

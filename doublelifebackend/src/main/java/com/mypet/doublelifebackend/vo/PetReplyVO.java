@@ -12,6 +12,7 @@ public class PetReplyVO {
     private int myFeedNo;
     private int petstivalNo;
     private String reContent;
+    private String regDate;
 
     public PetReplyVO(){
 

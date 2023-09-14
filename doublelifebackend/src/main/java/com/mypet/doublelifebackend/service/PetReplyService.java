@@ -5,6 +5,7 @@ import com.mypet.doublelifebackend.vo.PetReplyVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -33,8 +34,8 @@ public class PetReplyService {
         petReplyRepository.insertPetstivalReply(petReply);
     }
 
-    public void removePetReply(int reNo){
-        petReplyRepository.deletePetReply(reNo);
+    public void removePetReply(HashMap<String, Object> map){
+        petReplyRepository.deletePetReply(map);
     }
 
     public int getLastReNoNumber(){

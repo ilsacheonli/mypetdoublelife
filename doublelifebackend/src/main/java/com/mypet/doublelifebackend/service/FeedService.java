@@ -19,13 +19,8 @@ public class FeedService { // sql문과 연결된 MemberRepository 함수 호출
         return feedRepository.selectAllFeed();
     }
 
-    //원본
-//    public List<FeedVO> getFeedDetail() {
-//        //selectFeedView() 호출 후 리턴
-//        return feedRepository.selectFeedView();
-//    }
 
-    //테스트
+    //펫스티벌 상세 뷰 처리부 - VO 형태로 데이터 전송
     @Getter
     private final String imgUploadPath = new File("mypetdoublelife/doublelifebackend/src/main").getAbsolutePath();
     public FeedVO getFeedDetail(int feed_no){
@@ -33,4 +28,12 @@ public class FeedService { // sql문과 연결된 MemberRepository 함수 호출
         return feedRepository.selectFeedView(feed_no);
     }
 
+
+    //펫스티벌 상세뷰 처리 - List 형으로 데이터 전송
+//    public List<FeedVO> getFeedDetail() {
+//        //selectFeedView() 호출 후 리턴
+//        return feedRepository.selectFeedView();
+//    }
+
 }
+

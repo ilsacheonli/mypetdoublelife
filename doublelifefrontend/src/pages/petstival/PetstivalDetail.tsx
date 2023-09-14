@@ -17,13 +17,17 @@ interface FeedItem {
 }
 
 interface Comment {
-	id: number;
-	text: string;
+	memId: string;
+	reNo: number;
+	petstivalNo: number;
+	reContent: string;
+	regDate: string;
 }
 
 function PetstivalDetail() {
 	const [feedData, setFeedData] = useState<FeedItem>();
 	const [comments, setComments] = useState<Comment[]>([]);
+	const [ editComment, setEditComment] = useState<boolean>(false);
 	const { feed_no } = useParams()
 
 	useEffect(() => {
@@ -37,12 +41,21 @@ function PetstivalDetail() {
 			});
 	}, [feed_no]);
 
-	const handleCommentSubmit = (text: string) => {
-		console.log('Submitted Comment:', text);
-		setComments((prevComments) => [
-			...prevComments,
-			{ id: Date.now(), text },
-		]);
+	useEffect(() => {
+		axios.get(`/feedview/replyList/`+feed_no)
+			.then((res) => {
+				setEditComment(false);
+				setComments(res.data);
+				console.log('불러오기 성공', res.data)
+			})
+			.catch((error) => {
+				console.log('불러오기 실패', error)
+			});
+	}, [feed_no, editComment]);
+
+	const handleEditComment = () => {
+		console.log('edit Comment');
+		setEditComment(true);
 	};
 
 	if (typeof feedData === 'undefined') return <></>;
@@ -60,8 +73,8 @@ function PetstivalDetail() {
 				<Viewcontent>{feedData.contenttext}</Viewcontent>
 			</Maincontainer>
 			<Commentcontainer>
-				<CommentInput onSubmit={handleCommentSubmit} />
-				<CommentBox comments={comments} />
+				<CommentInput feed_no={feedData.feed_no} editComment={handleEditComment} />
+				<CommentBox comments={comments} editComment={handleEditComment} />
 			</Commentcontainer>
 		</Viewcontainer>
 	)

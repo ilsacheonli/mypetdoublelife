@@ -3,6 +3,7 @@ package com.mypet.doublelifebackend.repository;
 import com.mypet.doublelifebackend.vo.PetReplyVO;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -18,7 +19,7 @@ public interface PetReplyRepository {
 
     void insertPetstivalReply(PetReplyVO petReply);
 
-    void deletePetReply(int reNo);
+    void deletePetReply(HashMap<String, Object> map);
 
     int getLastNumber();
 

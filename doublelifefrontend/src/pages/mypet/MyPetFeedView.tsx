@@ -22,6 +22,7 @@ interface Comment {
 	reNo: number;
 	myFeedNo: number;
 	reContent: string;
+	regDate: string;
 }
 
 function MyPetFeedView() {

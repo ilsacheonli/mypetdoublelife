@@ -10,6 +10,7 @@
         <result property="reNo" column="rno" />
         <result property="myFeedNo" column="mfno" />
         <result property="reContent" column="content" />
+        <result property="regDate" column="reg_date" />
     </resultMap>
 
     <resultMap id="petstivalResult" type="PetReplyVO">
@@ -17,6 +18,7 @@
         <result property="reNo" column="rno" />
         <result property="petstivalNo" column="ptno" />
         <result property="reContent" column="content" />
+        <result property="regDate" column="reg_date" />
     </resultMap>
 
 
@@ -28,14 +30,14 @@
     </select>
 
     <select id="selectAllPetReplyByMfNo" parameterType="int" resultMap="feedReplyResult">
-        SELECT mid, rno, mfno, content
+        SELECT mid, rno, mfno, content, reg_date
         FROM pReply
         WHERE mfno = #{myFeedNo}
         ORDER BY reg_date DESC
     </select>
 
     <select id="selectAllPetReplyByPtNo" parameterType="int" resultMap="petstivalResult">
-        SELECT mid, rno, ptno, content
+        SELECT mid, rno, ptno, content, reg_date
         FROM pReply
         WHERE ptno = #{petstivalNo}
         ORDER BY reg_date DESC
@@ -53,10 +55,10 @@
     </insert>
 
 
-    <delete id="deletePetReply" parameterType="int">
+    <delete id="deletePetReply" parameterType="hashMap">
         DELETE
         FROM pReply
-        WHERE rno = #{reNo}
+        WHERE mid = #{memId} and rno = #{reNo}
     </delete>
 
     <!-- 마지막 max(m_number) = null 이면 0으로 치환 후 +1 return -->

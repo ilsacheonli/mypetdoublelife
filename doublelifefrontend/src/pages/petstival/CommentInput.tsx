@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { InsertForm, Input, Commentbutton } from './petstival.style';
 import { RiAddLine } from 'react-icons/ri';
+import axios from "axios";
 
 interface CommentInputProps {
-  onSubmit: (text: string) => void;
+    feed_no: number
+    editComment: () => void;
 }
 
-function CommentInput({ onSubmit }: CommentInputProps) {
+function CommentInput({ feed_no, editComment }: CommentInputProps) {
   const [commentText, setCommentText] = useState('');
 
   const handleCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,13 +16,26 @@ function CommentInput({ onSubmit }: CommentInputProps) {
   };
 
   const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault(); 
+    event.preventDefault();
 
     if (commentText.trim() === '') {
       return;
     }
 
-    onSubmit(commentText);
+      let frm = new FormData();
+      frm.append("petstivalNo",feed_no.toString());
+      frm.append("reContent",commentText);
+
+      axios
+          .post(`/feedview/reply/insert`, frm)
+          .then((res) => {
+              console.log("댓글 추가 성공")
+          })
+          .catch((error) => {
+              console.log("댓글 추가 실패", error)
+          });
+
+    editComment();
     setCommentText('');
   };
 
