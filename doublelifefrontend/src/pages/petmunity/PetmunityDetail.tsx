@@ -1,27 +1,38 @@
 import React, { useEffect, useState } from "react";
 import {
-  ArticleBottomBtns,
   ArticleContentBox,
   ArticleTitle,
   Buttonbox,
   CommentBox,
   FloatLeft,
-  ListButton,
   Viewcontainer,
   WriterInfo,
 } from "./petmunitydetail.style";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import dayjs from "dayjs";
 import { BoardListInterface } from "./BoardListInterface";
+import PetmunityComment from "./PetmunityComment";
+import PetmunityCommentInput from "./PetmunityCommentInput";
+
+interface Item {
+	text: string;
+}
 
 function PetmunityDetail() {
+  const today = new Date();
+
+  const formattedDate = `${today.getFullYear()}.${today.getMonth()+1}.${today.getDate()} ${today.getHours()}:${today.getMinutes()}`;
+
   // hook
   const params = useParams().id;
   const navigate = useNavigate();
 
   // state
   const [detailBoardData, setDetailBoardData] = useState<BoardListInterface>();
+  const [inputValue, setInputValue] = useState<string>('');
+  const [items, setItems] = useState<Item[]>([]);
+
 
   useEffect(() => {
     axios
@@ -66,6 +77,13 @@ function PetmunityDetail() {
 
     navigate("/petmunity/qna");
   };
+
+  const handleAddItem = () => {
+			const newItem: Item = {
+				text: inputValue
+			};
+			setItems(prevItems => [...prevItems, newItem]);
+	};
 
   if (typeof detailBoardData === "undefined") return <></>;
 
@@ -159,8 +177,28 @@ function PetmunityDetail() {
                       </div>
                     </div>
                   </div>
+                  {/* 시연 중 필요할지도 모를 코드 */}
+                  {/* <div className="comment_box" style={{marginBottom:"5px"}}>
+                    <div className="comment_nick_box">
+                      <span className="comment_nick_info" style={{fontWeight:"bold"}}>test </span>
+                      <span className="comment_info_date" style={{color:"#7f7f7f"}}>
+                        2023.9.15 14:00
+                        </span>
+                    </div>
+                    <div className="comment_text_box">
+                      <div className="comment_text_view">
+                        <span className="text_comment">댓글 내용 1</span>
+                      </div>
+                    </div>
+                  </div> */}
+                        <PetmunityCommentInput items={items}/>
                 </div>
-                
+                <PetmunityComment
+							inputValue={inputValue}
+							onInputChange={setInputValue}
+							onAddItem={handleAddItem}
+						/>
+            
               </li>
             </ul>
           </CommentBox>
@@ -178,7 +216,7 @@ function PetmunityDetail() {
         <Buttonbox>
           <button onClick={formList}>목록</button>
         </Buttonbox>
-}
+      }
       </FloatLeft>
     </>
   );

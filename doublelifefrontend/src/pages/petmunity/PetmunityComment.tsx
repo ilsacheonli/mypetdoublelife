@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import { RiAddLine } from 'react-icons/ri';
-import axios from 'axios';
 
 const InsertFormPositioner = styled.div`
-  width: 600px;
+  width: 100%;
 	display: flex;
 	flex-direction: column;
 	margin-top: 15px;
@@ -15,14 +14,14 @@ const InsertForm = styled.form`
 	border: none;
 	border-bottom: 2px solid #063160;
 	display: flex;
-	margin-left: 50px;
+	margin-left: 5px;
 `;
 
 const Input = styled.input`
   padding: 12px;
   border-radius: 4px;
   border: none;
-  width: 600px;
+  width: 90%;
   outline: none;
   font-size: 18px;
   box-sizing: border-box;
@@ -42,22 +41,17 @@ interface InputFormProps {
 	inputValue: string;
 	onInputChange: (value: string) => void;
 	onAddItem: () => void;
-    inputDate:string;
 }
 
-function PetmunityComment({ inputValue, onInputChange, onAddItem, inputDate }: InputFormProps) {
+function PetmunityComment({ inputValue, onInputChange, onAddItem }: InputFormProps) {
 	const [keyCounter, setKeyCounter] = useState<number>(0);
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    if (inputValue.trim()) {
-
-      // sendDataToServer();
-			
+    if (inputValue.trim()) {			
       onInputChange('');
       setKeyCounter((prevKey) => prevKey + 1);
-
     }
   }
 
