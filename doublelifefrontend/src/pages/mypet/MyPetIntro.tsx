@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Intro, ProfileButton, Formbutton, Button, Default } from './mypet.style';
 import { RiDeleteBinLine, RiPencilLine } from 'react-icons/ri';
 import axios from 'axios';
 import dayjs from "dayjs";
 
-interface prop{
-	petNo:number;
+interface prop {
+	petNo: number;
 }
 
-function MyPetIntro(petNoProp : prop) {
+function MyPetIntro(petNoProp: prop) {
 	const initialPetData = {
 		petName: '',
 		petGender: '',
@@ -19,9 +19,9 @@ function MyPetIntro(petNoProp : prop) {
 	const [petData, setPetData] = useState(initialPetData);
 	const [editing, setEditing] = useState(false);
 
-	const setDate=(petBirth:string)=>{
+	const setDate = (petBirth: string) => {
 
-		if (petBirth==null){
+		if (petBirth == null) {
 			return '';
 		}
 
@@ -33,17 +33,18 @@ function MyPetIntro(petNoProp : prop) {
 
 	useEffect(() => {
 		axios
-			.get('/mypet/'+petNoProp.petNo)
+			.get('/mypet/' + petNoProp.petNo)
 			.then((res) => {
 				setPetData(res.data);
 			})
-			.catch(function (error){
+			.catch(function (error) {
 				console.log(error);
 			})
 
 	}, []);
 
 	const handleInputChange = (e: any) => {
+
 		const { name, value } = e.target;
 		setPetData({
 			...petData,
@@ -62,8 +63,8 @@ function MyPetIntro(petNoProp : prop) {
 	frm.append('petBirth', setDate(petData.petBirth))
 	frm.append('petIntro', petData.petIntro)
 
-	const handleSaveButtonClick = () => {
-
+	const handleSaveButtonClick = (event: React.FormEvent) => {
+		event.preventDefault();
 		axios.post("/mypet/insert", frm)
 			.then(res => {
 				console.log('등록 성공', res.data);
@@ -78,7 +79,7 @@ function MyPetIntro(petNoProp : prop) {
 	const handleDelete = () => {
 		setPetData(initialPetData); // 프로필 데이터 초기화
 		alert('프로필이 삭제되었습니다.');
-		axios.delete("/mypet/remove", {data: {frm}})
+		axios.delete("/mypet/remove", { data: { frm } })
 			.then(res => {
 				console.log('삭제 성공', res)
 			})

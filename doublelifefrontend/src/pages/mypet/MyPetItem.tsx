@@ -15,9 +15,6 @@ interface itemProps {
 }
 
 function MyPetItem( {item , onDeleteItem} : itemProps) {
-
-
-
 	return (
 		<Ul>
 				<Li>
