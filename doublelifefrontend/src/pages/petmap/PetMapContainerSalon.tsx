@@ -266,33 +266,32 @@ const PetMapContainerSalon = () => {
       setSearchPage(1);
       onSearch(searchQuery); // 검색어를 부모 컴포넌트로 전달
     };
-    return (
-      <form onSubmit={handleSearchSubmit} style={{
-        height: "45px",
-        marginLeft: "80px",
-        borderBottom: "2px solid #3b4b9b",
-        maxWidth: "80%",
-        
-      }}>
-        <input
-          type="text"
-          placeholder="시설이름을 입력하세요."
-          value={searchQuery}
-          onChange={handleSearchInputChange}
-          style={{
-            width: "90%",
-            border: "none",
-            outline: "none",
-          }}
-        />
-        <button type="submit" style={{
-          alignItems: "end",
+  return (
+    <form onSubmit={handleSearchSubmit} style={{
+      height: "45px",
+      marginLeft: "80px",
+      borderBottom: "2px solid #3b4b9b",
+      maxWidth: "80%",
+      
+    }}>
+      <input
+        type="text"
+        placeholder="시설이름을 입력하세요."
+        value={searchQuery}
+        onChange={handleSearchInputChange}
+        style={{
+          width: "90%",
           border: "none",
-          backgroundColor: "white"
-        }}><SearchIcon/>
-        </button>
-      </form>
-    );
+          outline: "none",
+        }}
+      />
+      <button type="submit" style={{
+        alignItems: "end",
+        border: "none",
+        backgroundColor: "white"
+      }}><SearchIcon/></button>
+    </form>
+  );
   };
   const [searchResults, setSearchResults] = useState<PetMapList[]>([]);
   const [searchPage, setSearchPage] = useState<number>(1);
