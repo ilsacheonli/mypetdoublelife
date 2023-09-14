@@ -24,6 +24,12 @@ const PetMapContainer = () => {
     useState<PetMapAroundList[]>([]); // 주변 병원 페이지네이션
   const [aroundPage, setAroundPage] = useState<number>(1); // 주변 병원 현재 페이지 번호
 
+  const [searchResults, setSearchResults] = useState<PetMapList[]>([]);
+  const [currentSearchPetMap, setCurrentSearchPetMap] =
+    useState<PetMapList[]>([]); // 검색 병원 페이지네이션
+  const [searchPage, setSearchPage] = useState<number>(1); // 검색 병원 현재 페이지 번호
+
+
   // Modal
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
@@ -43,6 +49,12 @@ const PetMapContainer = () => {
   const indexOfAroundLastPost = aroundPage * postAroundPerPage;
   const indexOfAroundFirstPost = indexOfAroundLastPost - postAroundPerPage;
 
+  // 검색 병원 페이지네이션 변수
+  const postSearchPerPage = 5; // 페이지 당 게시글 개수
+  const indexOfSearchLastPost = searchPage * postSearchPerPage;
+  const indexOfSearchFirstPost = indexOfSearchLastPost - postSearchPerPage;
+
+
   // 전국 병원 페이지네이션 변경 함수
   const handlePageChange = (page: number) => {
     setPage(page);
@@ -51,6 +63,11 @@ const PetMapContainer = () => {
   // 주변 병원 페이지네이션 변경 함수
   const handleAroundPetMapPageChange = (pageAround: number) => {
     setAroundPage(pageAround);
+  };
+
+  // 검색 병원 페이지네이션 변경 함수
+  const handleSearchPetMapPageChange = (pageSearch: number) => {
+    setSearchPage(pageSearch);
   };
 
   const getPetMapList = async () => {
@@ -254,6 +271,13 @@ const PetMapContainer = () => {
     );
   }, [aroundPetMap, indexOfAroundFirstPost, indexOfAroundLastPost, aroundPage]);
 
+  useEffect(() => {
+    setCurrentSearchPetMap(
+      searchResults.slice(indexOfSearchFirstPost, indexOfSearchLastPost)
+    );
+  }, [searchResults, indexOfSearchFirstPost, indexOfSearchLastPost, searchPage]);
+
+
   // SearchBar 컴포넌트
   const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
     const [searchQuery, setSearchQuery] = useState<string>('');
@@ -295,8 +319,6 @@ const PetMapContainer = () => {
       </form>
     );
   };
-const [searchResults, setSearchResults] = useState<PetMapList[]>([]);
-const [searchPage, setSearchPage] = useState<number>(1); //  병원 현재 페이지 번호
 
 const handleSearch = (query: string) => {
   const filteredResults = petMapList.filter((item) =>
@@ -325,11 +347,13 @@ const handleSearch = (query: string) => {
             <ModalContents>
               {/* 검색창과 버튼을 SearchBar 컴포넌트로 대체 */}
               <SearchBar onSearch={handleSearch} />
-              <MapList>
+              {/* <MapList> */}
                 {/* 검색 결과를 보여줍니다. */}
-                {(searchResults.length > 0 ? searchResults : currentPetMap).map(
+                {(searchResults.length > 0 ? currentSearchPetMap : currentPetMap).map(
                   (petmaplistdata) => {
                     return (
+                      <>
+                      <MapList>
                       <ul key={petmaplistdata.num}>
                         <li>
                           <div className="txt">
@@ -345,11 +369,28 @@ const handleSearch = (query: string) => {
                           </div>
                         </li>
                       </ul>
+                      </MapList>
+                      
+                      
+                      </>
                     );
                   }
                 )}
-              </MapList>
-              <PetMapPagination>
+              {/* </MapList> */}
+              {searchResults.length > 0 ?
+                      <PetMapPagination>
+                      <Pagination
+                        activePage={searchPage}
+                        itemsCountPerPage={postSearchPerPage}
+                        totalItemsCount={searchResults.length}
+                        pageRangeDisplayed={5}
+                        prevPageText={"<"}
+                        nextPageText={">"}
+                        onChange={handleSearchPetMapPageChange}
+                      />
+                    </PetMapPagination>
+                    :
+                    <PetMapPagination>
                 <Pagination
                   activePage={page}
                   itemsCountPerPage={postPerPage}
@@ -360,6 +401,8 @@ const handleSearch = (query: string) => {
                   onChange={handlePageChange}
                 />
               </PetMapPagination>
+
+                      }
             </ModalContents>
             <CloseButton
               onClick={() => {
