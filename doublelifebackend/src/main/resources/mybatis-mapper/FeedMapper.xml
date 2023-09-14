@@ -22,13 +22,13 @@
         SELECT feed_no, user_id, user_name, likenum, contenttitle, f_img_no, f_img_name, f_img_path FROM PETSTIVAL
     </select>
 
-    <!-- 원본 -->
-<!--    <select id="selectFeedView" resultMap="petstivalResult">-->
-<!--        SELECT * FROM PETSTIVAL-->
-<!--    </select>-->
-
-    <!-- 테스트-->
+    <!-- feed_no 기준으로 펫스티벌 피드 상세 페이지 FeedVO 통째로 데이터 전송 -->
     <select id="selectFeedView" resultMap="petstivalResult">
         SELECT * FROM PETSTIVAL where feed_no = #{feed_no}
     </select>
+
+    <!-- List형으로 데이터 전송할 경우 -->
+    <!--    <select id="selectFeedView" resultMap="petstivalResult">-->
+    <!--        SELECT * FROM PETSTIVAL-->
+    <!--    </select>-->
 </mapper>

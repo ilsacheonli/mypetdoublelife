@@ -26,7 +26,15 @@ public class FeedController {
         //resources/templates.FeedList.html
     }
 
-    //원본
+    //펫스티벌 상세 뷰 처리부 - VO 형태로 데이터 전송
+    @GetMapping (value = "/feedview/{feed_no}")
+    public FeedVO showFeedDetailPage(@PathVariable int feed_no) {
+
+        return feedService.getFeedDetail(feed_no);
+    }
+
+
+    //펫스티벌 상세 뷰 처리부 - List 형태로 데이터 전송
 //    @GetMapping (value = "/feedview")
 //    public List<FeedVO> showFeedDetailPage() { // 펫스티벌 상세 뷰 페이지 화면
 //
@@ -34,25 +42,5 @@ public class FeedController {
 //        //return "petstival/FeedView.html";
 //        //resources/templates.FeedList.html
 //    }
-
-    //테스트
-    @GetMapping (value = "/feedview/{feed_no}")
-    public List<FeedVO> showFeedDetailPage(@PathVariable int feed_no) { // , FeedVO get_FeedVO
-
-//        get_FeedVO = feedService.getFeedDetail(feed_no);
-//
-//        if(get_FeedVO == null){
-//            return null;
-//        }
-//
-//        String absolutePath = feedService.getImgUploadPath()+get_FeedVO.getF_img_path();
-//        String ImageName = get_FeedVO.getF_img_name();
-
-        //return new UrlResource("file:"+absolutePath+"/"+ImageName);
-
-        return feedService.getFeedDetail(feed_no);
-        //return "petstival/FeedView.html";
-        //resources/templates.FeedList.html
-    }
 
 }
