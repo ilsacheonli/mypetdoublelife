@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import { RiAddLine } from 'react-icons/ri';
+import axios from "axios";
 
 const InsertFormPositioner = styled.div`
   width: 100%;
@@ -38,21 +39,44 @@ const Button = styled.button`
 `;
 
 interface InputFormProps {
-	inputValue: string;
-	onInputChange: (value: string) => void;
-	onAddItem: () => void;
+	bid: number;
+	editComment: () => void;
 }
 
-function PetmunityComment({ inputValue, onInputChange, onAddItem }: InputFormProps) {
-	const [keyCounter, setKeyCounter] = useState<number>(0);
+function PetmunityComment({ bid, editComment}: InputFormProps) {
+	const [commentText, setCommentText] = useState('');
+
+	const handleCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setCommentText(event.target.value);
+	};
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    if (inputValue.trim()) {			
-      onInputChange('');
-      setKeyCounter((prevKey) => prevKey + 1);
-    }
+	  if (commentText.trim() === '') {
+		  return;
+	  }
+
+	  if (sessionStorage.getItem('loggedIn')!== "true"){
+		  window.location.href = '/login';
+		  alert("로그인 좀;;;");
+	  }
+
+	  let frm = new FormData();
+	  frm.append("boardId",bid.toString());
+	  frm.append("reContent",commentText);
+
+	  axios
+		  .post(`/board/reply/insert`, frm)
+		  .then((res) => {
+			  console.log("댓글 추가 성공")
+		  })
+		  .catch((error) => {
+			  console.log("댓글 추가 실패", error)
+		  });
+
+	  editComment();
+	  setCommentText('');
   }
 
 	return (
@@ -62,12 +86,12 @@ function PetmunityComment({ inputValue, onInputChange, onAddItem }: InputFormPro
 					<InsertForm onSubmit={handleSubmit}>
 						<Input
 							type={"text"}
-							value={inputValue}
+							value={commentText}
 							placeholder="댓글 입력"
-							onChange={(e) => onInputChange(e.target.value)}
+							onChange={handleCommentChange}
 							autoFocus
 						/>
-						<Button onClick={onAddItem} key={keyCounter}><RiAddLine /></Button>
+						<Button type="submit"><RiAddLine /></Button>
 					</InsertForm>
 				</InsertFormPositioner>
 			)}

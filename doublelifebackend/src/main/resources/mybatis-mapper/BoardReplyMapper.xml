@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mypet.doublelifebackend.repository.BoardReplyRepository">
+
+    <resultMap id="BoardReplyResult" type="BoardReplyVO">
+        <result property="memId" column="mid" />
+        <result property="breplyNo" column="brno" />
+        <result property="boardId" column="bid" />
+        <result property="reContent" column="content" />
+        <result property="regDate" column="reg_date" />
+    </resultMap>
+
+    <select id="selectBoardReplyByBrNo" parameterType="int" resultType="BoardReplyVO">
+        SELECT mid, brno, content
+        FROM breply
+        WHERE brno = #{breplyNo}
+    </select>
+
+    <select id="selectAllBoardReplyBybNo" parameterType="int" resultMap="BoardReplyResult">
+        SELECT mid, brno, content, reg_date
+        FROM breply
+        WHERE bid = #{boardId}
+        ORDER BY reg_date
+    </select>
+
+    <insert id="insertBoardReply" parameterType="BoardReplyVO" >
+        INSERT INTO breply (mid, brno, bid, content)
+        VALUES (#{memId}, #{breplyNo}, #{boardId}, #{reContent})
+    </insert>
+
+    <delete id="deleteBoardReply" parameterType="hashMap">
+        DELETE
+        FROM breply
+        WHERE mid = #{memId} and brno = #{breplyNo}
+    </delete>
+
+    <!-- 마지막 max(m_number) = null 이면 0으로 치환 후 +1 return -->
+    <select id="getLastNumber" resultType="int">
+        select NVL(max(brno),0) +1 from breply
+    </select>
+</mapper>

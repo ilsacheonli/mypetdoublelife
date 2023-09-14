@@ -100,7 +100,7 @@ public class PetReplyController {
     }
 
     @GetMapping("/reply/delete/{reNo}")
-    public String deleteMyTodo(@PathVariable("reNo") int reNo, HttpServletRequest request){
+    public String removePetReply(@PathVariable("reNo") int reNo, HttpServletRequest request){
 
         HttpSession session = request.getSession();
         MemberVO login_member = (MemberVO) session.getAttribute("member");
