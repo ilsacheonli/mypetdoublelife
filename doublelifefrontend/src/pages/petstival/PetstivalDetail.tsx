@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useParams } from "react-router-dom";
 import { RiHeart3Fill } from 'react-icons/ri';
 
-interface MyPetFeedItem {
+interface FeedItem {
 	feed_no: number,
 	user_id: string,
 	user_name: string,
@@ -22,14 +22,15 @@ interface Comment {
 }
 
 function PetstivalDetail() {
-	const [myPetFeedData, setMyPetFeedData] = useState<MyPetFeedItem>();
+	const [feedData, setFeedData] = useState<FeedItem>();
 	const [comments, setComments] = useState<Comment[]>([]);
 	const { feed_no } = useParams()
 
 	useEffect(() => {
+		console.log("feed_no:", feed_no);
 		axios.get(`/feedview/${feed_no}`)
 			.then((res) => {
-				setMyPetFeedData(res.data)
+				setFeedData(res.data)
 			})
 			.catch((error) => {
 				console.log('불러오기 실패', error)
@@ -44,20 +45,19 @@ function PetstivalDetail() {
 		]);
 	};
 
-
-	if (typeof myPetFeedData === 'undefined') return <></>;
+	if (typeof feedData === 'undefined') return <></>;
 
 	return (
 		<Viewcontainer>
-			<Maincontainer key={myPetFeedData.feed_no}>
-				<h3>{myPetFeedData.contenttitle}</h3>
-				<Petimg src={'/image/' + myPetFeedData.f_img_no} alt="대충 이미지" />
+			<Maincontainer key={feedData.feed_no}>
+				<h3>{feedData.contenttitle}</h3>
+				<Petimg src={`/image/petstival/${feedData.f_img_no}`} alt="대충 이미지" />
 				<Viewnamebox>
 					<span className='profileImg'></span>
-					<span>{myPetFeedData.user_name}</span>
-					<div>{myPetFeedData.likenum} <RiHeart3Fill /></div>
+					<span>{feedData.user_name}</span>
+					<div>{feedData.likenum} <RiHeart3Fill /></div>
 				</Viewnamebox>
-				<Viewcontent>{myPetFeedData.contenttext}</Viewcontent>
+				<Viewcontent>{feedData.contenttext}</Viewcontent>
 			</Maincontainer>
 			<Commentcontainer>
 				<CommentInput onSubmit={handleCommentSubmit} />
