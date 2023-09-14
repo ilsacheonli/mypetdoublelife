@@ -16,7 +16,5 @@ public interface BoardRepository {
     void delete(int id);
     void boardViewCnt(int id);
     int countList(String category);
-    List<BoardVO> listPage(String category, int firstPost, int lastPost);
-    void updateLike(int id);
-    int selectNextBoardId();
+    List<BoardVO> listPage(String category);
 }

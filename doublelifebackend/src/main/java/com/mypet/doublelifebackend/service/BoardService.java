@@ -52,24 +52,8 @@ public class BoardService {
         boardRepository.boardViewCnt(id);
     }
 
-    // 카테고리별 저장된 게시물의 총 개수를 반환하는 메서드
-    public int countList(String category) {
-        return boardRepository.countList(category);
-    }
-
-    // 현재 페이지의 게시글 리스트를 반환하는 메서드
-    public List<BoardVO> listPage(String category, int firstPost, int lastPost) {
-        return boardRepository.listPage(category, firstPost, lastPost);
-    }
-
-    // 좋아요 수 증가시키는 메서드
-    public void updateLike(int id) {
-
-        boardRepository.updateLike(id);
-    }
-
-    // 다음 게시글 id를 반환하는 메서드
-    public int selectNextBoardId() {
-        return boardRepository.selectNextBoardId();
+    // 게시글번호 조정 후 글 리스트를 반환하는 메서드
+    public List<BoardVO> listPage(String category) {
+        return boardRepository.listPage(category);
     }
 }
