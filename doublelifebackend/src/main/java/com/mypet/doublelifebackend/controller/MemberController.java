@@ -95,8 +95,9 @@ public class MemberController {
         MemberVO member = memberService.getMemberByLogin(id, pwd);
 
         if (member == null) {
-            id = "이건잘못된것";
-            return "id";
+            HttpServletResponse response = null;
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 상태 코드 설정
+            return "error"; // 또는 다른 작업 수행
         }
 
         HttpSession session = request.getSession();
