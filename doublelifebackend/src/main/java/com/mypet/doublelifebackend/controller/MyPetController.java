@@ -119,7 +119,7 @@ public class MyPetController {
 
 
         new_myPet = new MyPetVO(
-                "test",
+                login_member.getMemId(),
                 lastNumber,
                 petName,
                 petGender,
