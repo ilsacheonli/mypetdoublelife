@@ -148,7 +148,7 @@ const [currentIndex, setCurrentIndex] = useState(0);
                   textDecoration:"none",
                   color:"#000000"
                 }}>
-          <Apiimg alt="map" src="/aboutimg/apimap.PNG"/></Link>
+          <Apiimg alt="map" src="/aboutimg/apimap.JPG"/></Link>
           </LastBox>
           </ProfileCard>
           <ProfileCard1>
