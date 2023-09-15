@@ -47,17 +47,18 @@ function PetmunityCommentInput({ comments , editComment}: CommentListProps) {
               <span className="comment_info_date" style={{ color: "#7f7f7f" }}>
                 {comment.regDate}
               </span>
+              {sessionStorage.getItem('id') === comment.memId ? (
+                <button onClick={() => onDeleteItem(comment.breplyNo)}><RiDeleteBinLine /></button>
+            ):(
+                <></>
+            )}
             </div>
             <div className="comment_text_box" style={{ marginTop: "1px" }}>
               <div className="comment_text_view">
                 <span className="text_comment">{comment.reContent}</span>
               </div>
             </div>
-            {sessionStorage.getItem('id') === comment.memId ? (
-                <button onClick={() => onDeleteItem(comment.breplyNo)}><RiDeleteBinLine /></button>
-            ):(
-                <></>
-            )}
+            
           </CommentBox>
         </Li>
       ))}
@@ -72,19 +73,19 @@ const Li = styled.li`
   display: flex;
   justify-content: space-between;
   font-size: 1rem;
-  &:hover {
+  /* &:hover {
     button {
       display: block;
     }
-  }
+  } */
   button {
     background-color: #fff;
     border: none;
-    display: none;
+    margin-left: 10px;
   }
   svg {
-    width: 27px;
-    height: 27px;
+    width: 1em;
+    height: 1em;
     color: #063160;
   }
 `;
