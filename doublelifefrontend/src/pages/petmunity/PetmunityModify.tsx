@@ -35,7 +35,7 @@ const PetmunityModify = () => {
           .post(`http://localhost:8080/board/modify/${params}`, {
             headers: { "Content-Type": "multipart/form-data" },
             id: detailBoardData?.id,
-            category: "qna",
+            category: detailBoardData?.category,
             title: title,
             content: content,
             writer: detailBoardData?.writer,

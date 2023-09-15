@@ -1,4 +1,5 @@
 export interface BoardListInterface {
+    category: string;
     bno: number;
     id: number;
     title: string;
