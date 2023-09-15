@@ -147,7 +147,6 @@ export const Maincontainer = styled.div`
 		width: 500px;
 		font-weight: bold;
 		margin-left: 5px;
-		margin-bottom: 0.7rem;
 	}
 	button {
 		width: 25px;
@@ -179,6 +178,8 @@ export const Maincontainer = styled.div`
 export const Petimg = styled.img`
 	width: 640px;
 	height: 420px;
+	margin-top: 0.7rem;
+
 `
 
 export const Viewnamebox = styled.div`
@@ -200,12 +201,14 @@ export const Viewnamebox = styled.div`
 	}
 	div {
 		margin-left: auto;
+		margin-right: 10px;
 	}
 	svg {
 		color: red;
-		width: 23px;
-		height: 23px;
-		margin-right: 10px;
+		width: 24px;
+		height: 24px;
+		margin-right: 3px;
+		margin-bottom: 3px;
 	}
 `
 export const Viewcontent = styled.div`

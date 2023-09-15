@@ -66,9 +66,8 @@ function PetstivalDetail() {
 				<h3>{feedData.contenttitle}</h3>
 				<Petimg src={`/image/petstival/${feedData.f_img_no}`} alt="대충 이미지" />
 				<Viewnamebox>
-					<span className='profileImg'></span>
 					<span>{feedData.user_name}</span>
-					<div>{feedData.likenum} <RiHeart3Fill /></div>
+					<div><RiHeart3Fill /> {feedData.likenum}</div>
 				</Viewnamebox>
 				<Viewcontent>{feedData.contenttext}</Viewcontent>
 			</Maincontainer>

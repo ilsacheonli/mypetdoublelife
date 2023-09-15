@@ -234,7 +234,6 @@ export const Maincontainer = styled.div`
 		width: 500px;
 		font-weight: bold;
 		margin-left: 5px;
-		margin-bottom: 0.7rem;
 	}
 	button {
 		width: 25px;
@@ -266,6 +265,8 @@ export const Maincontainer = styled.div`
 export const Petimg = styled.img`
 	width: 640px;
 	height: 420px;
+	margin-top: 0.7rem;
+
 `
 
 export const Viewnamebox = styled.div`
@@ -491,16 +492,24 @@ export const Tebdiv = styled.div`
 export const Tebbutton = styled.button`
 	width: 665px;
 	height: 45px;
+	padding: 10px;
 	border-style: none;
-	border-bottom: 2px solid #d3d3d3;
-	color: #3f3f3f;
+	border-bottom: 3px solid #d6d6d6;
+	color: #d6d6d6;
 	font-weight: bold;
 	font-size: 1rem;
 	background-color: white;
+	transition: 0.5s;
+	border-radius: 10px 10px 0px 0px;
+
 	&.active {
-		border-bottom: 2px solid #063160;
-		color: #063160;
+		border-bottom: 3px solid #3b4b9b;
+		color: #3b4b9b;
 	}
+	&:hover {
+      color: #3b4b9b;
+      border-bottom: 3px solid #3b4b9b;
+    }
 `
 
 /* ------------------------------------------------------------------------- */

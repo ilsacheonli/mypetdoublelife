@@ -86,7 +86,6 @@ function MyPetFeedView() {
 				</div>
 				<Petimg src={'/image/' + myPetFeedData.imgNo} alt="대충 이미지" />
 				<Viewnamebox>
-					<span className='profileImg'></span>
 					<span>{myPetFeedData.petName}</span>
 					<div>{myPetFeedData.like} <RiHeart3Fill /></div>
 				</Viewnamebox>
