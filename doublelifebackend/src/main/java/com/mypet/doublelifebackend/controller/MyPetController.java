@@ -164,6 +164,7 @@ public class MyPetController {
     // pet 삭제
     @GetMapping( "/mypet/remove/{petNo}")
     public String removepet(@PathVariable("petNo") int petNo) throws IOException {
+        int del_mpImg_Number = myPetService.getMyPetImgByNo(petNo);
 
         myPetService.removeMyPet(petNo);
 
@@ -173,8 +174,6 @@ public class MyPetController {
 
             return "mypet?deleteFail";
         }
-
-        int del_mpImg_Number = myPetService.getMyPetImgByNo(petNo);
 
         if(imageService.deleteImage(del_mpImg_Number)!=del_mpImg_Number){
 
