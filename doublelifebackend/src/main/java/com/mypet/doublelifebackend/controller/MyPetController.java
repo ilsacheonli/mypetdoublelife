@@ -162,7 +162,7 @@ public class MyPetController {
     }
 
     // pet 삭제
-    @PostMapping( "/mypet/remove/{petNo}")
+    @GetMapping( "/mypet/remove/{petNo}")
     public String removepet(@PathVariable("petNo") int petNo) throws IOException {
 
         myPetService.removeMyPet(petNo);
