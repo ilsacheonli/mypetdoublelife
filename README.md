@@ -1,7 +1,68 @@
-<<<<<<< HEAD
-# mypetdoublelife
+마이펫의 이중생활
+=================
+![image](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/81c2b54b-9540-4989-b394-08fe21ee15f4)
+</br></br></br>
 
-백업
+  
+1.:dog:프로젝트 소개
+----------------------
+### 마이펫의 이중생활이란?
+#### 사용자들이 반려동물 관련 정보를 쉽게 얻고, 다른 사람들과 소통하며, 편리하게 반려동물의 기록을 관리할 수 있는 복합서비스입니다.
+</br>
+
+### 기획의도
+
+#### 배경 및 필요성
+- 반려인 인구 증가 및 반려동물 시장의 성장
+- 반려동물 관련 서비스에 대한 사용자 요구의 증가
+
+#### 문제 상황 정의
+- 건강 관리의 어려움
+- 동물 관련 시설 정보 부족
+- 소통의 부재
+
+#### 기대효과
+- 반려동물 건강 증진
+- 시설 정보 접근 용이성
+- 지식 공유와 커뮤니티 형성
+- 반려동물 산업 활성화
+</br></br></br>
+
+2.:cat:개발 도구
+-----------------
+### Language
+|구분|사용 언어|
+|----|----|
+|Frontend|<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/> <img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white"/> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/>|
+|Backend|<img src="https://img.shields.io/badge/JAVA-007396?style=for-the-badge&logo=OpenJDK&logoColor=white"/>|
+</br>
+
+### Development Environment
+|구분|설명|
+|----|----|
+|Server|<img src="https://img.shields.io/badge/apachetomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=white"/>|
+|DBMS|<img src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=Oracle&logoColor=white"/>|
+|Framework|<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/> <img src="https://img.shields.io/badge/mybatis-26241f?style=for-the-badge&logo=mybatis&logoColor=white"/>|
+</br>
+
+### Tool
+|구분|설명|
+|----|----|
+|Editor|<img src="https://img.shields.io/badge/intellijidea-000000?style=for-the-badge&logo=intellijidea&logoColor=white"/>|
+|Build/Template Engine|<img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"/> <img src="https://img.shields.io/badge/thymeleaf-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white"/>|
+|Collaboratvie Software|<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white"/> <img src="https://img.shields.io/badge/zoom-0B5CFF?style=for-the-badge&logo=zoom&logoColor=white"/> <img src="https://img.shields.io/badge/googledrive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white"/> <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white"/> <img src="https://img.shields.io/badge/ALLO-000000?style=for-the-badge&logo=allo&logoColor=white"/>|
+</br>
+
+### API/Library
+|구분|설명|
+|----|----|
+|API|kakao developers, 공공데이터포털|
+|Library|FullCalendar, <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white"/> <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white"/> <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white"/>|
+</br>
+
+
+
+# mypetdoublelife
 
 ---
 
