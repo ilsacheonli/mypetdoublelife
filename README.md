@@ -58,7 +58,66 @@
 |----|----|
 |API|kakao developers, 공공데이터포털|
 |Library|FullCalendar, <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white"/> <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white"/> <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white"/>|
+</br></br></br>
+
+3.🐹화면
+----------
+### 1) 로그인, 회원가입
+|로그인|회원가입|회원가입 성공|
+|-----|---------|-------------|
+|<img width="550" alt="로그인 - 기본로그인화면" src="https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/b1b521db-c8d0-472a-b2ba-0279a3da1424">|![기본회원가입화면](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/0f341d3d-dfdd-4b46-91eb-5325ebbbf178)|![회원가입성공화면 - 회원이름나옴](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/88d71858-aa28-4c3a-8fe9-7f8a59e7889b)|
 </br>
+
+### 2) 랜딩페이지
+|랜딩페이지|
+|----------|
+|![랜딩페이지](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/09fec594-fa0a-41e1-94d6-d726ea3ce9ce)|
+</br>
+
+### 3) 마이펫
+|메인|피드 상세|
+|----|--------|
+|![마이펫메인](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/902dc598-eb92-47d4-9c1b-13038f198a45)|![마이펫상세](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/8fcbb970-be42-4098-bf43-f5eedbb4a872)|
+</br>
+
+|관리기록|글쓰기|
+|--------|-------|
+|![관리기록](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/6b133c09-9554-4f8b-9a7f-1cba58f0a305)|![마이펫글쓰기](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/d519be76-0375-41e7-82ba-eb9e8ab9d9c6)|
+</br>
+
+### 4) 펫스티벌
+|메인|피드 상세|
+|----|----------|
+|![펫스티벌메인](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/02e1ea6b-4173-497c-896c-268dd27cf186)|![김시바상세](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/68212cca-22f0-4fce-83f4-e89db079acc5)|
+</br>
+
+### 5) 펫시설찾기
+|다중마커 클러스터링|마커(마커 클릭 시 이름과 주소 팝업)|
+|------------------|-----------------------------------|
+|![펫시설찾기 - 다중마커클러스터링](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/da4ebcdf-c975-49ab-b8a8-c818f2dd3f84)|![펫시설찾기 - 마커(업장이름과 주소나옴)2](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/1dd92408-a491-456e-a080-68ffc64966a8)|
+</br>
+
+|검색기능화면|검색완료화면|
+|-----------|-------------|
+|![펫시설찾기 - 전국업장(미용실,병원)검색기능](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/e2d696c3-6d01-4a04-948e-0db877bd9101)|![펫시설찾기 - 업장검색완료화면](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/7335a2cf-29a2-4d22-bb01-a65cb29b793f)|
+</br>
+
+|주변 3km 이내 미용실, 병원|펫시설찾기 탭|
+|-------------------------|--------------|
+|![펫시설찾기 - 주변미용실,병원(근처 3km이내 업장들만 리스트업)2](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/4529886b-498e-48a8-8f3e-5e8773b9a519)|![펫시설찾기 - 탭선택(병원,미용실)](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/58f2d9fd-dcdd-4298-905d-8d097369d99d)|
+</br>
+
+### 6) 펫뮤니티
+
+
+
+
+
+
+
+
+
+
 
 
 
