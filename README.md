@@ -108,300 +108,37 @@
 </br>
 
 ### 6) 펫뮤니티
+|Q&A|중고거래|산책 메이트|
+|----|-------|-----------|
+|<img width="1176" alt="펫뮤니티 - 기본펫뮤니티화면(qna)" src="https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/1231f665-f030-499b-83fc-3c2397598caa">|<img width="1179" alt="펫뮤니티 - 기본펫뮤니티화면(중고거래)" src="https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/20e2831e-55f4-4275-8847-86399ae70bef">|<img width="1176" alt="펫뮤니티 - 기본펫뮤니티화면(산책 메이트)" src="https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/e05aab01-2cc5-446f-b15f-ff839d780c19">|
+</br>
+
+|상세페이지|작성자 글 상세페이지|수정, 등록페이지|
+|---------|---------------------|----------|
+|<img width="1345" alt="펫뮤니티 - 상세페이지(댓글o, 작성자 x 댓글)" src="https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/c988f551-783e-4697-bc0e-346bf6b865f0">|<img width="1333" alt="펫뮤니티 - 상세페이지(작성자 글)" src="https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/7f8720d1-169a-47b5-bce7-c95e0c06e808">|<img width="731" alt="펫뮤니티 - 수정페이지" src="https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/7890cfb3-8b5e-47a0-a12e-4d1045769869">|
+</br>
+
+|페이지네이션|
+|-----------|
+|<img width="1012" alt="펫뮤니티 - 페이지네이션적용" src="https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/0e54297b-5cad-46cb-9062-c76a17051463">|
+</br>
+
+### 7) about us
+|1|2|3|
+|-|-|-|
+|<img width="894" alt="about us 1" src="https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/d3ad8082-3d1b-4a06-a026-fb3d655ab352">|<img width="883" alt="about us 2" src="https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/732c169e-1097-4fb4-84f3-45e5c4e61b77">|<img width="639" alt="about us 3" src="https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/7fa36a86-6633-495c-8965-b184f35ffa7c">|
+</br>
+
+|전체 화면|
+|---------|
+|<img width="322" alt="about us - 전체 화면" src="https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/2b6ae17a-5e33-4a56-bf14-db1a3d9f415a">|
+</br>
+
+### 8) 에러 페이지
+|404|500|
+|---|---|
+|![404에러페이지](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/166bfcac-4cd7-4f65-a67b-fbb3733c824a)|![500에러페이지](https://github.com/ilsacheonli/mypetdoublelife/assets/117848278/570362e7-09d3-4f0b-b3f3-5bb6109a7b1d)|
+</br></br></br>
 
 
 
-
-
-
-
-
-
-
-
-
-
-# mypetdoublelife
-
----
-
-## 프론트엔드 합본
-
-### npm start
-
-    npm start 로 페이지 시작
-
-### 라이브러리
-
-#### styled-components
-
-    npm install styled-components
-
-#### fullcalendar
-
-    npm install fullcalendar
-    npm install --save @fullcalendar/react @fullcalendar/daygrid
-    npm install --save "@fullcalendar/interaction"
-
-#### react-router-dom
-
-    npm install react-router-dom --save
-
-### 트리구조(수정예정)
-
-    doublelifefrontend
-    ┣ 📂public
-    ┗ 📜index.html
-    ┣ 📂src
-    ┣ 📂component
-    ┃ ┣ 📜Mypetcalendar.tsx
-    ┃ ┣ 📜Mypetfeed.tsx
-    ┃ ┣ 📜Mypetlist.tsx
-    ┃ ┣ 📜Mypetlistcreate.tsx
-    ┃ ┣ 📜Mypetlistitem.tsx
-    ┃ ┣ 📜Mypetprofile.tsx
-    ┃ ┣ 📜Mypetrecord.tsx
-    ┃ ┣ 📜mypetstyled.ts
-    ┃ ┣ 📜Mypetswiper.tsx
-    ┃ ┣ 📜Mypetteb.tsx
-    ┃ ┣ 📜types.ts
-    ┣ 📂components
-    ┃ ┣ 📜App.tsx
-    ┃ ┣ 📜Footer.tsx
-    ┃ ┣ 📜Header.tsx
-    ┃ ┣ 📜LinkItems.ts
-    ┣ 📂img
-    ┣ 📂pages
-    ┃ ┣ 📂aboutus
-    ┃ ┃ ┣ 📜aboutus.style.ts
-    ┃ ┃ ┗ 📜AboutUs.tsx
-    ┃ ┣ 📂login
-    ┃ ┃ ┣ 📜login.style.ts
-    ┃ ┃ ┣ 📜Login.tsx
-    ┃ ┣ 📂mypet
-    ┃ ┃ ┣ 📜mypet.style.ts
-    ┃ ┃ ┣ 📜MyPet.tsx
-    ┃ ┃ ┣ 📜MyPetFeed.tsx
-    ┃ ┃ ┣ 📜MyPetMemo.tsx
-    ┃ ┣ 📂petmap
-    ┃ ┃ ┣ 📜petmap.style.ts
-    ┃ ┃ ┣ 📜PetMap.tsx
-    ┃ ┃ ┣ 📜PetMapContainer.tsx
-    ┃ ┃ ┣ 📜PetMapHospital.tsx
-    ┃ ┃ ┣ 📜PetMapSalon.tsx
-    ┃ ┃ ┣ 📜PetMapSearch.tsx
-    ┃ ┣ 📂petmunity
-    ┃ ┃ ┣ 📜Dropdown.tsx
-    ┃ ┃ ┣ 📜petmunity.style.ts
-    ┃ ┃ ┣ 📜Petmunity.tsx
-    ┃ ┃ ┣ 📜petmunitydetail.style.ts
-    ┃ ┃ ┣ 📜PetmunityDetail.tsx
-    ┃ ┃ ┣ 📜PetmunityQna.tsx
-    ┃ ┃ ┣ 📜PetmunityTrade.tsx
-    ┃ ┃ ┣ 📜PetmunityWalkingMate.tsx
-    ┃ ┃ ┣ 📜petmuinitywrite.style.ts
-    ┃ ┃ ┣ 📜PetmunityWritePage.tsx
-    ┃ ┃ ┣ 📜SearchForm.tsx
-    ┃ ┣ 📂petstival
-    ┃ ┃ ┣ 📜petstival.style.ts
-    ┃ ┃ ┣ 📜Petstival.tsx
-    ┃ ┃ ┣ 📜PetstivalDetail.tsx
-    ┃ ┣ 📂signup
-    ┃ ┃ ┣ 📜signup.style.ts
-    ┃ ┃ ┣ 📜Signup.tsx
-    ┃ ┃ ┣ 📜SignupFinish.tsx
-    ┃ ┣ 📂userpage
-    ┃ ┃ ┣ 📜userpage.style.ts
-    ┃ ┃ ┣ 📜UserPage.tsx
-    ┣ 📂routes
-    ┃ ┣ 📜Routers.tsx
-    ┣ 📜App.css
-    ┣ 📜GlobalStyle.ts
-    ┣ 📜Mypet.tsx
-    ┗ 📜index.tsx
- # mypetdoublelife
-
----
-
-백엔드 합본
-
-- DB 세팅
-    - Oracle
-    - MyBatis
-
-
-- 수정 파일
-  - DoublelifebackendApplication.java
-  - application.properties.xml
-  - build.gradle
-
-
-- 패키지 혹은 java
-  - controller
-    - BoardController.java
-    - MemberController.java
-    - petHospitalController.java
-    - petHospitalTestController.java
-  - repository
-    - BoardRepository.java
-    - HospitalRepository.java
-    - MemberRepository.java
-  - service
-    - BoardService.java
-    - MemberService.java
-    - PetHospitalService.java
-    - PetHospitalServiceImpl.java
-  - vo
-    - BoardVO.java
-    - MemberVO.java
-    - PetHospitalVO.java
-
-
-- resources
-  - mybatis-mapper
-    - boardMapper.xml
-    - MemberMapper.xml
-    - PetHospitalMapper.xml
-  - templates
-    - FindPetHospital
-      - findpethospital.html
-    - MyPage
-      - MyPage.html
-      - MyPageUpdate.html
-    - PetMunity
-      - modify.html
-      - petmunity.html
-      - qna.html
-      - trade.html
-      - view.html
-      - walkingmate.html
-      - write.html
-    - SignIn.html
-    - SignUp.html
-    
-
----
-
-(2023-08-22) 
-
-추가/수정된 파일 주석 참고
-
-웹페이지 요청 처리 순서 \
-controller -> service -> repository -> mapper.xml -> DB
-
----
-
-============== 2023-08-25 ==============
-
-백엔드 통일
-
-MyPage
--
-
-테스트 주소 \
-http://localhost:8080/signin \
-http://localhost:8080/signup 입니다.
-
-/signin -> /mypage -> /mypage/update -> /mypage \
-/signup -> /signin
-
----
-
-MyPet
----
-(2023-08-29)
-
-member 삭제 추가
-
-pet 테이블 생성 (개인 오라클) \
-pet 템플릿(임시), mapper, 
-  vo, repository, service, controller 추가 
-
-pet 템플릿(임시), controller 수정중
-
----
-(2023-08-30)
-
-pet 테이블 crud 기능 추가
-
----
-(2023-08-31)
-
-/mypet \
-pet 테이블 crud 기능 수정 완료
-
----
-(2023-09-11)
-
-feed기능과 관리기록기능 추가와 다른파일 코드정리
-
-관리기록 매핑주소와 필요한 값 
-
-- 날짜별 할일 출력 주소
-  - Get , /mytodo/{doDate} -> doDate:날짜(string) 
-- 할일 추가 주소
-  - Post, /mytodo/insert -> form [ doDate:날짜(string), doContent:내용(string) ]
-- 할일 수정 주소
-  - Post, /mytodo/update -> form [ doNo:할일 번호(string), doDate:날짜(string), doContent:내용(string) ]
-- 할일 삭제 주소
-  - Post, /mytodo/delete/{doNo} -> doNo:할일 번호(string)
-
-
-PetMunity 
--
-### (23-08-25)  
-
-테스트 가능한 주소 목록  
-<http://localhost:8080/petmunity> 펫뮤니티 페이지  
-<http://localhost:8080/petmunity/qna> qna 페이지  
-<http://localhost:8080/petmunity/trade> 중고거래 페이지  
-<http://localhost:8080/petmunity/walkingmate> 산책메이트 페이지  
-<http://localhost:8080/petmunity/qna/writePage> 글작성 페이지  
-<http://localhost:8080/board/view?bno=3> 상세글 조회 페이지
-
-펫뮤니티 -> qna/중고거래/산책메이트 페이지로 이동 가능합니다.   
-글 작성, 수정, 삭제는 qna 게시판에서만 가능합니다. (중고거래, 산책메이트 게시판은 기능 추가 예정)
-
-
-
----
-### (23-09-04)
-
-### 추가 사항
-- qna, 중고거래, 산책메이트 페이징  
-- 글 작성 시 첨부 파일 추가 (현재는 추가만 가능, 조회 기능 추가할 예정)  
-파일 추가 전에 저장될 경로를 로컬 환경에서 생성해야 합니다. (기본 경로 -> C:\img)
-### 수정 사항
-- REST 방식으로 주소 변경  
-(http://localhost:8080/petmunity/qna?1 -> http://localhost:8080/petmunity/qna/1)
-
----
-### (23-09-05)
-### 추가 사항
-- 좋아요 버튼 추가
-### 수정 사항
-- 글 삭제 후 목록 페이지에서 글번호가 이어지도록 변경
----
-### (23-09-06)
-### 추가 사항
-- 게시글 상세 화면 단일 이미지 조회
-- 글 작성, 수정, 삭제 모든 게시판에서 가능
-### 테스트 주소
-펫뮤니티 홈페이지  
-http://localhost:8080/petmunity  
-qna 목록 페이지  
-http://localhost:8080/petmunity/qna/1   
-중고거래 목록 페이지  
-http://localhost:8080/petmunity/trade/1  
-산책메이트 목록 페이지  
-http://localhost:8080/petmunity/walkingmate/1  
-글 상세 보기 페이지  
-http://localhost:8080/petmunity/qna/view/1  
-qna 글작성 페이지  
-http://localhost:8080/petmunity/qna/writePage  
-중고거래 글작성 페이지  
-http://localhost:8080/petmunity/trade/writePage  
-산책메이트 글작성 페이지  
-http://localhost:8080/petmunity/walkingmate/writePage  
-글 수정 페이지  
-http://localhost:8080/petmunity/qna/modify/1 
